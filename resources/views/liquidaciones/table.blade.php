@@ -71,7 +71,10 @@
     </tr>
 </tfoot>
 <tbody>
-<?php $cont=0;?>
+<?php
+ $cont=0;
+ //echo dd($_liquidar);
+?>
 @foreach($_liquidar as $liquida)
     <tr>
       <td></td>
@@ -82,13 +85,13 @@
       <td>{{ $liquida->costoUnitarioVale }}</td>
 
       <td class="text-right">
-          <a href="" class="btn btn-xs btn-info btn-round">
+          <a href="{{route('vales.show', $liquida->id)}}" class="btn btn-xs btn-info btn-round">
               <i title="Mostrar" class="material-icons">visibility</i>
           </a>
       </td>
         <td>
             <label class="switch" title="liquidar">
-                <input type="checkbox" name="estadoLiquidacion" id="estadoLiquidacion">
+                <input type="checkbox" name="{{ $liquida->numeroVale }}" id="estadoLiquidacion">
                 <span class="slider"></span>
             </label>
         </td>

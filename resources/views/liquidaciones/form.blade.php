@@ -23,7 +23,7 @@
                 <label class="control-label">Vehículo
                     <small>(*)</small>
                 </label>
-                {!!Form::date('vehiculo', old('vehiculo') ,['id'=>'vehiculo','class'=>'form-control '])!!}
+                {!! Form::select('vehiculo', array('1' => 'Seleccione una placa', '2' => 'P323-554'), '1',['id'=>'vehiculo','class'=>'form-control']) !!}
             </div>
         </div>
     </div>
