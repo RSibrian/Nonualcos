@@ -300,13 +300,13 @@
     <div class="collapse" id="TransExamples">
         <ul class="nav">
             <li>
-                <a href="{{ url('/vales') }}">Vales</a>
+                <a href="{{ route('vales.index') }}">Vales</a>
             </li>
             <li>
                 <a href="">Salidas</a>
             </li>
             <li>
-                <a href="{{ url('/vales/liquidar') }}">Liquidacines</a>
+                <a href="{{ route('liquidaciones.index') }}">Liquidacines</a>
             </li>
         </ul>
     </div>

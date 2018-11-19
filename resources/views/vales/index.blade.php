@@ -12,8 +12,8 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
                     <div class="material-datatables">
-                        @can('vales.crear')
-                            <a href="{{ url("/vales/nuevo") }}" class="btn  btn-verde btn-round ">
+                        @can('vales.create')
+                            <a href="{{ route('vales.create') }}" class="btn  btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
@@ -50,7 +50,7 @@
                             <tbody class="text-center">
                             <?php $cont=0;?>
                             <?php //echo dd($_vales) ?>
-                             @foreach($vales as $vale)
+                             @foreach($_vales as $vale)
                               <tr>
                                   <td></td>
                                   <?php $cont++;?>
@@ -59,13 +59,15 @@
                                   <p>{{ $vale->fechaCreacion }}</p>
                                 </td>
                                   <td>
+                                      <?php $unidad=$vale->salida->empleados->cargo->unidad; ?>
                                       <p>
-                                          {{ $vale->unidad }}
+                                          {{ $unidad->nombreUnidad }}
                                       </p>
                                   </td>
                                 <td>
+                                    <?php $nombre=$vale->salida->empleados; ?>
                                   <p>
-                                    {{ $vale->nombreEmpleado }}
+                                       {{ $nombre->nombresEmpleado.' '.$nombre->apellidosEmpleado }}
                                   </p>
                                 </td>
                                   <td>
@@ -86,16 +88,11 @@
                                 </td>
                                 <td class="text-right">
                                   @can('users.edit')
-                                      <a href="{{ route('vales.edit', $vale->idVale) }}"  class="btn btn-xs btn-info btn-round ">
+                                      <a href="{{ route('vales.edit', $vale->id) }}"  class="btn btn-xs btn-info btn-round ">
                                           <i title="Editar vale" class="material-icons">create</i>
                                       </a>
                                   @endcan
-                                  @can('users.asignarrole')
-                                      <a href="" class="btn btn-xs btn-info btn-round">
-                                          <i title="Asignar Rol" class="material-icons">lock_outline</i>
-                                      </a>
-                                  @endcan
-                                  <a href="{{ route('vales.show', $vale->idVale) }}" class="btn btn-xs btn-info btn-round">
+                                  <a href="{{ route('vales.show', $vale->id) }}" class="btn btn-xs btn-info btn-round">
                                       <i title="Mostrar Vale" class="material-icons">visibility</i>
                                   </a>
                                 </td>

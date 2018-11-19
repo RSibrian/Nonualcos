@@ -344,37 +344,41 @@ Route::middleware(['auth'])->group(function () {
 
     //inicio rutas para Vales de combustible
 
-    Route::get('/vales','ValeController@index')
-        ->name('vales')
+    Route::get('/vales/index','ValeController@index')
+        ->name('vales.index')
         ->middleware('permission:vales');
 
-    Route::get('/vales/nuevo','ValeController@crear')
-        ->name('vales.crear')
-        ->middleware('permission:vale.crear');
-
-    Route::post('vales/guardar','ValeController@Guardar')
-        ->name('vales.guardar')
+    Route::get('/vales/create','ValeController@create')
+        ->name('vales.create')
         ->middleware('permission:vale.create');
 
-    Route::get('vales/mostrar/{vale}','ValeController@show')
+    Route::post('vales/store','ValeController@store')
+        ->name('vales.store')
+        ->middleware('permission:vale.create');
+
+    Route::get('vales/show/{vale}','ValeController@show')
         ->name('vales.show')
         ->middleware('permission:vales.show');
 
-    Route::get('vales/{vale}/editar','ValeController@edit')
+    Route::get('vales/{vale}/edit','ValeController@edit')
         ->name('vales.edit')
         ->middleware('permission:vales.edit');
 
-    Route::get('/vales/liquidar','ValeController@Liquidacion')
-        ->name('vales.liquidar')
-        ->middleware('permission:vale.crear');
+    Route::put('vales/{vale}','ValeController@update')
+        ->name('vales.update')
+        ->middleware('permission:vales.edit');
 
-    Route::post('vales/guardarLiquidacion','ValeController@GuardarLiquidacion')
-        ->name('vales.guardarLiquidacion')
+    Route::get('/liquidaciones/vales/index','LiquidacionController@index')
+        ->name('liquidaciones.index')
+        ->middleware('permission:vale.index');
+
+    Route::post('/liquidaciones/vales/store','LiquidacionController@store')
+        ->name('liquidaciones.store')
         ->middleware('permission:vale.create');
 
-    Route::get('/vales/liquidar/nuevo','ValeController@NuevaLiquidacion')
-        ->name('vales.lnueva')
-        ->middleware('permission:vale.crear');
+    Route::get('/liquidaciones/vales/create','LiquidacionController@create')
+        ->name('liquidaciones.create')
+        ->middleware('permission:vale.create');
 
     Route::get('autocompletePlacas','ValeController@autocompletePlacas')
         ->name('autocompletePlacas');

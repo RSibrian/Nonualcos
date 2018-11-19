@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValeRequest;
+use App\Http\Requests\ValeEditRequest;
 use App\Salidas;
 use App\User;
+use App\Vehiculo;
 use Illuminate\Http\Request;
 use App\Empleado;
 use App\Vale;
@@ -18,86 +20,73 @@ class valeController extends Controller
 
     public function index()
     {
-      // retorna la vista principal de vales de combustible
-        $_vale=new Vale();
-      $_vales = json_decode($_vale->ValeList());
+      // retorna la vista principal o index de vales de combustible
+      $_vales = Vale::all();
       return View('vales.index',compact('_vales'));
     }
 
-    public function Crear()
+    public function create()
     {
       // retorna la vista para el registro de nuevo vale
 
-      return View('vales.createVale');
+      return View('vales.create');
     }
 
-    public function show($vale){
+    public function show(Vale $vale){
+        //función indicada para mostrar los valores del vale, salida y empleados, los métodos find se
+        //utilizan para encontrar los nombres del empleado que son mostrados en la seccion de entrega.
+        //La valiable $nombre contiene una colleccion de informacion con respecto al empleado que realizó la salida.
+        //de igual manera funciona la variable $vehiculo y salida.
 
-        $_vale=new Vale();
-        $_show = $_vale->Valefind($vale);
+        $salida=$vale->salida;
+        $vehiculo=$vale->salida->vehiculo;
+        $nombre=$vale->salida->empleados;
+        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
+        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
 
-        return View('vales.show', compact('_show'));
-
-    }
-
-    public function edit($vale){
-
-        $_vale=new Vale();
-        $_edit = $_vale->Valefind($vale);
-
-        return View('vales.editVale', compact('_edit'));
+        return View('vales.show', compact('vale', 'salida', 'vehiculo', 'nombre', 'recibe', 'autoriza'));
 
     }
 
-    public function Liquidacion()
-    {
-      // retorna la vista para el registro de nuevo vale
+    public function edit(Vale $vale){
 
+        $salida=$vale->salida;
+        $vehiculo=$vale->salida->vehiculo;
+        $solicitante=$vale->salida->empleados;
+        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
+        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
 
-      return View('vales.index2');
+         //echo dd($vale);
+        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'solicitante', 'recibe', 'autoriza'));
+
     }
 
-    public function NuevaLiquidacion()
-    {
-      // retorna la vista para el registro de nuevo vale
-        $_liquidar=Vale::where('estadoLiquidacionVal', '=', '0')->get();
-
-      return View('vales.formularioLiquidacion', compact('_liquidar'));
-    }
-
-    public function Guardar(ValeRequest $request)
+    public function store(ValeRequest $request)
     {
 
         //función que permite almacenar la información en la base de datos
-        $_salida =new Salidas();
-        $_salida->GuardarSalida($request);
-        $_salida->save();
+        $request->createVale($request);
 
-
-        $_vale =new Vale();
-        $_vale->GuardarVale($request);
-        $_vale->save();
-
-        return redirect('/vales');
+        return redirect('/vales')->with('create','Se ha guardado con éxito');;
     }
 
-    public function GuardarLiquidacion()
+    public function update(ValeEditRequest $request, Vale $vale)
     {
-        //función que permite almacenar la información en la base de datos
-
-        return redirect('/vales/liquidar');
+        $request->updateVale($request, $vale);
+        return redirect('/vales')->with('update','Se ha editado con éxito');
     }
+
 
     public function autocompletePlacas(){
         $term = Input::get('term');
         $results = array();
 
-        $queries = Vehiculos::where('numeroPlaca', 'LIKE', '%'.$term.'%')
+        $queries = Vehiculo::where('numeroPlaca', 'LIKE', '%'.$term.'%')
             ->take(6)->get();
 
         foreach ($queries as $query)
         {
-            $results[] = [ 'id' => $query->idVehiculo, 'value' => $query->numeroPlaca];
+            $results[] = [ 'id' => $query->id, 'value' => $query->numeroPlaca];
         }
         return Response::json($results);
 

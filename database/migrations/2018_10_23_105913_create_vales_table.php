@@ -15,21 +15,24 @@ class CreateValesTable extends Migration
     {
         //tabla vales
         Schema::create('vales', function (Blueprint $table) {
-            $table->increments('idVale');
+            $table->increments('id');
             $table->date('fechaCreacion')->required();
             $table->string('numeroVale')->unique()->required();
-            $table->double('costoUnitarioVale')->nullable();
+            $table->double('costoUnitarioVale')->unsigned();
             $table->string('tipoCombustible')->required();
             $table->double('galones')->required();
             $table->string('gasolinera')->required();
             $table->integer('empleadoAutorizaVal')->required();
             $table->integer('empleadoRecibeVal')->required();
-            $table->tinyInteger('estadoEntregadoVal')->default(1);
+            $table->tinyInteger('estadoEntregadoVal')->required();
             $table->tinyInteger('estadoRecibidoVal')->default(0);
             $table->tinyInteger('estadoLiquidacionVal')->default(0);
 
+            $table->integer('idLiquidacion')->nullable()->unsigned();
+            $table->foreign('idLiquidacion')->references('id')->on('liquidaciones');
+
             $table->integer('idSalida')->unsigned();
-            $table->foreign('idSalida')->references('idSalida')->on('salidas');
+            $table->foreign('idSalida')->references('id')->on('salidas');
 
             //$table->rememberToken();
             $table->timestamps();

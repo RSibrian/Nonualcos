@@ -15,19 +15,15 @@ class CreateSalidasTable extends Migration
     {
         //tabla salidas
         Schema::create('salidas', function (Blueprint $table) {
-            $table->increments('idSalida');
+            $table->increments('id');
             $table->date('fechaSalida')->required();
             $table->string('destinoTrasladarse')->required();
-            $table->string('mision')->required();
-            $table->tinyInteger('estadoSalida')->default(1);
-            $table->date('fechaLiquidacion')->nullable();
-            $table->string('numeroFacturaLiquidacion')->nullable();
-            $table->double('montoFacturaLiquidacion')->nullable();
+            $table->string('mision')->nullable();
 
-            $table->integer('idVehiculo')->nullable()->unsigned();
+            $table->integer('idVehiculo')->unsigned();
             $table->foreign('idVehiculo')->references('id')->on('vehiculos');
 
-            $table->integer('idEmpleado')->unsigned();
+            $table->integer('idEmpleado')->unsigned();//  asignado para campo solicitante
             $table->foreign('idEmpleado')->references('id')->on('empleados');
 
             //$table->rememberToken();

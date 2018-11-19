@@ -7,7 +7,7 @@ use App\Salidas;
 use App\Vehiculo;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValeRequest extends FormRequest
+class ValeEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,14 +37,15 @@ class ValeRequest extends FormRequest
             'numeroPlaca' => 'required|exists:vehiculos',
             'solicitante' => 'required',
             'fechaCreacion' => 'required|date',
-            'numeroVale' => 'required|unique:vales', //|numeric|integer
+            'numeroVale' => 'required', //|numeric|integer
             'costoUnitarioVale' => 'required|numeric',
             'tipoCombustible' => 'required|string',
             'galones' => 'required|numeric',
             'gasolinera' => 'required|string',
             'empRecibe' => 'required',
             'empAutoriza' => 'required',
-
+            'estadoRecibidoVal'=>'',
+            'estadoEntregadoVal'=>'',
         ];
     }
 
@@ -84,7 +85,7 @@ class ValeRequest extends FormRequest
         ];
     }
 
-    public function createVale($data){
+    public function updateVale($data, $vale){
 
 
         $vehiculo=Vehiculo::select('id')->where('numeroPlaca', '=', $data['numeroPlaca'])->get();
@@ -96,17 +97,15 @@ class ValeRequest extends FormRequest
             $data['estadoEntregadoVal']=1;
         }
 
-        //echo dd($data);
+        if (!($data['estadoRecibidoVal']=="on")){
+            $data['estadoRecibidoVal']=0;
+        }else{
+            $data['estadoRecibidoVal']=1;
+        }
 
-        $salida= Salidas::create([
-            'fechaSalida' => $data['fechaSalida'],
-            'destinoTrasladarse' => $data['destinoTrasladarse'],
-            'mision' => $data['mision'],
-            'idVehiculo' => $vehiculo[0]->id,
-            'idEmpleado' => $empleado[0]->id,
-        ]);
 
-        $salida->vales()->create([
+
+       $vale->update([
             'fechaCreacion' => $data['fechaCreacion'],
             'numeroVale' => $data['numeroVale'],
             'costoUnitarioVale' => $data['costoUnitarioVale'],
@@ -117,9 +116,19 @@ class ValeRequest extends FormRequest
             'empleadoAutorizaVal' => $data->idempAutoriza,
             'empleadoRecibeVal' => $data['idempRecibe'],
             'estadoEntregadoVal' => $data['estadoEntregadoVal'],
+            'estadoRecibidoVal' => $data['estadoRecibidoVal'],
+        ]);
+
+        //echo dd($vale);
+
+        $vale->salida()->update([
+            'fechaSalida' => $data['fechaSalida'],
+            'destinoTrasladarse' => $data['destinoTrasladarse'],
+            'mision' => $data['mision'],
+            'idVehiculo' => $vehiculo[0]->id,
+            'idEmpleado' => $empleado[0]->id,
         ]);
 
 
     }
-
 }
