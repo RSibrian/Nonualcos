@@ -10,10 +10,7 @@
                     <h4 class="card-title">Liquidar vales</h4>
                     <div class="toolbar">
                         @can('liquidaciones.create')
-                            <a href="{{ route('
-                    <!--        Here you can write extra buttons/actions for the toolbar              -->
-                    </div>
-                    <div class="material-datatables">liquidaciones.create') }}" class="btn btn-verde btn-round ">
+                            <a href="{{ route('liquidaciones.create') }}" class="btn btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
