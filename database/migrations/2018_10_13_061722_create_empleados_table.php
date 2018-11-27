@@ -21,7 +21,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('apellidosEmpleado');
             $table->date('fechaNacimientoEmpleado');
             $table->date('fechaIngreso');
-            $table->text('telefonoEmpleado')->nullable();;
+            // $table->text('telefonoEmpleado')->nullable();
             $table->string('DUIEmpleado')->unique();
             $table->string('NITEmpleado')->unique();
             $table->text('dirreccionEmpleado');

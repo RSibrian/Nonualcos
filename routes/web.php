@@ -333,6 +333,10 @@ Route::middleware(['auth'])->group(function () {
      Route::put('mantenimientos/{mantenimiento}','MantenimientoController@update')
            ->name('mantenimientos.update')
            ->middleware('permission:proveedores.edit');
+
+           // devuelve datos de activos para autocompletar
+           Route::get('autocompletarActivos', 'MantenimientoController@autocompletarActivos')
+           ->name('autocompletarActivos');
 //fin mantenimiento de activos
 
        //Vehiculos

@@ -7,10 +7,11 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Código del Activo:
+        <label class="control-label">Código del Activo:
         </label>
-        {!!Form::hidden('idActivo',null,['id'=>'idActivo'])!!}
-        {!!Form::text('codigoInventario',null,['id'=>'codigoInventario','class'=>'typeahead form-control','required'])!!}
+        {!!Form::text('idActivo',
+        $mantenimiento->activos()->first()->codigoInventario,
+        ['id'=>'idActivo','class'=>'typeahead form-control','disabled'])!!}
       </div>
     </div>
   </div>
@@ -21,7 +22,7 @@
       </span>
       <div class="form-group label-floating">
         <!-- nombre del activo  -->
-        <input type="text" name="nombreActivo" id="nombreActivo" class="form-control" disabled>
+        <input type="text" name="nombreActivo" id="nombreActivo" class="form-control" value="{{$mantenimiento->activos()->first()->nombreActivo}}" disabled>
       </div>
     </div>
   </div>
@@ -31,9 +32,11 @@
         <i class="material-icons">date_range</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Fecha de entrega en taller
+        <label class="control-label">Fecha de entrega en taller
         </label>
-        {!!Form::date('fechaRecepcionTaller',$date,['id'=>'fechaRecepcionTaller','class'=>'form-control datepicker'])!!}
+        {!!Form::date('fechaRecepcionTaller',
+        $mantenimiento->fechaRecepcionTaller,
+        ['id'=>'fechaRecepcionTaller','class'=>'form-control datepicker','disabled'])!!}
       </div>
     </div>
   </div>
@@ -43,9 +46,11 @@
         <i class="material-icons">date_range</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Fecha de recepción (Mantenimiento Realizado)
+        <label class="control-label"><code>*</code>Fecha de Retorno (Mantenimiento Realizado)
         </label>
-        {!!Form::date('fechaRetornoTaller',$date,['id'=>'fechaRetornoTaller','class'=>'form-control datepicker'])!!}
+        {!!Form::date('fechaRetornoTaller',
+        $date,
+        ['id'=>'fechaRetornoTaller','class'=>'form-control datepicker','required'])!!}
       </div>
     </div>
   </div>
@@ -57,7 +62,9 @@
       <div class="form-group label-floating">
         <label class="control-label"><code>*</code>Mantenimiento Solicitado:
         </label>
-        {!! Form::textarea('reparacionesSolicitadas',null,['id'=>'reparacionesSolicitadas','class'=>'form-control'  ,'rows'=>'4', 'style'=>'resize: both;']) !!}
+        {!! Form::textarea('reparacionesSolicitadas',
+        $mantenimiento->reparacionesSolicitadas,
+        ['id'=>'reparacionesSolicitadas','class'=>'form-control'  ,'rows'=>'4', 'style'=>'resize: both;']) !!}
       </div>
     </div>
   </div>
@@ -67,11 +74,12 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Personal que solicita mantenimiento:
+        <label class="control-label">Personal que solicita mantenimiento:
         </label>
-        {!!Form::select('personalSolicitaMantenimiento',$empleados,
-        null,['id'=>'personalSolicitaMantenimiento','class'=>'form-control','required',
-        'placeholder'=>' '])!!}
+        {!!Form::input('personalSolicitaMantenimiento',null,
+        $mantenimiento->empleado1()->first()->nombresEmpleado.' '.$mantenimiento->empleado1()->first()->apellidosEmpleado,
+        ['id'=>'personalSolicitaMantenimiento','class'=>'form-control',
+        'disabled'])!!}
       </div>
     </div>
   </div>
@@ -82,11 +90,11 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Empresa encargada del mantenimiento:
+        <label class="control-label">Empresa encargada del mantenimiento:
         </label>
-        {!!Form::select('empresaEncargada',$proveedores,null,
-        ['id'=>'empresaEncargada','class'=>'form-control','required',
-        'placeholder'=>' '])!!}
+        {!!Form::input('empresaEncargada',null,
+        $mantenimiento->proveedores()->first()->nombreEmpresa,
+        ['id'=>'empresaEncargada','class'=>'form-control','disabled'])!!}
       </div>
     </div>
   </div>
@@ -97,9 +105,11 @@
         <i class="material-icons"> $ </i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Costo de Mantenimiento
+        <label class="control-label"><code>*</code>Costo de Mantenimiento
         </label>
-        {!!Form::number('costoMantenimiento',null,['id'=>'costoMantenimiento','class'=>'form-control','step' => '0.01'])!!}
+        {!!Form::number('costoMantenimiento',
+        $mantenimiento->costoMantenimiento,
+        ['id'=>'costoMantenimiento','class'=>'form-control','step' => '0.01','required'])!!}
       </div>
     </div>
   </div>
@@ -109,9 +119,11 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Mantenimiento realizado:
+        <label class="control-label"><code>*</code>Mantenimiento realizado:
         </label>
-        {!! Form::textarea('reparacionesRealizadas',null,['id'=>'reparacionesRealizadas','class'=>'form-control'  ,'rows'=>'4', 'style'=>'resize: both;']) !!}
+        {!! Form::textarea('reparacionesRealizadas',
+        $mantenimiento->reparacionesRealizadas,
+        ['id'=>'reparacionesRealizadas','class'=>'form-control'  ,'rows'=>'4', 'style'=>'resize: both;','required']) !!}
       </div>
     </div>
   </div>
@@ -121,33 +133,15 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Personal que recibe:
+        <label class="control-label"><code>*</code>Personal que recibe:
         </label>
-        {!!Form::select('personalRecibeMantenimiento',$empleados,
-        null,['id'=>'personalRecibeMantenimiento','class'=>'form-control',
-        'placeholder'=>' '])!!}
+        {!!Form::select('personalRecibeMantenimiento',
+        $empleados,
+        null,
+        ['id'=>'personalRecibeMantenimiento','class'=>'form-control',
+        'placeholder'=>' ','required'])!!}
       </div>
     </div>
   </div>
 
 </fieldset>
-
-@section('scripts')
-{!!Html::script('js/typeahead.min.js')!!}
-<script type="text/javascript">
-var path = "{{ route('autocompletarActivos') }}";
-$('input.typeahead').typeahead({
-  source:  function (query, process) {
-    return $.get(path, { query: query }, function (data) {
-      return process(data);
-    });
-  },
-  autoSelect: true,
-  displayText: function(item) {
-    $('#idActivo').val(item.value);
-    $('#nombreActivo').val(item.value2);
-    return item.value1;
-  }
-});
-</script>
-@endsection
