@@ -1,3 +1,4 @@
+
 <fieldset style="border: 1px solid #ccc; padding: 10px">
     <legend>
         <small>Datos de Liquidación</small>
@@ -23,7 +24,7 @@
                 <label class="control-label">Vehículo
                     <small>(*)</small>
                 </label>
-                {!! Form::select('vehiculo', array('1' => 'Seleccione una placa', '2' => 'P323-554'), '1',['id'=>'vehiculo','class'=>'form-control']) !!}
+                {!! Form::select('vehiculo', $placas, '0',['id'=>'vehiculo','class'=>'form-control']) !!}
             </div>
         </div>
     </div>
@@ -37,7 +38,7 @@
                 <label class="control-label">No. de factura
                     <small>(*)</small>
                 </label>
-                {!!Form::text('nFactura', old('nFactura') ,['id'=>'nFactura','class'=>'form-control datepicker'])!!}
+                {!!Form::text('numeroFacturaLiquidacion', old('numeroFacturaLiquidacion') ,['id'=>'nFactura','class'=>'form-control datepicker'])!!}
             </div>
         </div>
     </div>
@@ -45,17 +46,7 @@
 </fieldset>
 
 <br>
-<fieldset style="border: 1px solid #ccc; padding: 10px">
-    <legend>
-        <small>Vales a liquidar</small>
-    </legend>
-
-    <div class="form-row col-xs-12">
-        @include('liquidaciones.table', compact('_liquidar'))
-    </div>
-
-</fieldset>
-
+@include('liquidaciones.table', compact('_liquidar'))
 <br>
 <fieldset style="border: 1px solid #ccc; padding: 10px">
 
@@ -65,14 +56,23 @@
                 <i class="material-icons">attach_money</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Total factura
+                <label class="control-label">Total
                     <small>(*)</small>
                 </label>
-                {!!Form::text('totalFactura', old('totalFactura') ,['id'=>'totalFactura','class'=>'form-control datepicker'])!!}
+                {!!Form::text('montoFacturaLiquidacion', '0.0' ,['id'=>'totalFactura','class'=>'form-control datepicker'])!!}
             </div>
         </div>
     </div>
 
 </fieldset>
 <br>
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#vehiculo').select( function() {
+            alert( $(this).find(":selected").val() );
+        });
+    </script>
+
+@endsection
 
