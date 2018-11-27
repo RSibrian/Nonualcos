@@ -57,8 +57,8 @@
                 $emp=$mantenimiento->empleado1()->first();
                 ?>
                 <td>{{$cont}}</td>
-                <td>{{$mantenimiento->activos()->first()->codigoInventario}}</td>
-                <td>{{$mantenimiento->activos()->first()->nombreActivo}}</td>
+                <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
+                <td>{{$mantenimiento->Activos->nombreActivo}}</td>
                 <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
                 <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
                 <td>{{$emp->nombresEmpleado.' '.$emp->apellidosEmpleado}}</td>

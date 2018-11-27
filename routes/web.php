@@ -77,6 +77,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('users.create')
         ->middleware('permission:users.create');
 
+    Route::get('users/reporte','UsuarioController@reporte')
+              ->name('users.reporte')
+              ->middleware('permission:users.index');
+
     Route::put('users/{id}','UsuarioController@update')
         ->name('users.update')
         ->middleware('permission:users.edit');
@@ -129,6 +133,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('proveedores/create','ProveedorController@create')
         ->name('proveedores.create')
+        ->middleware('permission:proveedores.create');
+    Route::post('proveedores/storeajax','ProveedorController@storeAjax')
+        ->name('proveedores.storeajax')
         ->middleware('permission:proveedores.create');
 
     Route::put('proveedores/{id}','ProveedorController@update')
@@ -280,6 +287,13 @@ Route::middleware(['auth'])->group(function () {
 
        //fin clasificacion activos
        //activos
+       Route::get('activos/generarReporte','ActivosController@generarReporte')
+           ->name('activos.generarReporte')
+           ->middleware('permission:proveedores.create');
+
+           Route::post('activos/reportexUnidad','ActivosController@reportexUnidad')
+            ->name('activos.reportexUnidad')
+            ->middleware('permission:proveedores.create');
            Route::post('activos/store','ActivosController@store')
            ->name('activos.store')
            ->middleware('permission:proveedores.create');
@@ -292,6 +306,13 @@ Route::middleware(['auth'])->group(function () {
                ->name('activos.index')
                ->middleware('permission:proveedores.index');
 
+           Route::get('activos/baja','ActivosController@indexDaniados')
+                          ->name('activos.baja')
+                          ->middleware('permission:proveedores.index');
+
+           Route::get('activos/reporteGeneral','ActivosController@reporteGeneral')
+                ->name('activos.reporteGeneral')
+               ->middleware('permission:proveedores.index');
            Route::get('activos/{activo}','ActivosController@show')
                    ->name('activos.show')
                    ->middleware('permission:proveedores.index');
@@ -300,13 +321,21 @@ Route::middleware(['auth'])->group(function () {
                    ->name('activos.edit')
                    ->middleware('permission:proveedores.edit');
 
-            Route::get('/activos/create/{unidad}','ActivosController@codigoGenerado')
-                  ->name('activos.create.codificacion')
-                  ->middleware('permission:proveedores.create');
+           Route::get('/activos/create/{unidad}','ActivosController@codigoGenerado')
+                 ->name('activos.create.codificacion')
+                 ->middleware('permission:proveedores.create');
 
-            Route::put('activos/{activos}','ActivosController@update')
-                  ->name('activos.update')
-                  ->middleware('permission:proveedores.edit');
+       Route::put('activos/{activos}','ActivosController@update')
+                         ->name('activos.update')
+                         ->middleware('permission:proveedores.edit');
+
+        Route::put('activos/daniado/{activos}','ActivosController@updateDaniado')
+                         ->name('activos.daniado')
+                         ->middleware('permission:proveedores.edit');
+
+       Route::put('activos/baja/{activos}','ActivosController@updateBaja')
+                         ->name('activos.baja')
+                         ->middleware('permission:proveedores.edit');
        //fin activos
 
        //mantenimiento de activos
