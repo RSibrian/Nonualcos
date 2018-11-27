@@ -6,6 +6,8 @@ use App\Unidades;
 use App\Empleado;
 use Carbon\Carbon;
 use App\ActivosUnidades;
+use App\ClasificacionesActivos;
+
 use Illuminate\Http\Request;
 
 class ActivosUnidadesController extends Controller
@@ -42,14 +44,58 @@ class ActivosUnidadesController extends Controller
     public function store(Request $request)
     {
       //actualizar el registro anterior fecha final y estado
+
+
           $traslados=ActivosUnidades::where('idActivo',$request['idActivo'])->get();
           $traslado=$traslados->last();
+
+          $activoUpdate=Activos::find($request['idActivo']);
+
+      if($activoUpdate->codigoInventario!=null){
+
+          //ya existe una asignacion
           $traslado->fechaFinalUni=$request['fechaInicioUni'];
           $traslado->estadoUni=false;
           $traslado->save();
           ActivosUnidades::create($request->all());
           return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
 
+        }else{
+          // cuando no existe una asignacion
+          $unidad = Unidades::find($request['idUnidad']);
+          $clasificacion = ClasificacionesActivos::find($activoUpdate->idClasificacionActivo);
+
+          //para correlativo por unidad
+          $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->where('estadoUni',true)->get();
+          //$activosUnidades=ActivosUnidades::where('estadoUni',true)->get(); //correlativo global
+          //  $activos=Activos::All();
+          $contador=1;
+          foreach ($activosUnidades as  $traslado) {
+            $activo=$traslado->activo;
+            if($activo->idClasificacionActivo==$activoUpdate->idClasificacionActivo){
+              $contador++;
+            }
+          }
+        //  dd($contador);
+          if($contador>99){
+              $var=$contador;
+          }else if($contador>9){
+            $var="0".$contador;
+          }else{
+            $var="00".$contador;
+          }
+          //actualizamos activo y le colocamos el numero de placa
+          $activoUpdate->codigoInventario="ALN".$unidad->codigoUnidad.$clasificacion->codigoTipo.$var;
+          $activoUpdate->save();
+          //tabla activos_unidad
+
+          $request['idActivo']=$activoUpdate->id;
+          ActivosUnidades::create($request->all());
+
+
+        }
+
+        return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
     }
 
     /**

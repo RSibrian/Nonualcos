@@ -38,7 +38,11 @@
     <ul id="ul">
 
         <li id="li"><a  href="{{ url("activos/{$activo->id}") }}">Datos Activo</a></li>
+        @if($activo->codigoInventario!=null)
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Traslado</a></li>
+        @else
+        <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
+      @endif
         <li id="li" style="float:right;"><a href="">Depreciación</a></li>
         <li id="li" style="float:right;"><a href="">Mantenimiento</a></li>
         <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
@@ -51,10 +55,20 @@
                 </div>
 
                 <div class="card-content">
-                    <h4 class="card-title">Traslados de <b>{{$activo->nombreActivo}}</b></h4>
+                  @if($activo->codigoInventario!=null)
+                  <h4 class="card-title">Traslados de <b>{{$activo->nombreActivo}}</b></h4>
+                  @else
+                  <h4 class="card-title">Asignar Activo <b>{{$activo->nombreActivo}}</b></h4>
+                @endif
+
                     @can('unidads.create')
                         <div class="toolbar">
+                          @if($activo->codigoInventario!=null)
                           <br> <h4 class="title">Crear Nuevo Traslado </h4>
+                          @else
+                          <br> <h4 class="title">Crear Asignación </h4>
+                        @endif
+
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             {!!Form::open(['route'=>'activosUnidades.store','method'=>'POST','autocomplete'=>'off', 'enctype'=>'multipart/form-data']) !!}
                             {!!Form::hidden('idActivo',$activo->id,['id'=>'idActivo','class'=>'form-control'])!!}
@@ -168,7 +182,7 @@
                                     <td>{{$date1->format('d/m/Y')}}</td>
                                   @endif
                                     <td>{{$traslado->unidad->nombreUnidad}}</td>
-                                    <td>{{$traslado->empleado->nombresEmpleado}}</td>
+                                    <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
 
                                 </tr>
                             @endforeach

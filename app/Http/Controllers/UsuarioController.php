@@ -105,4 +105,15 @@ class UsuarioController extends Controller
         $user->roles()->sync($request->get('roles'));
         return redirect("/users/{$id}")->with('update', 'Sea editado con éxito el registro');
     }
+    public function reporte()
+        {
+          $users=User::All();
+          $date = date('d-m-Y');
+          $date1 = date('g:i:s a');
+          $vistaurl="usuario.reporte";
+          $view =  \View::make($vistaurl, compact('users', 'date','date1'))->render();
+          $pdf = \App::make('dompdf.wrapper');
+          $pdf->loadHTML($view);
+          return $pdf->stream('Reporte de Usuarios '.$date.'.pdf');
+        }
 }

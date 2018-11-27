@@ -15,13 +15,13 @@ class CreateActivosTable extends Migration
     {
         Schema::create('activos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('codigoInventario');
+            $table->string('codigoInventario')->nullable();
             $table->string('nombreActivo');
-            $table->string('numeroFactura');
+            $table->string('numeroFactura')->nullable();
             $table->double('precio');
-            $table->string('marca');
-            $table->string('modelo');
-            $table->string('color');
+            $table->string('marca')->nullable();
+            $table->string('modelo')->nullable();
+            $table->string('color')->nullable();
             $table->string('ObservacionActivo')->nullable();
             $table->Integer('tipoActivo');//SI ES VEHICULO O NO
             $table->boolean('tipoAdquisicion')->default(1);//1-compra 0-donacion
@@ -29,6 +29,10 @@ class CreateActivosTable extends Migration
             $table->Integer('estadoActivo')->default(1); // 1-activo 2-da;ado 3-prestado 4-dadodebaja
             $table->string('justificacionActivo')->nullable();
             $table->Date('fechaBajaActivo')->nullable();
+            $table->boolean('estadoUsado')->nullable();
+            $table->Integer('aniosUso')->nullable();
+            $table->Integer('aniosVida')->nullable();
+            $table->Double('valorResidual')->nullable();
             $table->Integer('idProveedor')->unsigned()->nullable();
             $table->foreign('idProveedor')->references('id')->on('proveedores');
             $table->Integer('idClasificacionActivo')->unsigned();
