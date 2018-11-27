@@ -36,7 +36,11 @@
   </style>
   <ul id="ul">
       <li id="li"><a class="active" href="{{ url("activos/{$activo->id}") }}">Datos Activo</a></li>
+      @if($activo->codigoInventario!=null)
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Traslado</a></li>
+      @else
+      <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
+    @endif
       <li id="li" style="float:right;"><a href="">Depreciación</a></li>
       <li id="li" style="float:right;"><a href="">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
@@ -60,8 +64,12 @@
                                   <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información del Activo </b></h3></td>
                               </tr>
                                 <tr>
-                                    <td><h4>Codigo de Inventario: </h4></td>
+                                    <td><h4>Código de Inventario: </h4></td>
+                                    @if($activo->codigoInventario!=null)
                                     <td><h4> <b>&nbsp;{{$activo->codigoInventario}}</b></h4></td>
+                                  @else
+                                  <td><h4> <b>&nbsp;{{'No asignado'}}</b></h4></td>
+                                @endif
                                 </tr>
                                 <tr>
                                     <td><h4>Nombre de Activo: </h4></td>
@@ -74,7 +82,7 @@
                                 </tr>
                                 <tr>
                                   <?php  if($activo->tipoActivo==1){?>
-                                    <td><h4>Numero Placa: </h4></td>
+                                    <td><h4>Número Placa: </h4></td>
                                     <td><h4> <b>&nbsp;{{$activo->vehiculo->numeroPlaca}}</b></h4></td>
                                   <?php } ?>
                                 </tr>
@@ -90,6 +98,18 @@
                                     <td><h4>Color: </h4></td>
                                     <td><h4> <b>&nbsp;{{$activo->color}}</b></h4></td>
                                 </tr>
+                                  <td><h4>Estado: </h4></td>
+                                  @if($activo->estadoActivo==0)
+                                    <td><h4> <b>&nbsp;{{' Desactivado'}}</b></h4></td>
+                                  @elseif($activo->estadoActivo==1)
+                                    <td><h4> <b>&nbsp;{{'Activo'}}</b></h4></td>
+                                  @elseif($activo->estadoActivo==2)
+                                    <td><h4> <b>&nbsp;{{'Dañado'}}</b></h4></td>
+                                  @elseif($activo->estadoActivo==3)
+                                    <td><h4> <b>&nbsp;{{'Prestado'}}</b></h4></td>
+                                  @else
+                                      <td><h4> <b>&nbsp;{{'Mantenimiento'}}</b></h4></td>
+                                  @endif
                                 <tr>
                                     <td><h4>Tipo Adquisición: </h4></td>
                                     @if($activo->tipoAdquisicion==1)
@@ -136,8 +156,11 @@
                                     <td><h4> <b>&nbsp;{{$activo->precio}}</b></h4></td>
                                 </tr>
 
+                    @if($activo->codigoInventario!=null)
+
                                 <tr>
                                     <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Asignación </b></h3></td>
+
                                 </tr>
                                 <tr>
                                   <?php
@@ -155,6 +178,32 @@
                                     <td><h4>fecha de Asignación: </h4></td>
                                     <td><h4><b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
                                 </tr>
+                       @else
+
+                              <tr>
+                                <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Activo no Asignado </b></h3></td>
+                              </tr>
+                      @endif
+
+                      @if($activo->estadoActivo==0)
+                        <tr>
+                            <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Detalle de Estado Desactivo</b></h3></td>
+
+                        </tr>
+
+
+
+                        <tr>
+                          <?php $date = new DateTime($activo->fechaBajaActivo); ?>
+                            <td><h4>Fecha de Desactivacion: </h4></td>
+                            <td><h4> <b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
+                        </tr>
+                        <tr>
+                            <td><h4>justificación: </h4></td>
+                            <td><h4> <b>&nbsp;{{$activo->justificacionActivo}}</b></h4></td>
+                        </tr>
+
+                      @endif
                             </table>
                             <div align="center">
                                 <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>

@@ -29,6 +29,15 @@ class ProveedorController extends Controller
       ]);
       return redirect("/proveedores")->with('create','Sea creado con éxito el registro');
   }
+  public function storeAjax(Request $request)
+  {
+    if($request->ajax()){
+    Proveedor::create($request->all());
+    $proveedores=Proveedor::all();
+    return response()->json($proveedores);
+  }
+
+  }
   public function edit($id)
   {
       $prov=Proveedor::findOrFail($id);

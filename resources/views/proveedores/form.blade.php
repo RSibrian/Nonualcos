@@ -21,9 +21,9 @@
                 <i class="material-icons">person</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese nombre del Encargado :
+                <label class="control-label">Ingrese nombre del Encargado :
                 </label>
-                  {!!Form::text('nombreEncargado',null,['id'=>'nombreEncargado','class'=>'form-control','required'])!!}
+                  {!!Form::text('nombreEncargado',null,['id'=>'nombreEncargado','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -34,9 +34,9 @@
                 <i class="material-icons">local_phone</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese número de Teléfono:
+                <label class="control-label">Ingrese número de Teléfono:
                 </label>
-                  {!!Form::text('telefonoProve',null,['id'=>'telefonoProve','class'=>'form-control','required'])!!}
+                  {!!Form::text('telefonoProve',null,['id'=>'telefonoProve','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -46,9 +46,9 @@
                 <i class="material-icons">email</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese Correo:
+                <label class="control-label">Ingrese Correo:
                 </label>
-                  {!!Form::text('email',null,['id'=>'email','class'=>'form-control','required'])!!}
+                  {!!Form::text('email',null,['id'=>'email','class'=>'form-control'])!!}
             </div>
         </div>
     </div>

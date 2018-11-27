@@ -27,21 +27,7 @@
                             <div class="tab-pane" id="about">
                                 <div class="row">
                                     <h4 class="info-text">Comencemos con los Datos Generales</h4>
-                                    <div class="col-sm-10 row">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">apps</i>
-                                            </span>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">
-                                                </label>
-                                              {!!Form::select('idClasificacionActivo',$clasificaciones,null,['id'=>'idClasificacionActivo','class'=>'form-control','placeholder'=>'   seleccione una clasificación (requerido)','required'])!!}
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                    
                                   @if($activo->tipoActivo==1)
                                   <div class="col-sm-5 row " id="placa_div">
                                       <div class="input-group">

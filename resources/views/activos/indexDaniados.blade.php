@@ -11,22 +11,12 @@
 
               </div>
               <div class="card-content">
-                  <h4 class="card-title">Listado Activos</h4>
+                  <h4 class="card-title">Listado Activos Dañados</h4>
                   <div class="toolbar">
                   <!--        Here you can write extra buttons/actions for the toolbar              -->
                   </div>
                   <div class="material-datatables">
-                      @can('unidads.create')
-                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round ">
-                              <i class="material-icons">add</i>
-                              Nuevo
 
-                          </a>
-                      @endcan
-                      <a  aling='right' href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round ">
-                          <i class="material-icons">print</i>
-
-                      </a>
                       <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                           <thead>
                               <tr>
@@ -83,42 +73,29 @@
 
                                   @endif
                                   <td>
-                                    @if($activo->estadoActivo==1)
-                                    <button type="button" id="btn_{{ $activo->id }}" onClick="activodaniado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">
-
-                                        Bueno
-                                    </button>
-                                  @elseif($activo->estadoActivo==2)
+                                    @if($activo->estadoActivo==0)
                                     <a type="button"  name="button" class="btn btn-xs btn-ocre btn-round">
+                                      Desactivado</a>
 
-                                        Dañado
-                                    </a>
+
+                                  @elseif($activo->estadoActivo==2)
+                                    <button title="Desactivar Activo"  type="button" id="btn_{{ $activo->id }}" onClick="activoDesactivado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">
+                                      Dañado
+                                    </button>
+
                                   @else
-                                    <a type="button"  name="button" class="btn btn-xs  btn-round">
-
-                                        Desactivado
-                                    </a>
 
                                   @endif
                                   </td>
                                       <td class="text-right">
                                           @can('proveedores.edit')
-                                          <a title="Editar activo" href="{{ url("activos/{$activo->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                          <a title="Dar Mantenimiento" href="{{ url("activos/{$activo->id}") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                               <i class="material-icons">
-                                                  create
+                                                  build
                                               </i>&nbsp;
                                           </a>
                                           @endcan
-                                          @can('proveedores.index')
-                                               <a title="Más Acciones" href="{{ url("activos/{$activo->id}") }}" class="btn btn-xs btn-info btn-round">
-                                                   <i class="material-icons">add</i>
-                                               </a>
-                                          @endcan
 
-
-                                              <a title="Ver Activos" href="{{ url("activos/{$activo->id}") }}" class="btn btn-xs btn-info btn-round">
-                                                  <i class="material-icons">visibility</i>&nbsp;
-                                              </a>
                                       </td>
                                   </tr>
                               @endforeach
@@ -141,7 +118,9 @@
                    3- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
   ?>
   @include('alertas.ayuda')
-  <div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="daniado">
+
+
+  <div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="desactivado">
             {!!Form::open()!!}
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -153,25 +132,42 @@
 
                         </button>
 
-                        <h3>Activo Dañado: <span class="violet"></span></h3>
+                        <h3>Desactivar Activo: <span class="violet"></span></h3>
                     </div>
 
                     <div class="modal-body">
-                        <h5>¿Seguro que el activo esta dañado?</h5>
+
+                      <div class="col-sm-12 row">
+                          <div class="input-group">
+                              <span class="input-group-addon">
+                                  <i class="material-icons">note_add</i>
+                              </span>
+                              <div class="form-group label-floating">
+                                  <label class="control-label">Justificación:
+                                  </label>
+                                  {!!Form::text('ObservacionActivo',null,['id'=>'justificacion','class'=>'form-control'])!!}
+                              </div>
+                          </div>
+                      </div>
+
+                    <div class="col-sm-12 row">
+                        <h5>¿Seguro que desea Desactivar el activo?</h5>
+                    </div>
                     </div>
 
                     <div class="modal-footer">
                         <div class="row col-md-12">
                             <div class="col-md-8" align="left">
-                                <h6>* Se cambiará el estado del activo a dañado</h6>
+                                <h6>* Se cambiará el estado del activo a desactivado</h6>
+                            </div>
+                            <div class="col-md-2">
+                              {!! link_to('#desactivado',$title='Aceptar',$attributes=['id'=>'btn_desactivado','class'=>'btn btn-sm btn-success btn-block glyphicon '],$secure=null)!!}
+
+
+
                             </div>
                             <div class="col-md-2">
                               {!! link_to('#',$title='Cancelar',$attributes=['data-dismiss'=>'modal','class'=>'btn btn-sm btn-ocre btn-block glyphicon '],$secure=null)!!}
-
-
-                            </div>
-                            <div class="col-md-2">
-                              {!! link_to('#dañado',$title='Aceptar',$attributes=['id'=>'btn_daniado','class'=>'btn btn-sm btn-success btn-block glyphicon '],$secure=null)!!}
                             </div>
                         </div>
                     </div>
@@ -185,32 +181,33 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-function activodaniado(activo_id)
+function activoDesactivado(activo_id)
 {
   //console.log(activo_id);
   $("#modal_id_activo").val(activo_id);
-  $('#daniado').modal('show');
+  $('#desactivado').modal('show');
 }
 
-$('#btn_daniado').click(function(){
+$('#btn_desactivado').click(function(){
   var activo=$('#modal_id_activo').val();
-  var route='/Nonualcos/public/activos/daniado/'+activo;
+    var justificacion=$('#justificacion').val();
+  var route='/Nonualcos/public/activos/baja/'+activo;
   var token=$('#token').val();
   $.ajax({
     url:route,
     headers:{'X-CSRF-TOKEN':token},
     dataType:'json',
     type:'PUT',
+    data:{justificacion},
     success:function(res){
-      $('#daniado').modal('hide');
+      $('#desactivado').modal('hide');
       $('#btn_'+activo).removeClass('btn-success')
       $('#btn_'+activo).toggleClass("btn-ocre");
       $('#btn_'+activo).removeAttr('onclick');
-      $('#btn_'+activo).text("Dañado");
+      $('#btn_'+activo).text("Desactivado");
       location.reload();
 
-
-    },
+  },
   /*  error:function(res){
       alert("art");
     }*/

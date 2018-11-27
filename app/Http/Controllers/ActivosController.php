@@ -24,7 +24,6 @@ class ActivosController extends Controller
     public function index()
     {
       $activos=Activos::All();
-      //dd($activos);
       return view('activos.index',compact('activos'));
     }
 
@@ -52,20 +51,22 @@ class ActivosController extends Controller
     public function store(Request $request)
     {
 
-      for($cantidad=$request['cantidad']; $cantidad>0; $cantidad--){
-      //tabla activo
+    for($cantidad=$request['cantidad']; $cantidad>0; $cantidad--){
+      /*tabla activo
       $unidad = Unidades::find($request['idUnidad']);
       $clasificacion = ClasificacionesActivos::find($request['idClasificacionActivo']);
       //para correlativo por unidad
-    //  $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->get();
+      $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->where('estadoUni',true)->get();
       //$activosUnidades=ActivosUnidades::where('estadoUni',true)->get(); //correlativo global
-      $activos=Activos::All();
+    //  $activos=Activos::All();
       $contador=1;
-      foreach ($activos as  $activo) {
+      foreach ($activosUnidades as  $traslado) {
+        $activo=$traslado->activo;
         if($activo->idClasificacionActivo==$request['idClasificacionActivo']){
           $contador++;
         }
       }
+    //dd($contador);
       if($contador>99){
           $var=$contador;
       }else if($contador>9){
@@ -80,7 +81,10 @@ class ActivosController extends Controller
       $activos=Activos::all();
       $activo=$activos->last();
       $request['idActivo']=$activo->id;
-      ActivosUnidades::create($request->all());
+      ActivosUnidades::create($request->all());*/
+
+      //Crear activo
+      Activos::create($request->all());
       //tabla vehiculo
       if(  $request['tipoActivo']==1)
       {
@@ -145,6 +149,32 @@ class ActivosController extends Controller
       return redirect('/activos')->with('update','Sea editado con éxito el activo');
     }
 
+    public function updateDaniado(Request $request, Activos $activos)
+    {
+      if($request->ajax()){
+      $activos->estadoActivo=2;
+      $activos->save();
+      return response()->json($request->all());
+      }
+    }
+
+    public function updateBaja(Request $request, Activos $activos)
+    {
+      if($request->ajax()){
+      $activos->justificacionActivo=$request['justificacion'];
+      $activos->fechaBajaActivo=Carbon::now();
+      $activos->estadoActivo=0;
+      $activos->save();
+      return response()->json($request->all());
+      }
+    }
+    public function indexDaniados()
+    {
+      $activos=Activos::All()->where('estadoActivo',2);
+      //dd($activos);
+      return view('activos.indexDaniados',compact('activos'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -163,4 +193,49 @@ class ActivosController extends Controller
 
         return Response::json($empleados);
     }
+
+    public function reporteGeneral()
+        {
+          $activos=Activos::All();
+          $date = date('d-m-Y');
+          $date1 = date('g:i:s a');
+          $vistaurl="activos.reporteGeneral";
+          $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
+          $pdf = \App::make('dompdf.wrapper');
+          $pdf->loadHTML($view);
+          return $pdf->stream('Reporte de Activos '.$date.'.pdf');
+        }
+
+        public function generarReporte(){
+
+          $unidades=Unidades::pluck('nombreUnidad','id');
+          return view('activos.generarReporte',compact('unidades'));
+
+        }
+
+        public function reportexUnidad(Request $request)
+        {
+
+
+          $unidad=Unidades::find($request['idUnidad']);
+
+          if($request['estadoActivo']!=5){
+            $activos=ActivosUnidades::activosxUnidad($request['idUnidad'],$request['estadoActivo']);
+          }else{
+
+            $activos=ActivosUnidades::activosxunidadEstado($request['idUnidad']);
+          }
+
+          $date = date('d-m-Y');
+          $date1 = date('g:i:s a');
+          $vistaurl="activos.reportexUnidad";
+          $view =  \View::make($vistaurl, compact('activos','unidad', 'date','date1'))->render();
+          $pdf = \App::make('dompdf.wrapper');
+          $pdf->loadHTML($view);
+          return $pdf->stream('Reporte de Activos por Unidad'.$unidad->nombreUnidad.$date.'.pdf');
+        }
+
+
+
+
 }

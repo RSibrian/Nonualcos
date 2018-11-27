@@ -1,5 +1,8 @@
 @extends ('plantilla')
 @section('plantilla')
+
+
+
   <div class="content">
       <div class="container-fluid">
           <div class="col-sm-10 col-sm-offset-1">
@@ -19,17 +22,16 @@
                                     <a href="#about" data-toggle="tab">Datos Generales</a>
                                 </li>
                                 <li>
-                                    <a href="#account" data-toggle="tab">Detalle Compra</a>
+                                    <a href="#account" data-toggle="tab">Detalle de Adquisición</a>
                                 </li>
-                                <li>
-                                    <a href="#address" data-toggle="tab">Asignaciones</a>
-                                </li>
+
                             </ul>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane" id="about">
                                 <div class="row">
                                     <h4 class="info-text">Comencemos con los Datos Generales</h4>
+
                                     <div class="col-sm-10 row">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -43,6 +45,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 <div class="col-sm-5 row">
 
                                   <div class="input-group ">
@@ -93,7 +96,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Tipo de Adquisición:
                                                 </label>
-                                                <select name="tipoAdquisicion" id="tipoAdquisicion" class="form-control"  required>
+                                                <select name="tipoAdquisicion" id="tipoAdquisicion" class="form-control" >
                                                     <option value=1>Compra</option>
                                                     <option value=0>Donación</option>
                                                 </select>
@@ -101,7 +104,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row" id="uso" style="display: none;">
 
                                       <div class="input-group ">
                                         <span class="input-group-addon">
@@ -119,25 +122,27 @@
                                           </div>
                                         </div>
                                       </div>
+
                                       <div class="col-sm-5 row " id="anios" style="display: none;">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Ingrese numero de años usado:
+                                                  <label class="control-label"><code>*</code>Ingrese número de años usado:
                                                   </label>
-                                                  {!!Form::number('aniosUso',null,['id'=>'aniosUso','class'=>'form-control','required'])!!}
+                                                  {!!Form::number('aniosUso',null,['id'=>'aniosUso','class'=>'form-control',''])!!}
                                               </div>
                                           </div>
                                       </div>
+
                                       <div class="col-sm-5 row " >
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Ingrese Vida util del activo
+                                                  <label class="control-label"><code>*</code>Ingrese años de Vida util
                                                   </label>
                                                   {!!Form::number('aniosVida',null,['id'=>'aniosVida','class'=>'form-control','required'])!!}
                                               </div>
@@ -149,9 +154,10 @@
                                                   <i class="material-icons">credit_card</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Ingrese Valor Residual
+                                                  <label class="control-label">Ingrese Valor Residual %
                                                   </label>
-                                                  {!!Form::number('valorResidual',null,['id'=>'valorResidual','class'=>'form-control','required'])!!}
+                                                  {!!Form::number('valorResidual',10,['id'=>'valorResidual', 'class'=>'form-control'])!!}
+
                                               </div>
                                           </div>
                                       </div>
@@ -164,7 +170,7 @@
                                                 <label class="control-label">Fecha de Adquisición
                                                     <small></small>
                                                 </label>
-                                                {!!Form::date('fechaAdquisicion',$date,['id'=>'fechaAdquisicion','class'=>'form-control datepicker'])!!}
+                                                {!!Form::date('fechaAdquisicion',$date,['id'=>'fechaAdquisicion','max'=>$date,'class'=>'form-control datepicker'])!!}
 
                                             </div>
                                         </div>
@@ -177,9 +183,9 @@
                                                 <i class="material-icons">class</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese la marca:
+                                                <label class="control-label">Ingrese la marca:
                                                 </label>
-                                                {!!Form::text('marca',null,['id'=>'marca','class'=>'form-control','required'])!!}
+                                                {!!Form::text('marca',null,['id'=>'marca','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -190,9 +196,9 @@
                                                 <i class="material-icons">bookmarks</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese el modelo:
+                                                <label class="control-label">Ingrese el modelo:
                                                 </label>
-                                                {!!Form::text('modelo',null,['id'=>'modelo','class'=>'form-control','required'])!!}
+                                                {!!Form::text('modelo',null,['id'=>'modelo','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -203,9 +209,9 @@
                                                 <i class="material-icons">dns</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese el color:
+                                                <label class="control-label">Ingrese el color:
                                                 </label>
-                                                {!!Form::text('color',null,['id'=>'color','class'=>'form-control','required'])!!}
+                                                {!!Form::text('color',null,['id'=>'color','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -229,10 +235,10 @@
                             </div>
 
                             <div class="tab-pane" id="account">
-                                <h4 class="info-text"> Sigamos con la información Detalle de Compra</h4>
+                                <h4 class="info-text"> Sigamos con la información Detalle de  Adquisición</h4>
                                 <div class="row">
 
-                                      <div class="col-sm-10 row">
+                                      <div class="col-sm-8 row">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">store</i>
@@ -245,7 +251,13 @@
                                           </div>
                                       </div>
 
-                                        <div class="col-sm-5 row">
+                                    <div class="col-sm-2 row">
+                                      <a title="Agregar Nuevo Proveedor" href="" data-toggle="modal" data-target="#nuevo" class="btn btn-xs btn-info btn-round">
+                                          <i class="material-icons">add_circle</i>
+                                      </a>
+                                    </div>
+
+                                        <div class="col-sm-5 row"id="factura" style="display: block;">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">tab</i>
@@ -253,10 +265,11 @@
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><code>*</code>Número de factura:
                                                     </label>
-                                                    {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
+                                                    {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control',''])!!}
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-sm-5 row">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
@@ -265,7 +278,7 @@
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><code>*</code>Cantidad articulos:
                                                     </label>
-                                                    {!!Form::number('cantidad',null,['id'=>'cantidad','class'=>'form-control','required'])!!}
+                                                    {!!Form::number('cantidad',1,['id'=>'cantidad','class'=>'form-control',''])!!}
                                                 </div>
                                             </div>
                                         </div>
@@ -285,56 +298,7 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane" id="address">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <h4 class="info-text">Sigamos con la información de Asignaciones </h4>
-                                    </div>
-                                    <div class="col-sm-10 row">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">apps</i>
-                                            </span>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">
-                                                </label>
-                                              {!!Form::select('idUnidad',$unidades,null,['id'=>'idUnidad','class'=>'form-control','placeholder'=>'Selecione una Unidad (requerido)','required'])!!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 row">
-                                        <<div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="material-icons">date_range</i>
-                                                    </span>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Fecha de Asignación
-                                                    <small></small>
-                                                </label>
-                                                {!!Form::date('fechaInicioUni',$date,['id'=>'fechaInicioUni','class'=>'form-control datepicker'])!!}
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 row">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">apps</i>
-                                            </span>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">
-                                                </label>
-                                              {!!Form::select('idEmpleado',$empleados,null,['id'=>'idEmpleado','class'=>'form-control','placeholder'=>'Selecione un Encargado (requerido)','required'])!!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </div>
-                            </div>
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
@@ -357,7 +321,104 @@
         </div>
     </div>
 @stop
+<!-- Modal -->
+<div id="nuevo" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Registrar Proveedor</h4>
+      </div>
+      <div class="modal-body">
+        {!! Form::open() !!}
+        <input type="hidden" id='token' name="_token" value="{{ csrf_token() }}">
+
+              <input type="hidden" name="nuevoPro" value="1">
+              <fieldset>
+                <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
+                  <input type="hidden" name="hi2" value="1">
+
+                  <div class="col-sm-10 row">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">store</i>
+                          </span>
+                          <div class="form-group label-floating">
+                              <label class="control-label"><code>*</code>Ingrese nombre de la Empresa :
+                              </label>
+                              {!!Form::text('nombreEmpresa',null,['id'=>'nombreEmpresa','class'=>'form-control','required'])!!}
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="col-sm-10 row">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">person</i>
+                          </span>
+                          <div class="form-group label-floating">
+                              <label class="control-label">Ingrese nombre del Encargado :
+                              </label>
+                                {!!Form::text('nombreEncargado',null,['id'=>'nombreEncargado','class'=>'form-control'])!!}
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="col-sm-10 row">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">local_phone</i>
+                          </span>
+                          <div class="form-group label-floating">
+                              <label class="control-label">Ingrese número de Teléfono:
+                              </label>
+                                {!!Form::text('telefonoProve',null,['id'=>'telefonoProve','class'=>'form-control'])!!}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-10 row">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">email</i>
+                          </span>
+                          <div class="form-group label-floating">
+                              <label class="control-label">Ingrese Correo:
+                              </label>
+                                {!!Form::text('email',null,['id'=>'email','class'=>'form-control'])!!}
+                          </div>
+                      </div>
+                  </div>
+
+
+              </fieldset>
+
+      </div>
+      <div class="modal-footer">
+        <div align="center">
+        {!! link_to('#proveedor',$title='Registrar',$attributes=['id'=>'agregar','class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk'],$secure=null)!!}
+        <a href="{{ URL::previous() }}" class='btn btn-ocre '  data-dismiss="modal">Cerrar</a>
+        </div>
+    {!! Form::close() !!}
+      </div>
+    </div>
+
+  </div>
+</div>
 @section('scripts')
+  {!!Html::script('js/jquery.mask.min.js')!!}
+  <script src="{{url('js/alertify.min.js')}}"></script>
+
+  <link rel="stylesheet" href="{{url('css/alertify.default.css')}}">
+  <link rel="stylesheet" href="{{url('css/alertify.core.css')}}">
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+          $("#telefonoProve").mask("0000-0000");
+      })
+  </script>
+
 <script type="text/javascript">
     $().ready(function() {
         demo.initMaterialWizard();
@@ -378,6 +439,21 @@
         });
     });
 
+</script>
+<script >
+  $('#tipoAdquisicion').on('change',function(e){
+    var tipo=$("#tipoAdquisicion").find('option:selected');
+    if (tipo.val()==0)
+    {
+      document.getElementById('uso').style.display='block';
+      document.getElementById('factura').style.display='none';
+    }
+    else
+    {
+      document.getElementById('uso').style.display='none';
+      document.getElementById('factura').style.display='block';
+    }
+});
 </script>
 <script language="JavaScript">
 function mostrarOcultar() {
@@ -422,6 +498,44 @@ function mostrarAniosUsado() {
       document.getElementById('anios').style.display='block';
     }
 }
+
+$('#agregar').click(function(){
+  var nombreEmpresa=$('#nombreEmpresa').val();
+  var nombreEncargado=$('#nombreEncargado').val();
+  var telefonoProve=$('#telefonoProve').val();
+  var email=$('#email').val();
+  var route='/Nonualcos/public/proveedores/storeajax';
+  var token=$('#token').val();
+  $.ajax({
+    url:route,
+    headers:{'X-CSRF-TOKEN':token},
+    dataType:'json',
+    type:'POST',
+    data:{nombreEmpresa,nombreEncargado,telefonoProve,email},
+    success:function(res){
+      var proveedor=$("#idProveedor");
+      proveedor.empty();
+      proveedor.append("<option value="+null+">Seleccione un proveedor</option>");
+      $(res).each(function(key,value){
+          proveedor.append("<option value="+value.id+">"+value.nombreEmpresa+"</option>");
+      });
+      $('#nuevo').modal('hide');
+      $('#nombreEmpresa').val("");
+      $('#nombreEncargado').val("");
+      $('#telefonoProve').val("");
+      $('#email').val("");
+    },
+    error:function(res){
+      alert("art");
+    }
+
+
+  });
+
+
+});
+
+
 </script>
 
 @endsection
