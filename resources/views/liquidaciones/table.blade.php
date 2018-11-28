@@ -6,11 +6,11 @@
         display:inline-block;
         width:40px;
         height:20px;
-        margin:8px;
+        margin:2px;
         transform:translateY(50%);
+        transform:translateX(10%);
         position:relative;
-        margin-bottom: 22px;
-
+        margin-bottom: 30px;
     }
 
     .slider {
@@ -65,6 +65,7 @@
                             <th>Código de vale</th>
                             <th>Valor ($)</th>
                             <th class="disabled-sorting text-center" >Acciones</th>
+                            <th class="disabled-sorting text-center"></th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -75,6 +76,7 @@
                             <th>Código de vale</th>
                             <th>Valor ($)</th>
                             <th class="text-center" >Acciones</th>
+                            <th class="text-center"></th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -95,7 +97,8 @@
                                     <a href="{{route('vales.show', $liquida->id)}}" class="btn btn-xs btn-info btn-round">
                                         <i title="Mostrar" class="material-icons">visibility</i>
                                     </a>
-
+                                </td>
+                                <td>
                                     <label class="switch" title="liquidar">
                                         <input type="checkbox" name="name[{{$liquida->numeroVale}}]" id="{{ $liquida->numeroVale }}" onchange="estado({{$liquida->numeroVale}},{{ $liquida->costoUnitarioVale}})">
                                         <span class="slider"></span>

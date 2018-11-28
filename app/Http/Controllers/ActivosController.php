@@ -89,6 +89,9 @@ class ActivosController extends Controller
       //tabla vehiculo
       if(  $request['tipoActivo']==1)
       {
+        $activos=Activos::all();
+        $activo=$activos->last();
+        $request['idActivo']=$activo->id;
         //aqui guardar en Vehiculo placa y idActivo
         Vehiculo::create($request->all());
       }

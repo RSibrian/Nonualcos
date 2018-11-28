@@ -77,14 +77,16 @@
                                   </td>
                                   <td>
                                       <p>
-                                          {{ $vale->costoUnitarioVale }}
+                                          {{ '$ '.$vale->costoUnitarioVale }}
                                       </p>
                                   </td>
                                 <td>
-                                    {{ $vale->estadoEntregadoVal }}
+                                    {{ $vale->estadoEntregadoVal?'Si':'No'
+                                    }}
                                 </td>
                                 <td>
-                                    {{ $vale->estadoRecibidoVal }}
+                                    {{ $vale->estadoRecibidoVal?'Si':'No'
+                                    }}
                                 </td>
                                 <td class="text-right">
                                   @can('users.edit')
