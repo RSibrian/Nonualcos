@@ -8,6 +8,7 @@ use App\Unidades;
 use App\Proveedor;
 use App\Empleado;
 use App\Vehiculo;
+use App\Mantenimiento;
 use Carbon\Carbon;
 
 use App\ActivosUnidades;
@@ -104,6 +105,17 @@ class ActivosController extends Controller
     public function show(Activos $activo)
     {
         return view('activos.show',compact('activo'));
+    }
+
+    public function mantenimientosUnidades(Activos $activo)
+    {
+      $mantenimientos=Mantenimiento::All()->where('id',$activo->id);
+      //  $mantenimientos=Activos::mantenimientoxUnidad($activo->id);
+        if(!empty($mantenimientos)){
+          return view('activos.mantenimientosUnidades',compact('activo','mantenimientos'));
+        }
+        //dd($mantenimientos);
+
     }
 
     /**

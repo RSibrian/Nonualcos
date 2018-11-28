@@ -74,4 +74,4 @@
 
         });
     </script>
-@stop
+@endsection

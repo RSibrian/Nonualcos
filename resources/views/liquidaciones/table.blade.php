@@ -64,7 +64,7 @@
                             <th>Fecha</th>
                             <th>Código de vale</th>
                             <th>Valor ($)</th>
-                            <th class="disabled-sorting text-center" colspan="2">Acciones</th>
+                            <th class="disabled-sorting text-center" >Acciones</th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -74,7 +74,7 @@
                             <th>Fecha</th>
                             <th>Código de vale</th>
                             <th>Valor ($)</th>
-                            <th class="text-center" colspan="2">Acciones</th>
+                            <th class="text-center" >Acciones</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -95,8 +95,7 @@
                                     <a href="{{route('vales.show', $liquida->id)}}" class="btn btn-xs btn-info btn-round">
                                         <i title="Mostrar" class="material-icons">visibility</i>
                                     </a>
-                                </td>
-                                <td>
+
                                     <label class="switch" title="liquidar">
                                         <input type="checkbox" name="name[{{$liquida->numeroVale}}]" id="{{ $liquida->numeroVale }}" onchange="estado({{$liquida->numeroVale}},{{ $liquida->costoUnitarioVale}})">
                                         <span class="slider"></span>
@@ -131,5 +130,47 @@
 
     }
 </script>
-@endsection
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
 
+        });
+
+
+        var table = $('#datatables').DataTable();
+
+        // Edit record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+
+            var data = table.row($tr).data();
+            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        });
+
+        // Delete a record
+        table.on('click', '.remove', function(e) {
+            $tr = $(this).closest('tr');
+            table.row($tr).remove().draw();
+            e.preventDefault();
+        });
+
+        //Like record
+        table.on('click', '.like', function() {
+            alert('You clicked on Like button');
+        });
+
+        $('.card .material-datatables label').addClass('form-group');
+
+    });
+</script>
+@endsection

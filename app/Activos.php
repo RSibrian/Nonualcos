@@ -9,7 +9,7 @@ class Activos extends Model
 {
   protected $table = 'activos';
   protected $fillable = [
-      'id','codigoInventario','nombreActivo','numeroFactura','precio','marca','modelo','color',
+      'id','codigoInventario','nombreActivo','numeroFactura','precio','marca','modelo','serie','color',
       'ObservacionActivo','tipoActivo','tipoAdquisicion','fechaAdquisicion','estadoActivo',
       'justificacionActivo','fechaBajaActivo','idProveedor','idClasificacionActivo','estadoUsado','aniosUso','valorResidual','aniosVida'
   ];
@@ -32,6 +32,15 @@ class Activos extends Model
   public function vehiculo()
   {
       return $this->hasOne(Vehiculo::class,'idActivo');
+  }
+
+  public static function mantenimientoxUnidad($idactivo){
+  return DB::table('mantenimientos')
+  ->join('activos','mantenimientos.idActivo' , '=', 'activos.id' )
+  ->where('mantenimientos.idActivo','=',$idactivo)
+  ->select('mantenimientos.*','activos.*')
+  //->orderBy('','desc')
+  ->get();
   }
 
   public static function vehiculoConsulta()

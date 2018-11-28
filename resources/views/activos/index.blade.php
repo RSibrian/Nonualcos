@@ -76,7 +76,7 @@
                                           $traslado=$activo->activosUnidades->last();
                                       ?>
                                       <td>{{$traslado->unidad->nombreUnidad}}</td>
-                                      <td>{{$traslado->empleado->nombresEmpleado}}</td>
+                                      <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
                                     @else
                                     <td>{{'No asignado'}}</td>
                                     <td>{{'No asignado'}}</td>

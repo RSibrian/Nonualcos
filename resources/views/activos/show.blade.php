@@ -42,7 +42,7 @@
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
       <li id="li" style="float:right;"><a href="">Depreciación</a></li>
-      <li id="li" style="float:right;"><a href="">Mantenimiento</a></li>
+      <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
   </ul>
     <div class="row">

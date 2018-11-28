@@ -313,6 +313,11 @@ Route::middleware(['auth'])->group(function () {
            Route::get('activos/reporteGeneral','ActivosController@reporteGeneral')
                 ->name('activos.reporteGeneral')
                ->middleware('permission:proveedores.index');
+
+           Route::get('activos/mantenimientosUnidades/{activo}','ActivosController@mantenimientosUnidades')
+                   ->name('activos.mantenimientosUnidades')
+                   ->middleware('permission:proveedores.index');
+
            Route::get('activos/{activo}','ActivosController@show')
                    ->name('activos.show')
                    ->middleware('permission:proveedores.index');
@@ -350,6 +355,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('mantenimientos','MantenimientoController@index')
         ->name('mantenimientos.index')
         ->middleware('permission:proveedores.index');
+
+
 
     Route::get('mantenimientos/{mantenimiento}','MantenimientoController@show')
             ->name('mantenimientos.show')

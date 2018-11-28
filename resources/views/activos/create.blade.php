@@ -190,6 +190,7 @@
                                         </div>
                                     </div>
 
+
                                     <div class="col-sm-5 row">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -199,6 +200,18 @@
                                                 <label class="control-label">Ingrese el modelo:
                                                 </label>
                                                 {!!Form::text('modelo',null,['id'=>'modelo','class'=>'form-control'])!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 row">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">class</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Ingrese serie:
+                                                </label>
+                                                {!!Form::text('serie',null,['id'=>'serie','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>
