@@ -218,6 +218,7 @@ class ActivosController extends Controller
           $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
+          $pdf->setPaper('A4', 'landscape');
           return $pdf->stream('Reporte de Activos '.$date.'.pdf');
         }
 
