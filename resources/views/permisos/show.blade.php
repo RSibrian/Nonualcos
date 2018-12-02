@@ -38,9 +38,10 @@
     <ul id="ul">
 
         <li id="li"><a  href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
-        <li id="li"  ><a class="active" href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
-        <li id="li" style="float:right;"><a href="{{ url("empleados/{$empleado->id}") }}">Incapacidades</a></li>
-        <li id="li" style="float:right;" ><a href="{{ url("empleados/{$empleado->id}") }}">Prestamos</a></li>
+        <li id="li"  ><a href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
+        <li id="li" style="float:right;"><a href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
+        <li id="li" style="float:right;" ><a class="active" href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
+        >
     </ul>
     <div class="row">
         <div class="col-md-12">
@@ -192,7 +193,7 @@
                             </tfoot>
                             <tbody>
                             <?php $cont=0;?>
-                            @foreach ($empleado->permisos()->orderBy('id', 'desc')->get() as $permiso)
+                            @foreach ($empleado->permisos()->where('perm_opcion',false)->orderBy('id', 'desc')->get() as $permiso)
                                 <tr align="left">
                                     <td></td>
                                     <?php $cont++;?>

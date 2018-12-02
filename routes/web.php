@@ -448,5 +448,60 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:roles.create');
     //fin traslados
 
+    //incapacidades
+    Route::get('incapacidades/{empleado}','IncapacidadController@show')
+        ->name('incapacidades.show')
+        ->middleware('permission:roles.index');
+    Route::post('incapacidades/store','IncapacidadController@store')
+        ->name('incapacidades.store')
+        ->middleware('permission:roles.create');
+    //fin incapacidades
+    //bancos
+
+    Route::post('bancos/store','BancoController@store')
+        ->name('bancos.store')
+        ->middleware('permission:unidads.create');
+
+    Route::get('bancos','BancoController@index')
+        ->name('bancos.index')
+        ->middleware('permission:unidads.index');
+
+    Route::get('bancos/create','BancoController@create')
+        ->name('bancos.create')
+        ->middleware('permission:unidads.create');
+
+    Route::put('bancos/{banco}','BancoController@update')
+        ->name('bancos.update')
+        ->middleware('permission:unidads.edit');
+
+    Route::get('bancos/{banco}','BancoController@show')
+        ->name('bancos.show')
+        ->middleware('permission:unidads.index');
+
+    Route::get('bancos/{banco}/edit','BancoController@edit')
+        ->name('bancos.edit')
+        ->middleware('permission:unidads.edit');
+    //fin bancos
+
+    //descuentos
+    Route::get('descuentos/{empleado}','DescuentoController@show')
+        ->name('descuentos.show')
+        ->middleware('permission:roles.index');
+
+    Route::post('descuentos/store','DescuentoController@store')
+        ->name('descuentos.store')
+        ->middleware('permission:roles.create');
+
+    Route::put('descuentos/{descuento}','DescuentoController@update')
+        ->name('descuentos.update')
+        ->middleware('permission:unidads.store');
+    //fin prestamos
+
+
+    Route::get('planillas/create/excel','PlanillaController@create')
+        ->name('planillas.create')
+        ->middleware('permission:unidads.create');
+
+
 });
 Auth::routes();

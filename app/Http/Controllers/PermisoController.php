@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DiaPermiso;
 use App\Empleado;
 use App\Permiso;
 use Carbon\Carbon;
@@ -53,7 +54,10 @@ class PermisoController extends Controller
             $file->move(public_path() . '/biblioteca/permisos/', $nombre);//a la ruta establecida copia y pega el archivo
             $url = '/biblioteca/permisos/' . $nombre;
             $request['permisoPdf'] = $url;
+            $request['perm_opcion'] = false;
             Permiso::create($request->all());
+            $permisoActual = Permiso::all()->last();
+            PermisoController::diaPermi($permisoActual);
             return redirect("/permisos/" . $request['idEmpleado'])->with('create', 'Sea creado con éxito el permiso');
         }
         else{
@@ -107,4 +111,65 @@ class PermisoController extends Controller
     {
         //
     }
+    static function diferenciaFechas($fechaInicio, $fechaFin)
+    {
+        $inicio = new \DateTime($fechaInicio);
+        $fin = new \DateTime($fechaFin);
+        $resultado = $inicio->diff($fin);
+        return $resultado->days+1;
+    }
+    static function fechaSiguiente($fecha)
+    {
+        $dias_inicio_mes=date("t", strtotime($fecha));
+        $mes_inicio=date("m", strtotime($fecha));
+        $anno_inicio=date("Y", strtotime($fecha));
+        $resultado = date($anno_inicio."-".$mes_inicio."-".$dias_inicio_mes);
+        return $resultado;
+    }
+    static function guardarDiaPermiso($dip_dias,$dip_año,$dip_mes,$permiso_id,$fecha)
+    {
+        DiaPermiso::create([
+            'dip_dias'=>$dip_dias,
+            'dip_año'=>$dip_año,
+            'dip_mes'=>$dip_mes,
+            'permiso_id'=>$permiso_id,
+            'dip_fecha'=>$fecha,
+        ]);
+    }
+    static function diaPermi($permiso)
+    {
+
+        if($permiso->tipoPermiso==2 || $permiso->perm_opcion==1) {
+            $fin = $permiso->fechaPermisoFinal;
+            if($permiso->tipoPermiso==4 && $permiso->casoPermiso!=8)
+            {
+                $inicio = $permiso->fechaPermisoInicio;
+                $dias=PermisoController::diferenciaFechas($inicio,$fin);
+                if($dias > 3) $inicio=date("Y-m-d", strtotime("$inicio +3 days"));
+                else return 0;
+            }
+            else $inicio = $permiso->fechaPermisoInicio;
+            do{
+                $dias_inicio_mes=date("t", strtotime($inicio));
+                $mes_inicio=date("m", strtotime($inicio));
+                $anno_inicio=date("Y", strtotime($inicio));
+                $fecha_fin_mes = date($anno_inicio."-".$mes_inicio."-".$dias_inicio_mes);
+                $fecha=date($anno_inicio."-".$mes_inicio."-01");
+                if($fin<=$fecha_fin_mes) {
+                    $dias=PermisoController::diferenciaFechas($inicio,$fin);
+                    PermisoController::guardarDiaPermiso($dias,$anno_inicio,$mes_inicio,$permiso->id,$fecha);
+                    $inicio=date("Y-m-d", strtotime("$fecha +1 month"));
+                }else{
+                    $dias=PermisoController::diferenciaFechas($inicio,$fecha_fin_mes);
+                    PermisoController::guardarDiaPermiso($dias,$anno_inicio,$mes_inicio,$permiso->id,$fecha);
+                    $inicio=date("Y-m-d", strtotime("$fecha +1 month"));
+                }
+            }while($inicio<$fin);
+        }
+    }
+
+
+
+
+
 }
