@@ -22,7 +22,7 @@ class CreatePermisosTable extends Migration
             $table->Integer('tipoPermiso');
             $table->text('casoPermiso')->nullable();
             $table->text('motivoPermiso')->nullable();
-            $table->boolean('estadoPermiso')->default(true);
+            $table->boolean('perm_opcion');
             $table->text('permisoPdf')->nullable();
             $table->timestamps();
         });

@@ -44,7 +44,7 @@
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
       @endif
         <li id="li" style="float:right;"><a href="">Depreciación</a></li>
-        <li id="li" style="float:right;"><a href="">Mantenimiento</a></li>
+        <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
         <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
     </ul>
     <div class="row">
@@ -119,9 +119,9 @@
                                                   <i class="material-icons">description</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Observación:
+                                                  <label class="control-label">Observación:
                                                   </label>
-                                                {!!Form::text('observacionUni',null,['id'=>'observacionUni','class'=>'form-control', 'required'])!!}
+                                                {!!Form::text('observacionUni',null,['id'=>'observacionUni','class'=>'form-control'])!!}
 
                                               </div>
                                           </div>

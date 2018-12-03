@@ -59,17 +59,28 @@
                                       <td></td>
                                       <?php $cont++;?>
                                       <td>{{$cont}}</td>
+                                      @if($vehiculo->activo->codigoInventario!=null)
                                       <td>{{$vehiculo->activo->codigoInventario}}</td>
+                                    @else
+                                      <td align='center'>{{'------'}}</td>
+                                    @endif
+                                      
 
                                       <td>{{$vehiculo->numeroPlaca}}</td>
                                       <td>{{$vehiculo->activo->nombreActivo}}</td>
                                       <td>{{$vehiculo->activo->fechaAdquisicion}}</td>
                                       <td>{{$vehiculo->activo->precio}}</td>
+                                      @if($vehiculo->codigoInventario!=null)
                                       <?php
-                                          $traslado=$vehiculo->activo->activosUnidades->last();
+                                          $traslado=$vehiculo->activosUnidades->last();
                                       ?>
                                       <td>{{$traslado->unidad->nombreUnidad}}</td>
-                                      <td>{{$traslado->empleado->nombresEmpleado}}</td>
+                                      <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
+                                    @else
+                                    <td>{{'No asignado'}}</td>
+                                    <td>{{'No asignado'}}</td>
+
+                                  @endif
                                       <td class="text-right">
                                           @can('proveedores.edit')
                                           <a title="Realizar Salida" href="{{ url("activos/{$vehiculo->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">

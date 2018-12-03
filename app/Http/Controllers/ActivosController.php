@@ -8,6 +8,7 @@ use App\Unidades;
 use App\Proveedor;
 use App\Empleado;
 use App\Vehiculo;
+use App\Mantenimiento;
 use Carbon\Carbon;
 
 use App\ActivosUnidades;
@@ -88,6 +89,9 @@ class ActivosController extends Controller
       //tabla vehiculo
       if(  $request['tipoActivo']==1)
       {
+        $activos=Activos::all();
+        $activo=$activos->last();
+        $request['idActivo']=$activo->id;
         //aqui guardar en Vehiculo placa y idActivo
         Vehiculo::create($request->all());
       }
@@ -104,6 +108,17 @@ class ActivosController extends Controller
     public function show(Activos $activo)
     {
         return view('activos.show',compact('activo'));
+    }
+
+    public function mantenimientosUnidades(Activos $activo)
+    {
+      $mantenimientos=Mantenimiento::All()->where('id',$activo->id);
+      //  $mantenimientos=Activos::mantenimientoxUnidad($activo->id);
+        if(!empty($mantenimientos)){
+          return view('activos.mantenimientosUnidades',compact('activo','mantenimientos'));
+        }
+        //dd($mantenimientos);
+
     }
 
     /**
@@ -203,6 +218,7 @@ class ActivosController extends Controller
           $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
+          $pdf->setPaper('A4', 'landscape');
           return $pdf->stream('Reporte de Activos '.$date.'.pdf');
         }
 

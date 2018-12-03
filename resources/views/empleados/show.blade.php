@@ -36,9 +36,9 @@
     </style>
     <ul id="ul">
         <li id="li"><a class="active" href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
-        <li id="li"  ><a href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
-        <li id="li" style="float:right;"><a href="{{ url("empleados/{$empleado->id}") }}">Incapacidades</a></li>
-        <li id="li" style="float:right;" ><a href="{{ url("empleados/{$empleado->id}") }}">Prestamos</a></li>
+        <li id="li"  ><a href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
+        <li id="li" style="float:right;"><a  href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
+        <li id="li" style="float:right;" ><a  href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
     </ul>
     <div class="row">
         <div class="col-md-10 col-sm-offset-1">

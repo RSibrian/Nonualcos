@@ -126,8 +126,9 @@ table tr:nth-child(2n-1) td {
 							<th>Marca</th>
 							<th>Modelo</th>
               <th>Color</th>
+							<th>Serie</th>
               <th>Estado</th>
-              <th>Observación</th>
+              <th>Precio</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -144,6 +145,7 @@ table tr:nth-child(2n-1) td {
 											<td>{{$activo->marca}}</td>
                       <td>{{$activo->modelo}}</td>
                       <td>{{$activo->color}}</td>
+											<td>{{$activo->serie}}</td>
                     @if($activo->estadoActivo==0)
                       <td>{{'Desactivado'}}</td>
                     @elseif($activo->estadoActivo==1)
@@ -151,7 +153,7 @@ table tr:nth-child(2n-1) td {
                     @else
                       <td>{{'Dañado'}}</td>
                     @endif
-                      <td>{{$activo->justificacionActivo?:" Ninguna"}}</td>
+                      <td>{{'$ '.$activo->precio}}</td>
 									</tr>
 
 

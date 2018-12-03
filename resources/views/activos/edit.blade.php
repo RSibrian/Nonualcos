@@ -27,7 +27,7 @@
                             <div class="tab-pane" id="about">
                                 <div class="row">
                                     <h4 class="info-text">Comencemos con los Datos Generales</h4>
-                                    
+
                                   @if($activo->tipoActivo==1)
                                   <div class="col-sm-5 row " id="placa_div">
                                       <div class="input-group">
@@ -150,7 +150,7 @@
                                                 <i class="material-icons">class</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese la marca:
+                                                <label class="control-label">Ingrese la marca:
                                                 </label>
                                                 {!!Form::text('marca',null,['id'=>'marca','class'=>'form-control','required'])!!}
                                             </div>
@@ -163,9 +163,21 @@
                                                 <i class="material-icons">bookmarks</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese el modelo:
+                                                <label class="control-label">Ingrese el modelo:
                                                 </label>
-                                                {!!Form::text('modelo',null,['id'=>'modelo','class'=>'form-control','required'])!!}
+                                                {!!Form::text('modelo',null,['id'=>'modelo','class'=>'form-control'])!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 row">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">bookmarks</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Ingrese serie:
+                                                </label>
+                                                {!!Form::text('serie',null,['id'=>'serie','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>

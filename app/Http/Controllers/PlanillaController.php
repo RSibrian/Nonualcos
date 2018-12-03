@@ -6,6 +6,7 @@ use App\Empleado;
 use App\planilla;
 use App\Renta;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PlanillaController extends Controller
 {
@@ -16,7 +17,6 @@ class PlanillaController extends Controller
      */
     public function index()
     {
-        //
         $empleados=Empleado::all();
         return view('planillas.index',compact('empleados'));
     }
@@ -28,7 +28,18 @@ class PlanillaController extends Controller
      */
     public function create()
     {
-        //
+        $empleados=Empleado::all();
+        $date=date("d-m-Y");
+
+        Excel::create("Planilla de empleados $date ", function ($excel) use ($empleados) {
+            $excel->setTitle("Title");
+            $excel->sheet("Hoja 1", function ($sheet) use ($empleados) {
+
+                $sheet->loadView('planillas.excel')->with('empleados', $empleados);
+            });
+
+        })->download('xlsx');
+
     }
 
     /**
