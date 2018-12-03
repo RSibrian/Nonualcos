@@ -54,14 +54,13 @@
               <tr>
                 <td></td>
                 <?php $cont++;
-                $emp=$mantenimiento->empleado1()->first();
                 ?>
                 <td>{{$cont}}</td>
                 <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
                 <td>{{$mantenimiento->Activos->nombreActivo}}</td>
                 <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
                 <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
-                <td>{{$emp->nombresEmpleado.' '.$emp->apellidosEmpleado}}</td>
+                <td>{{$mantenimiento->Empleado1->nombresEmpleado.' '.$mantenimiento->Empleado1->apellidosEmpleado}}</td>
                 <td class="text-right">
                   <!-- @can('proveedores.edit') -->
                   <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">

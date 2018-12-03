@@ -67,6 +67,7 @@ class EmpleadoController extends Controller
         else {
             $request['imagenEmpleado'] = 'img/default-avatar.png';
         }
+        
         Empleado::create($request->all());
         return redirect('/empleados')->with('create','Sea creado con éxito el Empleado');
     }

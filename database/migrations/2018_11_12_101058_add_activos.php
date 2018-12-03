@@ -14,10 +14,10 @@ class AddActivos extends Migration
     public function up()
     {
       Schema::table('activos', function($table) {
-          $table->boolean('estadoUsado')->nullable();
-          $table->Integer('aniosUso')->nullable();
-          $table->Integer('aniosVida')->nullable();
-          $table->Double('valorResidual')->nullable();
+          // $table->boolean('estadoUsado')->nullable();
+          // $table->Integer('aniosUso')->nullable();
+          // $table->Integer('aniosVida')->nullable();
+          // $table->Double('valorResidual')->nullable();
 
       });
     }

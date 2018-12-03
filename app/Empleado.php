@@ -2,6 +2,7 @@
 
 namespace App;
 use DB;
+use App\TelefonoEmpleado;
 use Illuminate\Database\Eloquent\Model;
 
 class Empleado extends Model
@@ -9,7 +10,7 @@ class Empleado extends Model
     protected $table = 'empleados';
     protected $fillable = [
         'generoEmpleado','estadoCivilEmpleado','nombresEmpleado','apellidosEmpleado',
-        'fechaNacimientoEmpleado','fechaIngreso','telefonoEmpleado','DUIEmpleado',
+        'fechaNacimientoEmpleado','fechaIngreso','DUIEmpleado',
         'NITEmpleado','dirreccionEmpleado','observacionEmpleado','imagenEmpleado',
         'sistemaContratacion','salarioBruto','idCargo','idSeguro','numeroSeguro',
         'idAFP','numeroAFP'
@@ -33,6 +34,10 @@ class Empleado extends Model
     public function activosEmpleados()
     {
         return $this->hasMany(ActivosEmpleados::class,'idEmpleado');
+    }
+    public function telefonosEmpleado()
+    {
+        return $this->hasMany(TelefonoEmpleado::class,'idEmpleado');
     }
 
     public static function EmpleadosxUnidad($idUnidad){
