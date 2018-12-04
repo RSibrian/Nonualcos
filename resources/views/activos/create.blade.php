@@ -84,7 +84,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label"><code>*</code>Ingrese nombre de Activo:
                                                 </label>
-                                                {!!Form::text('nombreActivo',null,['id'=>'nombreActivo','class'=>'form-control','required'])!!}
+                                                {!!Form::text('nombreActivo',null,['id'=>'nombreActivo','class'=>'form-control','required', 'minlength'=>"3" ])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Observación del Activo:
                                                 </label>
-                                                {!!Form::text('ObservacionActivo',null,['id'=>'ObservacionActivo','class'=>'form-control'])!!}
+                                                {!!Form::textArea('ObservacionActivo',null,['id'=>'ObservacionActivo','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>

@@ -38,7 +38,7 @@
                                     <th>Numero de DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Codigo</th>
+                                    <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario</th>
                                     <th>Dias</th>
@@ -59,7 +59,7 @@
                                     <th>Numero&nbsp;DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Codigo</th>
+                                    <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario&nbsp;Personal </th>
                                     <th>Dias</th>
