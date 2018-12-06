@@ -428,6 +428,24 @@ Route::middleware(['auth'])->group(function () {
         ->name('liquidaciones.create')
         ->middleware('permission:vale.create');
 
+    Route::get('/liquidaciones/vales/show/{liquidacion}','LiquidacionController@show')
+        ->name('liquidaciones.show')
+        ->middleware('permission:vales.show');
+
+    Route::get('/liquidaciones/vales/{liquidacion}/edit','LiquidacionController@edit')
+        ->name('liquidaciones.edit')
+        ->middleware('permission:vales.edit');
+
+    Route::put('/liquidaciones/vales/{liquidaciones}','LiquidacionController@update')
+        ->name('liquidaciones.update')
+        ->middleware('permission:vales.edit');
+    
+    Route::get('/datatable/{placa}','LiquidacionController@datatable')
+        ->name('datatable');
+
+    Route::get('/costo/{id}','LiquidacionController@coste')
+        ->name('costo');
+
     Route::get('autocompletePlacas','ValeController@autocompletePlacas')
         ->name('autocompletePlacas');
 
