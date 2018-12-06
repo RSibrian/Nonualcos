@@ -32,6 +32,7 @@
                                     <th>Nombre Empresa</th>
                                     <th>Encargado</th>
                                     <th>Telefono</th>
+                                    <th>Tipo</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
                                 </tr>
                             </thead>
@@ -42,6 +43,7 @@
                                   <th>Nombre Empresa</th>
                                   <th>Encargado</th>
                                   <th>Telefono</th>
+                                  <th>Tipo</th>
                                     <th class="text-right">Acciones</th>
                                 </tr>
                             </tfoot>
@@ -55,6 +57,11 @@
                                         <td>{{$pro->nombreEmpresa}}</td>
                                         <td>{{$pro->nombreEncargado}}</td>
                                         <td>{{$pro->telefonoProve}}</td>
+                                        <td>
+                                          @if($pro->tipoProveedor==1){{"Solo proveedor"}} @endif
+                                          @if($pro->tipoProveedor==2){{"Solo Mantenimiento"}} @endif
+                                          @if($pro->tipoProveedor==3){{"proveedor y Mantenimiento"}}  @endif
+                                        </td>
                                         <td class="text-right">
                                             @can('proveedores.edit')
                                                 <a href="{{ url("proveedores/{$pro->id}/edit") }}"  class="btn btn-xs btn-info btn-round ">

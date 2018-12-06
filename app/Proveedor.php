@@ -8,6 +8,6 @@ class Proveedor extends Model
 {
     protected $table = 'proveedores';
   protected $fillable = [
-      'nombreEmpresa','nombreEncargado', 'email','telefonoProve'
+      'nombreEmpresa','nombreEncargado', 'email','telefonoProve','tipoProveedor'
   ];
 }

@@ -19,6 +19,7 @@ class CreateProveedorsTable extends Migration
             $table->string('nombreEncargado')->nullable();
             $table->string('telefonoProve')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->integer('tipoProveedor')->unsigned();
             $table->timestamps();
         });
     }
