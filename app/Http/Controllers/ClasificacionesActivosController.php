@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClasificacionesActivos;
 use Illuminate\Http\Request;
 use App\TipoLeyes;
+use App\Http\Requests\ClasificacionActivosRequest;
 
 class ClasificacionesActivosController extends Controller
 {
@@ -26,8 +27,8 @@ class ClasificacionesActivosController extends Controller
      */
     public function create()
     {
-      $tiposLey=TipoLeyes::pluck('nombreLey','id','valorProcentaje');
-      return view('clasificaciones.create',compact('tiposLey'));
+      //$tiposLey=TipoLeyes::pluck('nombreLey','id','valorProcentaje');
+      return view('clasificaciones.create');
     }
 
     /**
@@ -36,10 +37,11 @@ class ClasificacionesActivosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClasificacionActivosRequest $request)
     {
+      $request['idTipoLey']=1;
       ClasificacionesActivos::create($request->all());
-      return redirect('/clasificaciones')->with('create','Sea creado con éxito la Clasificacion');
+      return redirect('/clasificaciones')->with('create','Se Ha creado con éxito la Clasificacion');
     }
 
     /**

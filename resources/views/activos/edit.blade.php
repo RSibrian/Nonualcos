@@ -29,7 +29,7 @@
                                     <h4 class="info-text">Comencemos con los Datos Generales</h4>
 
                                   @if($activo->tipoActivo==1)
-                                  <div class="col-sm-5 row " id="placa_div">
+                                  <div class="col-sm-10 row col-sm-offset-1" id="placa_div">
                                       <div class="input-group">
                                           <span class="input-group-addon">
                                               <i class="material-icons">credit_card</i>
@@ -42,7 +42,7 @@
                                       </div>
                                   </div>
                                 @endif
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">event_seat</i>
@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">apps</i>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row" id="uso" style="display: none;">
+                                    <div class="col-sm-10 row col-sm-offset-1" id="uso" style="display: none;">
 
                                       <div class="input-group ">
                                         <span class="input-group-addon">
@@ -94,7 +94,7 @@
                                         </div>
                                       </div>
 
-                                      <div class="col-sm-5 row " id="anios" style="display: none;">
+                                      <div class="col-sm-10 row col-sm-offset-1 " id="anios" style="display: none;">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
@@ -106,7 +106,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                      <div class="col-sm-5 row " >
+                                      <div class="col-sm-5 row col-sm-offset-1" >
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
@@ -130,7 +130,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
                                                     <span class="input-group-addon">
                                                         <i class="material-icons">date_range</i>
@@ -159,7 +159,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">bookmarks</i>
@@ -184,20 +184,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">dns</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese el color:
+                                                <label class="control-label">Ingrese el color:
                                                 </label>
-                                                {!!Form::text('color',null,['id'=>'color','class'=>'form-control','required'])!!}
+                                                {!!Form::text('color',null,['id'=>'color','class'=>'form-control'])!!}
                                             </div>
                                         </div>
                                     </div>
                                     @if($activo->estadoActivo!=0)
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">apps</i>
@@ -243,7 +243,7 @@
                                     </div>
                                   @endif
 
-                                    <div class="col-sm-10 row" id="baja" style="display: none;">
+                                    <div class="col-sm-10 row col-sm-offset-1" id="baja" style="display: none;">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">note_add</i>
@@ -256,7 +256,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">note_add</i>
@@ -278,7 +278,7 @@
                                 <h4 class="info-text"> Sigamos con la información Detalle de Compra</h4>
                                 <div class="row">
 
-                                      <div class="col-sm-10 row">
+                                      <div class="col-sm-10 row col-sm-offset-1">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">store</i>
@@ -291,26 +291,26 @@
                                           </div>
                                       </div>
 
-                                      <div class="col-sm-5 row"id="factura" style="display: block;">
+                                      <div class="col-sm-10 row col-sm-offset-1"id="factura" style="display: block;">
 
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">tab</i>
                                                 </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label"><code>*</code>Número de factura:
+                                                    <label class="control-label">Número de factura (requerido):
                                                     </label>
                                                     {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
                                                 </div>
                                             </div>
                                         </div>
-                                      <div class="col-sm-5 row">
+                                      <div class="col-sm-10 row col-sm-offset-1">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">attach_money</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Precio del activo:
+                                                  <label class="control-label">Precio del activo (requerido):
                                                   </label>
                                                   {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required'])!!}
                                               </div>
@@ -327,7 +327,7 @@
                             <div class="pull-right">
 
                                 <input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Siguiente' />
-                                <div align="center" class="row">
+                                <div  class="row">
                                     {!! Form::submit('Actualizar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
                                 </div>
                                 <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->

@@ -27,12 +27,12 @@
 
                             </ul>
                         </div>
-                        <div class="tab-content">
+                        <div class="tab-content"  >
                             <div class="tab-pane" id="about">
                                 <div class="row">
                                     <h4 class="info-text">Comencemos con los Datos Generales</h4>
 
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">apps</i>
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
 
-                                <div class="col-sm-5 row">
+                                <div class="col-sm-5 row col-sm-offset-1">
 
                                   <div class="input-group ">
                                     <span class="input-group-addon">
@@ -64,31 +64,31 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="col-sm-5 row " id="placa_div" style="display: none;">
+                                  <div class="col-sm-10 row col-sm-offset-1 " id="placa_div" style="display: none;">
                                       <div class="input-group">
                                           <span class="input-group-addon">
                                               <i class="material-icons">credit_card</i>
                                           </span>
                                           <div class="form-group label-floating">
-                                              <label class="control-label"><code>*</code>Ingrese número de placa
+                                              <label class="control-label">Ingrese número de placa (requerido)
                                               </label>
                                               {!!Form::text('numeroPlaca',null,['id'=>'numeroPlaca','class'=>'form-control','required'])!!}
                                           </div>
                                       </div>
                                   </div>
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">event_seat</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"><code>*</code>Ingrese nombre de Activo:
+                                                <label class="control-label">Ingrese nombre de Activo (requerido):
                                                 </label>
                                                 {!!Form::text('nombreActivo',null,['id'=>'nombreActivo','class'=>'form-control','required', 'minlength'=>"3" ])!!}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">apps</i>
@@ -104,7 +104,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row" id="uso" style="display: none;">
+                                    <div class="col-sm-10 row col-sm-offset-1" id="uso" style="display: none;">
 
                                       <div class="input-group ">
                                         <span class="input-group-addon">
@@ -123,32 +123,34 @@
                                         </div>
                                       </div>
 
-                                      <div class="col-sm-5 row " id="anios" style="display: none;">
+
+
+                                      <div class="col-sm-10 row col-sm-offset-1" id="anios" style="display: none;">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Ingrese número de años usado:
+                                                  <label class="control-label">Ingrese número de años usado:
                                                   </label>
-                                                  {!!Form::number('aniosUso',null,['id'=>'aniosUso','class'=>'form-control',''])!!}
+                                                  {!!Form::number('aniosUso',null,['id'=>'aniosUso','class'=>'form-control','required'])!!}
                                               </div>
                                           </div>
                                       </div>
 
-                                      <div class="col-sm-5 row " >
+                                      <div class="col-sm-5 row col-sm-offset-1" >
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Ingrese años de Vida util
+                                                  <label class="control-label">Años de Vida util (requerido)
                                                   </label>
                                                   {!!Form::number('aniosVida',null,['id'=>'aniosVida','class'=>'form-control','required'])!!}
                                               </div>
                                           </div>
                                       </div>
-                                      <div class="col-sm-5 row " >
+                                      <div class="col-sm-5 row  " >
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">credit_card</i>
@@ -161,7 +163,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1 ">
                                         <div class="input-group">
                                                     <span class="input-group-addon">
                                                         <i class="material-icons">date_range</i>
@@ -190,11 +192,10 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="material-icons">bookmarks</i>
+                                                <i class="material-icons">class</i>
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Ingrese el modelo:
@@ -203,6 +204,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="col-sm-5 row">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -216,7 +219,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">dns</i>
@@ -229,7 +232,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">note_add</i>
@@ -237,7 +240,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Observación del Activo:
                                                 </label>
-                                                {!!Form::textArea('ObservacionActivo',null,['id'=>'ObservacionActivo','class'=>'form-control'])!!}
+                                                {!!Form::textarea('ObservacionActivo',null,['id'=>'ObservacionActivo','class'=>'form-control' ,'rows'=>'2', 'style'=>'resize: both;'])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +254,7 @@
                                 <h4 class="info-text"> Sigamos con la información Detalle de  Adquisición</h4>
                                 <div class="row">
 
-                                      <div class="col-sm-8 row">
+                                      <div class="col-sm-8 row col-sm-offset-1">
                                           <div class="input-group">
                                               <span class="input-group-addon">
                                                   <i class="material-icons">store</i>
@@ -270,26 +273,26 @@
                                       </a>
                                     </div>
 
-                                        <div class="col-sm-5 row"id="factura" style="display: block;">
+                                        <div class="col-sm-10 row col-sm-offset-1 "id="factura" style="display: block;">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">tab</i>
                                                 </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label"><code>*</code>Número de factura:
+                                                    <label class="control-label">Número de factura:
                                                     </label>
                                                     {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control',''])!!}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-5 row">
+                                        <div class="col-sm-5 row col-sm-offset-1">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">attach_money</i>
                                                 </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label"><code>*</code>Cantidad articulos:
+                                                    <label class="control-label">Cantidad articulos:
                                                     </label>
                                                     {!!Form::number('cantidad',1,['id'=>'cantidad','class'=>'form-control',''])!!}
                                                 </div>
@@ -301,7 +304,7 @@
                                                   <i class="material-icons">attach_money</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label"><code>*</code>Precio del activo por unidad:
+                                                  <label class="control-label">Precio por unidad (requerido):
                                                   </label>
                                                   {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required'])!!}
                                               </div>
@@ -410,7 +413,7 @@
       </div>
       <div class="modal-footer">
         <div align="center">
-        {!! link_to('#proveedor',$title='Registrar',$attributes=['id'=>'agregar','class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk'],$secure=null)!!}
+        {!! link_to('#proveedor',$title='Registrar',$attributes=['id'=>'agregar','class'=>'btn  btn-verde '],$secure=null)!!}
         <a href="{{ URL::previous() }}" class='btn btn-ocre '  data-dismiss="modal">Cerrar</a>
         </div>
     {!! Form::close() !!}

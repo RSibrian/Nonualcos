@@ -94,7 +94,7 @@ class DescuentoController extends Controller
     public function update(Request $request, Descuento $descuento)
     {
         //
-        dd($request);
+      //  dd($request);
         $file = Input::file('pre_imagen2');
         $random = str_random(10);
         $nombre = "final - ".$random . '-' . $file->getClientOriginalName();

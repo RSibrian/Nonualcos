@@ -211,9 +211,6 @@
                                   <a href="{{ url('/roles') }}">Roles</a>
                                 @endcan
                               </li>
-                              <li>
-                                  <a href="">Acceso</a>
-                              </li>
 
 
                           </ul>
@@ -242,7 +239,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{ url('/planillas') }}">Planillas</a>
+                                    <a href="{{ url('/planillas') }}">Planilla de pago</a>
                                 </li>
 
 
@@ -271,9 +268,7 @@
             <li>
                 <a href="{{ url('/mantenimientos') }}">Mantenimientos</a>
             </li>
-            <li>
-                <a href="">Traslados</a>
-            </li>
+
             <li>
                 <a href="">Préstamos</a>
             </li>

@@ -25,21 +25,21 @@
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th></th>
+
                                     <th>#</th>
                                     <th>Codigo de Clasificacion</th>
                                     <th>Nombre de clasificacion</th>
-                                    <th>Clasificacion segun Ley</th>
+
                                     <th class="disabled-sorting " >Acciones</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th></th>
+
                                     <th>#</th>
                                     <th>Codigo de Clasificacion</th>
                                     <th>Nombre de clasificacion</th>
-                                    <th>Clasificacion segun Ley</th>
+
                                     <th class="disabled-sorting " >Acciones</th>
                                 </tr>
                             </tfoot>
@@ -48,20 +48,20 @@
                                 @foreach ($tipos as $tipo)
 
                                     <tr>
-                                        <td></td>
+
                                         <?php $cont++;?>
                                         <td>{{$cont}}</td>
                                         <td>{{$tipo->codigoTipo}}</td>
                                         <td>{{$tipo->nombreTipo}}</td>
-                                        <td>{{$tipo->tipoLeyes->nombreLey.' '.$tipo->TipoLeyes->valorProcentaje}}</td>
+
                                         <td>
                                             @can('proveedores.edit')
                                             <a title="Editar Clasificacion" href="{{ url("clasificaciones/{$tipo->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
                                                 <i class="material-icons">create</i>
                                             </a>
                                             @endcan
-                                            <a title="Ver Activos" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
-                                                     <i class="material-icons">face</i></a>
+                                          <!--  <a title="Ver Activos" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
+                                                     <i class="material-icons">face</i></a>-->
 
                                                 <a title="Ver clasificacion" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">visibility</i>

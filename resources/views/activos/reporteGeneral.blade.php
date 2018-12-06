@@ -1,8 +1,13 @@
+<?php use App\Activos;?>
 <?php $title="Activos"?>
 @extends ('reporte.plantillaHorizontal')
 @section('reporte')
 	<br><div style="position: absolute;left: 280px; top: -20px; z-index: 1;"><h3>TOMA FISICA DE INVENTARIO DE MOBILIARIO Y EQUIPO</h3></div>
+
+
 	<table class="table-wrapper" >
+		<?php $count=0;?>
+
 		<thead>
 		<tr>
 			<th>#</th>
@@ -15,30 +20,36 @@
 			<th>Estado</th>
 			<th>Valor</th>
 		</tr>
-		</thead>
-		<tbody>
-        <?php $count=0;?>
-		@foreach($activos as $activo)
-		<tr>
-            <?php $count++;?>
-			<td>{{$count}}</td>
-			<td>{{$activo->codigoInventario}}</td>
-			<td>{{$activo->nombreActivo}}</td>
-			<td>{{$activo->marca}}</td>
-			<td>{{$activo->modelo}}</td>
-			<td>{{$activo->color}}</td>
-			<td>{{$activo->serie}}</td>
-			@if($activo->estadoActivo==0)
-				<td>{{'Desactivado'}}</td>
-			@elseif($activo->estadoActivo==1)
-				<td>{{'Bueno'}}</td>
-			@else
-				<td>{{'Dañado'}}</td>
-			@endif
-			<td>{{'$ '.$activo->precio}}</td>
-		</tr>
+	</thead>
+	<tbody>
 
-		@endforeach
-		</tbody>
-	</table>
+		@foreach($unidades as $unidad)
+			<?php $activos=Activos::activosReporte($unidad->id); ?>
+			@if(!empty($activos))
+				@foreach($activos as $activo)
+				<tr>
+		      <?php $count++;?>
+					<td>{{$count}}</td>
+					<td>{{$activo->codigoInventario}}</td>
+					<td>{{$activo->nombreActivo}}</td>
+					<td>{{$activo->marca}}</td>
+					<td>{{$activo->modelo}}</td>
+					<td>{{$activo->color}}</td>
+					<td>{{$activo->serie}}</td>
+					@if($activo->estadoActivo==0)
+						<td>{{'Desactivado'}}</td>
+					@elseif($activo->estadoActivo==1)
+						<td>{{'Bueno'}}</td>
+					@else
+						<td>{{'Dañado'}}</td>
+					@endif
+					<td>{{'$ '.$activo->precio}}</td>
+				</tr>
+			@endforeach
+		@endif
+	@endforeach
+	</tbody>
+</table>
+
+
 @stop

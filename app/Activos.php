@@ -51,4 +51,14 @@ class Activos extends Model
         // ->orderBy('vehiculos.id','desc')
     ->get();
   }
+
+  public static function activosReporte($idUnidad){
+  return DB::table('activos_unidades')
+  ->join('activos', 'activos.id', '=', 'activos_unidades.idActivo')
+  ->where('activos_unidades.estadoUni','=',1)
+  ->where('activos_unidades.idUnidad','=',$idUnidad)
+  ->select('activos.*','activos_unidades.*')
+  //->orderBy('sa_en_vehiculos.id','desc')
+  ->get();
+  }
 }

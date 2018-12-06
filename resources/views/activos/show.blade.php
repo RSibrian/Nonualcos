@@ -47,6 +47,9 @@
       <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
   </ul>
+
+
+
     <div class="row">
         <div class="col-sm-offset-1 col-md-10">
             <div class="card">
@@ -58,160 +61,303 @@
                         <small class="category">Mostrando el Activo: <b>{{$activo->nombreActivo}}</b></small>
                     </h4>
 
-                    <fieldset>
-                        <input type="hidden" name="hi2" value="1">
-                        <div class="form-group ">
-                            <table>
-                              <tr>
-                                  <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información del Activo </b></h3></td>
-                              </tr>
-                                <tr>
-                                    <td><h4>Código de Inventario: </h4></td>
-                                    @if($activo->codigoInventario!=null)
-                                    <td><h4> <b>&nbsp;{{$activo->codigoInventario}}</b></h4></td>
-                                  @else
-                                  <td><h4> <b>&nbsp;{{'No asignado'}}</b></h4></td>
-                                @endif
-                                </tr>
-                                <tr>
-                                    <td><h4>Nombre de Activo: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->nombreActivo}}</b></h4></td>
-                                </tr>
 
-                                <tr>
-                                    <td><h4>Clasificación: </h4></td>
-                                    <td><h4><b>&nbsp;{{$activo->clasificacionActivo->nombreTipo}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                  <?php  if($activo->tipoActivo==1){?>
-                                    <td><h4>Número Placa: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->vehiculo->numeroPlaca}}</b></h4></td>
-                                  <?php } ?>
-                                </tr>
-                                <tr>
-                                    <td><h4>Marca: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->marca}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Modelo: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->modelo}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Color: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->color}}</b></h4></td>
-                                </tr>
-                                  <td><h4>Estado: </h4></td>
-                                  @if($activo->estadoActivo==0)
-                                    <td><h4> <b>&nbsp;{{' Desactivado'}}</b></h4></td>
-                                  @elseif($activo->estadoActivo==1)
-                                    <td><h4> <b>&nbsp;{{'Activo'}}</b></h4></td>
-                                  @elseif($activo->estadoActivo==2)
-                                    <td><h4> <b>&nbsp;{{'Dañado'}}</b></h4></td>
-                                  @elseif($activo->estadoActivo==3)
-                                    <td><h4> <b>&nbsp;{{'Prestado'}}</b></h4></td>
-                                  @else
-                                      <td><h4> <b>&nbsp;{{'Mantenimiento'}}</b></h4></td>
-                                  @endif
-                                <tr>
-                                    <td><h4>Tipo Adquisición: </h4></td>
-                                    @if($activo->tipoAdquisicion==1)
-                                    <td><h4> <b>&nbsp;Compra</b></h4></td>
-                                    @else
-                                      <td><h4> <b>&nbsp;Donación</b></h4></td>
-                                    @endif
+                    <fieldset style="border: 1px solid #ccc; padding: 10px">
+                      <legend><small>Información del Activo</small></legend>
 
-                                </tr>
-                                <tr>
-                                    <td><h4>Valor Residual: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->valorResidual}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Años de Vida util: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->aniosVida}}</b></h4></td>
-                                </tr>
-                              <tr>
-                                  <?php $date = new DateTime($activo->fechaAdquisicion); ?>
-                                    <td><h4>fecha Adquisición: </h4></td>
-                                    <td><h4><b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Observación: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->ObservacionActivo}}</b></h4></td>
-                                </tr>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col col-md-1">
+                            <h4>Código:</h4>
+                          </div>
+                          <div class="col col-md-2">
+                            <h4><strong>
+                              @if($activo->codigoInventario!=null)
+                                {{$activo->codigoInventario}}
+                              @else
+                                {{'No asignado'}}
+                              @endif
+                            </strong></h4>
+                          </div>
 
-                                <tr>
-                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Detalle de Adquisición </b></h3></td>
-                                </tr>
-                                <tr>
-                                  @if($activo->idProveedor!=null)
-                                    <td><h4>Proveedor: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->proveedor->nombreEmpresa}}</b></h4></td>
-                                  @endif
+                          <div class="col col-md-1">
+                            <h4>Nombre:</h4>
+                          </div>
+                          <div class="col col-md-6">
+                            <h4><strong>
+                              {{$activo->nombreActivo}}
+                            </strong></h4>
+                          </div>
+                        </div>
 
-                                </tr>
-                                <tr>
-                                    <td><h4>Número Factura: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->numeroFactura}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Precio: ($)</h4></td>
-                                    <td><h4> <b>&nbsp;{{$activo->precio}}</b></h4></td>
-                                </tr>
+                        <div class="row">
+                          <div class="col col-md-2">
+                            <h4>Clasificación:</h4>
+                          </div>
+                          <div class="col col-md-8">
+                            <h4><strong>
+                              {{$activo->clasificacionActivo->nombreTipo}}
+                            </strong></h4>
+                          </div>
+                        </div>
+
+                        @if($activo->tipoActivo==1)
+                        <div class="row">
+                          <div class="col col-md-2">
+
+                            <h4>Número de Placa:</h4>
+                          </div>
+                          <div class="col col-md-8">
+                            <h4><strong>
+                              {{$activo->vehiculo->numeroPlaca}}
+                            </strong></h4>
+                          </div>
+                        </div>
+                      @endif
+
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Marca:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            {{$activo->marca}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Modelo:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            {{$activo->modelo}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Color:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            {{$activo->color}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Serie:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            {{$activo->serie}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Estado:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            @if($activo->estadoActivo==0)
+                              {{' De Baja'}}
+                            @elseif($activo->estadoActivo==1)
+                              {{'Activo'}}
+                            @elseif($activo->estadoActivo==2)
+                              {{'Dañado'}}
+                            @elseif($activo->estadoActivo==3)
+                            {{'Prestado'}}
+                            @else
+                                {{'Mantenimiento'}}
+                            @endif
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Tipo Adquisición:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            @if($activo->tipoAdquisicion==1)
+                            {{'Compra'}}
+                            @else
+                              {{'Donación'}}
+                            @endif
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Valor Residual:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                          {{$activo->valorResidual.'%'}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Años de Vida util:</h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                          {{$activo->aniosVida}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>fecha Adquisición: </h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                            <?php $date = new DateTime($activo->fechaAdquisicion); ?>
+                          {{$date->format('d/m/Y')}}
+                          </strong></h4>
+                        </div>
+                      </div>
+
+                      @if($activo->ObservacionActivo!=null)
+                      <div class="row">
+                        <div class="col col-md-2">
+                          <h4>Observación:  </h4>
+                        </div>
+                        <div class="col col-md-8">
+                          <h4><strong>
+                          {{$activo->ObservacionActivo}}
+                          </strong></h4>
+                        </div>
+                      </div>
+                    @endif
+
+                      </div>
+                    </fieldset>
+                    <br>
+
+                    <fieldset style="border: 1px solid #ccc; padding: 10px">
+                      <legend><small>Detalle de Adquisición</small></legend>
+                        <div class="container">
+                          @if($activo->idProveedor!=null)
+                          <div class="row">
+                            <div class="col col-md-2">
+                              <h4>Proveedor:  </h4>
+                            </div>
+                            <div class="col col-md-8">
+                              <h4><strong>
+                              {{$activo->proveedor->nombreEmpresa}}
+                              </strong></h4>
+                            </div>
+                          </div>
+                        @endif
+                          @if($activo->numeroFactura!=null)
+                        <div class="row">
+                          <div class="col col-md-2">
+                            <h4>factura:  </h4>
+                          </div>
+                          <div class="col col-md-8">
+                            <h4><strong>
+                            {{$activo->numeroFactura}}
+                            </strong></h4>
+                          </div>
+                        </div>
+                          @endif
+
+                          <div class="row">
+                            <div class="col col-md-2">
+                              <h4>Precio:  </h4>
+                            </div>
+                            <div class="col col-md-8">
+                              <h4><strong>
+                              {{'$'.$activo->precio}}
+                              </strong></h4>
+                            </div>
+                          </div>
+
+                      </div>
+                      </fieldset>
+
 
                     @if($activo->codigoInventario!=null)
-
-                                <tr>
-                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Asignación </b></h3></td>
-
-                                </tr>
-                                <tr>
-                                  <?php
-                                      $traslado=$activo->activosUnidades->last();
-                                  ?>
-                                    <td><h4>Unidad:</h4></td>
-                                    <td><h4> <b>&nbsp;{{$traslado->unidad->nombreUnidad}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Empleado: </h4></td>
-                                    <td><h4> <b>&nbsp;{{$traslado->empleado->nombresEmpleado}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                  <?php $date = new DateTime($traslado->fechaInicioUni); ?>
-                                    <td><h4>fecha de Asignación: </h4></td>
-                                    <td><h4><b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
-                                </tr>
-                       @else
-
-                              <tr>
-                                <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Activo no Asignado </b></h3></td>
-                              </tr>
-                      @endif
-
-                      @if($activo->estadoActivo==0)
-                        <tr>
-                            <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Detalle de Estado Desactivo</b></h3></td>
-
-                        </tr>
-
-
-
-                        <tr>
-                          <?php $date = new DateTime($activo->fechaBajaActivo); ?>
-                            <td><h4>Fecha de Desactivacion: </h4></td>
-                            <td><h4> <b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>justificación: </h4></td>
-                            <td><h4> <b>&nbsp;{{$activo->justificacionActivo}}</b></h4></td>
-                        </tr>
-
-                      @endif
-                            </table>
-                            <div align="center">
-                                <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                    <fieldset style="border: 1px solid #ccc; padding: 10px">
+                      <legend><small>Asignacion</small></legend>
+                        <div class="container">
+                          <?php
+                              $traslado=$activo->activosUnidades->last();
+                          ?>
+                          <div class="row">
+                            <div class="col col-md-2">
+                              <h4>Unidad:  </h4>
                             </div>
+                            <div class="col col-md-8">
+                              <h4><strong>
+                              {{$traslado->unidad->nombreUnidad}}
+                              </strong></h4>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col col-md-2">
+                              <h4>Encargado:  </h4>
+                            </div>
+                            <div class="col col-md-8">
+                              <h4><strong>
+                              {{$traslado->empleado->nombresEmpleado}}
+                              </strong></h4>
+                            </div>
+                          </div>
+
                         </div>
                     </fieldset>
+                    @endif
+<br>
+                      @if($activo->estadoActivo==0)
+                      <fieldset style="border: 1px solid #ccc; padding: 10px">
+                        <legend><small>Detalle de Estado: De Baja</small></legend>
+                          <div class="container">
+                            <?php $date = new DateTime($activo->fechaBajaActivo); ?>
+                            <div class="row">
+                              <div class="col col-md-2">
+                                <h4>Fecha dado De Baja:  </h4>
+                              </div>
+                              <div class="col col-md-8">
+                                <h4><strong>
+                                {{$date->format('d/m/Y')}}
+                                </strong></h4>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col col-md-2">
+                                <h4>Justificación:  </h4>
+                              </div>
+                              <div class="col col-md-8">
+                                <h4><strong>
+                                {{$activo->justificacionActivo}}
+                                </strong></h4>
+                              </div>
+                            </div>
+
+                          </div>
+                      </fieldset>
+                      @endif
+                      <div align="center">
+                          <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                      </div>
+
+
                   </div>
             </div>
         </div>

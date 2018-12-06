@@ -50,7 +50,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-
+        <div class="card-header card-header-icon" data-background-color="ocre">
+            <i class="material-icons">assignment</i>
+        </div>
 
         <div class="card-content">
           <h4 class="card-title" align='center'><b>Depreciación del Activo: </b>{{$activo->nombreActivo}}</h4>
@@ -67,62 +69,61 @@
           ?>
           <br><br>
 
-          <table border="1">
+      <fieldset style="border: 3px solid #ccc; padding: 5px">
+        <legend align='center'><b><small >Información del Activo</small></b></legend>
+
+          <table align='center'>
           <tr>
-            <th>Código:</th>
-            <td>{{$activo->codigoInventario}}</th>
-          </tr>
-          <tr>
+            <th>Código:&nbsp;&nbsp;</th>
+            <td>&nbsp;{{$activo->codigoInventario}}&nbsp;</th>
+
+
             <?php
                 $traslado=$activo->activosUnidades->last();
             ?>
-            <th>Unidad:</th>
-            <td>{{$traslado->unidad->nombreUnidad}}</th>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Unidad:&nbsp;&nbsp;</th>
+            <td>{{$traslado->unidad->nombreUnidad}}&nbsp;</th>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <th>Año de Vida Utíl:</td>
+              <td>{{ $activo->aniosVida }}</td>
           </tr>
 
-          <tr>
+              <br><br>
+            <tr>
             <th>Precio de Adquisición:&nbsp;&nbsp;</td>
-            <td>$ {{number_format($activo->precio, 2, '.', ',')}}</td>
-          </tr>
+            <td>&nbsp;$ {{number_format($activo->precio, 2, '.', ',')}}&nbsp;</td>
 
-          <tr>
-            <th>Porcentaje Residual:</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Porcentaje Residual:&nbsp;&nbsp;</td>
               <td>$ {{number_format($activo->valorResidual, 2, '.', ',').' %'}}</td>
-
-          </tr>
-
-          <tr>
-            <th>Valor Residual:</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Valor Residual:&nbsp;&nbsp;</td>
               <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
 
           </tr>
-
+          <br><br>
           <tr>
-            <th>Costo a Depreciar:</td>
+            <th>Costo a Depreciar:&nbsp;&nbsp;</td>
               <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
-
-          </tr>
-
-          <tr>
-            <th>Cuota Anual:</th>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Cuota Anual:&nbsp;&nbsp;</th>
             <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
-            
-          </tr>
-          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <?php $date = new DateTime($activo->fechaAdquisicion); ?>
-            <th>Año de Adquisición:</td>
+            <th>Año de Adquisición:&nbsp;&nbsp;</td>
             <td>{{ $date->format('Y') }}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 
-          </tr>
-          <tr>
-
-            <th>Año de Vida Utíl:</td>
-            <td>{{ $activo->aniosVida }}</td>
 
           </tr>
 
 
           </table>
+          <br><br>
+
+        </fieldset>
+          <br><br>
 
 <h4 align='center'><b>Depreciación del Anual </b></h4>
 
@@ -200,7 +201,7 @@
                 <?php $cont=0;?>
                 <tr>
                   <td></td>
-                  <td>{{$cont}}</td>
+                  <td></td>
 
                   <?php
                   $precio=$cuota;
