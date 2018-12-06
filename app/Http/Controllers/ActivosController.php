@@ -153,7 +153,7 @@ class ActivosController extends Controller
     {
       //dd($activos);
       $request['fechaBajaActivo']=Carbon::now();
-      
+
       $activos->update($request->all());
       //tabla vehiculo
       if($activos->tipoActivo==1)
@@ -213,11 +213,12 @@ class ActivosController extends Controller
 
     public function reporteGeneral()
         {
-          $activos=Activos::All();
+          //$activos=Activos::All();
+          $unidades=Unidades::All();
           $date = date('d-m-Y');
           $date1 = date('g:i:s a');
           $vistaurl="activos.reporteGeneral";
-          $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
+          $view =  \View::make($vistaurl, compact('unidades', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
           $pdf->setPaper('A4', 'landscape');
