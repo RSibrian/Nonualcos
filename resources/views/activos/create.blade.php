@@ -406,6 +406,28 @@
                           </div>
                       </div>
                   </div>
+                  <div class="col-sm-10 row">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">email</i>
+                          </span>
+                          <div class="form-group label-floating">
+                              <label class="control-label">Tipo de Proveedor:
+                              </label>
+
+                              <select name="tipoProveedor" id="tipoProveedor" class="form-control" title="Seleccione el tipo de teléfono" 'required' >
+                                <option value="1" @isset($prov)>
+                                 @if($prov->tipoProveedor==1){{ 'selected' }}@endif
+                                 @endisset >Solo Proveedor</option>
+                                <option value="3" @isset($prov)>
+                                 @if($prov->tipoProveedor==3){{ 'selected' }}@endif
+                                @endisset >Proveedor y Mantenimiento</option>
+                              </select>
+
+                          </div>
+                      </div>
+                  </div>
+
 
 
               </fieldset>
@@ -520,6 +542,7 @@ $('#agregar').click(function(){
   var nombreEncargado=$('#nombreEncargado').val();
   var telefonoProve=$('#telefonoProve').val();
   var email=$('#email').val();
+  var tipoProveedor=$('#tipoProveedor').val();
   var route='/Nonualcos/public/proveedores/storeajax';
   var token=$('#token').val();
   $.ajax({
@@ -527,7 +550,7 @@ $('#agregar').click(function(){
     headers:{'X-CSRF-TOKEN':token},
     dataType:'json',
     type:'POST',
-    data:{nombreEmpresa,nombreEncargado,telefonoProve,email},
+    data:{nombreEmpresa,nombreEncargado,telefonoProve,email,tipoProveedor},
     success:function(res){
       var proveedor=$("#idProveedor");
       proveedor.empty();
@@ -540,6 +563,7 @@ $('#agregar').click(function(){
       $('#nombreEncargado').val("");
       $('#telefonoProve').val("");
       $('#email').val("");
+      $('#tipoProveedor').val("");
     },
     error:function(res){
       alert("art");
