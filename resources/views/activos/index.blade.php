@@ -23,7 +23,7 @@
 
                           </a>
                       @endcan
-                      <a  aling='right' href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round ">
+                      <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round ">
                           <i class="material-icons">print</i>
 
                       </a>

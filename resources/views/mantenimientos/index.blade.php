@@ -54,17 +54,13 @@
               <tr>
                 <td></td>
                 <?php $cont++;
-                $emp=$mantenimiento->empleado1()->first();
-                //dd($mantenimiento);
-                $date = new DateTime($mantenimiento->fechaRecepcionTaller);
-                $date1 = new DateTime($mantenimiento->fechaRetornoTaller);
                 ?>
                 <td>{{$cont}}</td>
-                <td>{{$mantenimiento->activos()->first()->codigoInventario}}</td>
-                <td>{{$mantenimiento->activos()->first()->nombreActivo}}</td>
-                <td>{{$date->format('d/m/Y') }}</td>
-                <td>{{$date1->format('d/m/Y')}}</td>
-                <td>{{$emp->nombresEmpleado." ".$emp->apellidosEmpleado}}</td>
+                <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
+                <td>{{$mantenimiento->Activos->nombreActivo}}</td>
+                 <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
+                <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
+                <td>{{$mantenimiento->Empleado1->nombresEmpleado.' '.$mantenimiento->Empleado1->apellidosEmpleado}}</td>
                 <td class="text-right">
                   <!-- @can('proveedores.edit') -->
                   <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
@@ -76,6 +72,9 @@
                   <a title="Ver Mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}") }}" class="btn btn-xs btn-info btn-round">
                     <i class="material-icons">visibility</i>
                   </a>
+                  <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-ocre btn-round btn-xs">
+              <i class="material-icons">print</i>
+          </a>
                 </td>
               </tr>
               @endforeach

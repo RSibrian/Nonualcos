@@ -57,7 +57,7 @@
           </div>
           <div class="material-datatables">
             <!-- @can('unidads.create') -->
-            <a href="{{ url("mantenimientos/create") }}" class="btn  btn-verde btn-round ">
+            <a href="{{ url("mantenimientos/create/{$activo->id}") }}" class="btn  btn-verde btn-round ">
               <i class="material-icons">add</i>
               Nuevo
 
@@ -94,17 +94,13 @@
                 <tr>
                   <td></td>
                   <?php $cont++;
-                  $emp=$mantenimiento->empleado1()->first();
-                  //dd($mantenimiento);
-                  $date = new DateTime($mantenimiento->fechaRecepcionTaller);
-                  $date1 = new DateTime($mantenimiento->fechaRetornoTaller);
                   ?>
                   <td>{{$cont}}</td>
-                  <td>{{$mantenimiento->activos()->first()->codigoInventario}}</td>
-                  <td>{{$mantenimiento->activos()->first()->nombreActivo}}</td>
-                  <td>{{$date->format('d/m/Y') }}</td>
-                  <td>{{$date1->format('d/m/Y')}}</td>
-                  <td>{{$emp->nombresEmpleado." ".$emp->apellidosEmpleado}}</td>
+                  <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
+                  <td>{{$mantenimiento->Activos->nombreActivo}}</td>
+                   <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
+                  <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
+                  <td>{{$mantenimiento->Empleado1->nombresEmpleado.' '.$mantenimiento->Empleado1->apellidosEmpleado}}</td>
                   <td class="text-right">
                     <!-- @can('proveedores.edit') -->
                     <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">

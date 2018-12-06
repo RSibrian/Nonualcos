@@ -352,6 +352,10 @@ Route::middleware(['auth'])->group(function () {
     ->name('mantenimientos.create')
     ->middleware('permission:proveedores.create');
 
+    Route::get('mantenimientos/create/{activo}','MantenimientoController@create1')
+    ->name('mantenimientos.create1')
+    ->middleware('permission:proveedores.create');
+
     Route::get('mantenimientos','MantenimientoController@index')
         ->name('mantenimientos.index')
         ->middleware('permission:proveedores.index');
@@ -371,8 +375,12 @@ Route::middleware(['auth'])->group(function () {
            ->middleware('permission:proveedores.edit');
 
            // devuelve datos de activos para autocompletar
-           Route::get('autocompletarActivos', 'MantenimientoController@autocompletarActivos')
+    Route::get('autocompletarActivos', 'MantenimientoController@autocompletarActivos')
            ->name('autocompletarActivos');
+
+    Route::get('mantenimientos/generarSolicitud/{mantenimiento}','MantenimientoController@generarSolicitud')
+          ->name('mantenimientos.solicitud')
+          ->middleware('permission:proveedores.edit');
 //fin mantenimiento de activos
 
        //Vehiculos

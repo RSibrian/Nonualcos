@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Input;
 use Image;
+use App\TelefonoEmpleado;
 use Illuminate\Support\Facades\Response;
 
 class EmpleadoController extends Controller
@@ -67,8 +68,17 @@ class EmpleadoController extends Controller
         else {
             $request['imagenEmpleado'] = 'img/default-avatar.png';
         }
-        
-        Empleado::create($request->all());
+
+        $emp=Empleado::create($request->all());
+        for ($i=0; $i < 3; $i++) {
+          if ($request['telefonoEmpleado.'.$i]!=null) {
+            $tel=new TelefonoEmpleado();
+            $tel->telefonoEmpleado=$request['telefonoEmpleado.'.$i];
+            $tel->tipoTelefono=$request['tipoTelefono.'.$i];
+            $tel->idEmpleado=$emp->id;
+            $tel->save( );
+          }
+        }
         return redirect('/empleados')->with('create','Sea creado con éxito el Empleado');
     }
 
@@ -80,7 +90,8 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        return view('empleados.show',compact('empleado'));
+      $telefonos=TelefonoEmpleado::where('idEmpleado',$empleado->id);
+        return view('empleados.show',compact('empleado','telefonos'));
     }
 
     /**
@@ -95,8 +106,9 @@ class EmpleadoController extends Controller
         $seguro=Aportaciones::where('tipoAportacion',1)->orWhere('tipoAportacion',3)->pluck('nombreAportacion','id');
         $unidades=Unidades::pluck('nombreUnidad','id');
         $cargos=Cargo::pluck('nombreCargo','id');
+        $tels=TelefonoEmpleado::where('idEmpleado', $empleado->id)->get();
         return view('empleados.edit',
-            compact('empleado','aportaciones','seguro','unidades','cargos'));
+            compact('empleado','aportaciones','seguro','unidades','cargos','tels'));
     }
 
     /**
@@ -123,6 +135,17 @@ class EmpleadoController extends Controller
             $request['imagenEmpleado']=$url;
         }
         $empleado->update($request->all());
+
+        for ($i=0; $i < 3; $i++) {
+          $tel=new TelefonoEmpleado();
+          if(isset($empleado->telefonosEmpleado[$i])) $tel=$empleado->telefonosEmpleado[$i];
+          if ($request['telefonoEmpleado.'.$i]!=null) {
+            $tel->telefonoEmpleado=$request['telefonoEmpleado.'.$i];
+            $tel->tipoTelefono=$request['tipoTelefono.'.$i];
+            $tel->idEmpleado=$empleado->id;
+            $tel->save();
+          }
+        }
         return redirect("/empleados/{$empleado->id}")->with('update','Sea editado con éxito el empleado');
     }
 

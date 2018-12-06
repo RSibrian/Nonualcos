@@ -103,28 +103,100 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-10 col-sm-offset-1 clonedInput" id="input1" >
+                <div class="col-sm-10 col-sm-offset-1">
                   <hr>
                   <div class="row" >
-                    <div class="form-group col-sm-5" >
-                      <label for="telefono" class="sr-only control-label"></label>
-                      <input id="telefono" class="form-control input-group-lg reg_name" type="text" name="telefonoEmpleado[]" placeholder="Número telefónico" maxlength="9"/>
+                    <div class="col-sm-5" >
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="material-icons">phone</i>
+                        </span>
+                        <div class="form-group label-floating">
+                          <label class="control-label" >Número:
+                          </label>
+                          {!!Form::text('telefonoEmpleado[]',null,['id'=>'telefono1','class'=>'form-control input-group-lg reg_name'])!!}
+                        </div>
+                      </div>
                     </div>
-                    <div class="form-group col-sm-5">
-                      <label for="tipoTelefono" class="sr-only"></label>
-                      <select name="tipoTelefono" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                    <div class="col-sm-2" >
+                      <div class="input-group">
+                        <div class="form-group label-floating">
+                          <label class="control-label" >Tipo:
+                          </label>
+                          <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                            <option value="Trabajo">Trabajo</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Casa">Casa</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-1">
+                      <button type="button" title="Agregar Teléfono" class=" btn-info btnAddt"/>
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
+                  <div class="form-group col-sm-1 " id="btminus">
+                    <button type="button" title="Agregar Teléfono" class=" btn-info btndel"/>
+                    <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+                </div>
+                </div>
+                <div class="row" id="tel2">
+                  <div class="col-sm-5" >
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">phone</i>
+                      </span>
+                      <div class="form-group label-floating">
+                        <label class="control-label" >Número:
+                        </label>
+                        {!!Form::text('telefonoEmpleado[]',null,['id'=>'telefono2','class'=>'form-control input-group-lg reg_name'])!!}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-2" >
+                    <div class="input-group">
+                      <div class="form-group label-floating">
+                        <label class="control-label" >Tipo:
+                        </label>
+                        <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                          <option value="Trabajo">Trabajo</option>
+                          <option value="Personal">Personal</option>
+                          <option value="Casa">Casa</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row" id="tel3">
+                <div class="col-sm-5" >
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="material-icons">phone</i>
+                    </span>
+                    <div class="form-group label-floating">
+                      <label class="control-label" >Número:
+                      </label>
+                      {!!Form::text('telefonoEmpleado[]',null,['id'=>'telefono3','class'=>'form-control input-group-lg reg_name'])!!}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2" >
+                  <div class="input-group">
+                    <div class="form-group label-floating">
+                      <label class="control-label" >Tipo:
+                      </label>
+                      <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
                         <option value="Trabajo">Trabajo</option>
                         <option value="Personal">Personal</option>
                         <option value="Casa">Casa</option>
                       </select>
                     </div>
-                    <div class="form-group col-sm-1">
-                      <button type="button" id="btnAdd" title="Agregar Teléfono" class=" btn-info"/>
-                      <span class="glyphicon glyphicon-plus"></span>
-                    </button>
                   </div>
                 </div>
-              </div>
+            </div>
+            </div>
             </div>
 
           </div>
@@ -139,8 +211,7 @@
                       <i class="material-icons">supervisor_account</i>
                     </span>
                     <div class="form-group label-floating">
-                      <label class="control-label">Estado Civil
-                        <small>*</small>
+                      <label class="control-label"><code>*</code>Estado Civil
                       </label>
                       <select name="estadoCivilEmpleado" id="estadoCivilEmpleado" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                         <option value="Soltero(a)">Soltero(a)</option>
@@ -156,8 +227,7 @@
                       <i class="material-icons">&nbsp;#&nbsp;</i>
                     </span>
                     <div class="form-group label-floating">
-                      <label class="control-label">NIT:
-                        <small>(requerido)</small>
+                      <label class="control-label"><code>*</code>NIT:
                       </label>
                       {!!Form::text('NITEmpleado',null,['id'=>'nit','class'=>'form-control','required'])!!}
                     </div>
@@ -169,8 +239,7 @@
                       <i class="material-icons">home</i>
                     </span>
                     <div class="form-group label-floating">
-                      <label class="control-label">Dirreción
-                        <small>requerida</small>
+                      <label class="control-label"><code>*</code>Dirreción
                       </label>
                       {!!Form::text('dirreccionEmpleado',null,['id'=>'dirreccionEmpleado','class'=>'form-control','required'])!!}
                     </div>
@@ -233,8 +302,7 @@
                       <i class="material-icons">date_range</i>
                     </span>
                     <div class="form-group label-floating">
-                      <label class="control-label">Fecha de Ingreso
-                        <small></small>
+                      <label class="control-label"><code>*</code>Fecha de Ingreso
                       </label>
                       {!!Form::date('fechaIngreso',$date,['id'=>'fechaIngreso','class'=>'form-control datepicker'])!!}
 
@@ -293,8 +361,7 @@
                     <i class="material-icons"> &nbsp;$&nbsp; </i>
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">Salario
-                      <small>(requerido)</small>
+                    <label class="control-label"><code>*</code>Salario
                     </label>
                     {!!Form::number('salarioBruto',null,['id'=>'salario','class'=>'form-control','required','step' => '0.01'])!!}
                   </div>
@@ -309,7 +376,6 @@
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Tipo de Contrato
-
                     </label>
                     <select name="sistemaContratacion" id="sistemaContratacion" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                       <option value="Contrato">Contrato</option>
@@ -400,65 +466,31 @@ $(document).ready(function(){
 
   $("#codigo").mask("AA.LLL.0000", options)
 
-  $("#telefono").mask("0000-0000")
+  $("#telefono1").mask("0000-0000")
+  $("#telefono2").mask("0000-0000")
+  $("#telefono3").mask("0000-0000")
   $("#nit").mask("0000-000000-000-0")
 
-})
-
-// $(document).ready(function(){
-//     var maxField = 5; //Input fields increment limitation
-//     var addButton = $('.add_button'); //Add button selector
-//     var wrapper = $('.field_wrapper'); //Input field wrapper
-//     var fieldHTML = '<div class="col-sm-5 "><div class="input-group"><span class="input-group-addon"><i class="material-icons"> phone </i></span><div class="form-group label-floating"><label class="control-label">Número telefónico<small></small></label><input id="telefono" name="telefonoEmpleado[]" class="form-control" name="telefonoEmpleado" type="text" maxlength="9"></div></div></div><div class="col-sm-5"><div class="input-group"><span class="input-group-addon"><i class="material-icons"></i></span><div class="form-group label-floating"><label class="control-label">Tipo de teléfono</label><select name="tipoTelefono" id="tipoTelefono" class="form-control"><option value="Trabajo">Trabajo</option><option value="Personal">Personal</option><option value="Casa">Casa</option></select></div></div></div><div class="col-sm-1"><div class="input-group"><span class="input-group-addon"><i class="material-icons"></i></span><div class="form-group label-floating"><label class="control-label"></label><span class="input-group-addon"><a title="Quitar Teléfono" href="javascript:void(0);" class="remove_button" ><i class="material-icons" >remove_circle_outline</i></a></span></div></div></div></div>'; //New input field html
-//     var x = 1; //Initial field counter is 1
-//     $(addButton).click(function(){ //Once add button is clicked
-//         if(x < maxField){ //Check maximum number of input fields
-//             x++; //Increment field counter
-//             $(wrapper).append(fieldHTML); // Add field html
-//         }
-//     });
-//     $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
-//         e.preventDefault();
-//         $(this).parent('div').remove(); //Remove field html
-//         x--; //Decrement field counter
-//     });
-// });
+});
 
 $(document).ready(function() {
-  $('#btnAdd').click(function() {
-    var num     = $('.clonedInput').length; // how many "duplicatable" input fields we currently have
-    var newNum  = new Number(num + 1);      // the numeric ID of the new input field being added
+  $('#tel2').hide();
+  $('#tel3').hide();
+  $('#btminus').hide();
 
-    // create the new element via clone(), and manipulate it's ID using newNum value
-    var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
-
-    // manipulate the name/id values of the input inside the new element
-    newElem.children(':first').attr('id', 'name' + newNum).attr('name', 'name' + newNum).attr('class', 'form-control');
-
-    // insert the new element after the last "duplicatable" input field
-    $('#input' + num).after(newElem);
-
-    // enable the "remove" button
-    $('#btnDel').removeAttr('disabled');
-
-    // business rule: you can only add 5 names
-    if (newNum == 5)
-    $('#btnAdd').attr('disabled','disabled');
+  var numt=1;
+  $('.btnAddt').click(function() {
+    if(numt===1)$('#btminus').show();
+    numt=numt+1;
+    $('#tel'+numt).show();
+  });
+  $('.btndel').click(function() {
+    $('#tel'+numt).hide();
+    $('#telefono'+numt).val('');
+    numt=numt-1;
+    if(numt===1)$('#btminus').hide();
   });
 
-  $('#btnDel').click(function() {
-    var num = $('.clonedInput').length; // how many "duplicatable" input fields we currently have
-    $('#input' + num).remove();     // remove the last element
-
-    // enable the "add" button
-    $('#btnAdd').removeAttr('disabled');
-
-    // if only one element remains, disable the "remove" button
-    if (num-1 == 1)
-    $('#btnDel').attr('disabled','disabled');
-  });
-
-  $('#btnDel').attr('disabled','disabled');
 });
 </script>
 

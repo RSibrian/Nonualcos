@@ -39,6 +39,10 @@ class Empleado extends Model
     {
         return $this->hasMany(Descuento::class,'idEmpleado');
     }
+    public function telefonosEmpleado()
+    {
+        return $this->hasMany(TelefonoEmpleado::class,'idEmpleado');
+    }
 
     public static function EmpleadosxUnidad($idUnidad){
       return DB::table('empleados')

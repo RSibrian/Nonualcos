@@ -112,7 +112,7 @@ class ActivosController extends Controller
 
     public function mantenimientosUnidades(Activos $activo)
     {
-      $mantenimientos=Mantenimiento::All()->where('id',$activo->id);
+      $mantenimientos=Mantenimiento::All()->where('idActivo',$activo->id);
       //  $mantenimientos=Activos::mantenimientoxUnidad($activo->id);
         if(!empty($mantenimientos)){
           return view('activos.mantenimientosUnidades',compact('activo','mantenimientos'));

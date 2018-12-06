@@ -3,9 +3,8 @@
 <div class="row">
   <div class="col-sm-offset-1 col-md-10">
     <div class="card">
-
       <div class="card-header card-header-icon" data-background-color="green">
-        <i class="material-icons">perm_identity</i>
+        <i class="material-icons ml-auto">perm_identity</i>
       </div>
       <div class="card-content">
         <h4 class="card-title">Mantenimientos -

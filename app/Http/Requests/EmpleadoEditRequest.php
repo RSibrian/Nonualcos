@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmpleadoEditRequest extends FormRequest
 {
@@ -24,14 +25,16 @@ class EmpleadoEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombresEmpleado'=> 'required',
-            'apellidosEmpleado'=> 'required',
-            'fechaNacimientoEmpleado'=> 'required',
-            'dirreccionEmpleado' => 'required',
-            'DUIEmpleado'=> 'required|unique:empleados,DUIEmpleado,'.$this->empleado['id'],
-            'NITEmpleado'=> 'required|unique:empleados,NITEmpleado,'.$this->empleado['id'],
+          'nombresEmpleado'=> 'required|alpha|between:3,40',
+          'apellidosEmpleado'=> 'required|alpha|between:3,40',
+          'fechaNacimientoEmpleado'=> 'required',
+          'dirreccionEmpleado' => 'required',
+            'DUIEmpleado'=> 'required|size:10|unique:empleados,DUIEmpleado,'.$this->empleado['id'],
+            'NITEmpleado'=> 'required|size:17|unique:empleados,NITEmpleado,'.$this->empleado['id'],
             'idCargo'=> 'numeric',
-
+            'telefonoEmpleado.*'=>'sometimes|nullable|size:9|distinct',
+            'telefonoEmpleado'=>Rule::unique('telefono_empleados')->ignore($this->empleado['id'],'idEmpleado'),
+            'per_imagenE'=>'sometimes|nullable|mimes:jpeg,bmp,png',
         ];
     }
     public function messages(){
