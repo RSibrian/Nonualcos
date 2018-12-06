@@ -510,6 +510,16 @@ Route::middleware(['auth'])->group(function () {
         ->name('planillas.create')
         ->middleware('permission:unidads.create');
 
+        //depreciaciones
+            Route::get('depreciaciones/{activo}','DepreciacionController@show')
+                ->name('depreciaciones.show')
+                ->middleware('permission:roles.index');
+
+            //fin depreciaciones
+
+
+
+
 
 });
 Auth::routes();

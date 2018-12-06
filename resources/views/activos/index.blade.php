@@ -84,20 +84,12 @@
                                   @endif
                                   <td>
                                     @if($activo->estadoActivo==1)
-                                    <button type="button" id="btn_{{ $activo->id }}" onClick="activodaniado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">
-
-                                        Bueno
-                                    </button>
+                                    <!--<button  id="btn_{{ $activo->id }}" onClick="activodaniado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">Bueno  </button>-->
+                                    <a color="green">En Uso</a>
                                   @elseif($activo->estadoActivo==2)
-                                    <a type="button"  name="button" class="btn btn-xs btn-ocre btn-round">
-
-                                        Dañado
-                                    </a>
+                                    <a background-color="red">Dañado</a>
                                   @else
-                                    <a type="button"  name="button" class="btn btn-xs  btn-round">
-
-                                        Desactivado
-                                    </a>
+                                    <a background-color="rose">De Baja</a>
 
                                   @endif
                                   </td>

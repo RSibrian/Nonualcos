@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5 row">
+                                    <div class="col-sm-10 row">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">apps</i>
@@ -74,7 +74,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5 row">
+
+                                    <div class="col-sm-5 row" id="uso" style="display: none;">
 
                                       <div class="input-group ">
                                         <span class="input-group-addon">
@@ -92,6 +93,7 @@
                                           </div>
                                         </div>
                                       </div>
+
                                       <div class="col-sm-5 row " id="anios" style="display: none;">
                                           <div class="input-group">
                                               <span class="input-group-addon">
@@ -194,6 +196,65 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if($activo->estadoActivo!=0)
+                                    <div class="col-sm-5 row">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">apps</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Cambiar estado de Activo:
+                                                </label>
+                                                <select name="estadoActivo" id="estadoActivo" class="form-control"  required>
+                                                  @if($activo->estadoActivo==1)
+                                                      <option selected value=1>En Uso</option>
+                                                      <option value=0>De Baja</option>
+                                                      <option value=2>Dañado</option>
+                                                    <!--  <option value=3>Mantenimiento</option>
+                                                      <option value=4>Préstado</option> -->
+                                                  @elseif($activo->estadoActivo==0)
+                                                      <option value=1>En Uso</option>
+                                                      <option selected value=0>De Baja</option>
+                                                      <option value=2>Dañado</option>
+                                                    <!--  <option value=3>Mantenimiento</option>
+                                                      <option value=4>Préstado</option>-->
+                                                    @elseif($activo->estadoActivo==2)
+                                                      <option value=1>En Uso</option>
+                                                      <option value=0>De Baja</option>
+                                                      <option selected value=2>Dañado</option>
+                                                      <!-- <option value=3>Mantenimiento</option>
+                                                      <option value=4>Préstado</option>-->
+                                                      @elseif($activo->estadoActivo==2)
+                                                        <option value=1>En Uso</option>
+                                                        <option value=0>De Baja</option>
+                                                        <option value=2>Dañado</option>
+                                                        <!--<option selected value=3>Mantenimiento</option>
+                                                        <option value=4>Préstado</option>-->
+                                                      @else
+                                                        <option value=1>En Uso</option>
+                                                        <option value=0>De Baja</option>
+                                                        <option value=2>Dañado</option>
+                                                        <!--<option value=3>Mantenimiento</option>
+                                                        <option selected value=4>Préstado</option>-->
+                                                  @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  @endif
+
+                                    <div class="col-sm-10 row" id="baja" style="display: none;">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">note_add</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"><code>*</code>Justificación:
+                                                </label>
+                                                {!!Form::text('justificacion',null,['id'=>'justificacion','class'=>'form-control','required'])!!}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-10 row">
                                         <div class="input-group">
@@ -230,7 +291,8 @@
                                           </div>
                                       </div>
 
-                                        <div class="col-sm-5 row">
+                                      <div class="col-sm-5 row"id="factura" style="display: block;">
+
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">tab</i>
@@ -309,5 +371,33 @@ function mostrarAniosUsado() {
       document.getElementById('anios').style.display='block';
     }
 }
+
+$('#tipoAdquisicion').on('change',function(e){
+  var tipo=$("#tipoAdquisicion").find('option:selected');
+  if (tipo.val()==0)
+  {
+    document.getElementById('uso').style.display='block';
+    document.getElementById('factura').style.display='none';
+  }
+  else
+  {
+    document.getElementById('uso').style.display='none';
+    document.getElementById('factura').style.display='block';
+  }
+});
+
+$('#estadoActivo').on('change',function(e){
+  var estado=$("#estadoActivo").find('option:selected');
+  if (estado.val()==0)
+  {
+    document.getElementById('baja').style.display='block';
+
+  }
+  else
+  {
+    document.getElementById('baja').style.display='none';
+
+  }
+});
 </script>
 @endsection

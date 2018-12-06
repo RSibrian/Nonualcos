@@ -152,6 +152,8 @@ class ActivosController extends Controller
     public function update(Request $request, Activos $activos)
     {
       //dd($activos);
+      $request['fechaBajaActivo']=Carbon::now();
+      
       $activos->update($request->all());
       //tabla vehiculo
       if($activos->tipoActivo==1)

@@ -41,7 +41,9 @@
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
-      <li id="li" style="float:right;"><a href="">Depreciación</a></li>
+    @if($activo->precio>=600 && $activo->codigoInventario!=null)
+    <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
+    @endif
       <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
   </ul>
@@ -166,11 +168,11 @@
                                   <?php
                                       $traslado=$activo->activosUnidades->last();
                                   ?>
-                                    <td><h4>Unidad: ($)</h4></td>
+                                    <td><h4>Unidad:</h4></td>
                                     <td><h4> <b>&nbsp;{{$traslado->unidad->nombreUnidad}}</b></h4></td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Empleado: ($)</h4></td>
+                                    <td><h4>Empleado: </h4></td>
                                     <td><h4> <b>&nbsp;{{$traslado->empleado->nombresEmpleado}}</b></h4></td>
                                 </tr>
                                 <tr>

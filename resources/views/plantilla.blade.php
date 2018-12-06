@@ -161,7 +161,7 @@
                             <a href="#">Mi Cuenta</a>
                         </li>
                         <li>
-                            <a href="#">Editar Cuenta</a>
+                            <a href="{{url('users/'.Auth::user()->id.'/edit')}}">Editar Cuenta</a>
                         </li>
                         <li>
                             <a href="{{url('users/password')}}">Cambiar mi Contraseña</a>
@@ -240,15 +240,11 @@
                                 <li>
                                     <a href="{{ url('/empleados') }}">Empleados</a>
                                 </li>
+
                                 <li>
-                                    <a href="">Descuentos</a>
+                                    <a href="{{ url('/planillas') }}">Planillas</a>
                                 </li>
-                                <li>
-                                    <a href="">Planillas</a>
-                                </li>
-                                <li>
-                                    <a href="">Permisos</a>
-                                </li>
+
 
                             </ul>
                         </div>

@@ -43,7 +43,9 @@
         @else
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
       @endif
-        <li id="li" style="float:right;"><a href="">Depreciación</a></li>
+      @if($activo->precio>=600 && $activo->codigoInventario!=null)
+      <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
+      @endif
         <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
         <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
     </ul>
