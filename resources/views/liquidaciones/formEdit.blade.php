@@ -13,7 +13,7 @@
                 <label class="control-label">Fecha
                     <small>(*)</small>
                 </label>
-                {!!Form::date('fechaLiquidacion', old('fechaLiquidacion', date('Y-m-d')) ,['id'=>'fechaLiquidacion','class'=>'form-control datepicker'])!!}
+                {!!Form::date('fechaLiquidacion', old('fechaLiquidacion') ,['id'=>'fechaLiquidacion','class'=>'form-control datepicker'])!!}
             </div>
         </div>
         <div class="input-group">
@@ -24,6 +24,13 @@
                 <label class="control-label">Vehículo
                     <small>(*)</small>
                 </label>
+                <?php
+                    $vehiculos = $liquidacion->vale;
+                    foreach ($vehiculos as $vehiculo )
+                    {
+                        $placa = $vehiculo->salida->vehiculo;
+                    }
+                ?>
                 {!! Form::select('vehiculo', $placas, '0',['id'=>'vehiculo','class'=>'form-control']) !!}
             </div>
         </div>
@@ -46,8 +53,9 @@
 </fieldset>
 
 <br>
-@include('liquidaciones.table')
+@include('liquidaciones.tableEdit')
 <br>
+
 <fieldset style="border: 1px solid #ccc; padding: 10px">
 
     <div class="col-lg-4 col-sm-offset-4">
@@ -59,12 +67,11 @@
                 <label class="control-label">Total
                     <small>(*)</small>
                 </label>
-                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', ' disabled'])!!}
+                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion') ,['id'=>'totalFactura','class'=>'form-control datepicker', ' disabled'])!!}
             </div>
         </div>
     </div>
 
 </fieldset>
 <br>
-
 

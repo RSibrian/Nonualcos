@@ -91,11 +91,11 @@
                                 <td class="text-right">
                                   @can('users.edit')
                                       <a href="{{ route('vales.edit', $vale->id) }}"  class="btn btn-xs btn-info btn-round ">
-                                          <i title="Editar vale" class="material-icons">create</i>
+                                          <i title="Editar vale" class="material-icons" rel="tooltip">create</i>
                                       </a>
                                   @endcan
-                                  <a href="{{ route('vales.show', $vale->id) }}" class="btn btn-xs btn-info btn-round">
-                                      <i title="Mostrar Vale" class="material-icons">visibility</i>
+                                  <a href="{{ route('vales.show', $vale->id) }}" class="btn btn-xs btn-info btn-round " >
+                                      <i title="Mostrar Vale" class="material-icons"  rel="tooltip">visibility</i>
                                   </a>
                                 </td>
                               </tr>

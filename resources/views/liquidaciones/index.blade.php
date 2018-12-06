@@ -22,6 +22,7 @@
                                     <th>#</th>
                                     <th>Fecha</th>
                                     <th>No. de factura</th>
+                                    <th>Vehículo</th>
                                     <th>Total en factura</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
                                 </tr>
@@ -32,34 +33,39 @@
                                     <th>#</th>
                                     <th>Fecha</th>
                                     <th>No. de factura</th>
+                                    <th>Vehículo</th>
                                     <th>Total en factura</th>
                                     <th class="text-right">Acciones</th>
                                 </tr>
                             </tfoot>
                             <tbody>
+                            <?php $cont=0;
+                            ?>
+                            @foreach($liquidaciones as $liquidacion)
                               <tr>
+                                  <?php $cont++;?>
                                 <td></td>
-                                <td>1</td>
-                                <td>11/10/2018</td>
-                                <td>F-23452</td>
-                                <td>100.00</td>
+                                <td>{{ $cont }}</td>
+                                <td>{{ $liquidacion->fechaLiquidacion }}</td>
+                                <td>{{ $liquidacion->numeroFacturaLiquidacion }}</td>
+                                      <?php $vehiculo= $liquidacion->vale;?>
+                                      @foreach($vehiculo as $ve)
+                                          <?php $placa=$ve->salida->vehiculo?>
+                                      <td>{{ $placa->numeroPlaca}}</td>
+                                      @endforeach
+                                <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
                                 <td class="text-right">
-                                  @can('users.edit')
-                                      <a href=""  class="btn btn-xs btn-info btn-round ">
-                                          <i title="Editar Usuario" class="material-icons" rel="tooltip">create</i>
+                                  @can('vales.edit')
+                                      <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round ">
+                                          <i title="Editar Liquidacion" class="material-icons" rel="tooltip">create</i>
                                       </a>
                                   @endcan
-                                  @can('users.asignarrole')
-                                      <a href="" class="btn btn-xs btn-info btn-round">
-                                          <i title="Asignar Rol" class="material-icons" rel="tooltip">lock_outline</i>
-                                      </a>
-                                  @endcan
-                                  <a href="" class="btn btn-xs btn-info btn-round">
+                                  <a href="{{ route('liquidaciones.show', $liquidacion->id) }}" class="btn btn-xs btn-info btn-round">
                                       <i title="Mostrar" class="material-icons" rel="tooltip">visibility</i>
                                   </a>
                                 </td>
                               </tr>
-
+                              @endforeach
                             </tbody>
                         </table>
                     </div>

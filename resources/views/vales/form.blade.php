@@ -115,7 +115,7 @@
                 <i class="material-icons">vpn_key</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label" id="muestra">Código de vale
+                <label class="control-label" id="muestra">Número de vale
                     <small>(*)</small>
                 </label>
                 {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'require'])!!}
@@ -392,7 +392,7 @@
             }
 
 
-            $("#numeroVale").mask("000000")
+            $("#numeroVale").mask("00000")
 
 
         })

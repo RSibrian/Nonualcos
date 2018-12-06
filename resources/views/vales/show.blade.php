@@ -119,7 +119,7 @@
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Código de vale: <br></h4></td>
+                                        <td><h4>Número de vale: <br></h4></td>
                                         <td><h4> <b> {{ $vale->numeroVale }}</b></h4></td>
                                     </tr>
                                 </table>

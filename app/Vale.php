@@ -28,9 +28,5 @@ class Vale extends Model
          return $this->belongsTo(Liquidacion::class,'idLiquidacion');
     }
 
-    public function buscaIdSalida(){
-         $_query= Salidas::select('idSalida')->latest()->get();
-        return $_query[0]->idSalida;
-    }
 
 }

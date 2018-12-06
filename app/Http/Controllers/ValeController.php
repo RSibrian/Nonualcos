@@ -21,7 +21,8 @@ class valeController extends Controller
     public function index()
     {
       // retorna la vista principal o index de vales de combustible
-      $_vales = Vale::all();
+      $_vales = Vale::select('*')->orderBy('updated_at', 'desc')->get();
+
       return View('vales.index',compact('_vales'));
     }
 
@@ -67,7 +68,7 @@ class valeController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createVale($request);
 
-        return redirect('/vales')->with('create','Se ha guardado con éxito');;
+        return redirect('/vales')->with('create','Se ha guardado con éxito');
     }
 
     public function update(ValeEditRequest $request, Vale $vale)
