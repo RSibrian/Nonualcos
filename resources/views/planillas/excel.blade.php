@@ -135,14 +135,12 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         $otros=0;
         foreach ($descuentos as $descuento)
         {
-
             if($descuento->tipoDescuento==1) $descuento_prestamo+=$descuento->pago;
             else if($descuento->tipoDescuento==2) $descuentos_alimeticios+=$descuento->pago;
             else $otros+=$descuento->pago;
-
         }
 
-        $total_descuentos=$ISSS+$AFP;
+        $total_descuentos=$AFP;
         $salario_descuentos=$salario_ganado-$total_descuentos;
         if($salario_descuentos!=0)
         {
@@ -155,26 +153,13 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             $descuento_renta=0;
         }
 
-        $total_descuentos+=  $descuento_renta;
+        $total_descuentos= $descuento_renta+$ISSS+$AFP;
         $liquido=$salario_ganado-$total_descuentos;
-        $pre=false;
-        $ali=false;
-        $otr=false;
-        if($liquido>=$descuentos_alimeticios) //alcanza el liquido para pagar lacuota alimenticia?
-        {
-            $ali=true;
-            $total_descuentos+=$descuentos_alimeticios;
-            $liquido-=$descuentos_alimeticios;// le restamos la cuota alimenticia al liquido
-        }
-        if($liquido>=$descuento_prestamo){
-            $pre=true;
-            $total_descuentos+=$descuento_prestamo;
-            $liquido-=$descuento_prestamo;
-        }
-        if($liquido>=$otros) {
-            $otr=true;
-            $total_descuentos+=$otros;
-            $liquido-=$otros;
+        $tota_pre=$descuentos_alimeticios+$descuento_prestamo+$otros;
+        $prestamoBandera=false;
+        if($liquido>=$tota_pre){
+            $prestamoBandera=true;
+            $total_descuentos+=$tota_pre;// le restamos la cuota alimenticia al liquido
         }
         $liquido=$salario_ganado-$total_descuentos;
 
@@ -235,6 +220,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
         </tr>
+
         <tr>
             <td></td>
             <th>Otros Descuentos</th>
@@ -246,8 +232,8 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
         </tr>
+        @if($prestamoBandera==true)
         @foreach ($descuentos as $descuento)
-
             <tr>
                 <td></td>
                 @if($descuento->tipoDescuento==1)
@@ -268,17 +254,46 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
                 <td></td>
             </tr>
         @endforeach
+        @endif
+        @if($i!=0)
         <tr>
             <td></td>
-            <td><b>Total Incapacidad:</b></td>
+            <td><b>Dias de Incapacidad</b></td>
             <td></td>
             <td></td>
             <td>{{$i}}</td>
-            <td style="color: #4cae4c">$ {{number_format(round($salario_x_incapacidad,2), 2, '.', ',')}}</td>
             <td></td>
             <td></td>
+            <td ></td>
             <td></td>
         </tr>
+        @endif
+        @if($p!=0)
+            <tr>
+                <td></td>
+                <td><b>Dias de Permisos</b></td>
+                <td></td>
+                <td></td>
+                <td>{{$p}}</td>
+                <td></td>
+                <td></td>
+                <td ></td>
+                <td></td>
+            </tr>
+        @endif
+        @if($m!=0)
+            <tr>
+                <td></td>
+                <td><b>Dias de maternidad</b></td>
+                <td></td>
+                <td></td>
+                <td>{{$m}}</td>
+                <td></td>
+                <td></td>
+                <td ></td>
+                <td></td>
+            </tr>
+        @endif
         <tr>
             <td></td>
             <td><b>TOTAL:</b></td>

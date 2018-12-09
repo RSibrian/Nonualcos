@@ -136,4 +136,18 @@ class PlanillaController extends Controller
     {
         //
     }
+    public function reporte()
+    {
+        $empleados=Empleado::All();
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="planillas.reporte";
+        $view =  \View::make($vistaurl, compact('empleados', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+       // $pdf->setPaper('letter', 'portrait');
+         //$pdf->setPaper('A4', 'landscape');
+        //return $pdf->download('Reporte planillas '.$date.'.pdf');
+        return $pdf->stream('Reporte planillas '.$date.'.pdf');
+    }
 }
