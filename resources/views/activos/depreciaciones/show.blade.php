@@ -41,11 +41,13 @@
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
-      @if($activo->precio>=600 && $activo->codigoInventario!=null)
+      @if($activo->precio>=600 )
       <li id="li" style="float:right;"><a class="active"  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
       @endif
+      @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a  href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
+      @endif
   </ul>
   <div class="row">
     <div class="col-md-12">
@@ -66,8 +68,50 @@
           $cuota=$valorDepreciar/$activo->aniosVida;
           $depreAcumulada=0;
           $precio=$activo->precio;
+
+          $mes=date("m");
+          $anno=date("Y");
+
+
+          $dias_inicio=date("d", strtotime($activo->fechaAdquisicion));//dia 12
+          $mes_inicio=date("m", strtotime($activo->fechaAdquisicion));// mes 07
+          $anno_inicio=date("Y", strtotime($activo->fechaAdquisicion));//2018
+          $fecha_fin_mes = date($anno."-".$mes."-01");//2018-12-01
+          $fecha_compra = date($anno_inicio."-".$mes_inicio."-01");//2018-07-01
+          $fecha_max=date("Y-m-d", strtotime("$fecha_compra +$activo->aniosVida year"));
+          if($dias_inicio<25)
+          {
+              $fecha_fin_mes2=date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
+          }
+          else $fecha_fin_mes2=$fecha_fin_mes;
+          $inicio = new \DateTime($fecha_compra);
+          $fin = new \DateTime($fecha_fin_mes2);
+          $resultado = $inicio->diff($fin);
+
+          $text_anno="año";
+          $text_mes="mes";
+          if($resultado->y>1)
+          {
+            $text_anno="años";
+          }
+          if($resultado->m>1)
+          {
+            $text_mes="meses";
+          }
+          if($fecha_fin_mes>=$fecha_max)
+          {
+
+            $mesesDepre=$activo->aniosVida*12;
+            $resultado->y=$activo->aniosVida;
+            $resultado->m=0;
+          }
+          else $mesesDepre=($resultado->y*12)+$resultado->m;
+          $depreMen=($cuota/12)*$mesesDepre;
+
           ?>
           <br><br>
+
+
 
       <fieldset style="border: 3px solid #ccc; padding: 5px">
         <legend align='center'><b><small >Información del Activo</small></b></legend>
@@ -75,18 +119,19 @@
           <table align='center'>
           <tr>
             <th>Código:&nbsp;&nbsp;</th>
-            <td>&nbsp;{{$activo->codigoInventario}}&nbsp;</th>
+            <td>&nbsp;{{$activo->codigoInventario?:"No asignado"}}&nbsp;</th>
 
 
             <?php
+                if($activo->codigoInventario!=null)
                 $traslado=$activo->activosUnidades->last();
             ?>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <th>Unidad:&nbsp;&nbsp;</th>
-            <td>{{$traslado->unidad->nombreUnidad}}&nbsp;</th>
+            <td>{{$activo->codigoInventario?$traslado->unidad->nombreUnidad:"No asignado"}}&nbsp;</th>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
               <th>Año de Vida Utíl:</td>
-              <td>{{ $activo->aniosVida }}</td>
+              <td>{{ $activo->aniosVida.' Años' }}</td>
           </tr>
 
               <br><br>
@@ -96,7 +141,7 @@
 
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <th>Porcentaje Residual:&nbsp;&nbsp;</td>
-              <td>$ {{number_format($activo->valorResidual, 2, '.', ',').' %'}}</td>
+              <td> {{number_format($activo->valorResidual, 0, '.', ',').' %'}}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <th>Valor Residual:&nbsp;&nbsp;</td>
               <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
@@ -111,15 +156,30 @@
             <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <?php $date = new DateTime($activo->fechaAdquisicion); ?>
-            <th>Año de Adquisición:&nbsp;&nbsp;</td>
-            <td>{{ $date->format('Y') }}</td>
+            <th>fecha de Adquisición:&nbsp;&nbsp;</td>
+            <td>{{ $date->format('d/m/Y') }}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+
+          </tr>
+          <tr>
+            <th>Valor depreciado:&nbsp;&nbsp;</td>
+              <td>$ {{number_format($depreMen, 2, '.', ',')}}</td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Años depreciados:&nbsp;&nbsp;</th>
+            <td>{{"$resultado->y $text_anno"}}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th>Meses depreciados:&nbsp;&nbsp;</td>
+            <td>{{ "$resultado->m $text_mes"}}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 
 
           </tr>
 
 
+
           </table>
+
           <br><br>
 
         </fieldset>
@@ -150,7 +210,6 @@
                   <td></td>
                   <td>{{$cont}}</td>
                   <td>$ {{number_format($activo->precio, 2, '.', ',')}}</td>
-
                   <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
                   <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
                   <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
@@ -179,7 +238,11 @@
 
               </tbody>
             </table>
+            <div align="center">
+              <a target="_blank"  href="{{  url("activos/reporteDepreAnual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
+                <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
 
+            </div>
           <br>
           <h4 align="center" ><b>Depreciación Mensual</b></h4>
 
@@ -190,7 +253,7 @@
                   <th></th>
                   <th>Mes</th>
                   <th>Valor Original</th>
-                  <th>Valor Residual</th>
+
                   <th>Valor a Depreciar</th>
                   <th>Cuota mensual de Depreciación</th>
                   <th>Depreciación acumulada</th>
@@ -205,14 +268,15 @@
 
                   <?php
                   $precio=$cuota;
-                  $valorResidual=$precio*$activo->valorResidual/100;
-                  $valorDepreciar=($precio-$valorResidual);
+                  //$valorResidual=$precio*$activo->valorResidual/100;
+                  //$valorDepreciar=($precio-$valorResidual);
+                  $valorDepreciar=$cuota;
                   $cuota=$valorDepreciar/12;
                   $depreAcumulada=0;
 
                   ?>
                   <td>$ {{number_format($precio, 2, '.', ',')}}</td>
-                  <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
+
                   <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
                   <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
                   <td></td>
@@ -230,7 +294,7 @@
                   <tr>
                     <td></td>
                     <td>{{$meses[$i]}}</td>
-                    <td></td>
+
                     <td></td>
                     <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
                     <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
@@ -241,6 +305,11 @@
 
               </tbody>
             </table>
+
+        </div>
+        <div align="center">
+          <a target="_blank"  href="{{  url("activos/reporteDepreMensual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
+            <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
 
         </div>
         <!-- end content-->

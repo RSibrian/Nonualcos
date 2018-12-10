@@ -2,7 +2,7 @@
 @section('plantilla')
 	<div class="row">
 
-	    <div class="col-sm-offset-1 col-md-12">
+	    <div class=" col-md-10 col-sm-offset-1">
 	        <div class="card">
 	            <div class="card-header card-header-icon" data-background-color="green">
 	                <i class="material-icons">store</i>
@@ -41,8 +41,8 @@
                       <label class="control-label">Estado de Activo:
                       </label>
                       <select name="estadoActivo" id="estadoActivo" class="form-control">
-                          <option value=1>Activos</option>
-                          <option value=0>Desactivados</option>
+                          <option value=1>En uso</option>
+                          <option value=0>De Baja</option>
                           <option value=2>Dañados</option>
                           <option value=5>Todos</option>
                       </select>
@@ -51,7 +51,8 @@
           </div>
 
 	  			<div  class="col-sm-10 row" align="center">
-              {!! Form::submit('Reporte',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
+						
+              {!! Form::submit('Reporte',[ 'class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
 							<a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
 	  			</div>
 					{!! Form::close() !!}

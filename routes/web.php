@@ -258,6 +258,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('planillas/store','PlanillaController@store')
         ->name('planillas.store')
         ->middleware('permission:roles.create');
+
+        Route::get('planillas/create/reporte','PlanillaController@reporte')
+            ->name('planillas.reporte')
+            ->middleware('permission:users.index');
     //fin plantillas
     //clasificacion Activos
        Route::post('clasificaciones/store','ClasificacionesActivosController@store')
@@ -291,9 +295,22 @@ Route::middleware(['auth'])->group(function () {
            ->name('activos.generarReporte')
            ->middleware('permission:proveedores.create');
 
+         Route::get('activos/reporteDepreAnual/{activo}','ActivosController@reporteDepreAnual')
+              ->name('activos.reporteDepreAnual')
+              ->middleware('permission:proveedores.index');
+
+          Route::get('activos/reporteDepreMensual/{activo}','ActivosController@reporteDepreMensual')
+             ->name('activos.reporteDepreMensual')
+             ->middleware('permission:proveedores.index');
+
+           Route::get('activos/reporteDatosActivos/{activo}','ActivosController@reporteDatosActivos')
+              ->name('activos.reporteDatosActivos')
+              ->middleware('permission:proveedores.index');
+
            Route::post('activos/reportexUnidad','ActivosController@reportexUnidad')
             ->name('activos.reportexUnidad')
             ->middleware('permission:proveedores.create');
+
            Route::post('activos/store','ActivosController@store')
            ->name('activos.store')
            ->middleware('permission:proveedores.create');
@@ -439,7 +456,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/liquidaciones/vales/{liquidaciones}','LiquidacionController@update')
         ->name('liquidaciones.update')
         ->middleware('permission:vales.edit');
-    
+
     Route::get('/datatable/{placa}','LiquidacionController@datatable')
         ->name('datatable');
 

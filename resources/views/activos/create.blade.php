@@ -163,6 +163,7 @@
                                               </div>
                                           </div>
                                       </div>
+                                      <div class="col-sm-12">
                                     <div class="col-sm-5 row col-sm-offset-1 ">
                                         <div class="input-group">
                                                     <span class="input-group-addon">
@@ -191,6 +192,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                  </div>
 
                                     <div class="col-sm-5 row col-sm-offset-1">
                                         <div class="input-group">
@@ -446,10 +448,7 @@
 </div>
 @section('scripts')
   {!!Html::script('js/jquery.mask.min.js')!!}
-  <script src="{{url('js/alertify.min.js')}}"></script>
 
-  <link rel="stylesheet" href="{{url('css/alertify.default.css')}}">
-  <link rel="stylesheet" href="{{url('css/alertify.core.css')}}">
 
   <script type="text/javascript">
       $(document).ready(function(){

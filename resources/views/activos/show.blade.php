@@ -41,11 +41,13 @@
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
-    @if($activo->precio>=600 && $activo->codigoInventario!=null)
+    @if($activo->precio>=600 )
     <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
     @endif
+    @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
+    @endif
   </ul>
 
 
@@ -354,7 +356,9 @@
                       </fieldset>
                       @endif
                       <div align="center">
+                        <a target="_blank"  href="{{  url("activos/reporteDatosActivos/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
                           <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+
                       </div>
 
 
