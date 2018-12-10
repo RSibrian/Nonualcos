@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ URL::previous() }}">Nonualcos</a>
+            <a class="navbar-brand" href="{{ url("/") }}">Nonualcos</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3 text-center">
-                            <h2 class="title">Página no econtrada</h2>
+                            <h2 class="title">Página no encontrada</h2>
                             </div>
                     </div>
                     <div class="row " align="center">

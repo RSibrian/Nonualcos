@@ -356,11 +356,14 @@ Route::middleware(['auth'])->group(function () {
     ->name('mantenimientos.create1')
     ->middleware('permission:proveedores.create');
 
+         Route::get('mantenimientos/generarReporte','MantenimientoController@generarReporte')->name('mantenimientos.generarReporte');
+
+        Route::post('mantenimientos/reporteTiempo','MantenimientoController@reporteTiempo')
+               ->name('mantenimientos.reporteTiempo');
+
     Route::get('mantenimientos','MantenimientoController@index')
         ->name('mantenimientos.index')
         ->middleware('permission:proveedores.index');
-
-
 
     Route::get('mantenimientos/{mantenimiento}','MantenimientoController@show')
             ->name('mantenimientos.show')
@@ -381,6 +384,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('mantenimientos/generarSolicitud/{mantenimiento}','MantenimientoController@generarSolicitud')
           ->name('mantenimientos.solicitud')
           ->middleware('permission:proveedores.edit');
+
 //fin mantenimiento de activos
 
        //Vehiculos

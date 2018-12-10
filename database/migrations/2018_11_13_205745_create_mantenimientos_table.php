@@ -19,6 +19,7 @@ class CreateMantenimientosTable extends Migration
       $table->integer('personalSolicitaMantenimiento')->unsigned();
       $table->date('fechaRecepcionTaller');
       $table->integer('empresaEncargada')->unsigned();
+      $table->string('nombreEncargado');
       $table->text('reparacionesRealizadas')->nullable();
       $table->date('fechaRetornoTaller')->nullable();
       $table->integer('personalRecibeMantenimiento')->unsigned()->nullable();

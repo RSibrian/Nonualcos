@@ -52,7 +52,11 @@
               </div>
               <div class="col col-md-8">
                 <h4><strong>
-                  {{ $mantenimiento->activos->proveedor->nombreEmpresa }}
+                  <?php if (isset($mantenimiento->activos->proveedor->nombreEmpresa)): ?>
+                    {{ $mantenimiento->activos->proveedor->nombreEmpresa }}
+                    <?php else: ?>
+                      {{"No asignado"}}
+                  <?php endif; ?>
                 </strong></h4>
               </div>
             </div>
@@ -75,7 +79,7 @@
             </div>
             <div class="row">
               <div class="col col-md-3">
-                <h4>Personal que entrega:</h4>
+                <h4>Personal de ALN que solicita:</h4>
               </div>
               <div class="col col-md-7">
                 <h4><strong>
@@ -90,6 +94,16 @@
               <div class="col col-md-7">
                 <h4><strong>
                   {{ $mantenimiento->proveedores->nombreEmpresa }}
+                </strong></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-md-3">
+                <h4>Persona encargada de mantenimiento:</h4>
+              </div>
+              <div class="col col-md-7">
+                <h4><strong>
+                  {{ $mantenimiento->nombreEncargado }}
                 </strong></h4>
               </div>
             </div>
@@ -147,7 +161,7 @@
               </div>
               <div class="row">
                 <div class="col col-md-3">
-                  <h4>Personal que recibe:</h4>
+                  <h4>Personal de ALN que recibe:</h4>
                 </div>
                 <div class="col col-md-7">
                   <h4><strong>

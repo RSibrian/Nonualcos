@@ -22,6 +22,9 @@
             Nuevo
 
           </a>
+          <a  aling='right' href="{{ route('mantenimientos.generarReporte') }}" class="btn  btn-ocre btn-round ">
+              <i class="material-icons">print</i>
+            </a>
           <!-- @endcan -->
           <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
             <thead>
@@ -31,8 +34,8 @@
                 <th>Código</th>
                 <th>Nombre</th>
                 <th>Fecha en taller</th>
+                <th>Empresa encargada</th>
                 <th>Fecha de recepción</th>
-                <th>Personal que Recibe</th>
                 <th class="disabled-sorting text-right">Acciones</th>
               </tr>
             </thead>
@@ -43,8 +46,8 @@
                 <th>Código</th>
                 <th>Nombre</th>
                 <th>Fecha en taller</th>
+                <th>Empresa encargada</th>
                 <th>Fecha de retorno</th>
-                <th>Personal que entrega</th>
                 <th class="text-right">Acciones</th>
               </tr>
             </tfoot>
@@ -59,8 +62,12 @@
                 <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
                 <td>{{$mantenimiento->Activos->nombreActivo}}</td>
                  <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
-                <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
-                <td>{{$mantenimiento->Empleado1->nombresEmpleado.' '.$mantenimiento->Empleado1->apellidosEmpleado}}</td>
+                 <td>{{$mantenimiento->proveedores->nombreEmpresa}}</td>
+                 <?php if (isset($mantenimiento->fechaRetornoTaller)): ?>
+                   <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
+                   <?php else: ?>
+                   <td>{{"en proceso"}}</td>
+                 <?php endif; ?>
                 <td class="text-right">
                   <!-- @can('proveedores.edit') -->
                   <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
@@ -72,7 +79,7 @@
                   <a title="Ver Mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}") }}" class="btn btn-xs btn-info btn-round">
                     <i class="material-icons">visibility</i>
                   </a>
-                  <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-ocre btn-round btn-xs">
+                  <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-info btn-round btn-xs">
               <i class="material-icons">print</i>
           </a>
                 </td>
@@ -91,9 +98,10 @@
 <!-- end row -->
 <?php
 $ayuda_title="Ayuda para la Tabla de Mantenimiento de Activo Fijo";
-$ayuda_body="Cada mantenimiento tiene 2 botones <br>
+$ayuda_body="Cada mantenimiento tiene 3 botones <br>
 1- Este <i class='material-icons'>create</i> Icono es para editar los datos del mantenimiento  <br><br>
-2- Este <i class='material-icons'>visibility</i> Icono es para ver el detalle del mantenimiento"
+2- Este <i class='material-icons'>visibility</i> Icono es para ver el detalle del mantenimiento<br><br>
+3- Este <i class='material-icons'>print</i> Icono es para imprimir la solicitud de mantenimiento"
 ?>
 @include('alertas.ayuda')
 @stop

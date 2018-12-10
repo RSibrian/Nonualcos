@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{"Reporte de  $title"}}</title>
+    <title>{{"Reporte de $title"}}</title>
     <style>
         @page { margin: 180px 50px; }
         #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px;  text-align: center; }
@@ -47,13 +47,13 @@
 <body>
 <div id="header">
     <div style="position: absolute;left: 0px; top: 0px; z-index: 1;"><h2>Asociación Los Nonualcos</h2></div>
-    <div style="position: absolute;left: 440px; top: 40px; z-index: 1;">Departamento de La Paz</div>
+    <div style="position: absolute;left: 300px; top: 40px; z-index: 1;">Departamento de La Paz</div>
     <HR style="position: absolute;left: 23px; top: 130px; z-index: 1; color:blue;" width=90%>
-    <div style="position: absolute;left: 850px; top: 138px; z-index: 1;">Fecha:  <?=  $date; ?> </div>
-    <div style="position: absolute;left: 850px; top: 153px; z-index: 1;">Hora:&nbsp;&nbsp;  <?=  $date1; ?> </div>
-    <div  style="position: absolute;left: 0px; top: 70px; z-index: 1;"><h5>Barrio San Juan  Avenida Anastasio Aquino No.26 Santiago Nonualco </h5></div>
-    <div  style="position: absolute;left: 0px; top: 83px; z-index: 1;"><h5>Telefono: 2330-4366</h5></div>
-    <h3 align="right" style="position: absolute; left: 850px; top:0px;  z-index: 1;"><img class="al" width="110px" height="110px" src="img/sv.png" ></h3>
+    <div style="position: absolute;left: 550px; top: 138px; z-index: 1;">Fecha:  <?=  $date; ?> </div>
+    <div style="position: absolute;left: 550px; top: 153px; z-index: 1;">Hora:&nbsp;&nbsp;  <?=  $date1; ?> </div>
+    <div align="left" style="position: absolute;left: 200px; top: 70px; z-index: 1;"><h5>Barrio san juan  Avenida Anastacio Aquino No.26 Santiago Nonualco </h5></div>
+    <div align="left" style="position: absolute;left: 320px; top: 83px; z-index: 1;"><h5>Telefono: 2330-4366</h5></div>
+    <h3 align="right" style="position: absolute; left: 550px; top:0px;  z-index: 1;"><img class="al" width="110px" height="110px" src="img/sv.png" ></h3>
     <h3 align="right" style="position: absolute;left:10px; top:0px; z-index: 1;"><img class="al" width="110px" height="110px" src="img/logo.jpg" ></h3>
 </div>
 <div id="footer">
@@ -61,14 +61,7 @@
 </div>
 @yield('reporte')
 
-<div align="center" style="position: absolute; left:70; top:480px; px; z-index: 1;">
-    <b>Firma:_______________________________
-        <br>
-        @if(Auth::user()->idEmpleado!=null)
-            {{ Auth::user()->empleado->nombresEmpleado." ".Auth::user()->empleado->apellidosEmpleado }}
-        @endif
-    </b>
-</div>
+
 
 <script type="text/php">
     if ( isset($pdf) ) {
@@ -77,8 +70,8 @@
             $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
             $size = 10;
             $pageText = "Pagina: " . $PAGE_NUM . " de " . $PAGE_COUNT;
-            $y = 532;
-            $x = 680;
+            $y = 735;
+            $x = 480;
             $pdf->text($x, $y, $pageText, $font, $size);
 
 

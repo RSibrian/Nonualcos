@@ -13,7 +13,7 @@ class Mantenimiento extends Model
   //
   protected $table = 'mantenimientos';
   protected $fillable = [
-    'id','fechaRecepcionTaller','reparacionesSolicitadas','personalSolicitaMantenimiento','reparacionesRealizadas','empresaEncargada','fechaRetornoTaller','costoMantenimiento','personalRecibeMantenimiento','idActivo',];
+    'id','fechaRecepcionTaller','reparacionesSolicitadas','personalSolicitaMantenimiento','reparacionesRealizadas','empresaEncargada','nombreEncargado','fechaRetornoTaller','costoMantenimiento','personalRecibeMantenimiento','idActivo',];
     protected $dates=['fechaRecepcionTaller','fechaRetornoTaller'];
 
     public function activos()

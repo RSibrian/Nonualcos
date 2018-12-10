@@ -10,7 +10,7 @@
         <label class="control-label">Código del Activo:
         </label>
         {!!Form::text('idActivo',
-        $mantenimiento->activos()->first()->codigoInventario,
+        $mantenimiento->activos->codigoInventario,
         ['id'=>'idActivo','class'=>'typeahead form-control','disabled'])!!}
       </div>
     </div>
@@ -74,10 +74,10 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Personal que solicita mantenimiento:
+        <label class="control-label">Personal de ALN que solicita:
         </label>
         {!!Form::input('personalSolicitaMantenimiento',null,
-        $mantenimiento->empleado1()->first()->nombresEmpleado.' '.$mantenimiento->empleado1()->first()->apellidosEmpleado,
+        $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado,
         ['id'=>'personalSolicitaMantenimiento','class'=>'form-control',
         'disabled'])!!}
       </div>
@@ -93,13 +93,26 @@
         <label class="control-label">Empresa encargada del mantenimiento:
         </label>
         {!!Form::input('empresaEncargada',null,
-        $mantenimiento->proveedores()->first()->nombreEmpresa,
+        $mantenimiento->proveedores->nombreEmpresa,
         ['id'=>'empresaEncargada','class'=>'form-control','disabled'])!!}
       </div>
     </div>
   </div>
+  <div class="col-sm-11 row">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="material-icons">#</i>
+      </span>
+      <div class="form-group label-floating">
+        <label class="control-label"><code>*</code>Persona encargada de mantenimiento :
+        </label>
+        {!!Form::text('nombreEncargado',null,
+        ['id'=>'nombreEncargado','class'=>'form-control','required'])!!}
+      </div>
+    </div>
+  </div>
 
-  <div class="col-sm-4 row">
+  <div class="col-sm-5 row">
     <div class="input-group">
       <span class="input-group-addon">
         <i class="material-icons"> $ </i>
@@ -133,7 +146,7 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Personal que recibe:
+        <label class="control-label"><code>*</code>Personal de ALN que recibe:
         </label>
         {!!Form::select('personalRecibeMantenimiento',
         $empleados,

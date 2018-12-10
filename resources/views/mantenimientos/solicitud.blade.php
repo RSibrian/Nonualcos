@@ -1,5 +1,5 @@
 <?php $title="Mantenimiento"?>
-@extends ('reporte.plantillaVertical')
+@extends ('mantenimientos.plantillaVertical')
 @section('reporte')
 	<br><div style="text-align: center; top: -20px; z-index: 1;"><h3>SOLICITUD DE MANTENIMIENTO DE ACTIVO</h3></div>
 	<br>
@@ -40,4 +40,13 @@
 <br>
 <b>Mantenimiento Solicitado:</b>
 <p ALIGN="justify"> {{ $mantenimiento->reparacionesSolicitadas }} </p>
+
+<div align="center" style="position: absolute; left:70; top:750px; px; z-index: 1;">
+    <b>Firma:_______________________________
+        <br>
+        {{ $mantenimiento->nombreEncargado }}
+				<br>
+				{{ $mantenimiento->proveedores->nombreEmpresa }}
+    </b>
+</div>
 @stop

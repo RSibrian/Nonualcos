@@ -21,7 +21,7 @@ class MantenimientoController extends Controller
   */
   public function index()
   {
-    $mantenimientos=Mantenimiento::All();
+    $mantenimientos=Mantenimiento::All()->sortByDesc('fechaRecepcionTaller');
     return view('mantenimientos.index',compact('mantenimientos'));
   }
 
@@ -135,6 +135,31 @@ class MantenimientoController extends Controller
     $pdf = \App::make('dompdf.wrapper');
     $pdf->loadHTML($view);
     $pdf->setPaper('A4', 'portrait');
+    return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
+  }
+
+  public function generarReporte()
+  {
+    $month = date('m');
+    $year = date('Y');
+    $fechaInicio= Carbon::createFromDate($year,$month,1);
+    $fechaFinal=Carbon::now();
+    return view('mantenimientos.generarReporte',compact('fechaInicio','fechaFinal'));
+  }
+
+  public function reporteTiempo(Request $request)
+  {
+    $fechaInicio=$request['fechaInicio'];
+    $fechaFinal=$request['fechaFinal'];
+    $mantenimientos=Mantenimiento::whereBetween('fechaRetornoTaller',array($fechaInicio,$fechaFinal))->OrderBy('fechaRetornoTaller')->get();
+
+    $date = date('d-m-Y');
+    $date1 = date('g:i:s a');
+    $vistaurl="mantenimientos.reporteTiempo";
+    $view =  \View::make($vistaurl, compact('mantenimientos','fechaInicio','fechaFinal', 'date','date1'))->render();
+    $pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHTML($view);
+    $pdf->setPaper('A4', 'landscape');
     return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
   }
 }
