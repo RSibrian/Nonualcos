@@ -21,7 +21,10 @@ class valeController extends Controller
     public function index()
     {
       // retorna la vista principal o index de vales de combustible
-      $_vales = Vale::select('*')->orderBy('updated_at', 'desc')->get();
+      $_vales = Vale::select('*')
+          ->where('estadoLiquidacionVal', '=', '0')
+          ->orderBy('updated_at', 'desc')
+          ->get();
 
       return View('vales.index',compact('_vales'));
     }
@@ -64,7 +67,6 @@ class valeController extends Controller
 
     public function store(ValeRequest $request)
     {
-
         //función que permite almacenar la información en la base de datos
         $request->createVale($request);
 
@@ -75,6 +77,29 @@ class valeController extends Controller
     {
         $request->updateVale($request, $vale);
         return redirect('/vales')->with('update','Se ha editado con éxito');
+    }
+
+    public function ValeVistaReporte(Vale $vale){
+        //función indicada para mostrar los valores del vale, salida y empleados, los métodos find se
+        //utilizan para encontrar los nombres del empleado que son mostrados en la seccion de entrega.
+        //La valiable $nombre contiene una colleccion de informacion con respecto al empleado que realizó la salida.
+        //de igual manera funciona la variable $vehiculo y salida.
+        $salida=$vale->salida;
+        $vehiculo=$vale->salida->vehiculo;
+        $nombre=$vale->salida->empleados;
+        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
+        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
+
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="vales.valesViewReport";
+        $view =  \View::make($vistaurl, compact('vale', 'salida', 'vehiculo', 'nombre', 'recibe', 'autoriza', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('Detalle de Vale '.$date.'.pdf');
+
+
     }
 
 

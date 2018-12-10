@@ -14,7 +14,8 @@ class Vale extends Model
 
     protected $fillable=[
       'fechaCreacion', 'numeroVale', 'costoUnitarioVale', 'gasolinera',
-      'tipoCombustible', 'galones', 'empleadoAutorizaVal', 'empleadoRecibeVal',
+      'tipoCombustible', 'galones', 'costoGalones', 'aceite', 'costoAceite', 'grasa', 'costoGrasa',
+        'otro', 'costoOtro', 'empleadoAutorizaVal', 'empleadoRecibeVal',
       'estadoEntregadoVal', 'estadoLiquidacionVal', 'estadoRecibidoVal', 'idSalida', 'idLiquidacion'
     ];
 

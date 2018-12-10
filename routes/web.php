@@ -433,6 +433,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('vales.update')
         ->middleware('permission:vales.edit');
 
+    Route::get('vales/reporte/{vale}','ValeController@ValeVistaReporte')
+        ->name('vales.reporte')
+        ->middleware('permission:vale.create');
+
     Route::get('/liquidaciones/vales/index','LiquidacionController@index')
         ->name('liquidaciones.index')
         ->middleware('permission:vale.index');

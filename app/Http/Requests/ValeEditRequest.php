@@ -38,9 +38,9 @@ class ValeEditRequest extends FormRequest
             'solicitante' => 'required',
             'fechaCreacion' => 'required|date',
             'numeroVale' => 'required', //|numeric|integer
-            'costoUnitarioVale' => 'required|numeric',
-            'tipoCombustible' => 'required|string',
-            'galones' => 'required|numeric',
+            'costoUnitarioVale' => 'numeric',
+            'tipoCombustible' => '',
+            'galones' => '',
             'gasolinera' => 'required|string',
             'empRecibe' => 'required',
             'empAutoriza' => 'required',
@@ -66,14 +66,7 @@ class ValeEditRequest extends FormRequest
             'numeroVale.required'  => '¡El campo Código de vale no debe estar vacío!',
             'numeroVale.unique'  => '¡El Código de vale ya existe!',
 
-            'costoUnitarioVale.required'  => '¡El campo Costo de vale es requerido!',
             'costoUnitarioVale.numeric'  => '¡El valor del campo Costo de vale debe ser numérico!',
-
-            'tipoCombustible.required'  => '¡El campo Tipo de combustible es requerido!',
-            'tipoCombustible.string'  => '¡El campo Tipo de combustible es incorrecto!',
-
-            'galones.required'  => '¡El campo Número de galones es requerido!',
-            'galones.numeric'  => '¡El campo Número de galones debe ser numérico!',
 
             'gasolinera.required'  => '¡El campo Gasolinera no debe estar vacío!',
             'gasolinera.string'  => '¡El campo Gasolinera contiene número!',
@@ -86,7 +79,6 @@ class ValeEditRequest extends FormRequest
     }
 
     public function updateVale($data, $vale){
-
 
         $vehiculo=Vehiculo::select('id')->where('numeroPlaca', '=', $data['numeroPlaca'])->get();
         $empleado=Empleado::select('id')->where('id', '=', $data['idsolicitante'])->get();
@@ -103,20 +95,45 @@ class ValeEditRequest extends FormRequest
             $data['estadoRecibidoVal']=1;
         }
 
+        if (!($data['aceite']=="on")){
+            $data['aceite']=0;
+        }else{
+            $data['aceite']=1;
+        }
+
+        if (!($data['grasa']=="on")){
+            $data['grasa']=0;
+        }else{
+            $data['grasa']=1;
+        }
+
+        if (!($data['otros']=="on")){
+            $data['otros']='';
+        }else{
+            $data['otros']=$data['nombreOtro'];
+        }
+
 
 
        $vale->update([
-            'fechaCreacion' => $data['fechaCreacion'],
-            'numeroVale' => $data['numeroVale'],
-            'costoUnitarioVale' => $data['costoUnitarioVale'],
-            'fechaSalida' => $data['fechaSalida'],
-            'tipoCombustible' => $data['tipoCombustible'],
-            'galones' => $data['galones'],
-            'gasolinera' => $data['gasolinera'],
-            'empleadoAutorizaVal' => $data->idempAutoriza,
-            'empleadoRecibeVal' => $data['idempRecibe'],
-            'estadoEntregadoVal' => $data['estadoEntregadoVal'],
-            'estadoRecibidoVal' => $data['estadoRecibidoVal'],
+           'fechaCreacion' => $data['fechaCreacion'],
+           'numeroVale' => $data['numeroVale'],
+           'costoUnitarioVale' => $data['costoUnitarioVale'],
+           'fechaSalida' => $data['fechaSalida'],
+           'tipoCombustible' => $data['tipoCombustible'],
+           'galones' => $data['galones'],
+           'gasolinera' => $data['gasolinera'],
+           'costoGalones' => $data['costoGalones'],
+           'aceite' => $data['aceite'],
+           'costoAceite' => $data['costoAceite'],
+           'grasa' => $data['grasa'],
+           'costoGrasa' => $data['costoGrasa'],
+           'otro' => $data['otros'],
+           'costoOtro' => $data['costoOtro'],
+           'empleadoAutorizaVal' => $data->idempAutoriza,
+           'empleadoRecibeVal' => $data['idempRecibe'],
+           'estadoEntregadoVal' => $data['estadoEntregadoVal'],
+           'estadoRecibidoVal' => $data['estadoRecibidoVal'],
         ]);
 
         //echo dd($vale);

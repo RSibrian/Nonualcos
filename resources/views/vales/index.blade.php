@@ -6,6 +6,10 @@
                 <div class="card-header card-header-icon" data-background-color="ocre">
                     <i class="material-icons">assignment</i>
                 </div>
+                <div class="card-header card-header-icon" data-background-color="azul" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">help</i>
+
+                </div>
                 <div class="card-content">
                     <h4 class="card-title">Gestión de Vales</h4>
                     <div class="toolbar">
@@ -18,6 +22,7 @@
                                 Nuevo
                             </a>
                         @endcan
+
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
@@ -27,7 +32,7 @@
                                     <th class="text-center">Unidad</th>
                                     <th>Solicitante</th>
                                     <th>Galones</th>
-                                    <th>Costo</th>
+                                    <th>Costo total vale</th>
                                     <th>Entrega</th>
                                     <th>Devolución</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
@@ -41,7 +46,7 @@
                                     <th class="text-center">Unidad</th>
                                     <th>Solicitante</th>
                                     <th>Galones</th>
-                                    <th>Costo</th>
+                                    <th>Costo total vale</th>
                                     <th>Entrega</th>
                                     <th>Devolución</th>
                                     <th class="text-right">Acciones</th>
@@ -72,12 +77,21 @@
                                 </td>
                                   <td>
                                       <p>
-                                          {{ $vale->galones }}
+                                          @if ( $vale->galones==null)
+                                              {{ 'No especificado' }}
+                                          @else
+                                              {{ $vale->galones }}
+                                          @endif
                                       </p>
                                   </td>
                                   <td>
                                       <p>
-                                          {{ '$ '.$vale->costoUnitarioVale }}
+                                          @if ( $vale->costoUnitarioVale==null)
+                                              {{ 'No especificado' }}
+                                          @else
+                                              {{ '$ '.$vale->costoUnitarioVale }}
+                                          @endif
+
                                       </p>
                                   </td>
                                 <td>
@@ -112,6 +126,13 @@
     </div>
     <!-- end row -->
     <div class="col-md-1"></div>
+    <?php
+    $ayuda_title="Ayuda para la Tabla de Vale";
+    $ayuda_body="Cada Activo tiene 3 botones <br>
+                   1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar el Activo      <br><br>
+                   2- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
+    ?>
+    @include('alertas.ayuda')
 @stop
 @section('scripts')
 
@@ -131,6 +152,9 @@
 
         });
 
+        $('#table-filter').on('change', function(){
+            table.search(this.value).draw();
+        });
 
         var table = $('#datatables').DataTable();
 

@@ -82,6 +82,20 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <table>
+                                    <tr>
+                                        <td><h4>Número de vale: <br></h4></td>
+                                        <td><h4> <b> {{ $vale->numeroVale }}</b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -90,15 +104,133 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div>
 
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <table>
+                                    <tr>
+                                        <td><h4>Tipo de combustible: <br></h4></td>
+                                        <td><h4> <b>
+                                                    @if ($vale->tipoCombustible==1)
+                                                        {{ "Diesel" }}
+                                                    @endif
+                                                    @if ($vale->tipoCombustible==2)
+                                                        {{ "Regular" }}
+                                                    @endif
+                                                    @if ($vale->tipoCombustible==3)
+                                                        {{ "Especial" }}
+                                                    @endif
+                                        </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <table>
                                     <tr>
                                         <td><h4>Número de galones: <br></h4></td>
-                                        <td><h4> <b> {{ $vale->galones }}</b></h4></td>
+                                        <td><h4><b>
+                                                    @if ($vale->galones!=null)
+                                                        {{ $vale->galones }}
+                                                    @else
+                                                        {{ "No especificado" }}
+                                                    @endif
+                                                </b></h4></td>
                                     </tr>
                                 </table>
                             </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <table>
+                                    <tr>
+                                        <td><h4>Costo de galones: <br></h4></td>
+                                        <td><h4><b>
+                                                    @if ($vale->costoGalones!=null)
+                                                        {{ "$ ".$vale->costoGalones }}
+                                                    @else
+                                                        {{ "No especificado" }}
+                                                    @endif
+                                        </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    @if ($vale->aceite==1)
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Aceite: <br></h4></td>
+                                            <td><h4> <b> {{ "Si" }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Costo de aceite: <br></h4></td>
+                                            <td><h4> <b> {{ "$ ".$vale->costoAceite }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($vale->grasa==1)
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Grasa: <br></h4></td>
+                                            <td><h4> <b> {{ "Si" }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Costo de grasa: <br></h4></td>
+                                            <td><h4> <b> {{ "$ ".$vale->costoGrasa }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($vale->otro!=null)
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Otro: <br></h4></td>
+                                            <td><h4> <b> {{ $vale->otro }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Costo de {{ $vale->otro }} : <br></h4></td>
+                                            <td><h4> <b> {{ "$ ".$vale->costoOtro }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -115,32 +247,15 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 col-sm-offset-4">
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Número de vale: <br></h4></td>
-                                        <td><h4> <b> {{ $vale->numeroVale }}</b></h4></td>
+                                        <td><h4>Monto total de vale: <br></h4></td>
+                                        <td><h4> <b> {{ "$ ".$vale->costoUnitarioVale }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
-                            <div class="input-group">
-                                <table>
-                                    <tr>
-                                        <td><h4>Tipo de combustible: <br></h4></td>
-                                        <td><h4> <b> {{ $vale->tipoCombustible }}</b></h4></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="input-group">
-                                <table>
-                                    <tr>
-                                        <td><h4>Costo de vale: <br></h4></td>
-                                        <td><h4> <b> {{ $vale->costoUnitarioVale }}</b></h4></td>
-                                    </tr>
-                                </table>
-                            </div>
-
                         </div>
 
                     </fieldset>
@@ -205,6 +320,9 @@
 
                     <div align="center">
                         <a href="{{ url()->previous() }}" class='btn btn-ocre '>Regresar</a>
+                        <a  aling='right' target="_blank" href="{{ route('vales.reporte', $vale->id) }}" class="btn  btn-ocre ">
+                            <i class="material-icons">print</i>
+                        </a>
                     </div>
 
                 </div>

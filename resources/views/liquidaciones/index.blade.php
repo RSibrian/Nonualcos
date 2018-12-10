@@ -6,6 +6,10 @@
                 <div class="card-header card-header-icon" data-background-color="ocre">
                     <i class="material-icons">assignment</i>
                 </div>
+                <div class="card-header card-header-icon" data-background-color="azul" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">help</i>
+
+                </div>
                 <div class="card-content">
                     <h4 class="card-title">Liquidar vales</h4>
                     <div class="toolbar">
@@ -43,6 +47,7 @@
                             ?>
                             @foreach($liquidaciones as $liquidacion)
                               <tr>
+                                  <input id="hidden" type="hidden" value="{{$liquidacion->id}}">
                                   <?php $cont++;?>
                                 <td></td>
                                 <td>{{ $cont }}</td>
@@ -56,7 +61,7 @@
                                 <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
                                 <td class="text-right">
                                   @can('vales.edit')
-                                      <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round ">
+                                      <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round collapse ">
                                           <i title="Editar Liquidacion" class="material-icons" rel="tooltip">create</i>
                                       </a>
                                   @endcan
@@ -78,6 +83,22 @@
     </div>
     <!-- end row -->
     <div class="col-md-1"></div>
+    <?php
+    $ayuda_title="Ayuda para la Tabla de Liquidaciones";
+    $ayuda_body="Cada Activo tiene 3 botones <br>
+
+                   1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
+    ?>
+    @include('alertas.ayuda')
+    {{--<style>
+        td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+        }
+    </style>--}}
 @stop
 @section('scripts')
 
@@ -90,13 +111,26 @@
                 [10, 25, 50, "All"]
             ],
             responsive: true,
+            "columns": [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
+                { "data": "#" },
+                { "data": "Fecha" },
+                { "data": "No. de factura" },
+                { "data": "Vehículo" },
+                { "data": "Total en factura" },
+                { "data": "Acciones" }
+            ],
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
 
         });
-
 
         var table = $('#datatables').DataTable();
 
@@ -120,7 +154,47 @@
             alert('You clicked on Like button');
         });
 
+        // Add event listener for opening and closing details
+        $('#datatables tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                format(row.child);
+                tr.addClass('shown');
+            }
+        } );
+
         $('.card .material-datatables label').addClass('form-group');
     });
+
+    function format ( callback) {
+        var val=$('#hidden').val();
+        $.ajax({
+            url:'',
+            dataType: "json",
+            complete: function (response) {
+                var data = JSON.parse(response.responseText);
+                console.log(data);
+                var thead = '',  tbody = '';
+                for (var key in data[0]) {
+                    thead += '<th>' + key + '</th>';
+                }
+                $.each(data, function (i, d) {
+                    tbody += '<tr><td>' + d.name + '</td><td>' + d.value + '</td></tr>';
+                });
+                console.log('<table>' + thead + tbody + '</table>');
+                callback($('<table>' + thead + tbody + '</table>')).show();
+            },
+            error: function () {
+                $('#output').html('Bummer: there was an error!');
+            }
+        });
+    }
 </script>
 @endsection

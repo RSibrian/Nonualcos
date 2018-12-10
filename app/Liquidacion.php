@@ -36,7 +36,6 @@ class Liquidacion extends Model
          foreach ($vales as $vale)
          {
              $placa = $vale->salida->vehiculo->id;
-
          }
 
          $query= Vale::join('salidas', 'vales.idSalida', '=', 'salidas.id')

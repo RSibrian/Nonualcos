@@ -107,29 +107,31 @@
 
             $.get(ruta,function(res){
                 var cont=0;
-                tabla.empty();
-                $(res).each(function(key,value){
-                    cont++;
-                    tabla.append(
-                        "<tr>"+"<td></td>"+"<td>"+ cont +"</td>"+
-                        "<td>"+ value.fechaCreacion +"</td>"+
-                        "<td>"+ value.numeroVale +"</td>"+
-                        "<td>"+ value.costoUnitarioVale +"</td>"+
-                        "<td class='text-right'>"+
-                        "<a href='/vales/show/"+value.id+"' class='btn btn-xs btn-info btn-round' >"+
-                        "<i title='Mostrar' class='material-icons' rel='tooltip'>visibility</i>"+
-                        "</a>"+
-                        "</td>"+
-                        "<td>"+
-                        "<label class='switch  material-icons' title='liquidar' rel='tooltip'>"+
-                        "<input type='checkbox' name='name["+value.numeroVale+"]' id='"+value.id+"' class='estado' >"+
-                        "<span class='slider'></span>"+
-                        "</label>"+
-                        "</td>"+
-                        "</tr>"
+                if (res!=""){
+                    tabla.empty();
+                    $(res).each(function(key,value){
+                        cont++;
+                        tabla.append(
+                            "<tr>"+"<td></td>"+"<td>"+ cont +"</td>"+
+                            "<td>"+ value.fechaCreacion +"</td>"+
+                            "<td>"+ value.numeroVale +"</td>"+
+                            "<td>"+ value.costoUnitarioVale +"</td>"+
+                            "<td class='text-right'>"+
+                            "<a href='/vales/show/"+value.id+"' class='btn btn-xs btn-info btn-round' >"+
+                            "<i title='Mostrar' class='material-icons' rel='tooltip'>visibility</i>"+
+                            "</a>"+
+                            "</td>"+
+                            "<td>"+
+                            "<label class='switch  material-icons' title='liquidar' rel='tooltip'>"+
+                            "<input type='checkbox' name='name["+value.numeroVale+"]' id='"+value.id+"' class='estado' >"+
+                            "<span class='slider'></span>"+
+                            "</label>"+
+                            "</td>"+
+                            "</tr>"
 
-                    );
-                });
+                        );
+                    });
+                }
 
                 $(".estado").on("change", function () {
                     var a=$(this).attr('id');

@@ -59,7 +59,7 @@
                 <label class="control-label">Total
                     <small>(*)</small>
                 </label>
-                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', ' disabled'])!!}
+                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', 'readonly'])!!}
             </div>
         </div>
     </div>
