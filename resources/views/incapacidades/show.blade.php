@@ -198,8 +198,15 @@
                                     <td></td>
                                     <?php $cont++;?>
                                     <td>{{$cont}}</td>
-                                    <td>{{$incapacidad->fechaPermisoInicio}}</td>
-                                    <td>{{$incapacidad->fechaPermisoFinal?:$incapacidad->fechaPermisoInicio}}</td>
+                                    <?php $date = new DateTime($incapacidad->fechaPermisoInicio); ?>
+                                    <td>{{$date->format('d/m/Y')}}</td>
+                                    @if($incapacidad->fechaPermisoFinal!=null)
+                                        <?php $date2 = new DateTime($incapacidad->fechaPermisoFinal); ?>
+                                        <td>{{$date2->format('d/m/Y')}}</td>
+                                    @else
+                                        <td>{{$date->format('d/m/Y')}}</td>
+                                    @endif
+
                                     @if($incapacidad->casoPermiso==4)
                                         <td>Enfermedad Común</td>
                                     @endif

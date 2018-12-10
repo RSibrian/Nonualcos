@@ -147,9 +147,9 @@ table tr:nth-child(2n-1) td {
                       <td>{{$activo->color}}</td>
 											<td>{{$activo->serie}}</td>
                     @if($activo->estadoActivo==0)
-                      <td>{{'Desactivado'}}</td>
+                      <td>{{'De Baja'}}</td>
                     @elseif($activo->estadoActivo==1)
-                      <td>{{'Bueno'}}</td>
+                      <td>{{'En Uso'}}</td>
                     @else
                       <td>{{'Dañado'}}</td>
                     @endif

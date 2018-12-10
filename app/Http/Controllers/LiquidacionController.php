@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LiquidacionRequest;
+use App\Liquidacion;
+use App\Salidas;
 use App\Vale;
 use App\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Response;
 
 class LiquidacionController extends Controller
 {
@@ -13,18 +17,17 @@ class LiquidacionController extends Controller
     public function index()
     {
         // retorna la vista para el registro de nuevo vale
+        $liquidaciones = Liquidacion::select('*')->orderBy('updated_at', 'desc')->get();
 
-
-        return View('liquidaciones.index');
+        return View('liquidaciones.index', compact('liquidaciones'));
     }
 
     public function create()
     {
         // retorna la vista para el registro de nuevo vale
-        $_liquidar=Vale::where('estadoLiquidacionVal', '=', '0')->get();
         $placas=Vehiculo::pluck('numeroPlaca', 'id');
-
-        return View('liquidaciones.create', compact('_liquidar','placas'));
+        $placas=$placas->prepend('Seleccione una placa', '0');
+        return View('liquidaciones.create', compact('placas'));
     }
 
     public function store(LiquidacionRequest $request)
@@ -32,7 +35,35 @@ class LiquidacionController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createLiquidacion($request);
 
-        return redirect('/liquidaciones/vales/index');
+        return redirect('/liquidaciones/vales/index')->with('create','Se ha guardado con éxito');
+    }
+
+    public function edit(Liquidacion $liquidacion)
+    {
+        $placas=Vehiculo::pluck('numeroPlaca', 'id');
+        $placas=$placas->prepend('Seleccione una placa', '0');
+
+        $vales=Liquidacion::VehiculohasLiquidacion($liquidacion);
+        return View('liquidaciones.edit', compact('liquidacion','placas', 'vales'));
+    }
+
+    public function show(Liquidacion $liquidacion)
+    {
+        $vales=Liquidacion::VehiculohasLiquidacion($liquidacion);
+
+        return View('liquidaciones.show', compact('liquidacion', 'vales'));
+    }
+
+    public function  datatable($placa){
+
+        $data=Liquidacion::Datatable($placa);
+
+        return Response::json($data);
+    }
+
+    public function  coste(Vale $id){
+
+         return Response::json($id);
     }
 
 }

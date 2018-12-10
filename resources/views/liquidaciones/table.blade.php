@@ -6,11 +6,10 @@
         display:inline-block;
         width:40px;
         height:20px;
-        margin:2px;
+        margin:8px;
         transform:translateY(50%);
-        transform:translateX(10%);
         position:relative;
-        margin-bottom: 30px;
+        margin-bottom: 23px;
     }
 
     .slider {
@@ -62,10 +61,10 @@
                             <th></th>
                             <th>#</th>
                             <th>Fecha</th>
-                            <th>Código de vale</th>
+                            <th>Número de vale</th>
                             <th>Valor ($)</th>
-                            <th class="disabled-sorting text-center" >Acciones</th>
-                            <th class="disabled-sorting text-center"></th>
+                            <th class="disabled-sorting text-right" >Acciones</th>
+                            <th class="disabled-sorting text-right"></th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -73,39 +72,13 @@
                             <th></th>
                             <th>#</th>
                             <th>Fecha</th>
-                            <th>Código de vale</th>
+                            <th>Número de vale</th>
                             <th>Valor ($)</th>
-                            <th class="text-center" >Acciones</th>
-                            <th class="text-center"></th>
+                            <th class="text-right" >Acciones</th>
+                            <th class="text-right"></th>
                         </tr>
                         </tfoot>
-                        <tbody>
-                        <?php
-                        $cont=0;
-                        //echo dd($_liquidar);
-                        ?>
-                        @foreach($_liquidar as $liquida)
-                            <tr>
-                                <td></td>
-                                <?php $cont++ ?>
-                                <td>{{ $cont }}</td>
-                                <td>{{ $liquida->fechaCreacion }}</td>
-                                <td>{{ $liquida->numeroVale }}</td>
-                                <td>{{ $liquida->costoUnitarioVale }}</td>
-
-                                <td class="text-right">
-                                    <a href="{{route('vales.show', $liquida->id)}}" class="btn btn-xs btn-info btn-round">
-                                        <i title="Mostrar" class="material-icons">visibility</i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <label class="switch" title="liquidar">
-                                        <input type="checkbox" name="name[{{$liquida->numeroVale}}]" id="{{ $liquida->numeroVale }}" onchange="estado({{$liquida->numeroVale}},{{ $liquida->costoUnitarioVale}})">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                        @endforeach
+                        <tbody id="cuerpo">
                         </tbody>
                     </table>
                 </div>
@@ -116,23 +89,78 @@
 
 @section('scripts')
 
-<script type="text/javascript">
+<script>
+    $('#vehiculo').change(function(){
+        var tabla=$("#cuerpo");
+        var vehiculo=$("#vehiculo").find('option:selected');
+        var ruta = "/datatable/"+vehiculo.val();
 
-    function estado(name, valor){
-         var monto;
-        if ($('#' + name).prop("checked") == true) {
-            //suma
-             monto=parseFloat($('#totalFactura').val())+valor;
-             $('#totalFactura').val(monto);
+        $.get(ruta,function(res){
+            var cont=0;
+            if(res!=""){
+                tabla.empty();
+                $(res).each(function(key,value){
+                    cont++;
+                    tabla.append(
+                        "<tr>"+"<td></td>"+"<td>"+ cont +"</td>"+
+                        "<td>"+ value.fechaCreacion +"</td>"+
+                        "<td>"+ value.numeroVale +"</td>"+
+                        "<td>"+ value.costoUnitarioVale +"</td>"+
+                        "<td class='text-right'>"+
+                        "<a href='/vales/show/"+value.id+"' class='btn btn-xs btn-info btn-round' >"+
+                        "<i title='Mostrar' class='material-icons' rel='tooltip'>visibility</i>"+
+                        "</a>"+
+                        "</td>"+
+                        "<td>"+
+                        "<label class='switch  material-icons' title='liquidar' rel='tooltip'>"+
+                        "<input type='checkbox' name='name["+value.numeroVale+"]' id='"+value.id+"' class='estado' >"+
+                        "<span class='slider'></span>"+
+                        "</label>"+
+                        "</td>"+
+                        "</tr>"
+                    );
+                });
+            }
 
-        } else {
-            //resta
-            monto=parseFloat($('#totalFactura').val())-valor;
-            $('#totalFactura').val(monto);
-        }
+            $(".estado").on("change", function () {
+                var a=$(this).attr('id');
+                var b=$(this).prop("checked");
+                total(a,b);
+            })
+
+        });
+
+
+    });
+
+</script>
+<script>
+    function total(a,b){
+        var monto=0.0;
+        var campo=$('#totalFactura');
+        var campoCosto=parseFloat($('#totalFactura').val());
+        var ruta = "/costo/"+a;
+
+        $.get(ruta, function (res) {
+
+            $(res).each(function (key,value) {
+                  if (b===true)
+                  {
+                      monto=campoCosto+value.costoUnitarioVale;
+                      campo.val(monto);
+                  }
+                  if (b===false)
+                  {
+                      monto=campoCosto-value.costoUnitarioVale;
+                      campo.val(monto);
+                  }
+            });
+        });
 
     }
+
 </script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#datatables').DataTable({
@@ -176,4 +204,6 @@
 
     });
 </script>
+
 @endsection
+

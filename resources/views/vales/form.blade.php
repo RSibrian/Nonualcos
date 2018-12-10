@@ -83,6 +83,23 @@
                 {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control datepicker'])!!}
             </div>
         </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">vpn_key</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label" id="muestra">Número de vale
+                    <small>(*)</small>
+                </label>
+                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'require'])!!}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">ev_station</i>
@@ -94,58 +111,184 @@
                 {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control','required'])!!}
             </div>
         </div>
+    </div>
 
-         <div class="input-group">
+    <div class="col-sm-12">
+        <div class="input-group ">
             <span class="input-group-addon">
-                <i class="material-icons">ev_station</i>
-            </span>
-            <div class="form-group label-floating">
-                <label class="control-label">Número de galones
-                    <small>(*)</small>
+                <label >Tipo de combustible
+                        <small>(*)</small>
                 </label>
-                {!!Form::number('galones',old('galones'),['id'=>'galones','class'=>'form-control','required'])!!}
+            </span>
+            <div class="radio">
+                <label style="color: #0d3625;">
+                    <input id="radio1" name="tipoCombustible" type="radio" value="1" style="background-color: dodgerblue;" checked>
+                    Diesel &nbsp;
+                </label>
+                <label style="color: #0d3625;">
+                    <input id="radio2" name="tipoCombustible" type="radio" value="2">
+                    Regular &nbsp;
+                </label>
+                <label style="color: #0d3625;" >
+                    <input id="radio3" name="tipoCombustible" type="radio" value="3" >
+                    Especial &nbsp;
+                </label>
             </div>
         </div>
-
     </div>
 
     <div class="col-sm-6">
         <div class="input-group">
             <span class="input-group-addon">
-                <i class="material-icons">vpn_key</i>
-            </span>
-            <div class="form-group label-floating">
-                <label class="control-label" id="muestra">Código de vale
-                    <small>(*)</small>
-                </label>
-                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'require'])!!}
-            </div>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon">
                 <i class="material-icons">ev_station</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Tipo de combustible
-                    <small>(*)</small>
+                <label class="control-label">Número de galones
                 </label>
-                {!!Form::text('tipoCombustible',old('tipoCombustible'),['id'=>'tipoCombustible','class'=>'form-control','required'])!!}
+                {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
             </div>
-
         </div>
+    </div>
+
+    <div class="col-sm-6">
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">local_atm</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Costo de vale
+                <label class="control-label">Costo de galones
                 </label>
-                {!!Form::text('costoUnitarioVale',old('costoUnitarioVale'),['id'=>'costoUnitarioVale','class'=>'form-control'])!!}
+                {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control'])!!}
             </div>
+        </div>
+    </div>
 
+    <div class="col-sm-12">
+        <div class="input-group ">
+            <span class="input-group-addon">
+                <label >Agregar a vale :
+                </label>
+            </span>
+            <div class="checkbox">
+                <label style="color: #0d3625;">
+                    <input id="aceite" name="aceite" type="checkbox" data-toggle="collapse" data-target="#collapseAceite">
+                    Aceite &nbsp;
+                </label>
+                <label style="color: #0d3625;">
+                    <input id="grasa" name="grasa" type="checkbox" data-toggle="collapse" data-target="#collapseGrasa">
+                    Grasa &nbsp;
+                </label>
+                <label style="color: #0d3625;" >
+                    <input id="otros" name="otros" type="checkbox" data-toggle="collapse" data-target="#collapseOtros" >
+                    Otro &nbsp;
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="col-sm-6 collapse" id="collapseAceite">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">local_atm</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Costo de aceite
+                    </label>
+                    {!!Form::text('costoAceite',old('costoAceite'),['id'=>'costoAceite','class'=>'form-control'])!!}
+                </div>
+            </div>
         </div>
 
+        <div class="col-sm-6 collapse" id="collapseGrasa">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">local_atm</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Costo grasa
+                    </label>
+                    {!!Form::text('costoGrasa',old('costoGrasa'),['id'=>'costoGrasa','class'=>'form-control'])!!}
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="col-sm-12 collapse" id="collapseOtros">
+        <div class="col-sm-6">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">ev_station</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Especifique nombre
+                    </label>
+                    {!!Form::text('nombreOtro',old('nombreOtro'),['id'=>'nombreOtro','class'=>'form-control'])!!}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-5" >
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">local_atm</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Costo
+                    </label>
+                    {!!Form::text('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control'])!!}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1 collapse" style="margin-top: 12px; ">
+                <a class="btn btn-sm" data-toggle="collapse" href="#collapseOtrosMas" style="background: dodgerblue;" >
+                  <i class="material-icons">add</i>
+                </a>
+        </div>
+    </div>
+
+    <div class="col-sm-12 collapse" id="collapseOtrosMas">
+        <div class="col-sm-6">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">ev_station</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Especifique nombre
+                    </label>
+                    {!!Form::text('nombreOtro2',old('nombreOtro2'),['id'=>'nombreOtro2','class'=>'form-control'])!!}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6" >
+            <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">local_atm</i>
+            </span>
+                <div class="form-group label-floating">
+                    <label class="control-label">Costo
+                    </label>
+                    {!!Form::text('costoOtro2',old('costoOtro2'),['id'=>'costoOtro2','class'=>'form-control', 'placeholder'=>'0.0'])!!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">local_atm</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Costo total de vale
+                </label>
+                {!! Form::text('costoUnitarioVale', old('costoUnitarioVale','0.0'),['id'=>'costoUnitarioVale','class'=>'form-control', 'readonly']) !!}
+            </div>
+        </div>
+    </div>
+
 </fieldset>
 <br>
 
@@ -315,8 +458,6 @@
                 source: placas,
             });
 
-
-
         });
 
         $( function()
@@ -391,13 +532,174 @@
                 }
             }
 
-
-            $("#numeroVale").mask("000000")
-
+            $("#numeroVale").mask("00000");
 
         })
     </script>
 
+    <script>
+
+        $('#costoGalones').bind('keyup', function (e) {
+
+              if ((e.keyCode>47 && e.keyCode<58) || (e.keyCode === 8 || e.keyCode === 46)) {
+
+                  if(e.keyCode === 8 || e.keyCode === 46)
+                  {
+                      suma(this.value,$('#costoAceite').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                  }else{
+                      suma(this.value,$('#costoAceite').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                  }
+              }
+        });
+
+        $('#costoGalones').bind('keydown', function (e) {
+            if (e.keyCode>47 && e.keyCode<58 || (e.keyCode === 8 || e.keyCode === 46))
+            {
+                if(e.keyCode == 8 || e.keyCode == 46)
+                {
+                    resta(this.value,$('#costoAceite').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                }
+            }
+        });
+
+        $('#costoAceite').bind('keyup', function (e) {
+            if ((e.keyCode>47 && e.keyCode<58) || (e.keyCode === 8 || e.keyCode === 46)) {
+
+                if(e.keyCode === 8 || e.keyCode === 46)
+                {
+                    suma(this.value,$('#costoGalones').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                }else{
+                    suma(this.value,$('#costoGalones').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                }
+            }
+        });
+
+        $('#costoAceite').bind('keydown', function (e) {
+            if (e.keyCode>47 && e.keyCode<58 || (e.keyCode === 8 || e.keyCode === 46))
+            {
+                if(e.keyCode == 8 || e.keyCode == 46)
+                {
+                    resta(this.value,$('#costoGalones').val(), $('#costoGrasa').val(), $('#costoOtro').val());
+                }
+            }
+        });
+
+        $('#costoGrasa').bind('keyup', function (e) {
+            if ((e.keyCode>47 && e.keyCode<58) || (e.keyCode === 8 || e.keyCode === 46)) {
+
+                if(e.keyCode === 8 || e.keyCode === 46)
+                {
+                    suma(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoOtro').val());
+                }else{
+                    suma(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoOtro').val());
+                }
+            }
+        });
+
+        $('#costoGrasa').bind('keydown', function (e) {
+            if (e.keyCode>47 && e.keyCode<58 || (e.keyCode === 8 || e.keyCode === 46))
+            {
+                if(e.keyCode == 8 || e.keyCode == 46)
+                {
+                    resta(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoOtro').val());
+                }
+            }
+        });
+
+        $('#costoOtro').bind('keyup', function (e) {
+            if ((e.keyCode>47 && e.keyCode<58) || (e.keyCode === 8 || e.keyCode === 46)) {
+
+                if(e.keyCode === 8 || e.keyCode === 46)
+                {
+                    suma(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoGrasa').val());
+                }else{
+                    suma(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoGrasa').val());
+                }
+            }
+        });
+
+        $('#costoOtro').bind('keydown', function (e) {
+            if (e.keyCode>47 && e.keyCode<58 || (e.keyCode === 8 || e.keyCode === 46))
+            {
+                if(e.keyCode == 8 || e.keyCode == 46)
+                {
+                    resta(this.value,$('#costoGalones').val(), $('#costoAceite').val(), $('#costoGrasa').val());
+                }
+            }
+        });
+
+        function suma(monto, val1, val2, val3) {
+
+            var valInicial1 = parseFloat( val1 );
+            var valInicial2 = parseFloat( val2 );
+            var valInicial3 = parseFloat( val3 );
+            var monto= parseFloat(monto);
+
+            if(isNaN(monto)){
+               monto=0.0;
+           }
+
+            if(isNaN(valInicial1)){
+                valInicial1=0.0;
+            }
+
+            if(isNaN(valInicial2)){
+                valInicial2=0.0;
+            }
+
+            if(isNaN(valInicial3)){
+                valInicial3=0.0;
+            }
+
+            var t= monto  + valInicial1 + valInicial2 +  valInicial3;
+
+            total(t);
+        }
+
+        function resta(monto, val1, val2, val3) {
+
+            var valInicial1 = parseFloat( val1 );
+            var valInicial2 = parseFloat( val2 );
+            var valInicial3 = parseFloat( val3 );
+            var monto= parseFloat(monto);
+
+            if(isNaN(monto)){
+                monto=0.0;
+            }
+            if(isNaN(valInicial1)){
+                valInicial1=0.0;
+            }
+
+            if(isNaN(valInicial2)){
+                valInicial2=0.0;
+            }
+
+            if(isNaN(valInicial3)){
+                valInicial3=0.0;
+            }
+
+            var a= [monto,valInicial1,valInicial2,valInicial3];
+            a.sort((a,b)=>a-b);
+
+            var b=a[3];
+
+            for (var i = (a.length-1); i > 0; i--) {
+                if(b>a[i-1]){
+                    b=b-a[i-1];
+                }else {
+                    b=a[i-1]-b;
+                }
+            }
+
+          total(b);
+
+        }
+
+        function total(monto) {
+            var campo = $('#costoUnitarioVale');
+            campo.val(monto);
+        }
+    </script>
 
 @endsection
 

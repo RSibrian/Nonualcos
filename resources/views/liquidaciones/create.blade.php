@@ -20,8 +20,8 @@
                       @include('liquidaciones.form')
                     <div align="center">
                         {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                        {!! Form::reset('Limpiar',['class'=>'btn btn-danger glyphicon']) !!}
-                        <a href="{{ url()->previous() }}" class="btn btn-info" name="btnRegresar"> Regresar</a>
+                        {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                        <a href="{{ route('liquidaciones.index') }}" class="btn btn-ocre" name="btnRegresar"> Regresar</a>
                     </div>
 
                     {!! Form::close() !!}

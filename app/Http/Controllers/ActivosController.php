@@ -213,11 +213,13 @@ class ActivosController extends Controller
 
     public function reporteGeneral()
         {
-          $activos=Activos::All();
+          //$activos=Activos::All();
+          $unidades=Unidades::All();
+          $sinCodigoActivos=Activos::All()->where('codigoInventario','==',null);
           $date = date('d-m-Y');
           $date1 = date('g:i:s a');
           $vistaurl="activos.reporteGeneral";
-          $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
+          $view =  \View::make($vistaurl, compact('unidades','sinCodigoActivos', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
           $pdf->setPaper('A4', 'landscape');
@@ -252,6 +254,54 @@ class ActivosController extends Controller
           $pdf->loadHTML($view);
           return $pdf->stream('Reporte de Activos por Unidad'.$unidad->nombreUnidad.$date.'.pdf');
         }
+
+        public function reporteDatosActivos($idactivo)
+            {
+
+              $activo=Activos::find($idactivo);
+
+              $date = date('d-m-Y');
+              $date1 = date('g:i:s a');
+              //dd($date);
+              $vistaurl="activos.reporteDatosActivos";
+              $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+              $pdf = \App::make('dompdf.wrapper');
+              $pdf->loadHTML($view);
+              //$pdf->setPaper('A4', 'landscape');
+              return $pdf->stream('Reporte Datos de Activo '.$activo->codigoInventario.'-'.$date.'.pdf');
+            }
+
+        public function reporteDepreAnual($idactivo)
+            {
+
+              $activo=Activos::find($idactivo);
+
+              $date = date('d-m-Y');
+              $date1 = date('g:i:s a');
+              //dd($date);
+              $vistaurl="activos.reporteDepreAnual";
+              $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+              $pdf = \App::make('dompdf.wrapper');
+              $pdf->loadHTML($view);
+              $pdf->setPaper('A4', 'landscape');
+              return $pdf->stream('Reporte Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date.'.pdf');
+            }
+
+          public function reporteDepreMensual($idactivo)
+              {
+
+                $activo=Activos::find($idactivo);
+
+                $date = date('d-m-Y');
+                $date1 = date('g:i:s a');
+                //dd($date);
+                $vistaurl="activos.reporteDepreMensual";
+                $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+                $pdf = \App::make('dompdf.wrapper');
+                $pdf->loadHTML($view);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->stream('Reporte Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date.'.pdf');
+              }
 
 
 

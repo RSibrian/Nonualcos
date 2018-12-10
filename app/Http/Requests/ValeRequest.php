@@ -38,9 +38,9 @@ class ValeRequest extends FormRequest
             'solicitante' => 'required',
             'fechaCreacion' => 'required|date',
             'numeroVale' => 'required|unique:vales', //|numeric|integer
-            'costoUnitarioVale' => 'required|numeric',
-            'tipoCombustible' => 'required|string',
-            'galones' => 'required|numeric',
+            'costoUnitarioVale' => '',
+            'tipoCombustible' => '',
+            'galones' => '',
             'gasolinera' => 'required|string',
             'empRecibe' => 'required',
             'empAutoriza' => 'required',
@@ -65,15 +65,6 @@ class ValeRequest extends FormRequest
             'numeroVale.required'  => '¡El campo Código de vale no debe estar vacío!',
             'numeroVale.unique'  => '¡El Código de vale ya existe!',
 
-            'costoUnitarioVale.required'  => '¡El campo Costo de vale es requerido!',
-            'costoUnitarioVale.numeric'  => '¡El valor del campo Costo de vale debe ser numérico!',
-
-            'tipoCombustible.required'  => '¡El campo Tipo de combustible es requerido!',
-            'tipoCombustible.string'  => '¡El campo Tipo de combustible es incorrecto!',
-
-            'galones.required'  => '¡El campo Número de galones es requerido!',
-            'galones.numeric'  => '¡El campo Número de galones debe ser numérico!',
-
             'gasolinera.required'  => '¡El campo Gasolinera no debe estar vacío!',
             'gasolinera.string'  => '¡El campo Gasolinera contiene número!',
 
@@ -86,7 +77,6 @@ class ValeRequest extends FormRequest
 
     public function createVale($data){
 
-
         $vehiculo=Vehiculo::select('id')->where('numeroPlaca', '=', $data['numeroPlaca'])->get();
         $empleado=Empleado::select('id')->where('id', '=', $data['idsolicitante'])->get();
 
@@ -96,7 +86,23 @@ class ValeRequest extends FormRequest
             $data['estadoEntregadoVal']=1;
         }
 
-        //echo dd($data);
+        if (!($data['aceite']=="on")){
+            $data['aceite']=0;
+        }else{
+            $data['aceite']=1;
+        }
+
+        if (!($data['grasa']=="on")){
+            $data['grasa']=0;
+        }else{
+            $data['grasa']=1;
+        }
+
+        if (!($data['otros']=="on")){
+            $data['otros']='';
+        }else{
+            $data['otros']=$data['nombreOtro'];
+        }
 
         $salida= Salidas::create([
             'fechaSalida' => $data['fechaSalida'],
@@ -110,10 +116,16 @@ class ValeRequest extends FormRequest
             'fechaCreacion' => $data['fechaCreacion'],
             'numeroVale' => $data['numeroVale'],
             'costoUnitarioVale' => $data['costoUnitarioVale'],
-            'fechaSalida' => $data['fechaSalida'],
             'tipoCombustible' => $data['tipoCombustible'],
             'galones' => $data['galones'],
             'gasolinera' => $data['gasolinera'],
+            'costoGalones' => $data['costoGalones'],
+            'aceite' => $data['aceite'],
+            'costoAceite' => $data['costoAceite'],
+            'grasa' => $data['grasa'],
+            'costoGrasa' => $data['costoGrasa'],
+            'otro' => $data['otros'],
+            'costoOtro' => $data['costoOtro'],
             'empleadoAutorizaVal' => $data->idempAutoriza,
             'empleadoRecibeVal' => $data['idempRecibe'],
             'estadoEntregadoVal' => $data['estadoEntregadoVal'],

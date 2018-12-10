@@ -20,7 +20,7 @@
                     @include('vales.form')
                     <div align="center">
                         {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                        {!! Form::reset('Limpiar',['class'=>'btn btn-danger glyphicon']) !!}
+                        {!! Form::reset('Limpiar',['class'=>'btn btn-azul glyphicon']) !!}
                         <a href="{{ url()->previous() }}" class="btn btn-ocre"  name="btnRegresar"> Regresar</a>
                     </div>
                     {!! Form::close() !!}

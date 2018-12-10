@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LiquidacionRequest extends FormRequest
 {
+    protected  $dontFlash=['montoFacturaLiquidacion','vehiculo'];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,6 +32,7 @@ class LiquidacionRequest extends FormRequest
             'numeroFacturaLiquidacion' => 'required|unique:liquidaciones|string',
             'montoFacturaLiquidacion' => 'required|min:5.0|numeric',
             'name'=> 'required|min:1',
+            'vehiculo'=> 'integer|min:1',
         ];
     }
 
@@ -49,6 +51,8 @@ class LiquidacionRequest extends FormRequest
 
             'name.required'  => '¡Es necesario que liquide por lo menos un vale!',
             'name.min'  => '¡Es necesario que liquide por lo menos un vale!',
+
+            'vehiculo.min'  => '¡Es necesario que seleccione un vehículo!',
 
         ];
     }

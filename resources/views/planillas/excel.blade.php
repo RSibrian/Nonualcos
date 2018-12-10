@@ -48,7 +48,22 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
     </tr>
     </thead>
     <tbody>
-    <?php $cont=0;?>
+    <?php
+        $cont=0;
+        $total_salarios=0;
+        $total_salarios=0;
+        $total_ISSS=0;
+        $total_AFP=0;
+        $total_renta=0;
+        $total_prestamo=0;
+        $total_descuentos_final=0;
+        $total_liquido=0;
+        $aportaciones=\App\Aportaciones::where('tipoAportacion',2)->get();
+        foreach ($aportaciones as $aportacion) {
+            $aportacion->desPatronAportacion=0;
+        }
+    ?>
+
     @foreach ($empleados as $empleado)
         <?php
         $permisos=$empleado->permisos;
@@ -126,8 +141,15 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             $ISSS=$ISSS/100;//1500/100=15
         }
         $AFP_nombre=$empleado->AFP->nombreAportacion;//nombre
+
         $AFP=$salario_ganado*$empleado->AFP->desEmpleadoAportacion;//500*7.25=
         $AFP=$AFP/100;
+
+        foreach ($aportaciones as $aportacion) {
+            if($aportacion->nombreAportacion==$AFP_nombre) {
+                $aportacion->desPatronAportacion+=$AFP;
+               }
+        }
         //salario ganado tengo descontar llegadas tardias?
         $descuentos=$empleado->descuentos()->where('estadoDescuento',true)->get();
         $descuento_prestamo=0;
@@ -135,14 +157,12 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         $otros=0;
         foreach ($descuentos as $descuento)
         {
-
             if($descuento->tipoDescuento==1) $descuento_prestamo+=$descuento->pago;
             else if($descuento->tipoDescuento==2) $descuentos_alimeticios+=$descuento->pago;
             else $otros+=$descuento->pago;
-
         }
 
-        $total_descuentos=$ISSS+$AFP;
+        $total_descuentos=$AFP;
         $salario_descuentos=$salario_ganado-$total_descuentos;
         if($salario_descuentos!=0)
         {
@@ -155,28 +175,23 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             $descuento_renta=0;
         }
 
-        $total_descuentos+=  $descuento_renta;
+        $total_descuentos= $descuento_renta+$ISSS+$AFP;
         $liquido=$salario_ganado-$total_descuentos;
-        $pre=false;
-        $ali=false;
-        $otr=false;
-        if($liquido>=$descuentos_alimeticios) //alcanza el liquido para pagar lacuota alimenticia?
-        {
-            $ali=true;
-            $total_descuentos+=$descuentos_alimeticios;
-            $liquido-=$descuentos_alimeticios;// le restamos la cuota alimenticia al liquido
-        }
-        if($liquido>=$descuento_prestamo){
-            $pre=true;
-            $total_descuentos+=$descuento_prestamo;
-            $liquido-=$descuento_prestamo;
-        }
-        if($liquido>=$otros) {
-            $otr=true;
-            $total_descuentos+=$otros;
-            $liquido-=$otros;
+        $tota_pre=$descuentos_alimeticios+$descuento_prestamo+$otros;
+        $prestamoBandera=false;
+        if($liquido>=$tota_pre){
+            $prestamoBandera=true;
+            $total_descuentos+=$tota_pre;// le restamos la cuota alimenticia al liquido
         }
         $liquido=$salario_ganado-$total_descuentos;
+        $total_salarios+=round($salario_ganado,2);
+        $total_ISSS+=round($ISSS,2);
+        $total_AFP+=round($AFP,2);
+        $total_renta+=round($descuento_renta,2);
+        $total_prestamo+=round($tota_pre,2);
+        $total_descuentos_final+=round($total_descuentos,2);
+        $total_liquido+=round($liquido,2);;
+
 
         ?>
         <tr>
@@ -235,6 +250,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
         </tr>
+
         <tr>
             <td></td>
             <th>Otros Descuentos</th>
@@ -246,8 +262,8 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
         </tr>
+        @if($prestamoBandera==true)
         @foreach ($descuentos as $descuento)
-
             <tr>
                 <td></td>
                 @if($descuento->tipoDescuento==1)
@@ -268,17 +284,46 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
                 <td></td>
             </tr>
         @endforeach
+        @endif
+        @if($i!=0)
         <tr>
             <td></td>
-            <td><b>Total Incapacidad:</b></td>
+            <td><b>Dias de Incapacidad</b></td>
             <td></td>
             <td></td>
             <td>{{$i}}</td>
-            <td style="color: #4cae4c">$ {{number_format(round($salario_x_incapacidad,2), 2, '.', ',')}}</td>
             <td></td>
             <td></td>
+            <td ></td>
             <td></td>
         </tr>
+        @endif
+        @if($p!=0)
+            <tr>
+                <td></td>
+                <td><b>Dias de Permisos</b></td>
+                <td></td>
+                <td></td>
+                <td>{{$p}}</td>
+                <td></td>
+                <td></td>
+                <td ></td>
+                <td></td>
+            </tr>
+        @endif
+        @if($m!=0)
+            <tr>
+                <td></td>
+                <td><b>Dias de maternidad</b></td>
+                <td></td>
+                <td></td>
+                <td>{{$m}}</td>
+                <td></td>
+                <td></td>
+                <td ></td>
+                <td></td>
+            </tr>
+        @endif
         <tr>
             <td></td>
             <td><b>TOTAL:</b></td>
@@ -296,5 +341,84 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         </tr>
 
     @endforeach
+
+
     </tbody>
 </table>
+
+
+<table>
+    <tr>
+        <td></td>
+        <th colspan="2" align="center">Total de Fondos de Pensiones Empleados</th>
+    </tr>
+    <tr>
+        <td></td>
+        <th>Aportacion</th>
+        <th>Total</th>
+    </tr>
+    <?php $total_AFP=0;?>
+    @foreach ($aportaciones as $aportacion) {
+        <tr>
+            <td></td>
+            <td>{{$aportacion->nombreAportacion}}</td>
+            <td> $ {{number_format(round($aportacion->desPatronAportacion,2), 2, '.', ',')}}</td>
+             <?php $total_AFP+=round($aportacion->desPatronAportacion,2)?>
+        </tr>
+    @endforeach
+    <tr>
+        <td></td>
+        <th>Total</th>
+        <td>$ {{number_format(round($total_AFP,2), 2, '.', ',')}}</td>
+    </tr>
+</table>
+<table>
+
+    <tr>
+        <th></th>
+        <th>Concepto</th>
+        <th>Montos</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total Salarios </td>
+        <td align="right">$ {{number_format(round($total_salarios,2), 2, '.', ',')}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total de ISSS</td>
+        <td align="right">  ${{number_format(round($total_ISSS,2), 2, '.', ',')}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total de AFP</td>
+        <td align="right"> $ {{number_format(round($total_AFP,2), 2, '.', ',')}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total de Retención de Renta</td>
+        <td align="right"> $ {{number_format(round($total_renta,2), 2, '.', ',')}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total de Prestamos</td>
+        <td align="right"> $ {{number_format(round($total_prestamo,2), 2, '.', ',')}}</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <th>Total de Descuentos</th>
+        <td align="right"> $ {{number_format(round($total_descuentos_final,2), 2, '.', ',')}}</td>
+    </tr>
+
+</table>
+<table>
+    <tr>
+        <td></td>
+        <th>Total a pagar</th>
+        <td align="right"> $ {{number_format(round($total_liquido,2), 2, '.', ',')}}</td>
+    </tr>
+
+</table>
+
+

@@ -14,4 +14,9 @@ class Vehiculo extends Model
   {
       return $this->belongsTo(Activos::class,'idActivo');
   }
+
+  public function salidas()
+  {
+      return $this->hasMany(Salidas::class, 'idVehiculo');
+  }
 }

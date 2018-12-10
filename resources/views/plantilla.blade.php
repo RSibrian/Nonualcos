@@ -107,6 +107,9 @@
           margin-top:2.5%;
           text-align: center;
         }
+        label.error{
+          color: #FF0000;
+        }
 
 
 
@@ -267,6 +270,9 @@
             </li>
             <li>
                 <a href="{{ url('/mantenimientos') }}">Mantenimientos</a>
+            </li>
+            <li>
+                <a href="{{ url('/activos/generarReporte') }}">Generar Reporte</a>
             </li>
 
             <li>
