@@ -20,8 +20,6 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: 300;
             font-size: 12px;
-
-            padding-top: 7%;
             width:100%;
             height: 100%;
         }

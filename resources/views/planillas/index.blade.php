@@ -21,8 +21,14 @@
                     ?>
                     <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round ">
                         <i class="material-icons"></i>
-                        excel
+                        Planilla de Empleados
                     </a>
+                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round ">
+                        <i class="material-icons"></i>
+                        boleta de pago
+                    </a>
+
+
 
                     <div class="material-datatables">
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
@@ -37,6 +43,7 @@
                                     <th>Cargo</th>
                                     <th>Salario</th>
                                     <th>Dias</th>
+                                    <th>Salario Ganado</th>
                                     <th>ISSS</th>
                                     <th>AFP</th>
                                     <th>Renta</th>
@@ -57,6 +64,7 @@
                                     <th>Cargo</th>
                                     <th>Salario&nbsp;Personal </th>
                                     <th>Dias</th>
+                                    <th>Salario Ganado</th>
                                     <th>ISSS</th>
                                     <th>AFP</th>
                                     <th>Renta</th>
@@ -191,8 +199,9 @@
                                         <td>{{$empleado->apellidosEmpleado}}</td>
                                         <td>{{$empleado->cargo->unidad->nombreUnidad}}</td>
                                         <td>{{$empleado->cargo->nombreCargo}}</td>
-                                        <td>$&nbsp;{{number_format($salario_ganado, 2, '.', ',')}}</td>
+                                        <td>$&nbsp;{{number_format($empleado->salarioBruto, 2, '.', ',')}}</td>
                                         <td>{{$dias_trabajados}}</td>
+                                        <td>$&nbsp;{{number_format($salario_ganado, 2, '.', ',')}}</td>
                                         <td>${{number_format($ISSS, 2, '.', ',')}}</td>
                                         <td>${{number_format($AFP, 2, '.', ',')}}</td>
                                         <td>${{number_format($descuento_renta, 2, '.', ',')}}</td>

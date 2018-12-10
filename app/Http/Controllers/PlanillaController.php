@@ -33,7 +33,7 @@ class PlanillaController extends Controller
 
         Excel::create("Planilla de empleados $date ", function ($excel) use ($empleados) {
             $excel->setTitle("Title");
-            $excel->sheet("Hoja 1", function ($sheet) use ($empleados) {
+            $excel->sheet("Planilla Empleados", function ($sheet) use ($empleados) {
 
                 $sheet->loadView('planillas.excel')->with('empleados', $empleados);
             });
@@ -145,7 +145,7 @@ class PlanillaController extends Controller
         $view =  \View::make($vistaurl, compact('empleados', 'date','date1'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-       // $pdf->setPaper('letter', 'portrait');
+        $pdf->setPaper('letter', 'portrait');
          //$pdf->setPaper('A4', 'landscape');
         //return $pdf->download('Reporte planillas '.$date.'.pdf');
         return $pdf->stream('Reporte planillas '.$date.'.pdf');
