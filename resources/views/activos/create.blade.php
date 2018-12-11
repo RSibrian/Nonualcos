@@ -543,7 +543,7 @@ $('#agregar').click(function(){
   var telefonoProve=$('#telefonoProve').val();
   var email=$('#email').val();
   var tipoProveedor=$('#tipoProveedor').val();
-  var route='/Nonualcos/public/proveedores/storeajax';
+  var route="{{route('proveedores.storeajax')}}";
   var token=$('#token').val();
   $.ajax({
     url:route,
@@ -552,6 +552,7 @@ $('#agregar').click(function(){
     type:'POST',
     data:{nombreEmpresa,nombreEncargado,telefonoProve,email,tipoProveedor},
     success:function(res){
+      console.log(res);
       var proveedor=$("#idProveedor");
       proveedor.empty();
       proveedor.append("<option value="+null+">Seleccione un proveedor</option>");
@@ -566,6 +567,7 @@ $('#agregar').click(function(){
       $('#tipoProveedor').val("");
     },
     error:function(res){
+      console.log(res);
       alert("art");
     }
 

@@ -169,7 +169,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                 </tr>
                 <?php $date = new DateTime($empleado->fechaIngreso); ?>
                 <tr>
-                    <td colspan="2"><b>unidad:</b> {{$empleado->cargo->unidad->nombreUnidad}}</td>
+                    <td colspan="2"><b>Unidad:</b> {{$empleado->cargo->unidad->nombreUnidad}}</td>
                     <td colspan="2"><b>Cargo:</b> {{$empleado->cargo->nombreCargo}}</td>
                     <th>Fecha Ingreso: </th>
                     <td>{{$date->format('d/m/Y')}}</td>
@@ -179,7 +179,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                     <td>{{$dias_trabajados}}</td>
                     <th>Horas Laboradas: </th>
                     <td>8</td>
-                    <th>Regimen Laboral </th>
+                    <th>Régimen Laboral </th>
                     <td>{{$empleado->sistemaContratacion}}</td>
                 </tr>
                 <tr><td colspan="6">&nbsp;</td></tr>

@@ -32,7 +32,7 @@
 
       @if($activo->tipoActivo==1)
 				<tr>
-      <td class="gris">Número de Placa:</td>
+      	<td class="gris">Número de Placa:</td>
         <td>{{$activo->vehiculo->numeroPlaca}}</td>
 				</tr>
       @endif
@@ -54,7 +54,7 @@
         <td>{{$activo->serie}}</td>
       </tr>
         <tr>
-      <td class="gris">Estado:</td>
+      	<td class="gris">Estado:</td>
 
 				@if($activo->estadoActivo==0)
 					<td>{{' De Baja'}}</td>
@@ -68,15 +68,20 @@
 						<td>{{'Mantenimiento'}}</td>
 				@endif
 			</tr>
-	    <tr>
-      <td class="gris">Tipo Adquisición:</td>
+
 
 				@if($activo->tipoAdquisicion==1)
-				<td>{{'Compra'}}</td>
+					<tr>
+		      <td class="gris">Tipo Adquisición:</td>
+					<td>{{'Compra'}}</td>
+				</tr>
 				@else
+					<tr>
+					<td class="gris">Tipo Adquisición:</td>
 					<td>{{'Donación'}}</td>
+					</tr>
 				@endif
-			</tr>
+
 			<tr>
       <td class="gris">Valor Residual:</td>
         <td>{{$activo->valorResidual.'%'}}</td>
@@ -98,18 +103,22 @@
 			</tr>
 			@endif
 
-		<tr>
+
 			@if($activo->idProveedor!=null)
+				<tr>
       <td class="gris">Proveedor:</td>
         <td>{{$activo->proveedor->nombreEmpresa}}</td>
+				</tr>
 			@endif
-		</tr>
-		<tr>
+
+
 			@if($activo->numeroFactura!=null)
+			<tr>
       <td class="gris">factura:</td>
         <td>{{$activo->numeroFactura}}</td>
+			</tr>
 			@endif
-		</tr>
+
 		<tr>
       <td class="gris">Precio: </td>
         <td>{{'$'.$activo->precio}}</td>

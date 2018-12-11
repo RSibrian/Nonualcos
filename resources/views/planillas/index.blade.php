@@ -19,11 +19,11 @@
                     $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
 
                     ?>
-                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round ">
+                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
                         <i class="material-icons"></i>
                         Planilla de Empleados
                     </a>
-                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round ">
+                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
                         <i class="material-icons"></i>
                         boleta de pago
                     </a>
@@ -36,7 +36,7 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>Numero de DUI</th>
+                                    <th>Número de DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Unidad</th>
@@ -57,7 +57,7 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>Numero&nbsp;DUI</th>
+                                    <th>Número&nbsp;DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Unidad</th>
