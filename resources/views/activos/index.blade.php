@@ -17,13 +17,13 @@
                   </div>
                   <div class="material-datatables">
                       @can('unidads.create')
-                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round ">
+                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round " title="Agregar nuevo activo">
                               <i class="material-icons">add</i>
                               Nuevo
 
                           </a>
                       @endcan
-                      <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round ">
+                      <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round " title="Reporte General de Inventario de Activos">
                           <i class="material-icons">print</i>
 
                       </a>

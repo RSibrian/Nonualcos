@@ -41,7 +41,7 @@ class ClasificacionesActivosController extends Controller
     {
       $request['idTipoLey']=1;
       ClasificacionesActivos::create($request->all());
-      return redirect('/clasificaciones')->with('create','Se Ha creado con éxito la Clasificacion');
+      return redirect('/clasificaciones')->with('create','Se ha creado con éxito la clasificación de activo');
     }
 
     /**
@@ -77,7 +77,7 @@ class ClasificacionesActivosController extends Controller
     public function update(Request $request, ClasificacionesActivos $clasificacionesActivos)
     {
       $clasificacionesActivos->update($request->all());
-      return redirect('/clasificaciones')->with('update','Sea editado con éxito la clasificacion');
+      return redirect('/clasificaciones')->with('update','Se ha editado correctamente la clasificación de activo');
     }
 
     /**

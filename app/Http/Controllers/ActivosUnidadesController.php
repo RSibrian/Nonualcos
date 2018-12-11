@@ -58,7 +58,7 @@ class ActivosUnidadesController extends Controller
           $traslado->estadoUni=false;
           $traslado->save();
           ActivosUnidades::create($request->all());
-          return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
+          return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'El traslado se ha realizado con éxito');
 
         }else{
           // cuando no existe una asignacion
@@ -95,7 +95,7 @@ class ActivosUnidadesController extends Controller
 
         }
 
-        return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
+        return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'El traslado se ha realizado con éxito');
     }
 
     /**

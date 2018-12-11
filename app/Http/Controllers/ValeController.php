@@ -70,13 +70,13 @@ class valeController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createVale($request);
 
-        return redirect('/vales')->with('create','Se ha guardado con éxito');
+        return redirect('/vales')->with('create','Se ha guardado con éxito el registro de vale');
     }
 
     public function update(ValeEditRequest $request, Vale $vale)
     {
         $request->updateVale($request, $vale);
-        return redirect('/vales')->with('update','Se ha editado con éxito');
+        return redirect('/vales')->with('update','Se ha editado con éxito el registro de vale');
     }
 
     public function ValeVistaReporte(Vale $vale){

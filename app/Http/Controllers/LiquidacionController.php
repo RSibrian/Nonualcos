@@ -35,7 +35,7 @@ class LiquidacionController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createLiquidacion($request);
 
-        return redirect('/liquidaciones/vales/index')->with('create','Se ha guardado con éxito');
+        return redirect('/liquidaciones/vales/index')->with('create','Se ha guardado con éxito el registro de liquidación');
     }
 
     public function edit(Liquidacion $liquidacion)

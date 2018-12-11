@@ -35,7 +35,7 @@ class UsuarioController extends Controller
         );
         $request['password']=bcrypt($request['password']);
         User::create($request->all());
-        return redirect("/users")->with('create','Sea creado con éxito el registro');
+        return redirect("/users")->with('create','Se ha creado con éxito el registro de usuario');
 
 
     }
@@ -62,7 +62,7 @@ class UsuarioController extends Controller
            }
            $user->idEmpleado=$request['idEmpleado'];
            $user->save();
-           return redirect("/users/{$id}")->with('update', 'Sea editado con éxito el registro');
+           return redirect("/users/{$id}")->with('update', 'Se ha editado correctamente el registro de usuario');
     }
     public function password(){
         return View('usuario.password');
@@ -85,10 +85,10 @@ class UsuarioController extends Controller
              $user = new User;
              $user->where('email', '=', Auth::user()->email)
                  ->update(['password' => bcrypt($request->password)]);
-             return redirect('users/'.Auth::user()->id)->with('update', 'Contraseña cambiado con éxito');
+             return redirect('users/'.Auth::user()->id)->with('update', 'La contraseña se modificó con éxito');
          }
          else {
-             return redirect('users/password')->with('sin_pass', 'contraseña incorrectas');
+             return redirect('users/password')->with('sin_pass', 'Contraseña Incorrecta');
             }
     }
     public function asignarRole($id)
@@ -103,7 +103,7 @@ class UsuarioController extends Controller
     {
         $user = User::findOrFail($id);
         $user->roles()->sync($request->get('roles'));
-        return redirect("/users/{$id}")->with('update', 'Sea editado con éxito el registro');
+        return redirect("/users/{$id}")->with('update', 'Se ha editado correctamente el registro');
     }
     public function reporte()
         {

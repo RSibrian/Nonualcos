@@ -58,7 +58,7 @@ class PermisoController extends Controller
             Permiso::create($request->all());
             $permisoActual = Permiso::all()->last();
             PermisoController::diaPermi($permisoActual);
-            return redirect("/permisos/" . $request['idEmpleado'])->with('create', 'Sea creado con éxito el permiso');
+            return redirect("/permisos/" . $request['idEmpleado'])->with('create', 'Se ha creado con éxito el registro de permiso');
         }
         else{
             return redirect("/permisos/" . $request['idEmpleado'])->with('sin_pass', 'Fechas incorrectas');

@@ -79,7 +79,7 @@ class EmpleadoController extends Controller
             $tel->save( );
           }
         }
-        return redirect('/empleados')->with('create','Sea creado con éxito el Empleado');
+        return redirect('/empleados')->with('create','Se ha creado con éxito el registro de empleado');
     }
 
     /**
@@ -146,7 +146,7 @@ class EmpleadoController extends Controller
             $tel->save();
           }
         }
-        return redirect("/empleados/{$empleado->id}")->with('update','Sea editado con éxito el empleado');
+        return redirect("/empleados/{$empleado->id}")->with('update','Se ha editado correctamente el registro de empleado');
     }
 
     /**

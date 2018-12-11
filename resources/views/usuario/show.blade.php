@@ -32,6 +32,9 @@
 
 
                 </div>
+                <div align="center">
+                  <a href="{{ route('users.index') }}" class='btn btn-ocre '>Regresar</a>
+                </div>
             </div>
         </div>
 <div class="col-md-1"></div>

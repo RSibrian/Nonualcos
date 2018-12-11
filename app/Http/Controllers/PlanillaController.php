@@ -94,13 +94,13 @@ class PlanillaController extends Controller
         echo "Salario Ganado = ".round($salario_ganado,2)."<br>";
         echo " ISSS = ". round($ISSS, 2)."<br>";
         echo $AFP_nombre."  = ". round($AFP, 2)."<br>";
-        echo "Salario despues de descuentos = ". round($salario_descuentos,2)."<br>";
+        echo "Salario después de descuentos = ". round($salario_descuentos,2)."<br>";
         echo "tramo ".$renta->last()->tramo."<br>";
-        echo "cuota fija = ".$renta->last()->cuotaFija."   -- Exceso ".$salario_exceso.' ----- ';
-        echo  "porcentaje ".$renta->last()->porcentaje."<br>";
-        echo "descontar de renta ". $descuento_renta."<br>";
+        echo "cuota fija = ".$renta->last()->cuotaFija."   -- Exceso = ".$salario_exceso.' ----- ';
+        echo  "porcentaje = ".$renta->last()->porcentaje."<br>";
+        echo "descontar de renta = ". $descuento_renta."<br>";
         $liquido=$salario_descuentos-$descuento_renta;
-        echo "liquido ". $liquido."<br>";
+        echo "Líquido = ". $liquido."<br>";
     }
 
     /**

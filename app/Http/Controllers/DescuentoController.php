@@ -49,7 +49,7 @@ class DescuentoController extends Controller
         $url = '/biblioteca/descuentos/' . $nombre;
         $request['imagenInicio'] = $url;
         Descuento::create($request->all());
-        return redirect("/descuentos/" . $request['idEmpleado'])->with('create', 'Sea creado con éxito el registro');
+        return redirect("/descuentos/" . $request['idEmpleado'])->with('create', 'Se ha creado con éxito el registro de descuento de empleado');
 
     }
 
@@ -109,7 +109,7 @@ class DescuentoController extends Controller
         $descuento->estadoDescuento=0;
         $descuento->observacionDescuento=$request['observacionDescuento'] ;
         $descuento->save();
-        return redirect("/descuentos/". $request['idEmpleado'])->with('update','Sea editado con éxito el registro');
+        return redirect("/descuentos/". $request['idEmpleado'])->with('update','Se ha editado correctamente el registro de descuento');
 
     }
 

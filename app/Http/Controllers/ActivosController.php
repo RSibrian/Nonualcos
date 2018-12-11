@@ -96,7 +96,7 @@ class ActivosController extends Controller
         Vehiculo::create($request->all());
       }
     }
-      return redirect('/activos')->with('create','Se creo con éxito el activo');
+      return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
 
     /**
@@ -163,7 +163,7 @@ class ActivosController extends Controller
       //  dd($vehiculo);
         $vehiculo->update($request->all());
       }
-      return redirect('/activos')->with('update','Sea editado con éxito el activo');
+      return redirect('/activos')->with('update','Se ha editado correctamente el activo');
     }
 
     public function updateDaniado(Request $request, Activos $activos)
@@ -252,7 +252,7 @@ class ActivosController extends Controller
           $view =  \View::make($vistaurl, compact('activos','unidad', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
-          return $pdf->stream('Reporte de Activos por Unidad'.$unidad->nombreUnidad.$date.'.pdf');
+          return $pdf->stream('Reporte de Activos por Unidad '.$unidad->nombreUnidad.$date.'.pdf');
         }
 
         public function reporteDatosActivos($idactivo)
@@ -268,7 +268,7 @@ class ActivosController extends Controller
               $pdf = \App::make('dompdf.wrapper');
               $pdf->loadHTML($view);
               //$pdf->setPaper('A4', 'landscape');
-              return $pdf->stream('Reporte Datos de Activo '.$activo->codigoInventario.'-'.$date.'.pdf');
+              return $pdf->stream('Reporte de Datos de Activo '.$activo->codigoInventario.'-'.$date.'.pdf');
             }
 
         public function reporteDepreAnual($idactivo)
@@ -284,7 +284,7 @@ class ActivosController extends Controller
               $pdf = \App::make('dompdf.wrapper');
               $pdf->loadHTML($view);
               $pdf->setPaper('A4', 'landscape');
-              return $pdf->stream('Reporte Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date.'.pdf');
+              return $pdf->stream('Reporte de Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date.'.pdf');
             }
 
           public function reporteDepreMensual($idactivo)
@@ -300,7 +300,7 @@ class ActivosController extends Controller
                 $pdf = \App::make('dompdf.wrapper');
                 $pdf->loadHTML($view);
                 $pdf->setPaper('A4', 'landscape');
-                return $pdf->stream('Reporte Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date.'.pdf');
+                return $pdf->stream('Reporte de Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date.'.pdf');
               }
 
 

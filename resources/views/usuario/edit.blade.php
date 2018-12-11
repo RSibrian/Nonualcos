@@ -16,7 +16,7 @@
 	  					@include('usuario.form')
 	  					<div align="center">
 								{!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
-								<a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+								<a href="{{ route('users.index') }}" class='btn btn-ocre '>Regresar</a>
 	  					</div>
 					{!! Form::close() !!}
                 </div>

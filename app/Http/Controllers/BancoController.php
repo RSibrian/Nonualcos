@@ -37,7 +37,7 @@ class BancoController extends Controller
     public function store(Request $request)
     {
         Banco::create($request->all());
-        return redirect('/bancos')->with('create','Sea creado con éxito el registro');
+        return redirect('/bancos')->with('create','Se ha creado con éxito el registro de banco');
     }
 
     /**
@@ -73,7 +73,7 @@ class BancoController extends Controller
     public function update(Request $request, Banco $banco)
     {
         $banco->update($request->all());
-        return redirect("/bancos")->with('update','Sea editado con éxito el registro');
+        return redirect("/bancos")->with('update','Se ha editado correctamente el registro');
     }
 
     /**

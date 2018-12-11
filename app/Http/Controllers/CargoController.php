@@ -39,7 +39,7 @@ class CargoController extends Controller
     public function store(Request $request)
     {
         Cargo::create($request->all());
-        return redirect('/cargos')->with('create','Sea creado con éxito el cargo');
+        return redirect('/cargos')->with('create','Se ha creado con éxito el registro de cargo');
     }
 
     /**
@@ -76,7 +76,7 @@ class CargoController extends Controller
     {
         $cargo->update($request->all());
       //  dd($cargo);
-        return redirect('/cargos')->with('update','Sea editado con éxito la cargo');
+        return redirect('/cargos')->with('update','Se ha editado correctamente el cargo');
     }
 
     /**
