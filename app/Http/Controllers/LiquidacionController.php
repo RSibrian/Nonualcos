@@ -17,7 +17,7 @@ class LiquidacionController extends Controller
     public function index()
     {
         // retorna la vista para el registro de nuevo vale
-        $liquidaciones = Liquidacion::select('*')->orderBy('updated_at', 'desc')->get();
+        $liquidaciones =Liquidacion::all()->sortByDesc('updated_at');
 
         return View('liquidaciones.index', compact('liquidaciones'));
     }
@@ -64,6 +64,13 @@ class LiquidacionController extends Controller
     public function  coste(Vale $id){
 
          return Response::json($id);
+    }
+
+    public function LiquidacionVales(Liquidacion $liquidacion)
+    {
+        $vales=Liquidacion::VehiculohasLiquidacion($liquidacion);
+
+        return Response::json($vales);
     }
 
 }

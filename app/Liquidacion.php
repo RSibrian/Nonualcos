@@ -51,4 +51,5 @@ class Liquidacion extends Model
 
          return $query;
      }
+
 }

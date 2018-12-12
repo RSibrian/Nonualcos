@@ -471,6 +471,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/costo/{id}','LiquidacionController@coste')
         ->name('costo');
 
+    Route::get('/liquidaciones/{liquidacion}/vales','LiquidacionController@LiquidacionVales')
+        ->name('liquidaciones.vales')
+        ->middleware('permission:liquidaciones.index');
+
     Route::get('autocompletePlacas','ValeController@autocompletePlacas')
         ->name('autocompletePlacas');
 

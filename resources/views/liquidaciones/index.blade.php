@@ -47,17 +47,16 @@
                             ?>
                             @foreach($liquidaciones as $liquidacion)
                               <tr>
-                                  <input id="hidden" type="hidden" value="{{$liquidacion->id}}">
                                   <?php $cont++;?>
-                                <td></td>
+                                <td id="{{$liquidacion->id}}"></td>
                                 <td>{{ $cont }}</td>
                                 <td>{{ $liquidacion->fechaLiquidacion }}</td>
                                 <td>{{ $liquidacion->numeroFacturaLiquidacion }}</td>
                                       <?php $vehiculo= $liquidacion->vale;?>
                                       @foreach($vehiculo as $ve)
                                           <?php $placa=$ve->salida->vehiculo?>
-                                      <td>{{ $placa->numeroPlaca}}</td>
                                       @endforeach
+                                 <td>{{ $placa->numeroPlaca}}</td>
                                 <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
                                 <td class="text-right">
                                   @can('vales.edit')
@@ -90,7 +89,7 @@
                    1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
     ?>
     @include('alertas.ayuda')
-    {{--<style>
+<style>
         td.details-control {
             background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
             cursor: pointer;
@@ -98,7 +97,7 @@
         tr.shown td.details-control {
             background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
         }
-    </style>--}}
+</style>
 @stop
 @section('scripts')
 
@@ -158,6 +157,7 @@
         $('#datatables tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
+            var val=$(this).attr('id');
 
             if (row.child.isShown()) {
                 // This row is already open - close it
@@ -165,7 +165,7 @@
                 tr.removeClass('shown');
             } else {
                 // Open this row
-                format(row.child);
+                format(row.child,val);
                 tr.addClass('shown');
             }
         } );
@@ -173,23 +173,33 @@
         $('.card .material-datatables label').addClass('form-group');
     });
 
-    function format ( callback) {
-        var val=$('#hidden').val();
+    function format ( callback, val ) {
         $.ajax({
-            url:'',
+            url:'/liquidaciones/'+val+'/vales',
             dataType: "json",
             complete: function (response) {
                 var data = JSON.parse(response.responseText);
-                console.log(data);
+                var cont=0;
                 var thead = '',  tbody = '';
-                for (var key in data[0]) {
-                    thead += '<th>' + key + '</th>';
-                }
+                thead = '<tr>'+
+                        '<th>' +" # "+ '</th>'+
+                        '<th>' +" Fecha "+ '</th>'+
+                        '<th>' +" Número de vale "+ '</th>'+
+                        //'<th>' +" Solicitante "+ '</th>'+
+                        '<th>' +" Costo total de vale "+ '</th>'+
+                        '</tr>';
+
                 $.each(data, function (i, d) {
-                    tbody += '<tr><td>' + d.name + '</td><td>' + d.value + '</td></tr>';
+                    cont++;
+                    tbody += '<tr>'+
+                            '<td>' + cont + '</td>'+
+                            '<td>' + d.fechaCreacion + '</td>'+
+                            '<td>' + d.numeroVale + '</td>'+
+                           // '<td>' + d.nombresEmpleado+' '+d.apellidosEmpleado + '</td>'+
+                            '<td>' + d.costoUnitarioVale+ '</td>'+
+                            '</tr>';
                 });
-                console.log('<table>' + thead + tbody + '</table>');
-                callback($('<table>' + thead + tbody + '</table>')).show();
+                callback($("<table class='table' style='width:90%;'>" + thead + tbody + '</table>')).show();
             },
             error: function () {
                 $('#output').html('Bummer: there was an error!');
