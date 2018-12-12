@@ -248,17 +248,21 @@
     </script>
     <script>
         $('#idUnidad').on('change',function(e){
-            var empleados=$("#idEmpleado");
-            var unidad=$("#idUnidad").find('option:selected');
-            var ruta="/Nonualcos/public/activos/create/"+unidad.val();
-            $.get(ruta,function(res){
-                empleados.empty();
-                empleados.append("<option value>Seleccione un Encargado (requerido)</option>");
-                $(res).each(function(key,value){
-                    empleados.append("<option value="+value.id+">"+value.nombresEmpleado+" "+value.apellidosEmpleado+"</option>");
-                });
+          var empleados=$("#idEmpleado");
+          var unidad=$("#idUnidad").find('option:selected').val();
+
+          var newUrl = "{{ route('activos.create.codificacion', ['unidad' => ':unidad']) }}";
+          newUrl = newUrl.replace(':unidad', unidad);
+          var token="{{ csrf_token() }}";
+          $.get(newUrl,function(res){
+            empleados.empty();
+            empleados.append("<option value>Seleccione un Encargado (requerido)</option>");
+            $(res).each(function(key,value){
+                empleados.append("<option value="+value.id+">"+value.nombresEmpleado+" "+value.apellidosEmpleado+"</option>");
             });
+          });
         });
+
 
     </script>
 @endsection
