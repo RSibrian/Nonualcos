@@ -421,9 +421,12 @@ $().ready(function() {
 <script>
 $('#unidad_id').on('change',function(e){
   var cargos=$("#cargo_id");
-  var unidad=$("#unidad_id").find('option:selected');
-  var ruta="/Nonualcos/public/empleados/create/"+unidad.val();
-  $.get(ruta,function(res){
+  var unidad=$("#unidad_id").find('option:selected').val();
+
+  var newUrl = "{{ route('empleados.create.codificacion', ['unidad' => ':unidad']) }}";
+  newUrl = newUrl.replace(':unidad', unidad);
+  var token="{{ csrf_token() }}";
+  $.get(newUrl,function(res){
     cargos.empty();
     cargos.append("<option value="+null+">Seleccione un cargo</option>");
     $(res).each(function(key,value){

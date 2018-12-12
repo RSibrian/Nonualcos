@@ -466,18 +466,35 @@
     </script>
 
     <script>
-        $('#unidad_id').on('change',function(e){
-            var cargos=$("#cargo_id");
-            var unidad=$("#unidad_id").find('option:selected');
-            var ruta="/Nonualcos/public/empleados/create/"+unidad.val();
-            $.get(ruta,function(res){
-                cargos.empty();
-                cargos.append("<option value="+null+">Seleccione un cargo</option>");
-                $(res).each(function(key,value){
-                    cargos.append("<option value="+value.id+">"+value.nombreCargo+"</option>");
-                });
-            });
+    $('#unidad_id').on('change',function(e){
+      var cargos=$("#cargo_id");
+      var unidad=$("#unidad_id").find('option:selected').val();
+
+      var newUrl = "{{ route('empleados.create.codificacion', ['unidad' => ':unidad']) }}";
+      newUrl = newUrl.replace(':unidad', unidad);
+      var token="{{ csrf_token() }}";
+      $.get(newUrl,function(res){
+        cargos.empty();
+        cargos.append("<option value="+null+">Seleccione un cargo</option>");
+        $(res).each(function(key,value){
+          cargos.append("<option value="+value.id+">"+value.nombreCargo+"</option>");
         });
+      });
+      // $.ajax({
+      //   url:newUrl,
+      //    data : {"_token":"{{ csrf_token() }}",
+      //             "unidad":unidad},
+      //   dataType:'json',
+      //   type:'GET',
+      //   success:function(res){
+      //     console.log(res);
+      //   },
+      //   error:function(res){
+      //     console.log(res);
+      //   }
+      //
+      // });
+    });
 
     </script>
     {!!Html::script('js/jquery.mask.min.js')!!}
