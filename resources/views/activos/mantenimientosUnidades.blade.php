@@ -130,6 +130,7 @@
               </tbody>
             </table>
           </div>
+          	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
         </div>
         <!-- end content-->
       </div>

@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ActivosUnidadesRequest;
 use App\Activos;
 use App\Unidades;
 use App\Empleado;
 use Carbon\Carbon;
 use App\ActivosUnidades;
 use App\ClasificacionesActivos;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class ActivosUnidadesController extends Controller
 {
@@ -29,10 +31,7 @@ class ActivosUnidadesController extends Controller
      */
     public function create()
     {
-      $unidades=Unidades::pluck('nombreUnidad','id');
-      $empleados=Empleado::pluck('nombresEmpleado','id');
-      $date = Carbon::now();
-      return view('activosUnidades.create',compact('unidades','date','empleados'));
+
     }
 
     /**
@@ -107,7 +106,8 @@ class ActivosUnidadesController extends Controller
     public function show(Activos $activo)
     {
       $unidades=Unidades::pluck('nombreUnidad','id');
-      $empleados=Empleado::pluck('nombresEmpleado','id');
+      $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+      $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
       $date = Carbon::now();
       return view('activosUnidades.show',compact('unidades','empleados','activo','date'));
     }

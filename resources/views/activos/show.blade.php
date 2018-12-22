@@ -357,7 +357,7 @@
                       @endif
                       <div align="center">
                         <a target="_blank"  href="{{  url("activos/reporteDatosActivos/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
-                          <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                      	<a href="{{ url("activos") }}" class='btn btn-ocre '>Regresar</a>
 
                       </div>
 

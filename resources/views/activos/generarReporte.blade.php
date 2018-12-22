@@ -18,7 +18,7 @@
                   </div>
 
 						{!! Form::open(['route'=>'activos.reportexUnidad','method'=>'POST','autocomplete'=>'off']) !!}
-          <div class="col-sm-8 row">
+          <div class="col-sm-10 row">
               <div class="input-group">
                   <span class="input-group-addon">
                       <i class="material-icons">apps</i>
@@ -32,7 +32,7 @@
               </div>
           </div>
 
-          <div class="col-sm-4 row">
+          <div class="col-sm-10 row">
               <div class="input-group">
                   <span class="input-group-addon">
                       <i class="material-icons">apps</i>

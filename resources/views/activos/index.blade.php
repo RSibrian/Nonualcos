@@ -83,12 +83,15 @@
 
                                   @endif
                                   <td>
-                                    @if($activo->estadoActivo==1)
+                                    @if($activo->codigoInventario==null)
+                                      <a color="green">Activo</a>
+                                    @endif
+                                    @if($activo->estadoActivo==1 && $activo->codigoInventario!=null)
                                     <!--<button  id="btn_{{ $activo->id }}" onClick="activodaniado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">Bueno  </button>-->
                                     <a color="green">En Uso</a>
                                   @elseif($activo->estadoActivo==2)
                                     <a background-color="red">Dañado</a>
-                                  @else
+                                  @elseif($activo->estadoActivo==0)
                                     <a background-color="rose">De Baja</a>
 
                                   @endif

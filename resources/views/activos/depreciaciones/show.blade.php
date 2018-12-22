@@ -68,15 +68,31 @@
           $cuota=$valorDepreciar/$activo->aniosVida;
           $depreAcumulada=0;
           $precio=$activo->precio;
+          $fechaBaja=$activo->fechaBajaActivo;
 
           $mes=date("m");
           $anno=date("Y");
 
 
+          if($activo->estadoActivo==0){
+
+            $dias_baja=date("d", strtotime($activo->fechaBajaActivo));//dia 12
+            $mes_baja=date("m", strtotime($activo->fechaBajaActivo));// mes 07
+            $anno_baja=date("Y", strtotime($activo->fechaBajaActivo));//2018
+            $fecha_fin_mes = date($anno_baja."-".$mes_baja."-01");//2018-12-01
+
+          }
+          else{
+            $fecha_fin_mes = date($anno."-".$mes."-01");//2018-12-01
+            $ban=0;
+
+          }
+
+
           $dias_inicio=date("d", strtotime($activo->fechaAdquisicion));//dia 12
           $mes_inicio=date("m", strtotime($activo->fechaAdquisicion));// mes 07
           $anno_inicio=date("Y", strtotime($activo->fechaAdquisicion));//2018
-          $fecha_fin_mes = date($anno."-".$mes."-01");//2018-12-01
+
           $fecha_compra = date($anno_inicio."-".$mes_inicio."-01");//2018-07-01
           $fecha_max=date("Y-m-d", strtotime("$fecha_compra +$activo->aniosVida year"));
           if($dias_inicio<25)
@@ -98,17 +114,32 @@
           {
             $text_mes="meses";
           }
-          if($fecha_fin_mes>=$fecha_max)
+
+
+          if($fecha_fin_mes>=$fecha_max && $activo->estadoActivo!=0) //duda
           {
 
             $mesesDepre=$activo->aniosVida*12;
             $resultado->y=$activo->aniosVida;
             $resultado->m=0;
           }
-          else $mesesDepre=($resultado->y*12)+$resultado->m;
-          $depreMen=($cuota/12)*$mesesDepre;
+          else {
 
-          ?>
+            if($fecha_fin_mes>=$fecha_max && $activo->estadoActivo==0) //duda
+            {
+              $mesesDepre=$activo->aniosVida*12;
+              $resultado->y=$activo->aniosVida;
+              $resultado->m=0;
+
+            }
+            else
+            {
+              $mesesDepre=($resultado->y*12)+$resultado->m;
+
+            }
+        }
+          $depreMen=($cuota/12)*$mesesDepre;
+      ?>
           <br><br>
 
 
@@ -117,6 +148,7 @@
         <legend align='center'><b><small >Información del Activo</small></b></legend>
 
           <table align='center'>
+
           <tr>
             <th>Código:&nbsp;&nbsp;</th>
             <td>&nbsp;{{$activo->codigoInventario?:"No asignado"}}&nbsp;</th>
@@ -155,9 +187,9 @@
             <th>Cuota Anual:&nbsp;&nbsp;</th>
             <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <?php $date = new DateTime($activo->fechaAdquisicion); ?>
+            <?php $datead = new DateTime($activo->fechaAdquisicion); ?>
             <th>fecha de Adquisición:&nbsp;&nbsp;</td>
-            <td>{{ $date->format('d/m/Y') }}</td>
+            <td>{{ $datead->format('d/m/Y') }}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 
 
@@ -175,6 +207,13 @@
 
 
           </tr>
+          @if($activo->estadoActivo==0)
+          <tr>
+              <th>Fecha de baja: &nbsp;&nbsp;</th>
+              <?php $date1 = new DateTime($activo->fechaBajaActivo); ?>
+              <td>{{ $date1->format('d/m/Y') }}</td>
+            </tr>
+            @endif
 
 
 
@@ -240,7 +279,7 @@
             </table>
             <div align="center">
               <a target="_blank"  href="{{  url("activos/reporteDepreAnual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
-                <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
 
             </div>
           <br>
@@ -309,7 +348,7 @@
         </div>
         <div align="center">
           <a target="_blank"  href="{{  url("activos/reporteDepreMensual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
-            <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+          	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
 
         </div>
         <!-- end content-->
