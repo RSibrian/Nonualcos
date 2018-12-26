@@ -23,8 +23,9 @@ class ActivosUnidadesRequest extends FormRequest
      */
     public function rules()
     {
+      $date=date('Y-m-d');
         return [
-          $date=date('Y-m-d');
+
           'fechaInicioUni'=> 'required|beforeor_equal:'.$date,
         ];
     }

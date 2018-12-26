@@ -557,12 +557,30 @@ Route::middleware(['auth'])->group(function () {
         ->name('planillas.create')
         ->middleware('permission:unidads.create');
 
-        //depreciaciones
-            Route::get('depreciaciones/{activo}','DepreciacionController@show')
-                ->name('depreciaciones.show')
-                ->middleware('permission:roles.index');
+    //depreciaciones
+    Route::get('depreciaciones/{activo}','DepreciacionController@show')
+        ->name('depreciaciones.show')
+        ->middleware('permission:roles.index');
 
-            //fin depreciaciones
+    //fin depreciaciones
+    //bitacora
+    Route::get('bitacoraAcciones','BitacoraAccionController@index')
+        ->name('bitacoraAcciones.index')
+        ->middleware('permission:roles.index');
+
+    Route::get('bitacoraAcciones/{bitacoraAccion}','BitacoraAccionController@show')
+        ->name('bitacoraAcciones.show')
+        ->middleware('permission:roles.index');
+
+    //fin bitacora
+
+    Route::get('entradasSalidas/{empleado}','EntradasSalidasController@show')
+        ->name('entradasSalidas.show')
+        ->middleware('permission:roles.index');
+
+    Route::post('entradasSalidas/store','EntradasSalidasController@store')
+        ->name('entradasSalidas.store')
+        ->middleware('permission:roles.create');
 
 
 

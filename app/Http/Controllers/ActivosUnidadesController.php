@@ -40,7 +40,7 @@ class ActivosUnidadesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActivosUnidadesRequest $request)
     {
       //actualizar el registro anterior fecha final y estado
 
@@ -65,14 +65,16 @@ class ActivosUnidadesController extends Controller
           $clasificacion = ClasificacionesActivos::find($activoUpdate->idClasificacionActivo);
 
           //para correlativo por unidad
-          $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->where('estadoUni',true)->get();
+        //  $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->get();
           //$activosUnidades=ActivosUnidades::where('estadoUni',true)->get(); //correlativo global
-          //  $activos=Activos::All();
+            $activos=Activos::All();
           $contador=1;
-          foreach ($activosUnidades as  $traslado) {
-            $activo=$traslado->activo;
-            if($activo->idClasificacionActivo==$activoUpdate->idClasificacionActivo){
-              $contador++;
+          foreach ($activos as  $activo) {
+            $primerTraslado=$activo->activosUnidades->first();
+            if (isset($primerTraslado)) {
+              if($activo->idClasificacionActivo==$activoUpdate->idClasificacionActivo && $primerTraslado->idUnidad==$request['idUnidad']){
+                $contador++;
+              }
             }
           }
         //  dd($contador);
