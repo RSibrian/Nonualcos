@@ -7,7 +7,7 @@
 			background: rgba(153,217,234,0.5);
 		}
 	</style>
-	<br><div style="position: absolute;left: 280px; top: -20px; z-index: 1;"><h3>TOMA FISICA DE INVENTARIO DE MOBILIARIO Y EQUIPO</h3></div>
+	<br><div style="text-align: center;"><h3>INVENTARIO DE MOBILIARIO Y EQUIPO</h3></div>
 
 
 

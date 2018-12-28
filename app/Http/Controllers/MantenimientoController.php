@@ -134,7 +134,7 @@ class MantenimientoController extends Controller
     $view =  \View::make($vistaurl, compact('mantenimiento', 'date','date1'))->render();
     $pdf = \App::make('dompdf.wrapper');
     $pdf->loadHTML($view);
-    $pdf->setPaper('A4', 'portrait');
+    $pdf->setPaper('letter', 'portrait');
     return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
   }
 
