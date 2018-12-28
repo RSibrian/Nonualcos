@@ -214,6 +214,9 @@
                                   <a href="{{ url('/roles') }}">Roles</a>
                                 @endcan
                               </li>
+                              <li>
+                                  <a href="{{ url('/bitacoraAcciones') }}">Bitacora Acción</a>
+                              </li>
 
 
                           </ul>

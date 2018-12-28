@@ -10,6 +10,7 @@ use App\Empleado;
 use App\Vehiculo;
 use App\Mantenimiento;
 use Carbon\Carbon;
+use App\BitacoraAccion;
 
 
 use App\ActivosUnidades;
@@ -53,6 +54,7 @@ class ActivosController extends Controller
     public function store(Request $request)
     {
 
+
     for($cantidad=$request['cantidad']; $cantidad>0; $cantidad--){
       /*tabla activo
       $unidad = Unidades::find($request['idUnidad']);
@@ -88,15 +90,44 @@ class ActivosController extends Controller
       //Crear activo
       Activos::create($request->all());
       //tabla vehiculo
+      $activos=Activos::all();
+      $activo=$activos->last();
+      $request['idActivo']=$activo->id;
       if(  $request['tipoActivo']==1)
       {
-        $activos=Activos::all();
-        $activo=$activos->last();
-        $request['idActivo']=$activo->id;
+
         //aqui guardar en Vehiculo placa y idActivo
         Vehiculo::create($request->all());
       }
     }
+    //bitacora accion
+    $clasificacion=ClasificacionesActivos::find($request['idClasificacionActivo']);
+    $proveedor=Proveedor::find($request['idProveedor']);
+    if($request['tipoAdquisicion']){ $tipo='Compra'; $uso=0;}else{$tipo='Usado';$uso=$request['aniosUso'];}
+
+    $accion="Registro de Activo Fijo";
+    $antes=null;
+    $despues="Identificador: ".$request['idActivo'].
+    " <br> clasificación: ".$clasificacion->nombreTipo.
+    " <br> Nombre: ".$request['nombreActivo'].
+    " <br> Fecha de Adquisición: ".$request['fechaAdquisicion'].
+    " <br> Marca : ".$request['marca'].
+    " <br> Modelo : ".$request['modelo'].
+    " <br> Color : ".$request['color'].
+    " <br> Serie : ".$request['serie'].
+    " <br> precio: ".$request['precio'].
+    " <br> Proveedor: ".$proveedor->nombreEmpresa.
+      " <br> Factura: ".$request['numeroFactura'].
+    " <br> Vida Utíl: ".$request['aniosVida'].
+    " <br> Tipo de Adquisición: ".$tipo.
+    " <br> Años de uso: ".$uso.
+    " <br> Estado del Activo: "."Activo".
+    " <br> Observacion: ".$request['ObservacionActivo'];
+
+
+    BitacoraAccion::crearBitacora($accion,$antes,$despues);
+    //fin bicora accion
+
       return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
 
@@ -267,8 +298,9 @@ class ActivosController extends Controller
               $vistaurl="activos.reporteDatosActivos";
               $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
               $pdf = \App::make('dompdf.wrapper');
+              $pdf->setPaper('letter', 'portrait');
+
               $pdf->loadHTML($view);
-              //$pdf->setPaper('A4', 'landscape');
               return $pdf->stream('Reporte de Datos de Activo '.$activo->codigoInventario.'-'.$date.'.pdf');
             }
 

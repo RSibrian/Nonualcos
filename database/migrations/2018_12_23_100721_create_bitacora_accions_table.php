@@ -16,8 +16,10 @@ class CreateBitacoraAccionsTable extends Migration
         Schema::create('bitacora_accions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('accion');
-            $table->string('registroAntes')->nullable();
-            $table->string('registroDespues');
+            //$table->string('registroAntes')->nullable();
+            //$table->string('registroDespues');
+            $table->text('registroAntes')->nullable();
+            $table->text('registroDespues');
             $table->Integer('idUser')->unsigned();
             $table->foreign('idUser')->references('id')->on('users');
             $table->timestamps();

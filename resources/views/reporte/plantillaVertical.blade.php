@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>{{"Reporte de $title"}}</title>
     <style>
-        @page { margin: 180px 50px; }
-        #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px;  text-align: center; }
-        #footer { position: fixed; left: 0px; bottom: -220px; right: 0px; height: 150px; }
+        @page { margin: 0; }
+        #header { position: fixed;   text-align: center; }
+        #footer { position: fixed; text-align: center; }
 
         body {
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: 300;
             font-size: 12px;
-            margin: 0;
+            margin: 15em 4.75em 4.75em 5.92em; //6.32cm top 2cm right 2cm bottom 2.5 left
             padding: 0;
             color: #777777;
         }
@@ -46,22 +46,25 @@
 </head>
 <body>
 <div id="header">
-    <div style="position: absolute;left: 0px; top: 0px; z-index: 1;"><h2>Asociación Los Nonualcos</h2></div>
-    <div style="position: absolute;left: 300px; top: 40px; z-index: 1;">Departamento de La Paz</div>
-    <HR style="position: absolute;left: 23px; top: 130px; z-index: 1; color:blue;" width=90%>
-    <div style="position: absolute;left: 550px; top: 138px; z-index: 1;">Fecha:  <?=  $date; ?> </div>
-    <div style="position: absolute;left: 550px; top: 153px; z-index: 1;">Hora:&nbsp;&nbsp;  <?=  $date1; ?> </div>
-    <div align="left" style="position: absolute;left: 200px; top: 70px; z-index: 1;"><h5>Barrio san juan  Avenida Anastacio Aquino No.26 Santiago Nonualco </h5></div>
-    <div align="left" style="position: absolute;left: 320px; top: 83px; z-index: 1;"><h5>Telefono: 2330-4366</h5></div>
-    <h3 align="right" style="position: absolute; left: 550px; top:0px;  z-index: 1;"><img class="al" width="110px" height="110px" src="img/sv.png" ></h3>
-    <h3 align="right" style="position: absolute;left:10px; top:0px; z-index: 1;"><img class="al" width="110px" height="110px" src="img/logo.jpg" ></h3>
+    <div style="position: absolute; top: 5em; z-index: 1; "><h2>ASOCIACIÓN DE MUNICIPIOS</h2></div>
+    <div style="position: absolute; top: 7em; z-index: 1;"><h2>LOS NONUALCOS</h2></div>
+
+    <h3 align="right" style="position: absolute; left:5.92em; top:1em; z-index: 1;"><img class="al" width="100px" height="100px" src="img/sv.png" ></h3>
+    <h3 align="right" style="position: absolute; right: 4.75em; top:1em; z-index: 1;"><img class="al" width="100px" height="100px" src="img/logo.png" ></h3>
+
+    <HR style="position: absolute; left: 5.92em; top: 10.6em; right: 4.75em; z-index: 1; color:	#005588;" width=100%>
+    <div style="position: absolute; right: 4.75em; top: 11.5em; z-index: 1;">Fecha:  <?=  $date; ?> </div>
+    <div style="position: absolute; right: 4.75em; top: 12.5em; z-index: 1;">Hora:  <?=  $date1; ?> </div>
 </div>
 <div id="footer">
-    <HR align="left" style="position: absolute; left:23px; top:15px; z-index: 1; color:blue;" width=90%>
+    <HR align="left" style="position: absolute; left:5.92em; right: 4.75em; bottom: 6em; z-index: 1; color:	#005588;" width=100%>
 </div>
+<div style="position: absolute; left: 3.75em; right: 4.75em; bottom: 0.2em; z-index: 1; ">Barrio San Juan, Avenida Anastasio Aquino y Francisco Gavidia #333. Santiago Nonualco. La Paz</div>
+<div style="position: absolute; left: 4.75em; right: 4.75em; bottom: -1em; z-index: 1; text-align: center;">Teléfono: 2330-4366, Fax: 2330-4358</div>
+
 @yield('reporte')
 
-<div align="center" style="position: absolute; left:70; top:750px; px; z-index: 1;">
+<div align="center" style="position: absolute; left:5.92em; bottom: 4em; z-index: 1;">
     <b>Firma:_______________________________
         <br>
         @if(Auth::user()->idEmpleado!=null)
@@ -76,9 +79,9 @@
         if ($PAGE_COUNT >= 1) {
             $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
             $size = 10;
-            $pageText = "Pagina: " . $PAGE_NUM . " de " . $PAGE_COUNT;
-            $y = 735;
-            $x = 480;
+            $pageText = "Página: " . $PAGE_NUM . " de " . $PAGE_COUNT;
+            $y = 740;
+            $x = 500;
             $pdf->text($x, $y, $pageText, $font, $size);
 
 

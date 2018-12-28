@@ -53,11 +53,11 @@
     <div style="position: absolute;left: 550px; top: 153px; z-index: 1;">Hora:&nbsp;&nbsp;  <?=  $date1; ?> </div>
     <div align="left" style="position: absolute;left: 200px; top: 70px; z-index: 1;"><h5>Barrio san juan  Avenida Anastacio Aquino No.26 Santiago Nonualco </h5></div>
     <div align="left" style="position: absolute;left: 320px; top: 83px; z-index: 1;"><h5>Telefono: 2330-4366</h5></div>
-    <h3 align="right" style="position: absolute; left: 550px; top:0px;  z-index: 1;"><img class="al" width="110px" height="110px" src="img/sv.png" ></h3>
-    <h3 align="right" style="position: absolute;left:10px; top:0px; z-index: 1;"><img class="al" width="110px" height="110px" src="img/logo.jpg" ></h3>
+    <h3 align="right" style="position: absolute; left: 550px; top:0px;  z-index: 1;"><img class="al" width="110px" height="110px" src="img/logo.jpg" ></h3>
+    <h3 align="right" style="position: absolute;left:10px; top:0px; z-index: 1;"><img class="al" width="110px" height="110px" src="img/sv.png" ></h3>
 </div>
 <div id="footer">
-    <HR align="left" style="position: absolute; left:23px; top:15px; z-index: 1; color:blue;" width=90%>
+    <HR align="left" style="position: absolute; left:23px; top:15px; z-index: 1; color:blue;" width=100%>
 </div>
 @yield('reporte')
 
