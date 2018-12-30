@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Hash;
 class UsuarioController extends Controller
 {
@@ -41,7 +42,9 @@ class UsuarioController extends Controller
     }
     public function edit($id)
     {
-        $empleados=Empleado::pluck('nombresEmpleado','id');
+        $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+        $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+
         $user=User::findOrFail($id);
         return view('usuario.edit',compact('user','empleados'));
 
@@ -114,6 +117,7 @@ class UsuarioController extends Controller
           $view =  \View::make($vistaurl, compact('users', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
+            $pdf->setPaper('letter', 'portrait');
           return $pdf->stream('Reporte de Usuarios '.$date.'.pdf');
         }
 }

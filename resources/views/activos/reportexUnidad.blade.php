@@ -1,7 +1,7 @@
 
 
-<?php $title="Depreciación Activo"?>
-@extends ('reporte.plantillaVertical')
+<?php $title='Reporte de Activos por Unidad '.$unidad->nombreUnidad.$date;?>
+@extends ('reporte.plantillaHorizontal')
 @section('reporte')
 	<style>
 		.gris {
@@ -11,12 +11,9 @@
 			background: rgb(255,255,255);
 		}
 	</style>
-	<br><div style="position: absolute;left: 180px; top: -20px; z-index: 1;"><h3>TOMA FISICA DE INVENTARIO DE MOBILIARIO Y EQUIPO</h3></div>
+	<br><div style="text-align: center;"><h3>INVENTARIO DE MOBILIARIO Y EQUIPO</h3></div>
+	<br><div style="text-align: center;"><h3>Unidad : {{$unidad->nombreUnidad}}</h3></div>
 
-
-
-
-        <div align='center'  ><h3>Unidad : {{$unidad->nombreUnidad}}</h3></div>
 			  <table class="table-wrapper" align='center'>
 					<thead>
 						<tr>
@@ -58,4 +55,20 @@
 					 </tbody>
 
 				</table>
+				<script type="text/php">
+				    if ( isset($pdf) ) {
+				    $pdf->page_script('
+				        if ($PAGE_COUNT >= 1) {
+				            $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+				            $size = 10;
+				            $pageText = "Página: " . $PAGE_NUM . " de " . $PAGE_COUNT;
+				            $y = 555;
+				            $x = 680;
+				            $pdf->text($x, $y, $pageText, $font, $size);
+
+
+				        }
+				    ');
+				}
+				</script>
 	@stop

@@ -24,7 +24,7 @@
                             </a>
                         @endcan
                             <a  aling='right' target="_blank" href="{{ url("users/reporte") }}" class="btn  btn-ocre btn-round " title="imprimir reporte de usuarios">
-                                <i class="material-icons">print</i>
+                                <i class="material-icons">save_alt</i>
 
                             </a>
 

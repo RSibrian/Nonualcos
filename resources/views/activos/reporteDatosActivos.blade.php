@@ -1,4 +1,4 @@
-<?php $title="Activo"?>
+<?php $title='Reporte de Datos de Activo '.$activo->codigoInventario.'-'.$date;?>
 @extends ('reporte.plantillaVertical')
 @section('reporte')
 <style>

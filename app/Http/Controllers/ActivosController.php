@@ -284,6 +284,7 @@ class ActivosController extends Controller
           $view =  \View::make($vistaurl, compact('activos','unidad', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
+          $pdf->setPaper('letter', 'landscape');
           return $pdf->stream('Reporte de Activos por Unidad '.$unidad->nombreUnidad.$date.'.pdf');
         }
 
@@ -316,7 +317,7 @@ class ActivosController extends Controller
               $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
               $pdf = \App::make('dompdf.wrapper');
               $pdf->loadHTML($view);
-              $pdf->setPaper('A4', 'landscape');
+              $pdf->setPaper('letter', 'landscape');
               return $pdf->stream('Reporte de Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date.'.pdf');
             }
 

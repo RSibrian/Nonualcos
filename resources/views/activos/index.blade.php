@@ -24,7 +24,7 @@
                           </a>
                       @endcan
                       <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round " title="Reporte General de Inventario de Activos">
-                          <i class="material-icons">print</i>
+                          <i class="material-icons">save_alt</i>
 
                       </a>
                       <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">

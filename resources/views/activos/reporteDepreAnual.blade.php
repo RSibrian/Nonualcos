@@ -1,4 +1,4 @@
-<?php $title="Depreciación Activo"?>
+<?php $title='Reporte de Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date;?>
 @extends ('reporte.plantillaHorizontal')
 @section('reporte')
 	<style>
@@ -124,6 +124,18 @@
 
 
   </tr>
+	@if($activo->fechaBajaActivo)
+	<tr>
+		<td></td>
+		<td></td>
+		<?php $datebaja = new DateTime($activo->fechaBajaActivo); ?>
+		<td class='blanco' ><b>Fecha de Baja:&nbsp;&nbsp;</b></td>
+		<td class='blanco'><b>{{ $datebaja->format('d/m/Y') }}</b></td>
+		<td></td>
+		<td></td>
+
+	</tr>
+@endif
 
 
 
@@ -137,8 +149,7 @@
         <b>
         <th></th>
         <th>Año</th>
-        <th>Valor Original</th>
-        <th>Valor Residual</th>
+
         <th>Valor a Depreciar</th>
         <th>Cuota anual de Depreciación</th>
         <th>Depreciación acumulada</th>
@@ -152,8 +163,7 @@
       <tr>
         <td></td>
         <td>{{$cont}}</td>
-        <td>$ {{number_format($activo->precio, 2, '.', ',')}}</td>
-        <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
+
         <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
         <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
         <td></td>
@@ -170,8 +180,7 @@
         <tr>
           <td></td>
           <td>{{$cont}}</td>
-          <td></td>
-          <td></td>
+
           <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
           <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
           <td>$ {{number_format($depreAcumulada, 2, '.', ',')}}</td>
@@ -181,5 +190,21 @@
 
     </tbody>
   </table>
+	<script type="text/php">
+	    if ( isset($pdf) ) {
+	    $pdf->page_script('
+	        if ($PAGE_COUNT >= 1) {
+	            $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+	            $size = 10;
+	            $pageText = "Página: " . $PAGE_NUM . " de " . $PAGE_COUNT;
+	            $y = 555;
+	            $x = 680;
+	            $pdf->text($x, $y, $pageText, $font, $size);
+
+
+	        }
+	    ');
+	}
+	</script>
 
 @stop

@@ -1,4 +1,4 @@
-<?php $title="Depreciación Activo"?>
+<?php $title='Reporte de Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date;?>
 @extends ('reporte.plantillaHorizontal')
 @section('reporte')
 	<style>
@@ -9,7 +9,7 @@
 			background: rgb(255,255,255);
 		}
 	</style>
-	<br><div style="position: absolute;left: 330px; top: -20px; z-index: 1;"><h3>Depreciación Mensual del Activo: {{ $activo->nombreActivo}}</h3></div>
+		<br><div style="text-align: center;"><h3>Depreciación Mensual del Activo: {{ $activo->nombreActivo}}</h3></div>
 
   <?php
   $valorResidual=$activo->precio*$activo->valorResidual/100;
@@ -124,6 +124,18 @@
 
 
   </tr>
+	@if($activo->fechaBajaActivo)
+	<tr>
+		<td></td>
+		<td></td>
+		<?php $datebaja = new DateTime($activo->fechaBajaActivo); ?>
+    <td class='blanco' ><b>Fecha de Baja:&nbsp;&nbsp;</b></td>
+    <td class='blanco'><b>{{ $datebaja->format('d/m/Y') }}</b></td>
+		<td></td>
+		<td></td>
+
+  </tr>
+@endif
 
 
 
@@ -136,7 +148,7 @@
       <tr>
         <th></th>
         <th>Mes</th>
-        <th>Valor Original</th>
+
 
         <th>Valor a Depreciar</th>
         <th>Cuota mensual de Depreciación</th>
@@ -159,7 +171,7 @@
         $depreAcumulada=0;
 
         ?>
-        <td>$ {{number_format($precio, 2, '.', ',')}}</td>
+
 
         <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
         <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
@@ -179,7 +191,7 @@
           <td></td>
           <td>{{$meses[$i]}}</td>
 
-          <td></td>
+
           <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
           <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
           <td>$ {{number_format($depreAcumulada, 2, '.', ',')}}</td>
@@ -189,5 +201,21 @@
 
     </tbody>
   </table>
+	<script type="text/php">
+	    if ( isset($pdf) ) {
+	    $pdf->page_script('
+	        if ($PAGE_COUNT >= 1) {
+	            $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+	            $size = 10;
+	            $pageText = "Página: " . $PAGE_NUM . " de " . $PAGE_COUNT;
+	            $y = 540;
+	            $x = 710;
+	            $pdf->text($x, $y, $pageText, $font, $size);
+
+
+	        }
+	    ');
+	}
+	</script>
 
 @stop

@@ -278,7 +278,7 @@
               </tbody>
             </table>
             <div align="center">
-              <a target="_blank"  href="{{  url("activos/reporteDepreAnual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
+              <a target="_blank"  href="{{  url("activos/reporteDepreAnual/".$activo->id) }}" class='btn btn-success '>Descargar</a>
                 	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
 
             </div>
@@ -347,7 +347,7 @@
 
         </div>
         <div align="center">
-          <a target="_blank"  href="{{  url("activos/reporteDepreMensual/".$activo->id) }}" class='btn btn-success '>Imprimir</a>
+          <a target="_blank"  href="{{  url("activos/reporteDepreMensual/".$activo->id) }}" class='btn btn-success '>Descargar</a>
           	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
 
         </div>

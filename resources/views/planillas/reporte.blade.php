@@ -27,7 +27,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
         {
             width: 100%;
             height: 50%;
-            background-image: url('/Nonualcos/public/img/escudo123.jpg');
+
             opacity: 0.30;
         }
         .azul{
@@ -274,7 +274,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                 <tr>
                     <td colspan="3" align="center">Contador</td>
                     <td colspan="3" align="center">
-                        @if($empleado->generoEmpleado==1)
+                        @if($empleado->generoEmpleado=='Masculino')
                             Empleado
                         @else
                             Empleada
