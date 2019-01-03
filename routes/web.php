@@ -258,6 +258,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('planillas/store','PlanillaController@store')
         ->name('planillas.store')
         ->middleware('permission:roles.create');
+
+        Route::get('planillas/create/reporte','PlanillaController@reporte')
+            ->name('planillas.reporte')
+            ->middleware('permission:users.index');
     //fin plantillas
     //clasificacion Activos
        Route::post('clasificaciones/store','ClasificacionesActivosController@store')
@@ -291,9 +295,22 @@ Route::middleware(['auth'])->group(function () {
            ->name('activos.generarReporte')
            ->middleware('permission:proveedores.create');
 
+         Route::get('activos/reporteDepreAnual/{activo}','ActivosController@reporteDepreAnual')
+              ->name('activos.reporteDepreAnual')
+              ->middleware('permission:proveedores.index');
+
+          Route::get('activos/reporteDepreMensual/{activo}','ActivosController@reporteDepreMensual')
+             ->name('activos.reporteDepreMensual')
+             ->middleware('permission:proveedores.index');
+
+           Route::get('activos/reporteDatosActivos/{activo}','ActivosController@reporteDatosActivos')
+              ->name('activos.reporteDatosActivos')
+              ->middleware('permission:proveedores.index');
+
            Route::post('activos/reportexUnidad','ActivosController@reportexUnidad')
             ->name('activos.reportexUnidad')
             ->middleware('permission:proveedores.create');
+
            Route::post('activos/store','ActivosController@store')
            ->name('activos.store')
            ->middleware('permission:proveedores.create');
@@ -352,11 +369,18 @@ Route::middleware(['auth'])->group(function () {
     ->name('mantenimientos.create')
     ->middleware('permission:proveedores.create');
 
+    Route::get('mantenimientos/create/{activo}','MantenimientoController@create1')
+    ->name('mantenimientos.create1')
+    ->middleware('permission:proveedores.create');
+
+         Route::get('mantenimientos/generarReporte','MantenimientoController@generarReporte')->name('mantenimientos.generarReporte');
+
+        Route::post('mantenimientos/reporteTiempo','MantenimientoController@reporteTiempo')
+               ->name('mantenimientos.reporteTiempo');
+
     Route::get('mantenimientos','MantenimientoController@index')
         ->name('mantenimientos.index')
         ->middleware('permission:proveedores.index');
-
-
 
     Route::get('mantenimientos/{mantenimiento}','MantenimientoController@show')
             ->name('mantenimientos.show')
@@ -371,8 +395,13 @@ Route::middleware(['auth'])->group(function () {
            ->middleware('permission:proveedores.edit');
 
            // devuelve datos de activos para autocompletar
-           Route::get('autocompletarActivos', 'MantenimientoController@autocompletarActivos')
+    Route::get('autocompletarActivos', 'MantenimientoController@autocompletarActivos')
            ->name('autocompletarActivos');
+
+    Route::get('mantenimientos/generarSolicitud/{mantenimiento}','MantenimientoController@generarSolicitud')
+          ->name('mantenimientos.solicitud')
+          ->middleware('permission:proveedores.edit');
+
 //fin mantenimiento de activos
 
        //Vehiculos
@@ -408,6 +437,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('vales.update')
         ->middleware('permission:vales.edit');
 
+    Route::get('vales/reporte/{vale}','ValeController@ValeVistaReporte')
+        ->name('vales.reporte')
+        ->middleware('permission:vale.create');
+
     Route::get('/liquidaciones/vales/index','LiquidacionController@index')
         ->name('liquidaciones.index')
         ->middleware('permission:vale.index');
@@ -419,6 +452,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/liquidaciones/vales/create','LiquidacionController@create')
         ->name('liquidaciones.create')
         ->middleware('permission:vale.create');
+
+    Route::get('/liquidaciones/vales/show/{liquidacion}','LiquidacionController@show')
+        ->name('liquidaciones.show')
+        ->middleware('permission:vales.show');
+
+    Route::get('/liquidaciones/vales/{liquidacion}/edit','LiquidacionController@edit')
+        ->name('liquidaciones.edit')
+        ->middleware('permission:vales.edit');
+
+    Route::put('/liquidaciones/vales/{liquidaciones}','LiquidacionController@update')
+        ->name('liquidaciones.update')
+        ->middleware('permission:vales.edit');
+
+    Route::get('/datatable/{placa}','LiquidacionController@datatable')
+        ->name('datatable');
+
+    Route::get('/costo/{id}','LiquidacionController@coste')
+        ->name('costo');
+
+    Route::get('/liquidaciones/{liquidacion}/vales','LiquidacionController@LiquidacionVales')
+        ->name('liquidaciones.vales')
+        ->middleware('permission:liquidaciones.index');
 
     Route::get('autocompletePlacas','ValeController@autocompletePlacas')
         ->name('autocompletePlacas');
@@ -502,12 +557,30 @@ Route::middleware(['auth'])->group(function () {
         ->name('planillas.create')
         ->middleware('permission:unidads.create');
 
-        //depreciaciones
-            Route::get('depreciaciones/{activo}','DepreciacionController@show')
-                ->name('depreciaciones.show')
-                ->middleware('permission:roles.index');
+    //depreciaciones
+    Route::get('depreciaciones/{activo}','DepreciacionController@show')
+        ->name('depreciaciones.show')
+        ->middleware('permission:roles.index');
 
-            //fin depreciaciones
+    //fin depreciaciones
+    //bitacora
+    Route::get('bitacoraAcciones','BitacoraAccionController@index')
+        ->name('bitacoraAcciones.index')
+        ->middleware('permission:roles.index');
+
+    Route::get('bitacoraAcciones/{bitacoraAccion}','BitacoraAccionController@show')
+        ->name('bitacoraAcciones.show')
+        ->middleware('permission:roles.index');
+
+    //fin bitacora
+
+    Route::get('entradasSalidas/{empleado}','EntradasSalidasController@show')
+        ->name('entradasSalidas.show')
+        ->middleware('permission:roles.index');
+
+    Route::post('entradasSalidas/store','EntradasSalidasController@store')
+        ->name('entradasSalidas.store')
+        ->middleware('permission:roles.create');
 
 
 

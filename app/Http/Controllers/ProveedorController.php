@@ -25,9 +25,10 @@ class ProveedorController extends Controller
           'nombreEncargado' =>$request['nombreEncargado'],
             'telefonoProve' =>$request['telefonoProve'],
               'email' =>$request['email'],
+              'tipoProveedor'=>$request['tipoProveedor'],
 
       ]);
-      return redirect("/proveedores")->with('create','Sea creado con éxito el registro');
+      return redirect("/proveedores")->with('create','Se ha creado con éxito el registro de proveedor');
   }
   public function storeAjax(Request $request)
   {
@@ -57,9 +58,10 @@ class ProveedorController extends Controller
          $prov->nombreEncargado = $request['nombreEncargado'];
          $prov->email = $request['email'];
          $prov->telefonoProve = $request['telefonoProve'];
+         $prov->tipoProveedor=$request['tipoProveedor'];
 
          $prov->save();
-         return redirect("/proveedores")->with('update', 'Sea editado con éxito el registro');
+         return redirect("/proveedores")->with('update', 'Se ha editado correctamente el registro de proveedor');
   }
 
 }

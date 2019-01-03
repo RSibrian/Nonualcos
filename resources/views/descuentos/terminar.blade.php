@@ -4,13 +4,13 @@
 
     <div class="modal-content">
 
-      <div class="modal-header alert-info" bgcolor="blue">
+      <div class="modal-header " >
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="col-md-2  text-center" style="color: white;" >
           <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
         </span>
-          <h4 class="modal-title" id="gridModalLabel3" ><b>Finalizar Descuento</b></h4>
+          <h4 align='left'><b>Finalizar Descuento</b>  <span class="violet"></span></h4>
 
       </div>
 
@@ -46,8 +46,8 @@
 
               <div class="modal-footer">
 
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Aceptar</button>
+              <button type="submit" class="btn btn-sm btn-success ">Aceptar</button>
+              <button type="button" class="btn btn-sm btn-ocre " data-dismiss="modal">Cancelar</button>
 
               </div>
 

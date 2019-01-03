@@ -6,6 +6,10 @@
                 <div class="card-header card-header-icon" data-background-color="ocre">
                     <i class="material-icons">assignment</i>
                 </div>
+                <div class="card-header card-header-icon" data-background-color="azul" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">help</i>
+
+                </div>
                 <div class="card-content">
                     <h4 class="card-title">Liquidar vales</h4>
                     <div class="toolbar">
@@ -22,6 +26,7 @@
                                     <th>#</th>
                                     <th>Fecha</th>
                                     <th>No. de factura</th>
+                                    <th>Vehículo</th>
                                     <th>Total en factura</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
                                 </tr>
@@ -32,34 +37,39 @@
                                     <th>#</th>
                                     <th>Fecha</th>
                                     <th>No. de factura</th>
+                                    <th>Vehículo</th>
                                     <th>Total en factura</th>
                                     <th class="text-right">Acciones</th>
                                 </tr>
                             </tfoot>
                             <tbody>
+                            <?php $cont=0;
+                            ?>
+                            @foreach($liquidaciones as $liquidacion)
                               <tr>
-                                <td></td>
-                                <td>1</td>
-                                <td>11/10/2018</td>
-                                <td>F-23452</td>
-                                <td>100.00</td>
+                                  <?php $cont++;?>
+                                <td id="{{$liquidacion->id}}"></td>
+                                <td>{{ $cont }}</td>
+                                <td>{{ $liquidacion->fechaLiquidacion }}</td>
+                                <td>{{ $liquidacion->numeroFacturaLiquidacion }}</td>
+                                      <?php $vehiculo= $liquidacion->vale;?>
+                                      @foreach($vehiculo as $ve)
+                                          <?php $placa=$ve->salida->vehiculo?>
+                                      @endforeach
+                                 <td>{{ $placa->numeroPlaca}}</td>
+                                <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
                                 <td class="text-right">
-                                  @can('users.edit')
-                                      <a href=""  class="btn btn-xs btn-info btn-round ">
-                                          <i title="Editar Usuario" class="material-icons" rel="tooltip">create</i>
+                                  @can('vales.edit')
+                                      <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round collapse ">
+                                          <i title="Editar Liquidacion" class="material-icons" rel="tooltip">create</i>
                                       </a>
                                   @endcan
-                                  @can('users.asignarrole')
-                                      <a href="" class="btn btn-xs btn-info btn-round">
-                                          <i title="Asignar Rol" class="material-icons" rel="tooltip">lock_outline</i>
-                                      </a>
-                                  @endcan
-                                  <a href="" class="btn btn-xs btn-info btn-round">
+                                  <a href="{{ route('liquidaciones.show', $liquidacion->id) }}" class="btn btn-xs btn-info btn-round">
                                       <i title="Mostrar" class="material-icons" rel="tooltip">visibility</i>
                                   </a>
                                 </td>
                               </tr>
-
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -72,6 +82,22 @@
     </div>
     <!-- end row -->
     <div class="col-md-1"></div>
+    <?php
+    $ayuda_title="Ayuda para la Tabla de Liquidaciones";
+    $ayuda_body="Cada Activo tiene 3 botones <br>
+
+                   1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
+    ?>
+    @include('alertas.ayuda')
+<style>
+        td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+        }
+</style>
 @stop
 @section('scripts')
 
@@ -84,13 +110,26 @@
                 [10, 25, 50, "All"]
             ],
             responsive: true,
+            "columns": [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
+                { "data": "#" },
+                { "data": "Fecha" },
+                { "data": "No. de factura" },
+                { "data": "Vehículo" },
+                { "data": "Total en factura" },
+                { "data": "Acciones" }
+            ],
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
 
         });
-
 
         var table = $('#datatables').DataTable();
 
@@ -114,7 +153,58 @@
             alert('You clicked on Like button');
         });
 
+        // Add event listener for opening and closing details
+        $('#datatables tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+            var val=$(this).attr('id');
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                format(row.child,val);
+                tr.addClass('shown');
+            }
+        } );
+
         $('.card .material-datatables label').addClass('form-group');
     });
+
+    function format ( callback, val ) {
+        $.ajax({
+            url:'/liquidaciones/'+val+'/vales',
+            dataType: "json",
+            complete: function (response) {
+                var data = JSON.parse(response.responseText);
+                var cont=0;
+                var thead = '',  tbody = '';
+                thead = '<tr>'+
+                        '<th>' +" # "+ '</th>'+
+                        '<th>' +" Fecha "+ '</th>'+
+                        '<th>' +" Número de vale "+ '</th>'+
+                        //'<th>' +" Solicitante "+ '</th>'+
+                        '<th>' +" Costo total de vale "+ '</th>'+
+                        '</tr>';
+
+                $.each(data, function (i, d) {
+                    cont++;
+                    tbody += '<tr>'+
+                            '<td>' + cont + '</td>'+
+                            '<td>' + d.fechaCreacion + '</td>'+
+                            '<td>' + d.numeroVale + '</td>'+
+                           // '<td>' + d.nombresEmpleado+' '+d.apellidosEmpleado + '</td>'+
+                            '<td>' + d.costoUnitarioVale+ '</td>'+
+                            '</tr>';
+                });
+                callback($("<table class='table' style='width:90%;'>" + thead + tbody + '</table>')).show();
+            },
+            error: function () {
+                $('#output').html('Bummer: there was an error!');
+            }
+        });
+    }
 </script>
 @endsection

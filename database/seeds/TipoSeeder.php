@@ -51,5 +51,11 @@ class TipoSeeder extends Seeder
             'password' => bcrypt('GERARDO12345'),
         ]);
 
+        User::create([
+            'name' => 'Fabian',
+            'email' => 'fabian11940@gmail.com',
+            'password' => bcrypt('fabian'),
+        ]);
+
     }
 }

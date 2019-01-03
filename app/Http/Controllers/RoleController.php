@@ -29,7 +29,7 @@ class RoleController extends Controller
             'description'  =>$request['description'],
         ]);
         $role->permissions()->sync($request->get('permissions'));
-        return redirect("/roles")->with('create','Sea creado con éxito el registro');
+        return redirect("/roles")->with('create','Se ha creado con éxito el rol de usuario');
 
 
     }
@@ -52,7 +52,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->update($request->all());
         $role->permissions()->sync($request->get('permissions'));
-        return redirect("/roles/{$id}/edit")->with('update', 'Sea editado con éxito el registro');
+        return redirect("/roles/{$id}/edit")->with('update', 'Se ha editado correctamente el rol de usuario');
     }
 
 

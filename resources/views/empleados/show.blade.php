@@ -57,7 +57,7 @@
                         <div class="form-group" align="left">
                             <table >
                                 <tr>
-                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información de la Persona </b></h3></td>
+                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información del Empleado </b></h3></td>
                                 </tr>
                                 <tr>
                                     <td><h4>Nombres: </h4></td>
@@ -86,12 +86,20 @@
                                     <td><h4>NIT: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->NITEmpleado}}</b></h4></td>
                                 </tr>
+                                <?php $telefonos=$empleado->telefonosEmpleado;?>
                                 <tr>
-                                    <td><h4>Telefono: </h4></td>
-                                    <td><h4><b>&nbsp;{{$empleado->telefonoEmpleado?:"Ninguno"}}</b></h4></td>
+                                    <td><h4>Teléfono(s): </h4></td>
+                                    <?php if (empty($telefonos[0])): ?>
+                                      <td><h4><b>{{"Ninguno"}}</b></h4></td>
+                                      <?php else: ?>
+                                    <?php foreach ($telefonos as $tel): ?>
+                                      <td><h4><b>|  {{$tel->telefonoEmpleado}} - {{$tel->tipoTelefono}} | </b></h4></td>
+                                    <?php endforeach; ?>
+                                  <?php endif; ?>
+
                                 </tr>
                                 <tr>
-                                    <td><h4>Genero: </h4></td>
+                                    <td><h4>Género: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->generoEmpleado}}</b></h4></td>
 
                                 </tr>
@@ -100,11 +108,11 @@
                                     <td><h4><b>&nbsp;{{$empleado->estadoCivilEmpleado}}</b></h4></td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Dirreccion: </h4></td>
+                                    <td><h4>Dirección: </h4></td>
                                     <td colspan="3"><h4><b>&nbsp;{{$empleado->dirreccionEmpleado}}</b></h4></td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Observación: </h4></td>
+                                    <td><h4>Observaciones: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->observacionEmpleado?:"Ninguna"}}</b></h4></td>
                                 </tr>
 
@@ -123,7 +131,7 @@
 
                                 <?php $date = new DateTime($empleado->fechaIngreso); ?>
                                 <tr>
-                                    <td><h4>Ingreso: </h4></td>
+                                    <td><h4>Fecha de Ingreso: </h4></td>
                                     <td><h4><b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
 
                                 </tr>
@@ -132,11 +140,11 @@
                                     <td><h4><b>$&nbsp;{{$empleado->salarioBruto}}</b></h4></td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Tipo Contrato: </h4></td>
+                                    <td><h4>Tipo de Contrato: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->sistemaContratacion}}</b></h4></td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Seguro: </h4></td>
+                                    <td><h4>Seguro Social: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->seguro->nombreAportacion}}</b></h4></td>
                                 </tr>
                                 <tr>
@@ -154,7 +162,7 @@
 
                             </table>
                             <div align="center">
-                                <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                                <a href="{{ route('empleados.index') }}" class='btn btn-ocre '>Regresar</a>
                             </div>
                         </div>
                     </fieldset>

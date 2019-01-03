@@ -15,6 +15,10 @@ class CreateTelefonoEmpleadosTable extends Migration
     {
         Schema::create('telefono_empleados', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('telefonoEmpleado',9)->unique();
+            $table->string('tipoTelefono');
+            $table->integer('idEmpleado')->unsigned();
+            $table->foreign('idEmpleado')->references('id')->on('empleados');
             $table->timestamps();
         });
     }

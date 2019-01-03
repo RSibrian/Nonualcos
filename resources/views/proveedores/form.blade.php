@@ -52,6 +52,30 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-10 row">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">email</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Tipo de Proveedor:
+                </label>
+
+                <select name="tipoProveedor" id="tipoProveedor" class="form-control" title="Seleccione el tipo de teléfono" >
+                  <option value="1" @isset($prov)
+                   @if($prov->tipoProveedor==1){{ 'selected' }}@endif
+                   @endisset >Solo Proveedor</option>
+                  <option value="2"  @isset($prov)
+                   @if($prov->tipoProveedor==2){{ 'selected' }}@endif
+                  @endisset >Solo Mantenimiento</option>
+                  <option value="3" @isset($prov)
+                   @if($prov->tipoProveedor==3){{ 'selected' }}@endif
+                  @endisset >Proveedor y Mantenimiento</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
 
 
 </fieldset>

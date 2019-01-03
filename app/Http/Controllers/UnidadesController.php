@@ -38,7 +38,7 @@ class UnidadesController extends Controller
     public function store(UnidadRequest $request)
     {
         Unidades::create($request->all());
-        return redirect('/unidades')->with('create','Sea creado con éxito la Unidad');
+        return redirect('/unidades')->with('create','Se ha creado con éxito el registro de unidad.');
     }
 
     /**
@@ -73,7 +73,7 @@ class UnidadesController extends Controller
     public function update(UnidadRequest $request, Unidades $unidad)
     {
         $unidad->update($request->all());
-        return redirect('/unidades')->with('update','Sea editado con éxito la Unidad');
+        return redirect('/unidades')->with('update','Se ha editado correctamente el registro de unidad.');
     }
 
     /**

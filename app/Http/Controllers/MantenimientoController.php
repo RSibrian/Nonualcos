@@ -21,7 +21,7 @@ class MantenimientoController extends Controller
   */
   public function index()
   {
-    $mantenimientos=Mantenimiento::All();
+    $mantenimientos=Mantenimiento::All()->sortByDesc('fechaRecepcionTaller');
     return view('mantenimientos.index',compact('mantenimientos'));
   }
 
@@ -36,7 +36,17 @@ class MantenimientoController extends Controller
     $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
     $proveedores=Proveedor::pluck('nombreEmpresa','id');
     $date = Carbon::now();
-    return view('mantenimientos.create',compact('date','empleados','proveedores'));
+    $activo=new Activos();
+    return view('mantenimientos.create',compact('date','empleados','proveedores','activo'));
+  }
+
+  public function create1( Activos $activo )
+  {
+    $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+    $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+    $proveedores=Proveedor::pluck('nombreEmpresa','id');
+    $date = Carbon::now();
+    return view('mantenimientos.create',compact('date','empleados','proveedores','activo'));
   }
 
   /**
@@ -47,9 +57,6 @@ class MantenimientoController extends Controller
   */
   public function store(MantenimientoRequest $request)
   {
-    // // sustituirá el codigoInventario por el idActivo del artículo antes de validar
-    // $request['idActivo']=Activos::select('id')->where('codigoInventario',$request['idActivo'])->first();
-    // if ($request['idActivo']!=null)$request['idActivo']=$request['idActivo']->id;
 
     Mantenimiento::create($request->all());
     return redirect('/mantenimientos')->with('create','Se ha registrado con éxito el mantenimiento');
@@ -117,5 +124,42 @@ class MantenimientoController extends Controller
     ->get();
 
     return response()->json($data);
+  }
+
+  public function generarSolicitud(Mantenimiento $mantenimiento)
+  {
+    $date = date('d-m-Y');
+    $date1 = date('g:i:s a');
+    $vistaurl="mantenimientos.solicitud";
+    $view =  \View::make($vistaurl, compact('mantenimiento', 'date','date1'))->render();
+    $pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHTML($view);
+    $pdf->setPaper('letter', 'portrait');
+    return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
+  }
+
+  public function generarReporte()
+  {
+    $month = date('m');
+    $year = date('Y');
+    $fechaInicio= Carbon::createFromDate($year,$month,1);
+    $fechaFinal=Carbon::now();
+    return view('mantenimientos.generarReporte',compact('fechaInicio','fechaFinal'));
+  }
+
+  public function reporteTiempo(Request $request)
+  {
+    $fechaInicio=$request['fechaInicio'];
+    $fechaFinal=$request['fechaFinal'];
+    $mantenimientos=Mantenimiento::whereBetween('fechaRetornoTaller',array($fechaInicio,$fechaFinal))->OrderBy('fechaRetornoTaller')->get();
+
+    $date = date('d-m-Y');
+    $date1 = date('g:i:s a');
+    $vistaurl="mantenimientos.reporteTiempo";
+    $view =  \View::make($vistaurl, compact('mantenimientos','fechaInicio','fechaFinal', 'date','date1'))->render();
+    $pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHTML($view);
+    $pdf->setPaper('A4', 'landscape');
+    return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
   }
 }

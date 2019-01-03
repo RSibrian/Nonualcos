@@ -9,8 +9,8 @@
       <div class="form-group label-floating">
         <label class="control-label"><code>*</code>Código del Activo:
         </label>
-        {!!Form::hidden('idActivo',null,['id'=>'idActivo'])!!}
-        {!!Form::text('codigoInventario',null,['id'=>'codigoInventario','class'=>'typeahead form-control','required'])!!}
+        {!!Form::hidden('idActivo',$activo->idActivo,['id'=>'idActivo'])!!}
+        {!!Form::text('codigoInventario',$activo->codigoInventario,['id'=>'codigoInventario','class'=>'typeahead form-control','required'])!!}
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
       </span>
       <div class="form-group label-floating">
         <!-- nombre del activo  -->
-        <input type="text" name="nombreActivo" id="nombreActivo" class="form-control" disabled>
+        <input type="text" name="nombreActivo" id="nombreActivo" class="form-control" value="{{ $activo->nombreActivo?:""}}" disabled>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
         <i class="material-icons">date_range</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Fecha de entrega en taller
+        <label for="fechaRecepcionTaller"><code>*</code><small>Fecha de entrega en taller</small>
         </label>
         {!!Form::date('fechaRecepcionTaller',$date,['id'=>'fechaRecepcionTaller','class'=>'form-control datepicker'])!!}
       </div>
@@ -43,9 +43,9 @@
         <i class="material-icons">date_range</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Fecha de recepción (Mantenimiento Realizado)
+        <label for="fechaRetornoTaller"><small>Fecha de Retorno (Finalizado)</small>
         </label>
-        {!!Form::date('fechaRetornoTaller',$date,['id'=>'fechaRetornoTaller','class'=>'form-control datepicker'])!!}
+        {!!Form::date('fechaRetornoTaller',null,['id'=>'fechaRetornoTaller','class'=>'form-control datepicker'])!!}
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label"><code>*</code>Personal que solicita mantenimiento:
+        <label class="control-label"><code>*</code>Personal de ALN que solicita:
         </label>
         {!!Form::select('personalSolicitaMantenimiento',$empleados,
         null,['id'=>'personalSolicitaMantenimiento','class'=>'form-control','required',
@@ -90,8 +90,21 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-11 row">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="material-icons">#</i>
+      </span>
+      <div class="form-group label-floating">
+        <label class="control-label"><code>*</code>Persona encargada de mantenimiento :
+        </label>
+        {!!Form::text('nombreEncargado',null,
+        ['id'=>'nombreEncargado','class'=>'form-control','required'])!!}
+      </div>
+    </div>
+  </div>
 
-  <div class="col-sm-4 row">
+  <div class="col-sm-5 row">
     <div class="input-group">
       <span class="input-group-addon">
         <i class="material-icons"> $ </i>
@@ -121,7 +134,7 @@
         <i class="material-icons">#</i>
       </span>
       <div class="form-group label-floating">
-        <label class="control-label">Personal que recibe:
+        <label class="control-label">Personal de ALN que recibe:
         </label>
         {!!Form::select('personalRecibeMantenimiento',$empleados,
         null,['id'=>'personalRecibeMantenimiento','class'=>'form-control',

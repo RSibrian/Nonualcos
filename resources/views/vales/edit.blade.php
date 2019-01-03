@@ -10,8 +10,10 @@
                     <h4 class="card-title">Vales -
                         <small class="category">Modificar de Vale</small>
                     </h4>
-                    {!!Form::model($vale,['method'=>'PUT','route'=>['vales.update',$vale->id]])!!}
+                    {!!Form::model($vale,['method'=>'PUT','route'=>['vales.update',$vale->id] , 'autocomplete'=>'off'])!!}
                     <input type="hidden" name="vale[id]" value="{{ $vale->id }}">
+                    {{ csrf_field(),
+                       date_default_timezone_set('America/El_Salvador')}}
                     @include('vales.formEdit')
                     <div align="center">
                         {!! Form::submit('Modificar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}

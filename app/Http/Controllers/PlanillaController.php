@@ -33,7 +33,7 @@ class PlanillaController extends Controller
 
         Excel::create("Planilla de empleados $date ", function ($excel) use ($empleados) {
             $excel->setTitle("Title");
-            $excel->sheet("Hoja 1", function ($sheet) use ($empleados) {
+            $excel->sheet("Planilla Empleados", function ($sheet) use ($empleados) {
 
                 $sheet->loadView('planillas.excel')->with('empleados', $empleados);
             });
@@ -94,13 +94,13 @@ class PlanillaController extends Controller
         echo "Salario Ganado = ".round($salario_ganado,2)."<br>";
         echo " ISSS = ". round($ISSS, 2)."<br>";
         echo $AFP_nombre."  = ". round($AFP, 2)."<br>";
-        echo "Salario despues de descuentos = ". round($salario_descuentos,2)."<br>";
+        echo "Salario después de descuentos = ". round($salario_descuentos,2)."<br>";
         echo "tramo ".$renta->last()->tramo."<br>";
-        echo "cuota fija = ".$renta->last()->cuotaFija."   -- Exceso ".$salario_exceso.' ----- ';
-        echo  "porcentaje ".$renta->last()->porcentaje."<br>";
-        echo "descontar de renta ". $descuento_renta."<br>";
+        echo "cuota fija = ".$renta->last()->cuotaFija."   -- Exceso = ".$salario_exceso.' ----- ';
+        echo  "porcentaje = ".$renta->last()->porcentaje."<br>";
+        echo "descontar de renta = ". $descuento_renta."<br>";
         $liquido=$salario_descuentos-$descuento_renta;
-        echo "liquido ". $liquido."<br>";
+        echo "Líquido = ". $liquido."<br>";
     }
 
     /**
@@ -135,5 +135,19 @@ class PlanillaController extends Controller
     public function destroy(planilla $planilla)
     {
         //
+    }
+    public function reporte()
+    {
+        $empleados=Empleado::All();
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="planillas.reporte";
+        $view =  \View::make($vistaurl, compact('empleados', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('letter', 'portrait');
+         //$pdf->setPaper('A4', 'landscape');
+        //return $pdf->download('Reporte planillas '.$date.'.pdf');
+        return $pdf->stream('Reporte planillas '.$date.'.pdf');
     }
 }

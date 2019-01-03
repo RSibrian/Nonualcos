@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Hash;
 class UsuarioController extends Controller
 {
@@ -35,13 +36,15 @@ class UsuarioController extends Controller
         );
         $request['password']=bcrypt($request['password']);
         User::create($request->all());
-        return redirect("/users")->with('create','Sea creado con éxito el registro');
+        return redirect("/users")->with('create','Se ha creado con éxito el registro de usuario');
 
 
     }
     public function edit($id)
     {
-        $empleados=Empleado::pluck('nombresEmpleado','id');
+        $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+        $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+
         $user=User::findOrFail($id);
         return view('usuario.edit',compact('user','empleados'));
 
@@ -62,7 +65,7 @@ class UsuarioController extends Controller
            }
            $user->idEmpleado=$request['idEmpleado'];
            $user->save();
-           return redirect("/users/{$id}")->with('update', 'Sea editado con éxito el registro');
+           return redirect("/users/{$id}")->with('update', 'Se ha editado correctamente el registro de usuario');
     }
     public function password(){
         return View('usuario.password');
@@ -85,10 +88,10 @@ class UsuarioController extends Controller
              $user = new User;
              $user->where('email', '=', Auth::user()->email)
                  ->update(['password' => bcrypt($request->password)]);
-             return redirect('users/'.Auth::user()->id)->with('update', 'Contraseña cambiado con éxito');
+             return redirect('users/'.Auth::user()->id)->with('update', 'La contraseña se modificó con éxito');
          }
          else {
-             return redirect('users/password')->with('sin_pass', 'contraseña incorrectas');
+             return redirect('users/password')->with('sin_pass', 'Contraseña Incorrecta');
             }
     }
     public function asignarRole($id)
@@ -103,7 +106,7 @@ class UsuarioController extends Controller
     {
         $user = User::findOrFail($id);
         $user->roles()->sync($request->get('roles'));
-        return redirect("/users/{$id}")->with('update', 'Sea editado con éxito el registro');
+        return redirect("/users/{$id}")->with('update', 'Se ha editado correctamente el registro');
     }
     public function reporte()
         {
@@ -114,6 +117,7 @@ class UsuarioController extends Controller
           $view =  \View::make($vistaurl, compact('users', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
+            $pdf->setPaper('letter', 'portrait');
           return $pdf->stream('Reporte de Usuarios '.$date.'.pdf');
         }
 }

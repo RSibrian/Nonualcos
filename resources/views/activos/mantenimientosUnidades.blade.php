@@ -41,11 +41,14 @@
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
-    @if($activo->precio>=600 && $activo->codigoInventario!=null)
+    @if($activo->precio>=600 )
     <li id="li" style="float:right;"><a   href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
     @endif
+    @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a class="active" href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
       <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
+    @endif
+
   </ul>
   <div class="row">
     <div class="col-md-12">
@@ -59,7 +62,7 @@
           </div>
           <div class="material-datatables">
             <!-- @can('unidads.create') -->
-            <a href="{{ url("mantenimientos/create") }}" class="btn  btn-verde btn-round ">
+            <a href="{{ url("mantenimientos/create/{$activo->id}") }}" class="btn  btn-verde btn-round ">
               <i class="material-icons">add</i>
               Nuevo
 
@@ -73,8 +76,8 @@
                   <th>Código</th>
                   <th>Nombre</th>
                   <th>Fecha en taller</th>
+                  <th>Empresa encargada</th>
                   <th>Fecha de recepción</th>
-                  <th>Personal que Recibe</th>
                   <th class="disabled-sorting text-right">Acciones</th>
                 </tr>
               </thead>
@@ -85,8 +88,8 @@
                   <th>Código</th>
                   <th>Nombre</th>
                   <th>Fecha en taller</th>
+                  <th>Empresa encargada</th>
                   <th>Fecha de retorno</th>
-                  <th>Personal que entrega</th>
                   <th class="text-right">Acciones</th>
                 </tr>
               </tfoot>
@@ -96,17 +99,17 @@
                 <tr>
                   <td></td>
                   <?php $cont++;
-                  $emp=$mantenimiento->empleado1()->first();
-                  //dd($mantenimiento);
-                  $date = new DateTime($mantenimiento->fechaRecepcionTaller);
-                  $date1 = new DateTime($mantenimiento->fechaRetornoTaller);
                   ?>
                   <td>{{$cont}}</td>
-                  <td>{{$mantenimiento->activos()->first()->codigoInventario}}</td>
-                  <td>{{$mantenimiento->activos()->first()->nombreActivo}}</td>
-                  <td>{{$date->format('d/m/Y') }}</td>
-                  <td>{{$date1->format('d/m/Y')}}</td>
-                  <td>{{$emp->nombresEmpleado." ".$emp->apellidosEmpleado}}</td>
+                  <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
+                  <td>{{$mantenimiento->Activos->nombreActivo}}</td>
+                   <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
+                   <td>{{$mantenimiento->proveedores->nombreEmpresa}}</td>
+                   <?php if (isset($mantenimiento->fechaRetornoTaller)): ?>
+                     <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
+                     <?php else: ?>
+                     <td>{{"en proceso"}}</td>
+                   <?php endif; ?>
                   <td class="text-right">
                     <!-- @can('proveedores.edit') -->
                     <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
@@ -118,12 +121,16 @@
                     <a title="Ver Mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}") }}" class="btn btn-xs btn-info btn-round">
                       <i class="material-icons">visibility</i>
                     </a>
+                    <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-info btn-round btn-xs">
+                <i class="material-icons">print</i>
+            </a>
                   </td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
+          	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
         </div>
         <!-- end content-->
       </div>

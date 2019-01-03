@@ -10,6 +10,8 @@ use App\Empleado;
 use App\Vehiculo;
 use App\Mantenimiento;
 use Carbon\Carbon;
+use App\BitacoraAccion;
+
 
 use App\ActivosUnidades;
 
@@ -52,6 +54,7 @@ class ActivosController extends Controller
     public function store(Request $request)
     {
 
+
     for($cantidad=$request['cantidad']; $cantidad>0; $cantidad--){
       /*tabla activo
       $unidad = Unidades::find($request['idUnidad']);
@@ -87,16 +90,45 @@ class ActivosController extends Controller
       //Crear activo
       Activos::create($request->all());
       //tabla vehiculo
+      $activos=Activos::all();
+      $activo=$activos->last();
+      $request['idActivo']=$activo->id;
       if(  $request['tipoActivo']==1)
       {
-        $activos=Activos::all();
-        $activo=$activos->last();
-        $request['idActivo']=$activo->id;
+
         //aqui guardar en Vehiculo placa y idActivo
         Vehiculo::create($request->all());
       }
     }
-      return redirect('/activos')->with('create','Se creo con éxito el activo');
+    //bitacora accion
+    $clasificacion=ClasificacionesActivos::find($request['idClasificacionActivo']);
+    $proveedor=Proveedor::find($request['idProveedor']);
+    if($request['tipoAdquisicion']){ $tipo='Compra'; $uso=0;}else{$tipo='Usado';$uso=$request['aniosUso'];}
+
+    $accion="Registro de Activo Fijo";
+    $antes=null;
+    $despues="Identificador: ".$request['idActivo'].
+    " <br> clasificación: ".$clasificacion->nombreTipo.
+    " <br> Nombre: ".$request['nombreActivo'].
+    " <br> Fecha de Adquisición: ".$request['fechaAdquisicion'].
+    " <br> Marca : ".$request['marca'].
+    " <br> Modelo : ".$request['modelo'].
+    " <br> Color : ".$request['color'].
+    " <br> Serie : ".$request['serie'].
+    " <br> precio: ".$request['precio'].
+    " <br> Proveedor: ".$proveedor->nombreEmpresa.
+      " <br> Factura: ".$request['numeroFactura'].
+    " <br> Vida Utíl: ".$request['aniosVida'].
+    " <br> Tipo de Adquisición: ".$tipo.
+    " <br> Años de uso: ".$uso.
+    " <br> Estado del Activo: "."Activo".
+    " <br> Observacion: ".$request['ObservacionActivo'];
+
+
+    BitacoraAccion::crearBitacora($accion,$antes,$despues);
+    //fin bicora accion
+
+      return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
 
     /**
@@ -112,7 +144,7 @@ class ActivosController extends Controller
 
     public function mantenimientosUnidades(Activos $activo)
     {
-      $mantenimientos=Mantenimiento::All()->where('idActivo',$activo->id);
+      $mantenimientos=Mantenimiento::All()->where('idActivo',$activo->id)->sortByDesc('fechaRecepcionTaller');
       //  $mantenimientos=Activos::mantenimientoxUnidad($activo->id);
         if(!empty($mantenimientos)){
           return view('activos.mantenimientosUnidades',compact('activo','mantenimientos'));
@@ -153,7 +185,7 @@ class ActivosController extends Controller
     {
       //dd($activos);
       $request['fechaBajaActivo']=Carbon::now();
-      
+
       $activos->update($request->all());
       //tabla vehiculo
       if($activos->tipoActivo==1)
@@ -163,7 +195,7 @@ class ActivosController extends Controller
       //  dd($vehiculo);
         $vehiculo->update($request->all());
       }
-      return redirect('/activos')->with('update','Sea editado con éxito el activo');
+      return redirect('/activos')->with('update','Se ha editado correctamente el activo');
     }
 
     public function updateDaniado(Request $request, Activos $activos)
@@ -213,11 +245,13 @@ class ActivosController extends Controller
 
     public function reporteGeneral()
         {
-          $activos=Activos::All();
+          //$activos=Activos::All();
+          $unidades=Unidades::All();
+          $sinCodigoActivos=Activos::All()->where('codigoInventario','==',null);
           $date = date('d-m-Y');
           $date1 = date('g:i:s a');
           $vistaurl="activos.reporteGeneral";
-          $view =  \View::make($vistaurl, compact('activos', 'date','date1'))->render();
+          $view =  \View::make($vistaurl, compact('unidades','sinCodigoActivos', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
           $pdf->setPaper('A4', 'landscape');
@@ -250,8 +284,58 @@ class ActivosController extends Controller
           $view =  \View::make($vistaurl, compact('activos','unidad', 'date','date1'))->render();
           $pdf = \App::make('dompdf.wrapper');
           $pdf->loadHTML($view);
-          return $pdf->stream('Reporte de Activos por Unidad'.$unidad->nombreUnidad.$date.'.pdf');
+          $pdf->setPaper('letter', 'landscape');
+          return $pdf->stream('Reporte de Activos por Unidad '.$unidad->nombreUnidad.$date.'.pdf');
         }
+
+        public function reporteDatosActivos($idactivo)
+            {
+
+              $activo=Activos::find($idactivo);
+
+              $date = date('d-m-Y');
+              $date1 = date('g:i:s a');
+              //dd($date);
+              $vistaurl="activos.reporteDatosActivos";
+              $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+              $pdf = \App::make('dompdf.wrapper');
+              $pdf->setPaper('letter', 'portrait');
+
+              $pdf->loadHTML($view);
+              return $pdf->stream('Reporte de Datos de Activo '.$activo->codigoInventario.'-'.$date.'.pdf');
+            }
+
+        public function reporteDepreAnual($idactivo)
+            {
+
+              $activo=Activos::find($idactivo);
+
+              $date = date('d-m-Y');
+              $date1 = date('g:i:s a');
+              //dd($date);
+              $vistaurl="activos.reporteDepreAnual";
+              $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+              $pdf = \App::make('dompdf.wrapper');
+              $pdf->loadHTML($view);
+              $pdf->setPaper('letter', 'landscape');
+              return $pdf->stream('Reporte de Depreciación de Activo Anual '.$activo->codigoInventario.'-'.$date.'.pdf');
+            }
+
+          public function reporteDepreMensual($idactivo)
+              {
+
+                $activo=Activos::find($idactivo);
+
+                $date = date('d-m-Y');
+                $date1 = date('g:i:s a');
+                //dd($date);
+                $vistaurl="activos.reporteDepreMensual";
+                $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
+                $pdf = \App::make('dompdf.wrapper');
+                $pdf->loadHTML($view);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->stream('Reporte de Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date.'.pdf');
+              }
 
 
 

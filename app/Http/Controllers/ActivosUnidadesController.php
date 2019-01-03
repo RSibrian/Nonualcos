@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ActivosUnidadesRequest;
 use App\Activos;
 use App\Unidades;
 use App\Empleado;
 use Carbon\Carbon;
 use App\ActivosUnidades;
 use App\ClasificacionesActivos;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class ActivosUnidadesController extends Controller
 {
@@ -29,10 +31,7 @@ class ActivosUnidadesController extends Controller
      */
     public function create()
     {
-      $unidades=Unidades::pluck('nombreUnidad','id');
-      $empleados=Empleado::pluck('nombresEmpleado','id');
-      $date = Carbon::now();
-      return view('activosUnidades.create',compact('unidades','date','empleados'));
+
     }
 
     /**
@@ -41,7 +40,7 @@ class ActivosUnidadesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActivosUnidadesRequest $request)
     {
       //actualizar el registro anterior fecha final y estado
 
@@ -58,7 +57,7 @@ class ActivosUnidadesController extends Controller
           $traslado->estadoUni=false;
           $traslado->save();
           ActivosUnidades::create($request->all());
-          return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
+          return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'El traslado se ha realizado con éxito');
 
         }else{
           // cuando no existe una asignacion
@@ -66,14 +65,16 @@ class ActivosUnidadesController extends Controller
           $clasificacion = ClasificacionesActivos::find($activoUpdate->idClasificacionActivo);
 
           //para correlativo por unidad
-          $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->where('estadoUni',true)->get();
+        //  $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->get();
           //$activosUnidades=ActivosUnidades::where('estadoUni',true)->get(); //correlativo global
-          //  $activos=Activos::All();
+            $activos=Activos::All();
           $contador=1;
-          foreach ($activosUnidades as  $traslado) {
-            $activo=$traslado->activo;
-            if($activo->idClasificacionActivo==$activoUpdate->idClasificacionActivo){
-              $contador++;
+          foreach ($activos as  $activo) {
+            $primerTraslado=$activo->activosUnidades->first();
+            if (isset($primerTraslado)) {
+              if($activo->idClasificacionActivo==$activoUpdate->idClasificacionActivo && $primerTraslado->idUnidad==$request['idUnidad']){
+                $contador++;
+              }
             }
           }
         //  dd($contador);
@@ -95,7 +96,7 @@ class ActivosUnidadesController extends Controller
 
         }
 
-        return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'Sea creado con éxito el traslado');
+        return redirect("/activosUnidades/" . $request['idActivo'])->with('create', 'El traslado se ha realizado con éxito');
     }
 
     /**
@@ -107,7 +108,8 @@ class ActivosUnidadesController extends Controller
     public function show(Activos $activo)
     {
       $unidades=Unidades::pluck('nombreUnidad','id');
-      $empleados=Empleado::pluck('nombresEmpleado','id');
+      $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+      $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
       $date = Carbon::now();
       return view('activosUnidades.show',compact('unidades','empleados','activo','date'));
     }

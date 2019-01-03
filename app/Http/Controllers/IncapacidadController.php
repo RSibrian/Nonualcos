@@ -31,7 +31,7 @@ class IncapacidadController extends Controller
             Permiso::create($request->all());
             $permisoActual = Permiso::all()->last();
             PermisoController::diaPermi($permisoActual);
-            return redirect("/incapacidades/" . $request['idEmpleado'])->with('create', 'Sea creado con éxito el registro');
+            return redirect("/incapacidades/" . $request['idEmpleado'])->with('create', 'Se ha creado con éxito el registro de incapacidad');
         }
         else{
             return redirect("/incapacidades/" . $request['idEmpleado'])->with('sin_pass', 'Error de fechas');

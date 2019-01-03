@@ -46,7 +46,7 @@
 </fieldset>
 
 <br>
-@include('liquidaciones.table', compact('_liquidar'))
+@include('liquidaciones.table')
 <br>
 <fieldset style="border: 1px solid #ccc; padding: 10px">
 
@@ -59,7 +59,7 @@
                 <label class="control-label">Total
                     <small>(*)</small>
                 </label>
-                {!!Form::text('montoFacturaLiquidacion', '0.0' ,['id'=>'totalFactura','class'=>'form-control datepicker'])!!}
+                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', 'readonly'])!!}
             </div>
         </div>
     </div>
@@ -67,12 +67,4 @@
 </fieldset>
 <br>
 
-@section('scripts')
-    <script type="text/javascript">
-        $('#vehiculo').select( function() {
-            alert( $(this).find(":selected").val() );
-        });
-    </script>
-
-@endsection
 

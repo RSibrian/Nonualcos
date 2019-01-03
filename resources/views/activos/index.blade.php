@@ -17,14 +17,14 @@
                   </div>
                   <div class="material-datatables">
                       @can('unidads.create')
-                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round ">
+                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round " title="Agregar nuevo activo">
                               <i class="material-icons">add</i>
                               Nuevo
 
                           </a>
                       @endcan
-                      <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round ">
-                          <i class="material-icons">print</i>
+                      <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round " title="Reporte General de Inventario de Activos">
+                          <i class="material-icons">save_alt</i>
 
                       </a>
                       <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -83,12 +83,15 @@
 
                                   @endif
                                   <td>
-                                    @if($activo->estadoActivo==1)
+                                    @if($activo->codigoInventario==null)
+                                      <a color="green">Activo</a>
+                                    @endif
+                                    @if($activo->estadoActivo==1 && $activo->codigoInventario!=null)
                                     <!--<button  id="btn_{{ $activo->id }}" onClick="activodaniado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">Bueno  </button>-->
                                     <a color="green">En Uso</a>
                                   @elseif($activo->estadoActivo==2)
                                     <a background-color="red">Dañado</a>
-                                  @else
+                                  @elseif($activo->estadoActivo==0)
                                     <a background-color="rose">De Baja</a>
 
                                   @endif

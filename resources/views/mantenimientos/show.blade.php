@@ -23,7 +23,7 @@
               </div>
               <div class="col col-md-2">
                 <h4><strong>
-                  {{ $mantenimiento->activos()->first()->codigoInventario }}
+                  {{ $mantenimiento->activos->codigoInventario }}
                 </strong></h4>
               </div>
               <div class="col col-md-1">
@@ -31,7 +31,7 @@
               </div>
               <div class="col col-md-6">
                 <h4><strong>
-                  {{ $mantenimiento->activos()->first()->nombreActivo }}
+                  {{ $mantenimiento->activos->nombreActivo }}
                 </strong></h4>
               </div>
             </div>
@@ -42,7 +42,7 @@
               </div>
               <div class="col col-md-8">
                 <h4><strong>
-                  {{ $mantenimiento->activos()->first()->clasificacionActivo()->first()->nombreTipo }}
+                  {{ $mantenimiento->activos->clasificacionActivo->nombreTipo }}
                 </strong></h4>
               </div>
             </div>
@@ -52,7 +52,11 @@
               </div>
               <div class="col col-md-8">
                 <h4><strong>
-                  {{ $mantenimiento->activos()->first()->proveedor()->first()->nombreEmpresa }}
+                  <?php if (isset($mantenimiento->activos->proveedor->nombreEmpresa)): ?>
+                    {{ $mantenimiento->activos->proveedor->nombreEmpresa }}
+                    <?php else: ?>
+                      {{"No asignado"}}
+                  <?php endif; ?>
                 </strong></h4>
               </div>
             </div>
@@ -75,11 +79,11 @@
             </div>
             <div class="row">
               <div class="col col-md-3">
-                <h4>Personal que entrega:</h4>
+                <h4>Personal de ALN que solicita:</h4>
               </div>
               <div class="col col-md-7">
                 <h4><strong>
-                  {{ $mantenimiento->empleado1()->first()->nombresEmpleado.' '.$mantenimiento->empleado1()->first()->apellidosEmpleado }}
+                  {{ $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado }}
                 </strong></h4>
               </div>
             </div>
@@ -89,7 +93,17 @@
               </div>
               <div class="col col-md-7">
                 <h4><strong>
-                  {{ $mantenimiento->proveedores()->first()->nombreEmpresa }}
+                  {{ $mantenimiento->proveedores->nombreEmpresa }}
+                </strong></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-md-3">
+                <h4>Persona encargada de mantenimiento:</h4>
+              </div>
+              <div class="col col-md-7">
+                <h4><strong>
+                  {{ $mantenimiento->nombreEncargado }}
                 </strong></h4>
               </div>
             </div>
@@ -147,11 +161,11 @@
               </div>
               <div class="row">
                 <div class="col col-md-3">
-                  <h4>Personal que recibe:</h4>
+                  <h4>Personal de ALN que recibe:</h4>
                 </div>
                 <div class="col col-md-7">
                   <h4><strong>
-                    {{ $mantenimiento->empleado2()->first()->nombresEmpleado.' '.$mantenimiento->empleado2()->first()->apellidosEmpleado }}
+                    {{ $mantenimiento->empleado2->nombresEmpleado.' '.$mantenimiento->empleado2->apellidosEmpleado }}
                   </strong></h4>
                 </div>
               </div>

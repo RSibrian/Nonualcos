@@ -43,11 +43,13 @@
         @else
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
       @endif
-      @if($activo->precio>=600 && $activo->codigoInventario!=null)
+      @if($activo->precio>=600 )
       <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
       @endif
+      @if( $activo->codigoInventario!=null)
         <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
         <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
+      @endif
     </ul>
     <div class="row">
         <div class="col-md-12">
@@ -57,14 +59,16 @@
                 </div>
 
                 <div class="card-content">
+              @if($activo->estadoActivo!=0)
                   @if($activo->codigoInventario!=null)
-                  <h4 class="card-title">Traslados de <b>{{$activo->nombreActivo}}</b></h4>
+                  <h4 class="card-title">Traslados de <b>{{$activo->codigoInventario." ".$activo->nombreActivo}}</b></h4>
                   @else
                   <h4 class="card-title">Asignar Activo <b>{{$activo->nombreActivo}}</b></h4>
-                @endif
+                  @endif
 
                     @can('unidads.create')
                         <div class="toolbar">
+                          <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
                           @if($activo->codigoInventario!=null)
                           <br> <h4 class="title">Crear Nuevo Traslado </h4>
                           @else
@@ -73,6 +77,7 @@
 
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             {!!Form::open(['route'=>'activosUnidades.store','method'=>'POST','autocomplete'=>'off', 'enctype'=>'multipart/form-data']) !!}
+                            {{ csrf_field() }}
                             {!!Form::hidden('idActivo',$activo->id,['id'=>'idActivo','class'=>'form-control'])!!}
                             <div class="tab-pane" id="account">
                                 <div class="row">
@@ -83,13 +88,13 @@
                                                   <i class="material-icons">apps</i>
                                               </span>
                                               <div class="form-group label-floating">
-                                                  <label class="control-label">
+                                                  <label class="control-label"><code>*</code>Unidad
                                                   </label>
-                                                {!!Form::select('idUnidad',$unidades,null,['id'=>'idUnidad','class'=>'form-control','placeholder'=>'Selecione una Unidad (requerido)','required'])!!}
+                                                {!!Form::select('idUnidad',$unidades,null,['id'=>'idUnidad','class'=>'form-control','placeholder'=>' ','required'])!!}
                                               </div>
                                           </div>
                                       </div>
-                                      <div class="col-sm-10 row">
+                                    <div class="col-sm-10 row">
                                           <div class="input-group">
                                                       <span class="input-group-addon">
                                                           <i class="material-icons">date_range</i>
@@ -98,23 +103,24 @@
                                                   <label class="control-label"><code>*</code>Fecha de Asignación
                                                       <small></small>
                                                   </label>
-                                                  {!!Form::date('fechaInicioUni',$date,['id'=>'fechaInicioUni','class'=>'form-control datepicker'])!!}
+                                                  {!!Form::date('fechaInicioUni',$date,['id'=>'fechaInicioUni','max'=>$date,'class'=>'form-control datepicker'])!!}
 
                                               </div>
                                           </div>
                                       </div>
                                       <div class="col-sm-10 row">
-                                          <div class="input-group">
-                                              <span class="input-group-addon">
-                                                  <i class="material-icons">apps</i>
-                                              </span>
-                                              <div class="form-group label-floating">
-                                                  <label class="control-label">
-                                                  </label>
-                                                {!!Form::select('idEmpleado',$empleados,null,['id'=>'idEmpleado','class'=>'form-control','placeholder'=>'Selecione un Encargado (requerido)','required'])!!}
-                                              </div>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="material-icons">apps</i>
+                                          </span>
+                                          <div class="form-group label-floating">
+                                            <label class="control-label"><code>*</code>Empleado Encargado:
+                                            </label>
+                                            {!!Form::select('idEmpleado',$empleados, null,['id'=>'idEmpleado','class'=>'form-control','required','placeholder'=>' '])!!}
                                           </div>
+                                        </div>
                                       </div>
+
                                       <div class="col-sm-10 row">
                                           <div class="input-group">
                                               <span class="input-group-addon">
@@ -134,14 +140,16 @@
 
 
                             <div align="center" class="row">
-                                {!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
+                              {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
+
                                 {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
-                                	<a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                                	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
                             </div>
                             {!! Form::close() !!}
 
                         </div>
                     @endcan
+                  @endif
                     <br>
                     <h4 class="card-title">Historial de Traslados del Activo: <b>{{$activo->codigoInventario}}</b></h4>
                     <div class="material-datatables">
@@ -246,17 +254,21 @@
     </script>
     <script>
         $('#idUnidad').on('change',function(e){
-            var empleados=$("#idEmpleado");
-            var unidad=$("#idUnidad").find('option:selected');
-            var ruta="/Nonualcos/public/activos/create/"+unidad.val();
-            $.get(ruta,function(res){
-                empleados.empty();
-                empleados.append("<option value>Seleccione un Encargado (requerido)</option>");
-                $(res).each(function(key,value){
-                    empleados.append("<option value="+value.id+">"+value.nombresEmpleado+" "+value.apellidosEmpleado+"</option>");
-                });
+          var empleados=$("#idEmpleado");
+          var unidad=$("#idUnidad").find('option:selected').val();
+
+          var newUrl = "{{ route('activos.create.codificacion', ['unidad' => ':unidad']) }}";
+          newUrl = newUrl.replace(':unidad', unidad);
+          var token="{{ csrf_token() }}";
+          $.get(newUrl,function(res){
+            empleados.empty();
+            empleados.append("<option value></option>");
+            $(res).each(function(key,value){
+                empleados.append("<option value="+value.id+">"+value.nombresEmpleado+" "+value.apellidosEmpleado+"</option>");
             });
+          });
         });
+
 
     </script>
 @endsection

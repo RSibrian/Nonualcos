@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cargo;
 use App\Unidades;
 use Illuminate\Http\Request;
+use App\BitacoraAccion;
 
 class CargoController extends Controller
 {
@@ -38,8 +39,15 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
+      //bitacora accion
+      $unidad=Unidades::find($request['idUnidad']);
+      $accion="Crear Cargo";
+      $antes=null;
+      $despues="Unidad: ".$unidad->nombreUnidad." <br> Cargo: ".$request['nombreCargo'];
+      BitacoraAccion::crearBitacora($accion,$antes,$despues);
+      //fin bicora accion
         Cargo::create($request->all());
-        return redirect('/cargos')->with('create','Sea creado con éxito el cargo');
+        return redirect('/cargos')->with('create','Se ha creado con éxito el registro de cargo');
     }
 
     /**
@@ -74,9 +82,16 @@ class CargoController extends Controller
      */
     public function update(Request $request, Cargo $cargo)
     {
+      //bitacora
+      $unidad=Unidades::find($request['idUnidad']);
+      $accion="Editar Cargo";
+      $antes="Unidad: ".$cargo->unidad->nombreUnidad." <br> Cargo: ".$cargo->nombreCargo;
+      $despues="Unidad: ".$unidad->nombreUnidad." <br> Cargo: ".$request['nombreCargo'];
+      BitacoraAccion::crearBitacora($accion,$antes,$despues);
+      //fin bitacora
         $cargo->update($request->all());
       //  dd($cargo);
-        return redirect('/cargos')->with('update','Sea editado con éxito la cargo');
+        return redirect('/cargos')->with('update','Se ha editado correctamente el cargo');
     }
 
     /**

@@ -26,19 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-10 row">
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">apps</i>
-            </span>
-            <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Selecione una Clasificación según Ley :
-                </label>
-              {!!Form::select('idTipoLey',$tiposLey,null,['id'=>'idTipoLey','class'=>'form-control','required'])!!}
-
-            </div>
-        </div>
-    </div>
+  
 </fieldset>
 
 @section('scripts')

@@ -15,19 +15,20 @@
                     $mes=date("m");
                     $dias=date("t");
                     $anno=date("Y");
-
-                    echo " Dias : ". $dias;
-                    echo " Mes Actual -:  ".$mes;
-                    echo " Año : ". $anno;
-                    echo "<br>";
                     $fecha_fin_mes = date($anno."-".$mes."-01");
                     $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
 
                     ?>
-                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round ">
+                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
                         <i class="material-icons"></i>
-                        excel
+                        Planilla de Empleados
                     </a>
+                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
+                        <i class="material-icons"></i>
+                        boleta de pago
+                    </a>
+
+
 
                     <div class="material-datatables">
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
@@ -35,19 +36,19 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>Numero de DUI</th>
+                                    <th>Número de DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario</th>
                                     <th>Dias</th>
+                                    <th>Salario Ganado</th>
                                     <th>ISSS</th>
                                     <th>AFP</th>
                                     <th>Renta</th>
                                     <th>LLegadas tarde</th>
                                     <th>Total de Descuentos</th>
-                                    <th>pago Incapacidad</th>
                                     <th>Salario Neto</th>
 
                                 </tr>
@@ -56,19 +57,19 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>Numero&nbsp;DUI</th>
+                                    <th>Número&nbsp;DUI</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario&nbsp;Personal </th>
                                     <th>Dias</th>
+                                    <th>Salario Ganado</th>
                                     <th>ISSS</th>
                                     <th>AFP</th>
                                     <th>Renta</th>
                                     <th>LLegadas tarde</th>
                                     <th>Total de Descuentos</th>
-                                    <th>pago Incapacidad</th>
                                     <th>Salario&nbsp;Neto</th>
                                 </tr>
                             </tfoot>
@@ -133,7 +134,7 @@
                                         }
                                     }
 
-                                    echo  "permisos= ".$p." Maternidad= ".$m." Incapacidad= ".$i. "<br>";
+                                //    echo  "permisos= ".$p." Maternidad= ".$m." Incapacidad= ".$i. "<br>";
 
                                         $salario=$empleado->salarioBruto;//500
                                         $salario_diario=$salario/$dias;//500/31=16.1290
@@ -167,7 +168,7 @@
 
                                         }
 
-                                        $total_descuentos=$ISSS+$AFP;
+                                        $total_descuentos=$AFP;
                                         $salario_descuentos=$salario_ganado-$total_descuentos;
                                     if($salario_descuentos!=0)
                                     {
@@ -179,24 +180,15 @@
                                         $salario_exceso=0;
                                         $descuento_renta=0;
                                     }
-
-                                        $total_descuentos+=  $descuento_renta;
+                                        $total_descuentos=$descuento_renta+$ISSS+$AFP;
                                         $liquido=$salario_ganado-$total_descuentos;
-                                        if($liquido>=$descuentos_alimeticios) //alcanza el liquido para pagar lacuota alimenticia?
-                                        {
-                                            $total_descuentos+=$descuentos_alimeticios;
-                                            $liquido-=$descuentos_alimeticios;// le restamos la cuota alimenticia al liquido
-                                        }
-                                        if($liquido>=$descuento_prestamo){
-                                            $total_descuentos+=$descuento_prestamo;
-                                            $liquido-=$descuento_prestamo;
-                                        }
-                                        if($liquido>=$otros) {
-                                            $total_descuentos+=$otros;
-                                            $liquido-=$otros;
+                                        $tota_pre=$descuentos_alimeticios+$descuento_prestamo+$otros;
+                                        $prestamoBandera=false;
+                                        if($liquido>=$tota_pre){
+                                            $prestamoBandera=true;
+                                            $total_descuentos+=$tota_pre;// le restamos la cuota alimenticia al liquido
                                         }
                                         $liquido=$salario_ganado-$total_descuentos;
-
                                     ?>
                                     <tr>
                                         <td></td>
@@ -207,14 +199,14 @@
                                         <td>{{$empleado->apellidosEmpleado}}</td>
                                         <td>{{$empleado->cargo->unidad->nombreUnidad}}</td>
                                         <td>{{$empleado->cargo->nombreCargo}}</td>
-                                        <td>$&nbsp;{{number_format($salario, 2, '.', ',')}}</td>
+                                        <td>$&nbsp;{{number_format($empleado->salarioBruto, 2, '.', ',')}}</td>
                                         <td>{{$dias_trabajados}}</td>
+                                        <td>$&nbsp;{{number_format($salario_ganado, 2, '.', ',')}}</td>
                                         <td>${{number_format($ISSS, 2, '.', ',')}}</td>
                                         <td>${{number_format($AFP, 2, '.', ',')}}</td>
                                         <td>${{number_format($descuento_renta, 2, '.', ',')}}</td>
                                         <td>$ - </td>
                                         <td>$ {{number_format(round($total_descuentos,2), 2, '.', ',')}}</td>
-                                        <td>$ {{number_format(round($salario_x_incapacidad,2), 2, '.', ',')}}</td>
                                         <td>$ {{number_format(round($liquido,2), 2, '.', ',')}}</td>
                                     </tr>
                                 @endforeach

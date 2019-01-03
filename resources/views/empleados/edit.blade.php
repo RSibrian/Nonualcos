@@ -2,7 +2,7 @@
 @section('plantilla')
     <div class="content">
         <div class="container-fluid">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-10 col-sm-offset-1">
                 <!--      Wizard container        -->
                 <div class="wizard-container">
                     <div class="card wizard-card" data-color="blue" id="wizardProfile">
@@ -102,35 +102,135 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="material-icons"> phone </i>
-                                                        </span>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Telefono
-                                                    <small></small>
-                                                </label>
-                                                {!!Form::text('telefonoEmpleado',null,['id'=>'telefono','class'=>'form-control'])!!}
-                                            </div>
+                                    <div class="col-sm-6">
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="material-icons">featured_play_list</i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                          <label class="control-label" ><code>*</code>Documento Único de Identidad
+                                          </label>
+                                          {!!Form::text('DUIEmpleado',null,['id'=>'dui','class'=>'form-control','required'])!!}
                                         </div>
+                                      </div>
                                     </div>
-                                    <div class="col-lg-10">
-                                        <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="material-icons">featured_play_list</i>
-                                                        </span>
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                      <hr>
+                                      <div class="row" >
+                                        <div class="col-sm-5" >
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="material-icons">phone</i>
+                                            </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label" >Documento Único de Identidad
-                                                    <small>(requeridos)</small>
-                                                </label>
-                                                {!!Form::text('DUIEmpleado',null,['id'=>'dui','class'=>'form-control','required'])!!}
+                                              <label class="control-label" >Número:
+                                              </label>
+                                              {!!Form::text('telefonoEmpleado[]',
+                                              isset($tels[0]) ? $tels[0]->telefonoEmpleado : '' ,['id'=>'telefono1','class'=>'form-control input-group-lg reg_name'])!!}
                                             </div>
-
+                                          </div>
                                         </div>
+                                        <div class="col-sm-2" >
+                                          <div class="input-group">
+                                            <div class="form-group label-floating">
+                                              <label class="control-label" >Tipo:
+                                              </label>
+                                              <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                                                <option value="Trabajo" @isset($tels[0])
+                                                 @if($tels[0]->tipoTelefono=="Trabajo"){{ 'selected' }}@endif
+                                                 @endisset >Trabajo</option>
+                                                <option value="Personal"  @isset($tels[0])
+                                                @if($tels[0]->tipoTelefono=="Personal"){{ 'selected' }}@endif
+                                                @endisset >Personal</option>
+                                                <option value="Casa" @isset($tels[0])
+                                                @if($tels[0]->tipoTelefono=="Casa"){{ 'selected' }}@endif
+                                                @endisset >Casa</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-1">
+                                          <button type="button" title="Agregar Teléfono" class=" btn-info btnAddt"/>
+                                          <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                      </div>
+                                      <div class="form-group col-sm-1 " id="btminus">
+                                        <button type="button" title="Agregar Teléfono" class=" btn-info btndel"/>
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
                                     </div>
-
-
+                                    </div>
+                                    <div class="row" id="tel2">
+                                      <div class="col-sm-5" >
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="material-icons">phone</i>
+                                          </span>
+                                          <div class="form-group label-floating">
+                                            <label class="control-label" >Número:
+                                            </label>
+                                            {!!Form::text('telefonoEmpleado[]',
+                                            isset($tels[1]) ? $tels[1]->telefonoEmpleado : '',
+                                            ['id'=>'telefono2','class'=>'form-control input-group-lg reg_name'])!!}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-2" >
+                                        <div class="input-group">
+                                          <div class="form-group label-floating">
+                                            <label class="control-label" >Tipo:
+                                            </label>
+                                            <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                                              <option value="Trabajo" @isset($tels[1])
+                                               @if($tels[1]->tipoTelefono=="Trabajo"){{ 'selected' }}@endif
+                                               @endisset >Trabajo</option>
+                                              <option value="Personal"  @isset($tels[1])
+                                              @if($tels[1]->tipoTelefono=="Personal"){{ 'selected' }}@endif
+                                              @endisset >Personal</option>
+                                              <option value="Casa" @isset($tels[1])
+                                              @if($tels[1]->tipoTelefono=="Casa"){{ 'selected' }}@endif
+                                              @endisset >Casa</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="row" id="tel3">
+                                    <div class="col-sm-5" >
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="material-icons">phone</i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                          <label class="control-label" >Número:
+                                          </label>
+                                          {!!Form::text('telefonoEmpleado[]',
+                                          isset($tels[2]) ? $tels[2]->telefonoEmpleado : '',
+                                          ['id'=>'telefono3','class'=>'form-control input-group-lg reg_name'])!!}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-2" >
+                                      <div class="input-group">
+                                        <div class="form-group label-floating">
+                                          <label class="control-label" >Tipo:
+                                          </label>
+                                          <select name="tipoTelefono[]" id="tipoTelefono" class="form-control" title="Seleccione el tipo de teléfono" >
+                                            <option value="Trabajo" @isset($tels[2])
+                                             @if($tels[2]->tipoTelefono=="Trabajo"){{ 'selected' }}@endif
+                                             @endisset >Trabajo</option>
+                                            <option value="Personal"  @isset($tels[2])
+                                            @if($tels[2]->tipoTelefono=="Personal"){{ 'selected' }}@endif
+                                            @endisset >Personal</option>
+                                            <option value="Casa" @isset($tels[2])
+                                            @if($tels[2]->tipoTelefono=="Casa"){{ 'selected' }}@endif
+                                            @endisset >Casa</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
 
                                 </div>
                             </div>
@@ -366,18 +466,35 @@
     </script>
 
     <script>
-        $('#unidad_id').on('change',function(e){
-            var cargos=$("#cargo_id");
-            var unidad=$("#unidad_id").find('option:selected');
-            var ruta="/Nonualcos/public/empleados/create/"+unidad.val();
-            $.get(ruta,function(res){
-                cargos.empty();
-                cargos.append("<option value="+null+">Seleccione un cargo</option>");
-                $(res).each(function(key,value){
-                    cargos.append("<option value="+value.id+">"+value.nombreCargo+"</option>");
-                });
-            });
+    $('#unidad_id').on('change',function(e){
+      var cargos=$("#cargo_id");
+      var unidad=$("#unidad_id").find('option:selected').val();
+
+      var newUrl = "{{ route('empleados.create.codificacion', ['unidad' => ':unidad']) }}";
+      newUrl = newUrl.replace(':unidad', unidad);
+      var token="{{ csrf_token() }}";
+      $.get(newUrl,function(res){
+        cargos.empty();
+        cargos.append("<option value="+null+">Seleccione un cargo</option>");
+        $(res).each(function(key,value){
+          cargos.append("<option value="+value.id+">"+value.nombreCargo+"</option>");
         });
+      });
+      // $.ajax({
+      //   url:newUrl,
+      //    data : {"_token":"{{ csrf_token() }}",
+      //             "unidad":unidad},
+      //   dataType:'json',
+      //   type:'GET',
+      //   success:function(res){
+      //     console.log(res);
+      //   },
+      //   error:function(res){
+      //     console.log(res);
+      //   }
+      //
+      // });
+    });
 
     </script>
     {!!Html::script('js/jquery.mask.min.js')!!}
@@ -413,10 +530,31 @@
 
             $("#codigo").mask("AA.LLL.0000", options)
 
-            $("#telefono").mask("0000-0000")
+            $("#telefono1").mask("0000-0000")
+            $("#telefono2").mask("0000-0000")
+            $("#telefono3").mask("0000-0000")
             $("#nit").mask("0000-000000-000-0")
 
-        })
+        });
+
+        $(document).ready(function() {
+          var numt=1;
+          if ($('#telefono2').val()=="")$('#tel2').hide(); else numt=2;
+          if ($('#telefono3').val()=="")$('#tel3').hide(); else numt=3;
+
+          $('.btnAddt').click(function() {
+            if(numt===1)$('#btminus').show();
+            numt=numt+1;
+            $('#tel'+numt).show();
+          });
+          $('.btndel').click(function() {
+            $('#tel'+numt).hide();
+            $('#telefono'+numt).val('');
+            numt=numt-1;
+            if(numt===1)$('#btminus').hide();
+          });
+
+        });
     </script>
 
 @endsection

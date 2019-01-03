@@ -17,14 +17,14 @@
                     </div>
                     <div class="material-datatables">
                         @can('users.create')
-                            <a href="{{ url("users/create") }}" class="btn btn-verde btn-round ">
+                            <a href="{{ url("users/create") }}" class="btn btn-verde btn-round " title="Agregar usuario">
                                 <i class="material-icons">add</i>
                                 Nuevo
 
                             </a>
                         @endcan
-                            <a  aling='right' target="_blank" href="{{ url("users/reporte") }}" class="btn  btn-ocre btn-round ">
-                                <i class="material-icons">print</i>
+                            <a  aling='right' target="_blank" href="{{ url("users/reporte") }}" class="btn  btn-ocre btn-round " title="imprimir reporte de usuarios">
+                                <i class="material-icons">save_alt</i>
 
                             </a>
 
