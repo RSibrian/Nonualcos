@@ -35,4 +35,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Empleado::class,'idEmpleado');
     }
+
+    public function bitacoraUsuario()
+    {
+      return $this->hasMany(BitacoraUsuario::class);
+    }
 }
