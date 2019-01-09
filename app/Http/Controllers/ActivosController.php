@@ -39,7 +39,9 @@ class ActivosController extends Controller
     {
       $clasificaciones=ClasificacionesActivos::pluck('nombreTipo','id');
       $unidades=Unidades::pluck('nombreUnidad','id');
-      $proveedores=Proveedor::pluck('nombreEmpresa','id');
+      $proveedores=Proveedor::All()->where('tipoProveedor',1 )->pluck('nombreEmpresa','id');
+      //$proveedores1=Proveedor::pluck('nombreEmpresa','id');
+      //dd($proveedores);
       $empleados=Empleado::pluck('nombresEmpleado','id');
       $date = Carbon::now();
       return view('activos.create',compact('unidades','clasificaciones','proveedores','date','empleados'));
@@ -184,7 +186,18 @@ class ActivosController extends Controller
     public function update(Request $request, Activos $activos)
     {
       //dd($activos);
-      $request['fechaBajaActivo']=Carbon::now();
+      if($request['estadoActivo']==0){
+
+        $request['fechaBajaActivo']=Carbon::now();
+        $traslados=ActivosUnidades::where('idActivo',$activos->id)->get();
+
+        $traslado=$traslados->last();
+        //dd($traslado);
+        $traslado->fechaFinalUni=$request['fechaBajaActivo'];
+        $traslado->estadoUni=false;
+        $traslado->save();
+
+      }
 
       $activos->update($request->all());
       //tabla vehiculo

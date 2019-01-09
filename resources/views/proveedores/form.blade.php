@@ -64,10 +64,10 @@
                 <select name="tipoProveedor" id="tipoProveedor" class="form-control" title="Seleccione el tipo de teléfono" >
                   <option value="1" @isset($prov)
                    @if($prov->tipoProveedor==1){{ 'selected' }}@endif
-                   @endisset >Solo Proveedor</option>
+                   @endisset >Proveedor</option>
                   <option value="2"  @isset($prov)
                    @if($prov->tipoProveedor==2){{ 'selected' }}@endif
-                  @endisset >Solo Mantenimiento</option>
+                  @endisset >Mantenimiento</option>
                   <option value="3" @isset($prov)
                    @if($prov->tipoProveedor==3){{ 'selected' }}@endif
                   @endisset >Proveedor y Mantenimiento</option>

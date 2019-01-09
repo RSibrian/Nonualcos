@@ -263,7 +263,7 @@
                     <div class="form-group label-floating">
                       <label class="control-label"><code>*</code>Justificación:
                       </label>
-                      {!!Form::text('justificacion',null,['id'=>'justificacion','class'=>'form-control','required'])!!}
+                      {!!Form::text('justificacionActivo',null,['id'=>'justificacionActivo','class'=>'form-control','required'])!!}
                     </div>
                   </div>
                 </div>

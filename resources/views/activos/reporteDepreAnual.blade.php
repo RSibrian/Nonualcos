@@ -11,53 +11,84 @@
 	</style>
 	<br><div style="position: absolute;left: 330px; top: -20px; z-index: 1;"><h3>Depreciación Anual del Activo: {{ $activo->nombreActivo}}</h3></div>
 
-  <?php
-  $valorResidual=$activo->precio*$activo->valorResidual/100;
-  $valorDepreciar=($activo->precio-$valorResidual);
-  $cuota=$valorDepreciar/$activo->aniosVida;
-  $depreAcumulada=0;
-  $precio=$activo->precio;
+	<?php
+	$valorResidual=$activo->precio*$activo->valorResidual/100;
+	$valorDepreciar=($activo->precio-$valorResidual);
+	$cuota=$valorDepreciar/$activo->aniosVida;
+	$depreAcumulada=0;
+	$precio=$activo->precio;
+	$fechaBaja=$activo->fechaBajaActivo;
 
-  $mes=date("m");
-  $anno=date("Y");
+	$mes=date("m");
+	$anno=date("Y");
 
 
-  $dias_inicio=date("d", strtotime($activo->fechaAdquisicion));//dia 12
-  $mes_inicio=date("m", strtotime($activo->fechaAdquisicion));// mes 07
-  $anno_inicio=date("Y", strtotime($activo->fechaAdquisicion));//2018
-  $fecha_fin_mes = date($anno."-".$mes."-01");//2018-12-01
-  $fecha_compra = date($anno_inicio."-".$mes_inicio."-01");//2018-07-01
-  $fecha_max=date("Y-m-d", strtotime("$fecha_compra +$activo->aniosVida year"));
-  if($dias_inicio<25)
-  {
-      $fecha_fin_mes2=date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
-  }
-  else $fecha_fin_mes2=$fecha_fin_mes;
-  $inicio = new \DateTime($fecha_compra);
-  $fin = new \DateTime($fecha_fin_mes2);
-  $resultado = $inicio->diff($fin);
+	if($activo->estadoActivo==0){
 
-  $text_anno="año";
-  $text_mes="mes";
-  if($resultado->y>1)
-  {
-    $text_anno="años";
-  }
-  if($resultado->m>1)
-  {
-    $text_mes="meses";
-  }
-  if($fecha_fin_mes>=$fecha_max)
-  {
+		$dias_baja=date("d", strtotime($activo->fechaBajaActivo));//dia 12
+		$mes_baja=date("m", strtotime($activo->fechaBajaActivo));// mes 07
+		$anno_baja=date("Y", strtotime($activo->fechaBajaActivo));//2018
+		$fecha_fin_mes = date($anno_baja."-".$mes_baja."-01");//2018-12-01
 
-    $mesesDepre=$activo->aniosVida*12;
-    $resultado->y=$activo->aniosVida;
-    $resultado->m=0;
-  }
-  else $mesesDepre=($resultado->y*12)+$resultado->m;
-  $depreMen=($cuota/12)*$mesesDepre;
+	}
+	else{
+		$fecha_fin_mes = date($anno."-".$mes."-01");//2018-12-01
+		$ban=0;
 
-  ?>
+	}
+
+
+	$dias_inicio=date("d", strtotime($activo->fechaAdquisicion));//dia 12
+	$mes_inicio=date("m", strtotime($activo->fechaAdquisicion));// mes 07
+	$anno_inicio=date("Y", strtotime($activo->fechaAdquisicion));//2018
+
+	$fecha_compra = date($anno_inicio."-".$mes_inicio."-01");//2018-07-01
+	$fecha_max=date("Y-m-d", strtotime("$fecha_compra +$activo->aniosVida year"));
+	if($dias_inicio<25)
+	{
+			$fecha_fin_mes2=date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
+	}
+	else $fecha_fin_mes2=$fecha_fin_mes;
+	$inicio = new \DateTime($fecha_compra);
+	$fin = new \DateTime($fecha_fin_mes2);
+	$resultado = $inicio->diff($fin);
+
+	$text_anno="año";
+	$text_mes="mes";
+	if($resultado->y>1)
+	{
+		$text_anno="años";
+	}
+	if($resultado->m>1)
+	{
+		$text_mes="meses";
+	}
+
+
+	if($fecha_fin_mes>=$fecha_max && $activo->estadoActivo!=0) //duda
+	{
+
+		$mesesDepre=$activo->aniosVida*12;
+		$resultado->y=$activo->aniosVida;
+		$resultado->m=0;
+	}
+	else {
+
+		if($fecha_fin_mes>=$fecha_max && $activo->estadoActivo==0) //duda
+		{
+			$mesesDepre=$activo->aniosVida*12;
+			$resultado->y=$activo->aniosVida;
+			$resultado->m=0;
+
+		}
+		else
+		{
+			$mesesDepre=($resultado->y*12)+$resultado->m;
+
+		}
+}
+	$depreMen=($cuota/12)*$mesesDepre;
+?>
 
 
 
