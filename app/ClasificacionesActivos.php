@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class ClasificacionesActivos extends Model
+class ClasificacionesActivos extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
     //
     protected $table = 'clasificaciones_activos';
     protected $fillable = [
@@ -16,5 +18,5 @@ class ClasificacionesActivos extends Model
         return $this->belongsTo(TipoLeyes::class,'idTipoLey');
     }
 
-  
+
 }

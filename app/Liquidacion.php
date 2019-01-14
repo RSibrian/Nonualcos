@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Liquidacion extends Model
+class Liquidacion extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
     //Clase liquidacion
 
     protected $table = 'liquidaciones';

@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class Permiso extends Model
+use OwenIt\Auditing\Contracts\Auditable;
+class Permiso extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
     //
     protected $table="permisos";
     protected $fillable = [

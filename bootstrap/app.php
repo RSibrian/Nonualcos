@@ -40,6 +40,8 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+//Laravel Auditing
+$app->register(OwenIt\Auditing\AuditingServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

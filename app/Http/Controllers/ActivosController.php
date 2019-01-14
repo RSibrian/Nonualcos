@@ -39,9 +39,7 @@ class ActivosController extends Controller
     {
       $clasificaciones=ClasificacionesActivos::pluck('nombreTipo','id');
       $unidades=Unidades::pluck('nombreUnidad','id');
-      $proveedores=Proveedor::All()->where('tipoProveedor',1 )->pluck('nombreEmpresa','id');
-      //$proveedores1=Proveedor::pluck('nombreEmpresa','id');
-      //dd($proveedores);
+      $proveedores=Proveedor::pluck('nombreEmpresa','id');
       $empleados=Empleado::pluck('nombresEmpleado','id');
       $date = Carbon::now();
       return view('activos.create',compact('unidades','clasificaciones','proveedores','date','empleados'));
@@ -102,7 +100,7 @@ class ActivosController extends Controller
         Vehiculo::create($request->all());
       }
     }
-    //bitacora accion
+    /*/bitacora accion
     $clasificacion=ClasificacionesActivos::find($request['idClasificacionActivo']);
     $proveedor=Proveedor::find($request['idProveedor']);
     if($request['tipoAdquisicion']){ $tipo='Compra'; $uso=0;}else{$tipo='Usado';$uso=$request['aniosUso'];}
@@ -128,7 +126,7 @@ class ActivosController extends Controller
 
 
     BitacoraAccion::crearBitacora($accion,$antes,$despues);
-    //fin bicora accion
+    //fin bicora accion*/
 
       return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
@@ -186,18 +184,7 @@ class ActivosController extends Controller
     public function update(Request $request, Activos $activos)
     {
       //dd($activos);
-      if($request['estadoActivo']==0){
-
-        $request['fechaBajaActivo']=Carbon::now();
-        $traslados=ActivosUnidades::where('idActivo',$activos->id)->get();
-
-        $traslado=$traslados->last();
-        //dd($traslado);
-        $traslado->fechaFinalUni=$request['fechaBajaActivo'];
-        $traslado->estadoUni=false;
-        $traslado->save();
-
-      }
+      $request['fechaBajaActivo']=Carbon::now()->subDay()->toDateString();
 
       $activos->update($request->all());
       //tabla vehiculo
@@ -224,7 +211,7 @@ class ActivosController extends Controller
     {
       if($request->ajax()){
       $activos->justificacionActivo=$request['justificacion'];
-      $activos->fechaBajaActivo=Carbon::now();
+      $activos->fechaBajaActivo=Carbon::now()->subDay()->toDateString();
       $activos->estadoActivo=0;
       $activos->save();
       return response()->json($request->all());

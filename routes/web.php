@@ -12,27 +12,15 @@
 */
 Route::group(['middleware' => 'guest'], function () {
 Route::get('/', function () {
-	/*$users=DB::select('select * from users');
-        $cuenta=0;
-        foreach ($users as $us) {
-          $cuenta=$cuenta+1;
-        }
-        if($cuenta==0){
-            return view('/auth/register');
-
-        }else{*/
             return view('/auth/login');
-       // }
-
  });
-
 
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('portada');
-    });
+    })->name('index');
 //Route::resource('unidadRoute', 'UnidadController')->middleware('permission:');
     //Roles
     Route::post('roles/store','RoleController@store')
@@ -565,13 +553,15 @@ Route::middleware(['auth'])->group(function () {
     //fin depreciaciones
     //bitacora
     Route::get('bitacoraAcciones','BitacoraAccionController@index')
-        ->name('bitacoraAcciones.index')
+        ->name('auditoria.index')
         ->middleware('permission:roles.index');
 
     Route::get('bitacoraAcciones/{bitacoraAccion}','BitacoraAccionController@show')
-        ->name('bitacoraAcciones.show')
+        ->name('auditoria.show')
         ->middleware('permission:roles.index');
 
+    Route::get('auditoria/details/{audit}','BitacoraAccionController@details')
+        ->name('auditoria.details');
     //fin bitacora
 
     Route::get('entradasSalidas/{empleado}','EntradasSalidasController@show')
@@ -582,7 +572,16 @@ Route::middleware(['auth'])->group(function () {
         ->name('entradasSalidas.store')
         ->middleware('permission:roles.create');
 
+        Route::get('/clear', function() {
 
+           Artisan::call('cache:clear');
+           Artisan::call('config:clear');
+           Artisan::call('config:cache');
+           Artisan::call('view:clear');
+
+           return "Cleared!";
+
+        });
 
 
 
