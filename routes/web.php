@@ -463,6 +463,14 @@ Route::middleware(['auth'])->group(function () {
         ->name('liquidaciones.vales')
         ->middleware('permission:liquidaciones.index');
 
+    Route::get('/liquidaciones/reporte/{liquidacion}','LiquidacionController@LiquidacionVistaReporte')
+        ->name('liquidacion.reporte')
+        ->middleware('permission:vale.create');
+
+    Route::get('/liquidaciones/reporte_general/{fechaI}/{fechaF}','LiquidacionController@LiquidacionReporteGeneral')
+        ->name('liquidacion.reporteG')
+        ->middleware('permission:vale.create');
+
     Route::get('autocompletePlacas','ValeController@autocompletePlacas')
         ->name('autocompletePlacas');
 

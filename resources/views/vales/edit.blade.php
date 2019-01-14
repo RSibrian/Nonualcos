@@ -4,7 +4,7 @@
         <div class="col-sm-offset-1  col-md-10">
             <div class="card">
                 <div class="card-header card-header-icon" data-background-color="orange">
-                    <i class="material-icons">perm_identity</i>
+                    <i class="material-icons">featured_play_list</i>
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Vales -

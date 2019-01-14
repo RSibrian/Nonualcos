@@ -92,11 +92,11 @@ class valeController extends Controller
 
         $date = date('d-m-Y');
         $date1 = date('g:i:s a');
-        $vistaurl="vales.valesViewReport";
+        $vistaurl="reportesTransporte.valesViewReport";
         $view =  \View::make($vistaurl, compact('vale', 'salida', 'vehiculo', 'nombre', 'recibe', 'autoriza', 'date','date1'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        $pdf->setPaper('A4', 'portrait');
+        $pdf->setPaper('letter', 'portrait');
         return $pdf->stream('Detalle de Vale '.$date.'.pdf');
 
 

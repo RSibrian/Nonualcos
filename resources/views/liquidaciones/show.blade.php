@@ -4,8 +4,8 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header card-header-icon" data-background-color="green">
-                    <i class="material-icons">create</i>
+                <div class="card-header card-header-icon" data-background-color="blue">
+                    <i class="material-icons">library_books</i>
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Vales -
@@ -23,7 +23,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Fecha: <br></h4></td>
-                                        <td><h4> <b> {{ $liquidacion->fechaLiquidacion }}</b></h4></td>
+                                        <td><h4> <b> {{ date('d-m-Y', strtotime($liquidacion->fechaLiquidacion)) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -74,6 +74,7 @@
                                             <th>#</th>
                                             <th>Fecha</th>
                                             <th>Número de vale</th>
+                                            <th>Unidad</th>
                                             <th>Valor ($)</th>
                                             <th class="disabled-sorting text-center">Acciones</th>
                                         </tr>
@@ -84,6 +85,7 @@
                                             <th>#</th>
                                             <th>Fecha</th>
                                             <th>Número de vale</th>
+                                            <th>Unidad</th>
                                             <th>Valor ($)</th>
                                             <th class="text-right">Acciones</th>
                                         </tr>
@@ -96,8 +98,9 @@
                                                 <?php $cont++; ?>
                                                 <td></td>
                                                 <td> {{ $cont }} </td>
-                                                <td> {{ $vale->fechaCreacion }} </td>
+                                                <td> {{ date('d-m-Y', strtotime($vale->fechaCreacion)) }} </td>
                                                 <td> {{ $vale->numeroVale }} </td>
+                                                <td> {{ $vale->nombreUnidad }} </td>
                                                 <td> {{ "$ ".$vale->costoUnitarioVale }} </td>
                                                 <td class='text-right'>
                                                     <a href='{{ route('vales.show', $vale->id) }}' class='btn btn-xs btn-info btn-round' >
@@ -132,8 +135,10 @@
 
                     <div align="center">
                         <a href="{{ route('liquidaciones.index') }}" class='btn btn-ocre '>Regresar</a>
+                        <a target="_blank" href="{{ route('liquidacion.reporte', $liquidacion->id) }}" class="btn  btn-ocre ">
+                            Descargar
+                        </a>
                     </div>
-                    {!! Form::close() !!}
 
                 </div>
             </div>

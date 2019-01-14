@@ -61,7 +61,7 @@
                                   <?php $cont++;?>
                                 <td>{{ $cont }}</td>
                                 <td>
-                                  <p>{{ $vale->fechaCreacion }}</p>
+                                  <p>{{ date('d-m-Y', strtotime($vale->fechaCreacion)) }}</p>
                                 </td>
                                   <td>
                                       <?php $unidad=$vale->salida->empleados->cargo->unidad; ?>

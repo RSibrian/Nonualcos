@@ -264,6 +264,9 @@
             <li>
               <a href="{{ route('liquidaciones.index') }}">Liquidaciones</a>
             </li>
+            <li>
+              <a href="">Reporte Manteniento de Vehiculo</a>
+            </li>
           </ul>
         </div>
       </li>
