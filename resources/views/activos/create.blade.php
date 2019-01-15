@@ -284,7 +284,7 @@
                     <div class="form-group label-floating">
                       <label class="control-label">Número de factura:
                       </label>
-                      {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control',''])!!}
+                      {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control',''])!!}
                     </div>
                   </div>
                 </div>
@@ -463,21 +463,7 @@
       });
     </script>
 
-    <script>
-    $('#idUnidad').on('change',function(e){
-      var empleados=$("#idEmpleado");
-      var unidad=$("#idUnidad").find('option:selected');
-      var ruta="/Nonualcos/public/activos/create/"+unidad.val();
-      $.get(ruta,function(res){
-        empleados.empty();
-        empleados.append("<option value="+null+">Seleccione un Encargado (requerido)</option>");
-        $(res).each(function(key,value){
-          empleados.append("<option value="+value.id+">"+value.nombresEmpleado+" "+value.apellidosEmpleado+"</option>");
-        });
-      });
-    });
-
-  </script>
+    
   <script >
   $('#tipoAdquisicion').on('change',function(e){
     var tipo=$("#tipoAdquisicion").find('option:selected');
