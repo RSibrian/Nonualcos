@@ -12,7 +12,9 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
-        "maatwebsite/excel": "^2.1"
+        "laravelista/lumen-vendor-publish": "^2.1",
+        "maatwebsite/excel": "^2.1",
+        "owen-it/laravel-auditing": "^8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

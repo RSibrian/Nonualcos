@@ -5,7 +5,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header card-header-icon" data-background-color="green">
-                    <i class="material-icons">create</i>
+                    <i class="material-icons">library_books</i>
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Vales -

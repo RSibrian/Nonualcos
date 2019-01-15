@@ -5,10 +5,11 @@ namespace App;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use Notifiable,ShinobiTrait;
+    use Notifiable,ShinobiTrait,\OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.

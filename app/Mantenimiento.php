@@ -7,9 +7,12 @@ use App\Activos;
 use App\Empleado;
 use App\Proveedor;
 use Carbon\Carbon;
+use OwenIt\Auditing\Contracts\Audit;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Mantenimiento extends Model
+class Mantenimiento extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
   //
   protected $table = 'mantenimientos';
   protected $fillable = [

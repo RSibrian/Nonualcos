@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Salidas extends Model
+class Salidas extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
     //Modelo para salidas de vehículo
 
     //variables

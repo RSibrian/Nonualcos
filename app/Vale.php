@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Vale extends Model
+class Vale extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
     //Modelo para vale de combustible
 
     //variables

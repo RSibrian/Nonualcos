@@ -73,4 +73,42 @@ class LiquidacionController extends Controller
         return Response::json($vales);
     }
 
+    public function LiquidacionVistaReporte(Liquidacion $liquidacion){
+        //función indicada para mostrar los valores del vale, salida y empleados, los métodos find se
+        //utilizan para encontrar los nombres del empleado que son mostrados en la seccion de entrega.
+        //La valiable $nombre contiene una colleccion de informacion con respecto al empleado que realizó la salida.
+        //de igual manera funciona la variable $vehiculo y salida.
+        $vales=Liquidacion::VehiculohasLiquidacion($liquidacion);
+
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="reportesTransporte.liquidacionesViewReport";
+        $view =  \View::make($vistaurl, compact('liquidacion', 'vales', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('Detalle de Liquidacion '.$date.'.pdf');
+
+
+    }
+
+       public function LiquidacionReporteGeneral($fechaI,$fechaF){
+        //función indicada para mostrar los valores del vale, salida y empleados, los métodos find se
+        //utilizan para encontrar los nombres del empleado que son mostrados en la seccion de entrega.
+        //La valiable $nombre contiene una colleccion de informacion con respecto al empleado que realizó la salida.
+        //de igual manera funciona la variable $vehiculo y salida.
+        $liquidaciones=Liquidacion::Liquidaciones($fechaI,$fechaF);
+
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="reportesTransporte.liquidacionRGeneral";
+        $view =  \View::make($vistaurl, compact('liquidaciones', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('Reporte General Liquidaciones '.$date.'.pdf');
+
+
+    }
+
 }

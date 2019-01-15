@@ -181,6 +181,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //laravel Auditing
+        OwenIt\Auditing\AuditingServiceProvider::class,
 
 
     ],

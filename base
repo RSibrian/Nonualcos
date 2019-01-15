@@ -1,0 +1,46 @@
+Modelo--audit--namespace--en menú
+
+User --audit--App\--menú ppal
+Role --audit--Caffeinated\Shinobi\--menú ppal
+Unidades --audit--App\--menú ppal
+Cargo --audit--App\--menú ppal
+Empleado--audit--App\--menú ppal
+ClasificacionesActivos--audit--App\--menú ppal
+Activos --audit --App\--menú ppal
+Proveedor--audit--App\--menú ppal
+Mantenimiento--audit--App\--menú ppal
+Vale--audit--App\--menú ppal
+Permiso--audit--App\--Empleado>acciones>permisos
+Descuento--audit--App\--Empleados>acciones>descuentos
+ActivosUnidades--audit--App\--Activos>MásAcciones>Traslado
+Banco--audit--App\--nonualcos/bancos
+EntradasSalidas--audit--App\--nonualcos/entradasSalidas/{empleado} >>LlegadasTardías
+Liquidacion--audit--App\--liquidacines -->funcionamiento incompleto?
+Salidas--audit--App\--en formulario de vales
+Vehiculo--audit--App\--en formulario de activos (opción vehículo)
+
+Incapacidades -->>permiso-- --Empleados>acciones>incapacidades
+
+
+  ActivosEmpleados-->desestimado
+  BitacoraAccion-->desestimado
+  CuentaBancaria-->desestimado
+
+  Aportaciones-->sin mantenimiento
+  Audit-->sin mantenimiento
+  DiaPermiso-->en PermisoController > ???
+  Renta-->Sin Mantenimiento
+  TelefonoEmpleado-->sin mantenimiento (en formulario de empleado)
+  TipoLeyes-->sin mantenimiento
+  PrestamosActivos-->no desarrollado
+
+  Planilla->vacío
+
+REVISAR:
+->Botones de ayuda de cada pantalla
+->Menú principal
+->validaciones de cada formulario
+->implementación de los estándares de diseño y programación
+->Actualizar diseño de BD
+->Actualizar Diccionario de Datos
+->estandarizar el formato de fechas

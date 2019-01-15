@@ -39,7 +39,9 @@ class ActivosController extends Controller
     {
       $clasificaciones=ClasificacionesActivos::pluck('nombreTipo','id');
       $unidades=Unidades::pluck('nombreUnidad','id');
+
       $proveedores=Proveedor::All()->where('tipoProveedor','!=',2 )->pluck('nombreEmpresa','id');
+
       $empleados=Empleado::pluck('nombresEmpleado','id');
       $date = Carbon::now();
       return view('activos.create',compact('unidades','clasificaciones','proveedores','date','empleados'));
@@ -100,7 +102,7 @@ class ActivosController extends Controller
         Vehiculo::create($request->all());
       }
     }
-    //bitacora accion
+    /*/bitacora accion
     $clasificacion=ClasificacionesActivos::find($request['idClasificacionActivo']);
     $proveedor=Proveedor::find($request['idProveedor']);
     if($request['tipoAdquisicion']){ $tipo='Compra'; $uso=0;}else{$tipo='Usado';$uso=$request['aniosUso'];}
@@ -126,7 +128,7 @@ class ActivosController extends Controller
 
 
     BitacoraAccion::crearBitacora($accion,$antes,$despues);
-    //fin bicora accion
+    //fin bicora accion*/
 
       return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
@@ -184,7 +186,9 @@ class ActivosController extends Controller
     public function update(Request $request, Activos $activos)
     {
       //dd($activos);
-      $request['fechaBajaActivo']=Carbon::now();
+
+      $request['fechaBajaActivo']=Carbon::now()->subDay()->toDateString();
+
 
       $activos->update($request->all());
       //tabla vehiculo
@@ -211,7 +215,7 @@ class ActivosController extends Controller
     {
       if($request->ajax()){
       $activos->justificacionActivo=$request['justificacion'];
-      $activos->fechaBajaActivo=Carbon::now();
+      $activos->fechaBajaActivo=Carbon::now()->subDay()->toDateString();
       $activos->estadoActivo=0;
       $activos->save();
       return response()->json($request->all());
@@ -333,7 +337,7 @@ class ActivosController extends Controller
                 $view =  \View::make($vistaurl, compact('activo', 'date','date1'))->render();
                 $pdf = \App::make('dompdf.wrapper');
                 $pdf->loadHTML($view);
-                $pdf->setPaper('A4', 'landscape');
+                $pdf->setPaper('letter', 'landscape');
                 return $pdf->stream('Reporte de Depreciación de Activo Mensual '.$activo->codigoInventario.'-'.$date.'.pdf');
               }
 

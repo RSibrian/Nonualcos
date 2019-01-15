@@ -4,9 +4,13 @@ namespace App;
 use DB;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Support\Arr;
 
-class Activos extends Model
+class Activos extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
+
   protected $table = 'activos';
   protected $fillable = [
       'id','codigoInventario','nombreActivo','numeroFactura','precio','marca','modelo','serie','color',
@@ -61,4 +65,20 @@ class Activos extends Model
   //->orderBy('sa_en_vehiculos.id','desc')
   ->get();
   }
+
+  /**
+     * {@inheritdoc}
+     */
+    //fución para cambiar los datos guardados en la auditoría
+    public function transformAudit(array $data): array
+    {
+        if (Arr::has($data, 'new_values.role_id')) {
+            $data['old_values']['role_name'] = Role::find($this->getOriginal('role_id'))->name;
+            $data['new_values']['role_name'] = Role::find($this->getAttribute('role_id'))->name;
+        }
+        if (Arr::has($data,'new_values.nombreActivo')) {
+          $data['old_values']['nombreActivo']='Nuevo activo';
+        }
+        return $data;
+    }
 }

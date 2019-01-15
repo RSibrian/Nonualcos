@@ -1,5 +1,6 @@
 @extends ('plantilla')
 @section('plantilla')
+    <?php  date_default_timezone_set('America/El_Salvador'); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -18,6 +19,12 @@
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
+                            <a class="btn btn-ocre btn-round " data-toggle="modal" data-target="#exampleModal">
+                                <i class="material-icons">save_alt</i>
+                                Reporte
+                            </a>
+                            {{--route('liquidacion.reporteG') --}}
+
                         @endcan
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
@@ -50,7 +57,7 @@
                                   <?php $cont++;?>
                                 <td id="{{$liquidacion->id}}"></td>
                                 <td>{{ $cont }}</td>
-                                <td>{{ $liquidacion->fechaLiquidacion }}</td>
+                                <td>{{ date('d-m-Y', strtotime($liquidacion->fechaLiquidacion)) }}</td>
                                 <td>{{ $liquidacion->numeroFacturaLiquidacion }}</td>
                                       <?php $vehiculo= $liquidacion->vale;?>
                                       @foreach($vehiculo as $ve)
@@ -89,6 +96,7 @@
                    1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
     ?>
     @include('alertas.ayuda')
+
 <style>
         td.details-control {
             background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
@@ -98,6 +106,54 @@
             background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
         }
 </style>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccione un rango de fechas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">date_range</i>
+                            </span>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Fecha de inicio
+                                    <small >(*)</small>
+                                </label>
+                                {!!Form::date('fechaI',old('fechaI',date('Y-m-d')),['id'=>'fechaI','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">date_range</i>
+                            </span>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Fecha fin
+                                    <small >(*)</small>
+                                </label>
+                                {!!Form::date('fechaF',old('fechaF',date('Y-m-d')),['id'=>'fechaF','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="texto" align="center" style="color: red;"></div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="generar" type="button" class="btn btn-verde">Descargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 @section('scripts')
 
@@ -185,7 +241,7 @@
                         '<th>' +" # "+ '</th>'+
                         '<th>' +" Fecha "+ '</th>'+
                         '<th>' +" Número de vale "+ '</th>'+
-                        //'<th>' +" Solicitante "+ '</th>'+
+                        '<th>' +" Unidad "+ '</th>'+
                         '<th>' +" Costo total de vale "+ '</th>'+
                         '</tr>';
 
@@ -193,9 +249,9 @@
                     cont++;
                     tbody += '<tr>'+
                             '<td>' + cont + '</td>'+
-                            '<td>' + d.fechaCreacion + '</td>'+
+                            '<td>' + (d.fechaCreacion).split("-").reverse().join("-")+ '</td>'+
                             '<td>' + d.numeroVale + '</td>'+
-                           // '<td>' + d.nombresEmpleado+' '+d.apellidosEmpleado + '</td>'+
+                            '<td>' + d.nombreUnidad + '</td>'+
                             '<td>' + d.costoUnitarioVale+ '</td>'+
                             '</tr>';
                 });
@@ -205,6 +261,88 @@
                 $('#output').html('Bummer: there was an error!');
             }
         });
+    }
+
+    $( function()
+    {
+        $( '#generar' ).on('click', function () {
+            var fechaI = $("#fechaI").val();
+            var fechaF = $("#fechaF").val();
+
+            if (valida(fechaI,fechaF)==true){
+               generar(fechaI,fechaF);
+            }
+        });
+
+        function valida(fechaI,fechaF) {
+
+            if (fechaI!=""){
+                if (fechaF!=""){
+                    document.getElementById("texto").innerHTML="";
+                   if (compare_dates(fechaF, fechaI)) {
+                       return true;
+                   }else{
+                       document.getElementById("texto").innerHTML="Fecha fin debe ser mayor que fecha inicio";
+                   }
+                } else{
+                    document.getElementById("texto").innerHTML="Seleccione una fecha fin";
+                }
+            } else{
+                document.getElementById("texto").innerHTML="Seleccione una fecha inicial";
+            }
+
+            return false;
+
+        }
+
+        function compare_dates(fecha, fecha2)
+        {
+            var xMonth=fecha.substring(3, 5);
+            var xDay=fecha.substring(0, 2);
+            var xYear=fecha.substring(6,10);
+            var yMonth=fecha2.substring(3, 5);
+            var yDay=fecha2.substring(0, 2);
+            var yYear=fecha2.substring(6,10);
+            if (xYear> yYear)
+            {
+                return(true)
+            }
+            else
+            {
+                if (xYear == yYear)
+                {
+                    if (xMonth> yMonth)
+                    {
+                        return(true)
+                    }
+                    else
+                    {
+                        if (xMonth == yMonth)
+                        {
+                            if (xDay> yDay)
+                                return(true);
+                            else
+                                if (xDay == yDay)
+                                    return(true);
+                                else
+                                return(false);
+                        }
+                        else
+                            return(false);
+                    }
+                }
+                else
+                    return(false);
+            }
+        }
+    });
+
+    function generar(fechaI,fechaF) {
+         var newUrl;
+         newUrl = "{{route('liquidacion.reporteG', ['fechaI' => ':fechaI', 'fechaF' => ':fechaF'])}}";
+        newUrl = newUrl.replace(':fechaI', fechaI);
+        newUrl = newUrl.replace(':fechaF', fechaF);
+        window.open(newUrl , '_blank');
     }
 </script>
 @endsection

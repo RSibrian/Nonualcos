@@ -4,8 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class ActivosUnidades extends Model
+use OwenIt\Auditing\Contracts\Auditable;
+class ActivosUnidades extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
+  
   protected $table = 'activos_unidades';
   protected $fillable = [
       'fechaInicioUni','fechaFinalUni','estadoUni','observacionUni','idActivo','idUnidad','idEmpleado'

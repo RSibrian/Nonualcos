@@ -1,16 +1,16 @@
 @extends ('plantilla')
 @section('plantilla')
     <div class="row">
-        <div class=" col-sm-offset-1  col-md-10">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" >
             <div class="card">
-                <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">perm_identity</i>
-                </div>
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="material-icons">featured_play_list</i>
+                    </div>
                 <div class="card-content">
                     <h4 class="card-title">Vales -
                         <small class="category">Mostrando Vale </small>
                     </h4>
-
 
                     <br>
                     <fieldset style="border: 1px solid #ccc; padding: 10px">
@@ -18,12 +18,12 @@
 
                         <div class="col-sm-6">
                             <div class="input-group">
-                                    <table>
-                                        <tr>
-                                            <td><h4>Fecha Salida: <br></h4></td>
-                                            <td><h4> <b> {{ $salida->fechaSalida }}</b></h4></td>
-                                        </tr>
-                                    </table>
+                                <table>
+                                    <tr>
+                                        <td><h4>Fecha Salida: <br></h4></td>
+                                        <td><h4> <b> {{ date('d-m-Y', strtotime($salida->fechaSalida)) }}</b></h4></td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="input-group">
                                 <table>
@@ -59,11 +59,11 @@
                                 <table>
                                     <tr>
                                         <td><h4>Misión: <br></h4></td>
-                                            @if(!(is_null($salida->mision)))
-                                        <td><h4> <b> {{ $salida->mision }}</b></h4></td>
-                                            @else
-                                            <td><h4> <b> {{ "No disponible" }}</b></h4></td>
-                                            @endif
+                                        @if(!(is_null($salida->mision)))
+                                            <td><h4> <b> {{ $salida->mision }}</b></h4></td>
+                                        @else
+                                            <td><h4> <b> {{ "No Especificado" }}</b></h4></td>
+                                        @endif
                                     </tr>
                                 </table>
                             </div>
@@ -78,7 +78,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Fecha: <br></h4></td>
-                                        <td><h4> <b> {{ $vale->fechaCreacion }}</b></h4></td>
+                                        <td><h4> <b> {{ date('d-m-Y', strtotime($vale->fechaCreacion)) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -121,7 +121,7 @@
                                                     @if ($vale->tipoCombustible==3)
                                                         {{ "Especial" }}
                                                     @endif
-                                        </b></h4></td>
+                                                </b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -155,13 +155,13 @@
                                                     @else
                                                         {{ "No especificado" }}
                                                     @endif
-                                        </b></h4></td>
+                                                </b></h4></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
 
-                    @if ($vale->aceite==1)
+                        @if ($vale->aceite==1)
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <table>
@@ -230,16 +230,16 @@
                             </div>
                         @endif
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Estado de liquidación: <br></h4></td>
+                                        <td><h4>Estado: <br></h4></td>
                                         <td><h4> <b>
                                                     @if( $vale->estadoLiquidacionVal==1)
                                                         {{ "Liquidado" }}
                                                     @else
-                                                        {{ "No liquidado" }}
+                                                        {{ "Pendiente" }}
                                                     @endif
                                                 </b></h4></td>
                                     </tr>
@@ -247,7 +247,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-sm-offset-4">
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -268,7 +268,7 @@
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Empleado que autoriza: <br></h4></td>
+                                        <td><h4>Autoriza: <br></h4></td>
                                         <td><h4> <b> {{ $autoriza->nombresEmpleado.' '.$autoriza->apellidosEmpleado }}</b></h4></td>
                                     </tr>
                                 </table>
@@ -281,7 +281,7 @@
                                                     @if( $vale->estadoEntregadoVal==1)
                                                         {{ "Entregado" }}
                                                     @else
-                                                        {{ "No entregado" }}
+                                                        {{ "Pendiente" }}
                                                     @endif
                                                 </b></h4></td>
                                     </tr>
@@ -293,7 +293,7 @@
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Empleado que recibe: <br></h4></td>
+                                        <td><h4>Recibe: <br></h4></td>
                                         <td><h4> <b> {{ $recibe->nombresEmpleado.' '.$recibe->apellidosEmpleado }}</b></h4></td>
                                     </tr>
                                 </table>
@@ -306,22 +306,19 @@
                                                     @if( $vale->estadoRecibidoVal==1)
                                                         {{ "Recibido" }}
                                                     @else
-                                                        {{ "No recibido" }}
+                                                        {{ "Pendiente" }}
                                                     @endif
                                                 </b></h4></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-sm-offset-4">
-
-                        </div>
                     </fieldset>
 
                     <div align="center">
                         <a href="{{ url()->previous() }}" class='btn btn-ocre '>Regresar</a>
-                        <a  aling='right' target="_blank" href="{{ route('vales.reporte', $vale->id) }}" class="btn  btn-ocre ">
-                            <i class="material-icons">print</i>
+                        <a target="_blank" href="{{ route('vales.reporte', $vale->id) }}" class="btn  btn-ocre ">
+                            Descargar
                         </a>
                     </div>
 
@@ -329,7 +326,7 @@
             </div>
         </div>
     </div>
-
+    <div class="col-md-1"></div>
 
     <!-- end row -->
 @stop

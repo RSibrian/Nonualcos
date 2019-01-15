@@ -120,6 +120,12 @@
                         "</tr>"
                     );
                 });
+            }else{
+                tabla.empty();
+                tabla.append(
+                    "<tr>"+"<td colspan='7' align='center'>No hay datos disponibles en la tabla</td>"+
+                    "</tr>"
+                );
             }
 
             $(".estado").on("change", function () {
