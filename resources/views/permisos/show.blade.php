@@ -39,7 +39,6 @@
 
         <li id="li"><a  href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
         <li id="li"  ><a href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
-        <li id="li"  ><a href="{{ url("entradasSalidas/{$empleado->id}") }}">Llegadas Tardía</a></li>
         <li id="li" style="float:right;"><a href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
         <li id="li" style="float:right;" ><a class="active" href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
         >

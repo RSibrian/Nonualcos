@@ -46,7 +46,7 @@
     @endif
     @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
-      
+      <li id="li" style="float:right;" ><a href="">Préstamo</a></li>
     @endif
   </ul>
 
