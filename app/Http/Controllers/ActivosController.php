@@ -186,9 +186,18 @@ class ActivosController extends Controller
     public function update(Request $request, Activos $activos)
     {
       //dd($activos);
+      if($request['estadoActivo']==0){
 
       $request['fechaBajaActivo']=Carbon::now()->subDay()->toDateString();
+      $traslados=ActivosUnidades::where('idActivo',$activos->id)->get();
 
+      $traslado=$traslados->last();
+      //dd($traslado);
+      $traslado->fechaFinalUni=$request['fechaBajaActivo'];
+      $traslado->estadoUni=false;
+      $traslado->save();
+
+    }
 
       $activos->update($request->all());
       //tabla vehiculo

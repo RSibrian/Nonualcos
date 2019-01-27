@@ -236,11 +236,11 @@
               <a href="{{ route('activos.generarReporte') }}">Generar Reporte</a>
             </li>
             <li>
-              <a href="">Préstamos</a>
+             <a href="{{ route('instituciones.index')}}">Instituciones</a>
             </li>
-            <li>
-              <a href="">Depreciaciones</a>
-            </li>
+             <li>
+              <a href="{{ route('prestamos.indexPrestamo') }}">Préstamos</a>
+             </li>
           </ul>
         </div>
       </li>
