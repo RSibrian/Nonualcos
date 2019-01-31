@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Vehiculo;
 use App\Activos;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Response;
 
 class VehiculoController extends Controller
 {
@@ -86,5 +88,37 @@ class VehiculoController extends Controller
     public function destroy(Vehiculo $vehiculo)
     {
         //
+    }
+
+    public function indexHistory($placa)
+    {
+        $month = date('m');
+        $year = date('Y');
+        $fechaInicio= Carbon::createFromDate($year,$month,1);
+        $fechaFinal=Carbon::now();
+        return View('vehiculos.indexHistory', compact('placa', 'fechaInicio', 'fechaFinal'));
+
+    }
+
+    public function  datatable3($fechaInicio,$fechaFin,$placa){
+
+        $data=Vehiculo::Datatable3($placa,$fechaInicio,$fechaFin);
+
+        return Response::json($data);
+    }
+
+    public function  RGMantenimientos($fechaInicio,$fechaFinal,$placa){
+
+        $data=Vehiculo::Datatable3($placa,$fechaInicio,$fechaFinal);
+
+        $date = date('d-m-Y');
+        $date1 = date('g:i:s a');
+        $vistaurl="reportesTransporte.mantenimientosVReport";
+        $view =  \View::make($vistaurl, compact('data','fechaInicio','fechaFinal', 'date','date1'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('Reporte_general_vehiculos '.$date.'.pdf');
+
     }
 }

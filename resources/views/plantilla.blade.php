@@ -262,13 +262,10 @@
               <a href="{{ route('vales.index') }}">Vales</a>
             </li>
             <li>
-              <a href="">Salidas</a>
-            </li>
-            <li>
               <a href="{{ route('liquidaciones.index') }}">Liquidaciones</a>
             </li>
             <li>
-              <a href="">Reporte Manteniento de Vehiculo</a>
+              <a href="{{ route('vehiculos.index') }}">Vehículos</a>
             </li>
           </ul>
         </div>

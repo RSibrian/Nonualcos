@@ -18,7 +18,7 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon">
-                <i class="material-icons">date_range</i>
+                <i class="material-icons">drive_eta</i>
             </span>
             <div class="form-group label-floating">
                 <label class="control-label">Vehículo

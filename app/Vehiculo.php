@@ -40,4 +40,20 @@ class Vehiculo extends Model implements Auditable
 
     return $data;
   }
+
+    public static function Datatable3($placa,$fechaI,$fechaF){
+
+        return  Mantenimiento::join('activos', 'mantenimientos.idActivo', '=', 'activos.id')
+            ->join('proveedores', 'mantenimientos.empresaEncargada', '=', 'proveedores.id')
+            ->join('vehiculos', 'vehiculos.idActivo', '=', 'activos.id')
+            ->join('empleados', 'empleados.id', '=', 'mantenimientos.personalSolicitaMantenimiento')
+            ->select( 'mantenimientos.*', 'nombreEmpresa', 'nombresEmpleado', 'apellidosEmpleado')
+            ->where([
+                ['vehiculos.id', '=', $placa],
+                ['estadoActivo', '=', '1'],
+                ['fechaRetornoTaller', '!=', null]
+            ])
+            ->whereBetween('fechaRetornoTaller', [$fechaI, $fechaF ])
+            ->get();
+    }
 }

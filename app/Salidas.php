@@ -68,4 +68,14 @@ class Salidas extends Model implements Auditable
       return $data;
     }
 
+    public static function Datatable2($placa, $fechaI, $fechaF){
+        return Salidas::join('vales', 'salidas.id', '=', 'vales.idSalida')
+            ->join('empleados', 'salidas.idEmpleado', '=', 'empleados.id')
+            ->where('idVehiculo', '=', $placa)
+            ->whereBetween('fechaSalida', [$fechaI, $fechaF ])
+            ->select('fechaSalida', 'destinoTrasladarse', 'vales.id','numeroVale', 'nombresEmpleado', 'apellidosEmpleado')
+            ->get();
+    }
+
+
 }

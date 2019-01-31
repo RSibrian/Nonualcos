@@ -11,18 +11,12 @@
 
               </div>
               <div class="card-content">
-                  <h4 class="card-title">Listado Vehiculos</h4>
-                  <div class="toolbar">
-                  <!--        Here you can write extra buttons/actions for the toolbar              -->
-                  </div>
-                  <div class="material-datatables">
-                      @can('unidads.create')
-                          <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round ">
-                              <i class="material-icons">add</i>
-                              Nuevo
+                  <h4 class="card-title">Listado Vehiculos -
+                      <small class="category">Historial de salidas</small> -
+                      <small class="category">Historial de mantenimientos</small>
+                  </h4>
 
-                          </a>
-                      @endcan
+                  <div class="material-datatables">
                       <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                           <thead>
                               <tr>
@@ -83,10 +77,13 @@
                                   @endif
                                       <td class="text-right">
                                           @can('proveedores.edit')
-                                          <a title="Realizar Salida" href="{{ url("activos/{$vehiculo->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
-                                              <i class="material-icons">
-                                                  create
-                                              </i>&nbsp;
+                                              <a title="Reporte Mantenimiento" href="{{ route('HiVe.index', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                                  <i class='material-icons' rel='tooltip'>build</i>
+                                              </a>
+                                          @endcan
+                                          @can('proveedores.edit')
+                                          <a title="Ver salidas" href="{{ route('salidas', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                              <i class='material-icons' rel='tooltip'>departure_board</i>
                                           </a>
                                           @endcan
 

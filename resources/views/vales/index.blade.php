@@ -128,9 +128,9 @@
     <div class="col-md-1"></div>
     <?php
     $ayuda_title="Ayuda para la Tabla de Vale";
-    $ayuda_body="Cada Activo tiene 3 botones <br>
-                   1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar el Activo      <br><br>
-                   2- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
+    $ayuda_body="Cada Vale tiene 3 botones <br>
+                   1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar el vale     <br><br>
+                   2- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del vale"
     ?>
     @include('alertas.ayuda')
 @stop

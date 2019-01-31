@@ -61,8 +61,7 @@ class Liquidacion extends Model implements Auditable
     public static function Liquidaciones($fechaI,$fechaF)
     {
 
-        $query= Vale::join('liquidaciones', 'vales.idLiquidacion', '=', 'liquidaciones.id')
-            ->whereBetween('fechaLiquidacion', [$fechaI, $fechaF])
+        $query= Liquidacion::whereBetween('fechaLiquidacion', [$fechaI, $fechaF])
             ->select('liquidaciones.*')
             ->get();
 

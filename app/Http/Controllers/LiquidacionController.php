@@ -7,6 +7,7 @@ use App\Liquidacion;
 use App\Salidas;
 use App\Vale;
 use App\Vehiculo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Response;
@@ -18,8 +19,12 @@ class LiquidacionController extends Controller
     {
         // retorna la vista para el registro de nuevo vale
         $liquidaciones =Liquidacion::all()->sortByDesc('updated_at');
+        $month = date('m');
+        $year = date('Y');
+        $fechaInicio= Carbon::createFromDate($year,$month,1);
+        $fechaFinal=Carbon::now();
 
-        return View('liquidaciones.index', compact('liquidaciones'));
+        return View('liquidaciones.index', compact('liquidaciones', 'fechaInicio', 'fechaFinal'));
     }
 
     public function create()
@@ -102,11 +107,11 @@ class LiquidacionController extends Controller
         $date = date('d-m-Y');
         $date1 = date('g:i:s a');
         $vistaurl="reportesTransporte.liquidacionRGeneral";
-        $view =  \View::make($vistaurl, compact('liquidaciones', 'date','date1'))->render();
+        $view =  \View::make($vistaurl, compact('liquidaciones', 'fechaI', 'fechaF' ,'date','date1'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         $pdf->setPaper('letter', 'portrait');
-        return $pdf->stream('Reporte General Liquidaciones '.$date.'.pdf');
+        return $pdf->stream('Reporte General de Liquidaciones '.$date.'.pdf');
 
 
     }

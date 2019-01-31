@@ -91,9 +91,9 @@
     <div class="col-md-1"></div>
     <?php
     $ayuda_title="Ayuda para la Tabla de Liquidaciones";
-    $ayuda_body="Cada Activo tiene 3 botones <br>
+    $ayuda_body="Cada Liquidación tiene 3 botones <br>
 
-                   1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos del Activo"
+                   1- Este <i class='material-icons'>visibility</i> Icono es para ver los datos de la liquidación"
     ?>
     @include('alertas.ayuda')
 
@@ -112,7 +112,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione un rango de fechas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccione la Fecha de Inicio y Fin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -127,7 +127,7 @@
                                 <label class="control-label">Fecha de inicio
                                     <small >(*)</small>
                                 </label>
-                                {!!Form::date('fechaI',old('fechaI',date('Y-m-d')),['id'=>'fechaI','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
+                                {!!Form::date('fechaI',$fechaInicio,['id'=>'fechaI','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                                 <label class="control-label">Fecha fin
                                     <small >(*)</small>
                                 </label>
-                                {!!Form::date('fechaF',old('fechaF',date('Y-m-d')),['id'=>'fechaF','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
+                                {!!Form::date('fechaF',$fechaFinal,['id'=>'fechaF','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
                             </div>
                         </div>
                     </div>
@@ -278,14 +278,17 @@
 
         }
 
-        function compare_dates(fecha, fecha2)
+        function compare_dates(fechaF, fechaI)
         {
-            var xMonth=fecha.substring(3, 5);
-            var xDay=fecha.substring(0, 2);
-            var xYear=fecha.substring(6,10);
-            var yMonth=fecha2.substring(3, 5);
-            var yDay=fecha2.substring(0, 2);
-            var yYear=fecha2.substring(6,10);
+            fechaF= (fechaF).split("-").reverse().join("-");
+            fechaI= (fechaI).split("-").reverse().join("-");
+
+            var xMonth=fechaF.substring(3, 5);
+            var xDay=fechaF.substring(0, 2);
+            var xYear=fechaF.substring(6,10);
+            var yMonth=fechaI.substring(3, 5);
+            var yDay=fechaI.substring(0, 2);
+            var yYear=fechaI.substring(6,10);
             if (xYear> yYear)
             {
                 return(true)
@@ -322,10 +325,10 @@
 
     function generar(fechaI,fechaF) {
          var newUrl;
-         newUrl = "{{route('liquidacion.reporteG', ['fechaI' => ':fechaI', 'fechaF' => ':fechaF'])}}";
-        newUrl = newUrl.replace(':fechaI', fechaI);
-        newUrl = newUrl.replace(':fechaF', fechaF);
-        window.open(newUrl , '_blank');
+            newUrl = "{{route('liquidacion.reporteG', ['fechaI' => ':fechaI', 'fechaF' => ':fechaF'])}}";
+            newUrl = newUrl.replace(':fechaI', fechaI);
+            newUrl = newUrl.replace(':fechaF', fechaF);
+            window.open(newUrl , '_blank');
     }
 </script>
 @endsection

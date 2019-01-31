@@ -397,6 +397,16 @@ Route::middleware(['auth'])->group(function () {
            ->name('vehiculos.index')
            ->middleware('permission:proveedores.index');
 
+    Route::get('/HistorialVehiculos/{placa}/mantenimientos','VehiculoController@indexHistory')
+        ->name('HiVe.index')
+        ->middleware('permission:proveedores.index');
+
+    Route::get('/Mantenimientos/{fechaInicio}/{fechaFin}/{placa}','VehiculoController@datatable3')
+        ->name('Historialmanto');
+
+    Route::get('/ReporteGeneralManto/{fechaInicio}/{fechaFin}/{placa}','VehiculoController@RGMantenimientos')
+        ->name('Rhistorialmanto');
+
        //fin vehiculos
 
     //inicio rutas para Vales de combustible
@@ -486,6 +496,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('autocompletetipoCombustible','ValeController@autocompletetipoCombustible')
         ->name('autocompletetipoCombustible');
 
+    Route::get('/HistorialVehiculos/{placa}/salidas','SalidasController@index')
+        ->name('salidas')
+        ->middleware('permission:vales');
+
+    Route::get('/salidas/{fechaInicio}/{fechaFin}/{placa}','SalidasController@datatable2')
+        ->name('salidas.datable')
+        ->middleware('permission:vales');
 
     // fin de vales
 
