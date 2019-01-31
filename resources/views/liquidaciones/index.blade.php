@@ -189,25 +189,6 @@
 
         var table = $('#datatables').DataTable();
 
-        // Edit record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function(e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function() {
-            alert('You clicked on Like button');
-        });
 
         // Add event listener for opening and closing details
         $('#datatables tbody').on('click', 'td.details-control', function () {
@@ -230,8 +211,10 @@
     });
 
     function format ( callback, val ) {
+        var newUrl = "{{ route('liquidaciones.vales', ['liquidacion' => ':liquidacion']) }}";
+        newUrl = newUrl.replace(':liquidacion', val);
         $.ajax({
-            url:'/liquidaciones/'+val+'/vales',
+            url:newUrl,
             dataType: "json",
             complete: function (response) {
                 var data = JSON.parse(response.responseText);

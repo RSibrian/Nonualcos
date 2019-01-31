@@ -32,8 +32,8 @@ class MantenimientoController extends Controller
   */
   public function create()
   {
-    $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+    //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+    $empleados=Empleado::get()->pluck('fullName','id');
     $proveedores=Proveedor::pluck('nombreEmpresa','id');
     $date = Carbon::now();
     $activo=new Activos();
@@ -57,7 +57,6 @@ class MantenimientoController extends Controller
   */
   public function store(MantenimientoRequest $request)
   {
-
     Mantenimiento::create($request->all());
     return redirect('/mantenimientos')->with('create','Se ha registrado con éxito el mantenimiento');
   }
@@ -82,8 +81,8 @@ class MantenimientoController extends Controller
   */
   public function edit(Mantenimiento $mantenimiento)
   {
-    $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+    //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+    $empleados=Empleado::get()->pluck('fullName','id');
     $date = Carbon::now();
     return view('mantenimientos.edit',compact('date','empleados','mantenimiento'));
   }
@@ -159,7 +158,7 @@ class MantenimientoController extends Controller
     $view =  \View::make($vistaurl, compact('mantenimientos','fechaInicio','fechaFinal', 'date','date1'))->render();
     $pdf = \App::make('dompdf.wrapper');
     $pdf->loadHTML($view);
-    $pdf->setPaper('A4', 'landscape');
+    $pdf->setPaper('letter', 'landscape');
     return $pdf->stream('solicitud de mantenimiento '.$date.'.pdf');
   }
 }

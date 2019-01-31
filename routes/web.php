@@ -560,15 +560,15 @@ Route::middleware(['auth'])->group(function () {
 
     //fin depreciaciones
     //bitacora
-    Route::get('bitacoraAcciones','BitacoraAccionController@index')
+    Route::get('auditoria','AuditoriaController@index')
         ->name('auditoria.index')
         ->middleware('permission:roles.index');
 
-    Route::get('bitacoraAcciones/{bitacoraAccion}','BitacoraAccionController@show')
+    Route::get('auditoria/{auditoria}','AuditoriaController@show')
         ->name('auditoria.show')
         ->middleware('permission:roles.index');
 
-    Route::get('auditoria/details/{audit}','BitacoraAccionController@details')
+    Route::get('auditoria/details/{audit}','AuditoriaController@details')
         ->name('auditoria.details');
     //fin bitacora
 
@@ -609,8 +609,6 @@ Route::middleware(['auth'])->group(function () {
 
            //fin instituciones
 
-
-
            //prestamos
          Route::post('prestamos/store','PrestamoController@store')
              ->name('prestamos.store')
@@ -639,7 +637,7 @@ Route::middleware(['auth'])->group(function () {
        Route::get('prestamos','PrestamoController@index')
                ->name('prestamos.index')
                ->middleware('permission:proveedores.index');
-   
+
            Route::get('prestamos/solicitud','PrestamoController@reporteSolicitud')
                ->name('prestamos.solicitud')
                ->middleware('permission:proveedores.index');
@@ -664,6 +662,38 @@ Route::middleware(['auth'])->group(function () {
            Route::post('prestamos/storeajaxfinalizar','PrestamoController@storeAjaxFinalizar')
                ->name('prestamos.storeajaxfinalizar');
            //fin prestamos
+
+           //indemnizaciones
+                   Route::post('indemnizaciones/store','IndemnizacionController@store')
+                   ->name('indemnizaciones.store')
+                   ->middleware('permission:proveedores.create');
+
+                   Route::get('indemnizaciones','IndemnizacionController@index')
+                   ->name('indemnizaciones.index')
+                   ->middleware('permission:proveedores.index');
+
+                   Route::get('indemnizaciones/create','IndemnizacionController@create')
+                   ->name('indemnizaciones.create')
+                   ->middleware('permission:proveedores.create');
+
+                   Route::put('indemnizaciones/{Indemnizacion}','IndemnizacionController@update')
+                   ->name('indemnizaciones.update')
+                   ->middleware('permission:proveedores.edit');
+
+                   Route::get('indemnizaciones/{Indemnizacion}','IndemnizacionController@show')
+                   ->name('indemnizaciones.show')
+                   ->middleware('permission:proveedores.index');
+
+                   Route::get('indemnizaciones/{Indemnizacion}/edit','IndemnizacionController@edit')
+                   ->name('indemnizaciones.edit')
+                   ->middleware('permission:proveedores.edit');
+
+                   Route::post('indemnizaciones/make','IndemnizacionController@make')
+                   ->name('indemnizaciones.make')
+                   ->middleware('permission:proveedores.create');
+           //indemnizaciones
+
+
 
         Route::get('/clear', function() {
 

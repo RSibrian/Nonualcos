@@ -11,11 +11,12 @@ class ClasificacionesActivos extends Model implements Auditable
     //
     protected $table = 'clasificaciones_activos';
     protected $fillable = [
-        'codigoTipo','nombreTipo','idTipoLey'
+        'codigoTipo','nombreTipo'
     ];
-    public function tipoLeyes()
+
+    public function setNombreTipoAttribute($value)
     {
-        return $this->belongsTo(TipoLeyes::class,'idTipoLey');
+      $this->attributes['nombreTipo'] = \Helper::cadena($value);
     }
 
 

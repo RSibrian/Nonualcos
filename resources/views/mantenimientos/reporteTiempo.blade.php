@@ -2,7 +2,7 @@
 @extends ('reporte.plantillaHorizontal')
 @section('reporte')
 	<br><div align="center" style="position: top: 170px; z-index: 1;"><h3>Mantenimientos Realizados</h3></div>
-	<div align='center'  ><h3>Del: {{Carbon\Carbon::parse($fechaInicio)->format('d/m/Y')}} ---- Al: {{Carbon\Carbon::parse($fechaFinal)->format('d/m/Y')}}</h3> </div>
+	<div align='center'  ><h3>Del: {{\Helper::fecha($fechaInicio)}} ---- Al: {{\Helper::fecha($fechaFinal)}}</h3> </div>
 
 
 	<table class="table-wrapper" >
@@ -28,11 +28,11 @@
 											<td rowspan="2">{{$count}}</td>
 											<td>{{$mantenimiento->Activos->codigoInventario}}</td>
 											<td>{{$mantenimiento->Activos->nombreActivo}}</td>
-											<td>{{$mantenimiento->fechaRecepcionTaller->format('d-m-Y')}}</td>
+											<td>{{\Helper::fecha($mantenimiento->fechaRecepcionTaller)}}</td>
 											<td>{{ $mantenimiento->proveedores->nombreEmpresa }}</td>
-											<td>{{ $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado }}</td>
-											<td>{{$mantenimiento->fechaRetornoTaller->format('d-m-Y')}}</td>
-											<td>{{ $mantenimiento->empleado2->nombresEmpleado.' '.$mantenimiento->empleado2->apellidosEmpleado }}</td>
+											<td>{{ $mantenimiento->empleado1->fullName }}</td>
+											<td>{{\Helper::fecha($mantenimiento->fechaRetornoTaller)}}</td>
+											<td>{{ $mantenimiento->empleado2->fullName }}</td>
 											<td>$ {{$mantenimiento->costoMantenimiento}}</td>
 									</tr>
 									<tr>

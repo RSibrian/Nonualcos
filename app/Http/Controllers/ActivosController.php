@@ -10,7 +10,6 @@ use App\Empleado;
 use App\Vehiculo;
 use App\Mantenimiento;
 use Carbon\Carbon;
-use App\BitacoraAccion;
 
 
 use App\ActivosUnidades;
@@ -58,36 +57,6 @@ class ActivosController extends Controller
 
 
     for($cantidad=$request['cantidad']; $cantidad>0; $cantidad--){
-      /*tabla activo
-      $unidad = Unidades::find($request['idUnidad']);
-      $clasificacion = ClasificacionesActivos::find($request['idClasificacionActivo']);
-      //para correlativo por unidad
-      $activosUnidades=ActivosUnidades::where('idUnidad',$request['idUnidad'])->where('estadoUni',true)->get();
-      //$activosUnidades=ActivosUnidades::where('estadoUni',true)->get(); //correlativo global
-    //  $activos=Activos::All();
-      $contador=1;
-      foreach ($activosUnidades as  $traslado) {
-        $activo=$traslado->activo;
-        if($activo->idClasificacionActivo==$request['idClasificacionActivo']){
-          $contador++;
-        }
-      }
-    //dd($contador);
-      if($contador>99){
-          $var=$contador;
-      }else if($contador>9){
-        $var="0".$contador;
-      }else{
-        $var="00".$contador;
-      }
-      $request['codigoInventario']="ALN".$unidad->codigoUnidad.$clasificacion->codigoTipo.$var;
-
-      Activos::create($request->all());
-      //tabla activos_unidad
-      $activos=Activos::all();
-      $activo=$activos->last();
-      $request['idActivo']=$activo->id;
-      ActivosUnidades::create($request->all());*/
 
       //Crear activo
       Activos::create($request->all());
@@ -102,34 +71,6 @@ class ActivosController extends Controller
         Vehiculo::create($request->all());
       }
     }
-    /*/bitacora accion
-    $clasificacion=ClasificacionesActivos::find($request['idClasificacionActivo']);
-    $proveedor=Proveedor::find($request['idProveedor']);
-    if($request['tipoAdquisicion']){ $tipo='Compra'; $uso=0;}else{$tipo='Usado';$uso=$request['aniosUso'];}
-
-    $accion="Registro de Activo Fijo";
-    $antes=null;
-    $despues="Identificador: ".$request['idActivo'].
-    " <br> clasificación: ".$clasificacion->nombreTipo.
-    " <br> Nombre: ".$request['nombreActivo'].
-    " <br> Fecha de Adquisición: ".$request['fechaAdquisicion'].
-    " <br> Marca : ".$request['marca'].
-    " <br> Modelo : ".$request['modelo'].
-    " <br> Color : ".$request['color'].
-    " <br> Serie : ".$request['serie'].
-    " <br> precio: ".$request['precio'].
-    " <br> Proveedor: ".$proveedor->nombreEmpresa.
-      " <br> Factura: ".$request['numeroFactura'].
-    " <br> Vida Utíl: ".$request['aniosVida'].
-    " <br> Tipo de Adquisición: ".$tipo.
-    " <br> Años de uso: ".$uso.
-    " <br> Estado del Activo: "."Activo".
-    " <br> Observacion: ".$request['ObservacionActivo'];
-
-
-    BitacoraAccion::crearBitacora($accion,$antes,$despues);
-    //fin bicora accion*/
-
       return redirect('/activos')->with('create','Se creó con éxito el registro de activo');
     }
 
@@ -251,7 +192,6 @@ class ActivosController extends Controller
     public function codigoGenerado(Unidades $unidad){
 
         $empleados=Empleado::EmpleadosxUnidad($unidad->id);
-        //$empleados=DB::select( DB::raw("SELECT * FROM empleados WHERE empleados.idCargo IN (SELECT id FROM `cargos` WHERE cargos.idUnidad=$unidad->id)") );
 
         return Response::json($empleados);
     }

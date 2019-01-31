@@ -8,7 +8,7 @@
 	                <i class="material-icons">perm_identity</i>
 	            </div>
 	            <div class="card-content">
-	                <h4 class="card-title">Clasificacion de Activos -
+	                <h4 class="card-title">Clasificación de Activo -
 	                    <small class="category">Registro</small>
 	                </h4>
 

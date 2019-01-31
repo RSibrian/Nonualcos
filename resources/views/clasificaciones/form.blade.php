@@ -7,7 +7,7 @@
                 <i class="material-icons">&nbsp;#&nbsp;</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese el codigo de la Clasificacion :
+                <label class="control-label"><code>*</code>Ingrese el código de la Clasificación :
                 </label>
                 {!!Form::text('codigoTipo',null,['id'=>'codigoTipo','class'=>'form-control','required'])!!}
             </div>
@@ -19,14 +19,14 @@
                 <i class="material-icons">apps</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese el nombre de la Clasificacion :
+                <label class="control-label"><code>*</code>Ingrese el nombre de la Clasificación :
                 </label>
                 {!!Form::text('nombreTipo',null,['id'=>'nombreTipo','class'=>'form-control','required'])!!}
 
             </div>
         </div>
     </div>
-  
+
 </fieldset>
 
 @section('scripts')

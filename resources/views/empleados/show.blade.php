@@ -69,15 +69,12 @@
                                     <td><h4>Apellidos: </h4></td>
                                     <td><h4> <b>&nbsp;{{$empleado->apellidosEmpleado}}</b></h4></td>
                                 </tr>
-                                <?php
-                                $cumpleanos = new DateTime($empleado->fechaNacimientoEmpleado);
-                                $hoy = new DateTime();
-                                $annos = $hoy->diff($cumpleanos);
-                                $empleado->fechaNacimientoEmpleado=$annos->y;
-                                ?>
+            <?php
+            $edad= \Carbon\Carbon::now()->diffInYears($empleado->fechaNacimientoEmpleado);
+            ?>
                                 <tr>
-                                    <td><h4>Edad: </h4></td>
-                                    <td><h4><b>&nbsp;{{$empleado->fechaNacimientoEmpleado}}</b></h4></td>
+                                    <td><h4>Fecha de Nacimiento: </h4></td>
+                                    <td><h4><b>{{\Helper::fecha($empleado->fechaNacimientoEmpleado)}} ({{$edad}} años)</b></h4></td>
                                 </tr>
                                 <tr>
                                     <td><h4>DUI: </h4></td>
@@ -130,10 +127,9 @@
                                     <td><h4><b>&nbsp;{{$empleado->cargo->nombreCargo}}</b></h4></td>
                                 </tr>
 
-                                <?php $date = new DateTime($empleado->fechaIngreso); ?>
                                 <tr>
                                     <td><h4>Fecha de Ingreso: </h4></td>
-                                    <td><h4><b>&nbsp;{{$date->format('d/m/Y')}}</b></h4></td>
+                                    <td><h4><b>{{\Helper::fecha($empleado->fechaIngreso)}}</b></h4></td>
 
                                 </tr>
                                 <tr>

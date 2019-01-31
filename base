@@ -7,31 +7,36 @@ Cargo --audit--App\--menú ppal
 Empleado--audit--App\--menú ppal
 ClasificacionesActivos--audit--App\--menú ppal
 Activos --audit --App\--menú ppal
+Vehiculo--audit--App\--en formulario de activos (opción vehículo)
+ActivosUnidades--audit--App\--Activos>MásAcciones>Traslado
 Proveedor--audit--App\--menú ppal
 Mantenimiento--audit--App\--menú ppal
 Vale--audit--App\--menú ppal
-Permiso--audit--App\--Empleado>acciones>permisos
-Descuento--audit--App\--Empleados>acciones>descuentos
-ActivosUnidades--audit--App\--Activos>MásAcciones>Traslado
-Banco--audit--App\--nonualcos/bancos
-EntradasSalidas--audit--App\--nonualcos/entradasSalidas/{empleado} >>LlegadasTardías
-Liquidacion--audit--App\--liquidacines -->funcionamiento incompleto?
 Salidas--audit--App\--en formulario de vales
-Vehiculo--audit--App\--en formulario de activos (opción vehículo)
-
+Liquidacion--audit--App\--liquidacines
+Permiso--audit--App\--Empleado>acciones>permisos
 Incapacidades -->>permiso-- --Empleados>acciones>incapacidades
+Descuento--audit--App\--Empleados>acciones>descuentos
+Banco--audit--App\--menú ppal
+Instituciones--audit--App\--menú ppal
+Préstamo--audit--App\--menú ppal
+EntradasSalidas--audit--App\--nonualcos/entradasSalidas/{empleado} >>LlegadasTardías ----En espera
+
+
+
 
 
   ActivosEmpleados-->desestimado
-  BitacoraAccion-->desestimado
   CuentaBancaria-->desestimado
+
+  BitacoraAccion-->desestimado //Eliminado
+  TipoLeyes-->sin mantenimiento //eliminado
 
   Aportaciones-->sin mantenimiento
   Audit-->sin mantenimiento
   DiaPermiso-->en PermisoController > ???
   Renta-->Sin Mantenimiento
   TelefonoEmpleado-->sin mantenimiento (en formulario de empleado)
-  TipoLeyes-->sin mantenimiento
   PrestamosActivos-->no desarrollado
 
   Planilla->vacío
@@ -44,3 +49,21 @@ REVISAR:
 ->Actualizar diseño de BD
 ->Actualizar Diccionario de Datos
 ->estandarizar el formato de fechas
+
+
+Activos
+
+en editar
+Si tipoAdquisicion==0 document.getElementById('uso').style.display='block';
+Si estadoUsado==1 document.getElementById('anios').style.display='block';
+
+Si cambia el tipo de Adquisición de "Donación" a "Compra" colocar a cero el campo estadoUsado y a null el campo aniosUso.
+Si cambia el tipo de Adquisición de "Compra" a "Donación" colocar a null el campo "numeroFactura"
+Si cambia el estadoUsado de "Sí" a "No" colocar a null el campo aniosUso
+
+Traslado (activosUnidades)
+¿para qué funciona el campo estado?
+
+cargos
+No se permite crear un cargo para una unidad X si este cargo existe en una unidad Y
+(cargo unique)

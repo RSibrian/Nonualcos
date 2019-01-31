@@ -20,11 +20,13 @@ use App\EntradasSalidas;
 use App\Liquidacion;
 use App\Salidas;
 use App\Vehiculo;
+use App\Instituciones;
+use App\Prestamo;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class BitacoraAccionController extends Controller
+class AuditoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +37,7 @@ class BitacoraAccionController extends Controller
     {
       $audits=Audit::orderBy('created_at','desc')->get();
       // dd($audit->getMetadata());
-      return view('bitacoraAcciones.index',compact('audits'));
+      return view('auditoria.index',compact('audits'));
     }
 
     /**
@@ -62,22 +64,22 @@ class BitacoraAccionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BitacoraAccion  $bitacoraAccion
+     * @param  \App\Audit  $auditoria
      * @return \Illuminate\Http\Response
      */
-    public function show(BitacoraAccion $bitacoraAccion)
+    public function show(Audit $auditoria)
     {
         //
-        return view('bitacoraAcciones.show',compact('bitacoraAccion'));
+        return view('auditoria.show',compact('auditoria'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BitacoraAccion  $bitacoraAccion
+     * @param  \App\Audit  $auditoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(BitacoraAccion $bitacoraAccion)
+    public function edit(Audit $auditoria)
     {
         //
     }
@@ -86,10 +88,10 @@ class BitacoraAccionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BitacoraAccion  $bitacoraAccion
+     * @param  \App\Audit  $auditoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BitacoraAccion $bitacoraAccion)
+    public function update(Request $request, Audit $auditoria)
     {
         //
     }
@@ -97,10 +99,10 @@ class BitacoraAccionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BitacoraAccion  $bitacoraAccion
+     * @param  \App\Audit  $auditoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BitacoraAccion $bitacoraAccion)
+    public function destroy(Audit $auditoria)
     {
         //
     }
@@ -126,9 +128,12 @@ class BitacoraAccionController extends Controller
       if ($audit->auditable_type==Liquidacion::class) $article=Liquidacion::find($audit->auditable_id);
       if ($audit->auditable_type==Salidas::class) $article=Salidas::find($audit->auditable_id);
       if ($audit->auditable_type==Vehiculo::class) $article=Vehiculo::find($audit->auditable_id);
+      if ($audit->auditable_type==instituciones::class) $article=Instituciones::find($audit->auditable_id);
+      if ($audit->auditable_type==Prestamo::class) $article=Prestamo::find($audit->auditable_id);
 
-      $audit = $article->audits()->latest()->first();
-      $details=view('bitacoraAcciones.details',compact('audit'))->render();
+
+      $auditt = $article->audits->where('id',$audit->id)->first();
+      $details=view('auditoria.details',compact('auditt'))->render();
       return response()->json($details);
     }
 }

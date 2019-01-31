@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Support\Arr;
 
 class Liquidacion extends Model implements Auditable
 {
@@ -66,6 +67,29 @@ class Liquidacion extends Model implements Auditable
             ->get();
 
         return $query;
+    }
+
+    /**
+    * {@inheritdoc}
+    */
+    //fución para cambiar los datos guardados en la auditoría
+    public function transformAudit(array $data): array
+    {
+      //fechaLiquidacion
+      if(Arr::has($data,'old_values.fechaLiquidacion'))
+      $data['old_values']['fechaLiquidacion']=\Helper::fecha($data['old_values']['fechaLiquidacion']);
+
+      if (Arr::has($data,'new_values.fechaLiquidacion'))
+      $data['new_values']['fechaLiquidacion']=\Helper::fecha($data['new_values']['fechaLiquidacion']);
+
+      //montoFacturaLiquidacion
+      if(Arr::has($data,'old_values.montoFacturaLiquidacion'))
+      $data['old_values']['montoFacturaLiquidacion']='$ '.\Helper::dinero($data['old_values']['montoFacturaLiquidacion']);
+
+      if (Arr::has($data,'new_values.montoFacturaLiquidacion'))
+      $data['new_values']['montoFacturaLiquidacion']='$ '.\Helper::dinero($data['new_values']['montoFacturaLiquidacion']);
+
+      return $data;
     }
 
 }

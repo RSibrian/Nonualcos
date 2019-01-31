@@ -77,7 +77,7 @@
         <label class="control-label">Personal de ALN que solicita:
         </label>
         {!!Form::input('personalSolicitaMantenimiento',null,
-        $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado,
+        $mantenimiento->empleado1->fullName,
         ['id'=>'personalSolicitaMantenimiento','class'=>'form-control',
         'disabled'])!!}
       </div>

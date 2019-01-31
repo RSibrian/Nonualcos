@@ -2,9 +2,10 @@
 
 namespace App;
 use DB;
-use App\TelefonoEmpleado;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class Empleado extends Model implements Auditable
 {
@@ -18,6 +19,23 @@ class Empleado extends Model implements Auditable
         'sistemaContratacion','salarioBruto','idCargo','idSeguro','numeroSeguro',
         'idAFP','numeroAFP'
     ];
+
+    //convierte la primera letra de cada nombre en mayúscula y el resto en minúscula
+    public function setNombresEmpleadoAttribute($value)
+    {
+      $this->attributes['nombresEmpleado'] = \Helper::cadena($value);
+
+    }
+    //convierte la primera letra de cada nombre en mayúscula y el resto en minúscula
+    public function setApellidosEmpleadoAttribute($value)
+    {
+      $this->attributes['apellidosEmpleado'] = \Helper::cadena($value);
+    }
+
+    public function getFullNameAttribute() {
+      return $this->nombresEmpleado. ' ' .$this->apellidosEmpleado;
+    }
+
     public function cargo()
     {
         return $this->belongsTo(Cargo::class,'idCargo');
@@ -54,6 +72,61 @@ class Empleado extends Model implements Auditable
       ->select('empleados.id','empleados.nombresEmpleado',"empleados.apellidosEmpleado")
           // ->orderBy('sa_en_vehiculos.id','desc')
       ->get();
+  }
+
+  /**
+  * {@inheritdoc}
+  */
+  //fución para cambiar los datos guardados en la auditoría
+  public function transformAudit(array $data): array
+  {
+    //fecha de nacimiento en formato d/m/Y
+    if(Arr::has($data,'old_values.fechaNacimientoEmpleado'))
+    $data['old_values']['fechaNacimientoEmpleado']=\Helper::fecha($data['old_values']['fechaNacimientoEmpleado']);
+
+    if (Arr::has($data,'new_values.fechaNacimientoEmpleado'))
+    $data['new_values']['fechaNacimientoEmpleado']=\Helper::fecha($this->fechaNacimientoEmpleado);
+
+    //fecha de Contratación en formato d/m/Y
+    if (Arr::has($data,'old_values.fechaIngreso'))
+    $data['old_values']['fechaIngreso']=\Helper::fecha($data['old_values']['fechaIngreso']);
+
+    if (Arr::has($data,'new_values.fechaIngreso'))
+    $data['new_values']['fechaIngreso']=\Helper::fecha($this->fechaIngreso);
+
+    //si hay valor de idAFP anterior se cambia al nombre
+    if(Arr::has($data,'old_values.idAFP'))
+    $data['old_values']['idAFP']=Aportaciones::find($data['old_values']['idAFP'])->nombreAportacion;
+    if (Arr::has($data,'new_values.idAFP'))
+    $data['new_values']['idAFP']=$this->afp->nombreAportacion;
+
+    //si hay valor de idSeguro anterior se cambia al nombre
+    if(Arr::has($data,'old_values.idSeguro'))
+    $data['old_values']['idSeguro']=Aportaciones::find($data['old_values']['idSeguro'])->nombreAportacion;
+    if (Arr::has($data,'new_values.idSeguro'))
+    $data['new_values']['idSeguro']=$this->seguro->nombreAportacion;
+
+    //si hay valor de idCargo anterior se cambia al nombre
+    if(Arr::has($data,'old_values.idCargo'))
+    $data['old_values']['idCargo']=Cargo::find($data['old_values']['idCargo'])->nombreCargo;
+    if (Arr::has($data,'new_values.idCargo'))
+    $data['new_values']['idCargo']=$this->cargo->nombreCargo;
+
+    //formato de salario
+    if(Arr::has($data,'old_values.salarioBruto'))
+    $data['old_values']['salarioBruto']='$ '.\Helper::dinero($data['old_values']['salarioBruto']);
+    if (Arr::has($data,'new_values.salarioBruto'))
+    $data['new_values']['salarioBruto']='$ '.\Helper::dinero($data['new_values']['salarioBruto']);
+
+    //imagen de perfil
+    if(Arr::has($data,'old_values.imagenEmpleado'))
+    $data['old_values']['imagenEmpleado']="Foto de perfil antigua";
+    if (Arr::has($data,'new_values.imagenEmpleado'))
+    if($data['new_values']['imagenEmpleado']=="img/default-avatar.png")$data['new_values']['imagenEmpleado']="Sin Foto de perfil";
+    else $data['new_values']['imagenEmpleado']="Nueva Foto de perfil";
+
+    
+    return $data;
   }
 
 }

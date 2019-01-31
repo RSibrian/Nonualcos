@@ -73,7 +73,7 @@
               </div>
               <div class="col col-md-3">
                 <h4><strong>
-                  {{ $mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}
+                  {{ \Helper::fecha($mantenimiento->fechaRecepcionTaller) }}
                 </strong></h4>
               </div>
             </div>
@@ -83,7 +83,7 @@
               </div>
               <div class="col col-md-7">
                 <h4><strong>
-                  {{ $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado }}
+                  {{ $mantenimiento->empleado1->fullName }}
                 </strong></h4>
               </div>
             </div>
@@ -155,7 +155,7 @@
                 </div>
                 <div class="col col-md-3">
                   <h4><strong>
-                    {{ $mantenimiento->fechaRetornoTaller->format('d/m/Y') }}
+                    {{ \Helper::fecha($mantenimiento->fechaRetornoTaller) }}
                   </strong></h4>
                 </div>
               </div>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="col col-md-7">
                   <h4><strong>
-                    {{ $mantenimiento->empleado2->nombresEmpleado.' '.$mantenimiento->empleado2->apellidosEmpleado }}
+                    {{ $mantenimiento->empleado2->fullName }}
                   </strong></h4>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="col col-md-7">
                   <h4><strong>$
-                    {{ number_format( $mantenimiento->costoMantenimiento, 2, '.', ',' )
+                    {{ \Helper::dinero($mantenimiento->costoMantenimiento)
                   }}
                 </strong></h4>
               </div>

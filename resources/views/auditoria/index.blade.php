@@ -8,6 +8,11 @@ td.details-control {
 tr.shown td.details-control {
   background: url('img/details_close.png') no-repeat center center;
 }
+
+tr.shown {
+  color: white !important;
+  background: linear-gradient(60deg, #2a88bd, #195BAA);
+}
 </style>
 <div class="row">
   <div class="col-md-12">
@@ -54,8 +59,8 @@ tr.shown td.details-control {
               <tr>
                 <td></td>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$audit->tipo()}}</td>
-                <td>{{$audit->accion()}}</td>
+                <td>@lang('messages.'.$audit->auditable_type)</td>
+                <td>@lang('messages.'.$audit->event)</td>
                 <td>{{$audit->user->empleado?$audit->user->empleado->nombresEmpleado." ".$audit->user->empleado->apellidosEmpleado:$audit->user->name}}</td>
                 <td>{{ $audit->created_at->format('d/m/Y') }}</td>
                 <td>{{ $audit->created_at->format('h:i:s a') }}</td>

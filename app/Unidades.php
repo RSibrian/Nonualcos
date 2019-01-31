@@ -13,6 +13,13 @@ class Unidades extends Model implements Auditable
     protected $fillable = [
         'codigoUnidad','nombreUnidad'
     ];
+    //convierte la primera letra de cada nombre en mayúscula y el resto en minúscula
+    public function setNombreUnidadAttribute($value)
+    {
+      //para caracteres tildados
+      $value=mb_convert_encoding(mb_convert_case($value, MB_CASE_TITLE), "UTF-8");
+      $this->attributes['nombreUnidad'] = ucwords(strtolower($value));
+    }
     public function cargos()
     {
         return $this->hasMany(Cargo::class,'idUnidad');

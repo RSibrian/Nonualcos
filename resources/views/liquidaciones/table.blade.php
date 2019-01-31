@@ -92,10 +92,12 @@
 <script>
     $('#vehiculo').change(function(){
         var tabla=$("#cuerpo");
-        var vehiculo=$("#vehiculo").find('option:selected');
-        var ruta = "/datatable/"+vehiculo.val();
+        var vehiculo=$("#vehiculo").find('option:selected').val();
+        //var ruta = "/datatable/"+vehiculo.val();
 
-        $.get(ruta,function(res){
+        var newUrl = "{{ route('datatable', ['placa' => ':placa']) }}";
+        newUrl = newUrl.replace(':placa', vehiculo);
+        $.get(newUrl,function(res){
             var cont=0;
             if(res!=""){
                 tabla.empty();
@@ -145,9 +147,11 @@
         var monto=0.0;
         var campo=$('#totalFactura');
         var campoCosto=parseFloat($('#totalFactura').val());
-        var ruta = "/costo/"+a;
+        //var ruta = "/costo/"+a;
 
-        $.get(ruta, function (res) {
+        var newUrl = "{{ route('costo', ['id' => ':id']) }}";
+        newUrl = newUrl.replace(':id', a);
+        $.get(newUrl, function (res) {
 
             $(res).each(function (key,value) {
                   if (b===true)
@@ -212,4 +216,3 @@
 </script>
 
 @endsection
-

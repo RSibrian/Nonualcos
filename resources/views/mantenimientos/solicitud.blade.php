@@ -25,11 +25,11 @@
 </tr>
 <tr>
 <td colspan="2"><b>Fecha de entrega en taller: </b></td>
-<td colspan="2">{{ $mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
+<td colspan="2">{{ \Helper::fecha($mantenimiento->fechaRecepcionTaller) }}</td>
 </tr>
 <tr>
 <td colspan="2"><b>Personal que entrega: </b></td>
-<td colspan="2">{{ $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado }}</td>
+<td colspan="2">{{ $mantenimiento->empleado1->fullName }}</td>
 </tr>
 <tr>
 <td colspan="2"><b>Empresa Encargada: </b></td>

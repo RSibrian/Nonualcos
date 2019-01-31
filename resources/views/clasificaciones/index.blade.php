@@ -25,21 +25,17 @@
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
-
                                     <th>#</th>
-                                    <th>Codigo de Clasificacion</th>
-                                    <th>Nombre de clasificacion</th>
-
+                                    <th>Código</th>
+                                    <th>Nombre</th>
                                     <th class="disabled-sorting " >Acciones</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-
                                     <th>#</th>
-                                    <th>Codigo de Clasificacion</th>
-                                    <th>Nombre de clasificacion</th>
-
+                                    <th>Código</th>
+                                    <th>Nombre</th>
                                     <th class="disabled-sorting " >Acciones</th>
                                 </tr>
                             </tfoot>
@@ -56,14 +52,14 @@
 
                                         <td>
                                             @can('proveedores.edit')
-                                            <a title="Editar Clasificacion" href="{{ url("clasificaciones/{$tipo->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
+                                            <a title="Editar Clasificación" href="{{ url("clasificaciones/{$tipo->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
                                                 <i class="material-icons">create</i>
                                             </a>
                                             @endcan
                                           <!--  <a title="Ver Activos" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
                                                      <i class="material-icons">face</i></a>-->
 
-                                                <a title="Ver clasificacion" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
+                                                <a title="Ver Clasificación" href="{{ url("clasificaciones/{$tipo->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
                                         </td>
@@ -82,10 +78,9 @@
     <!-- end row -->
     <?php
         $ayuda_title="Ayuda para la Tabla de Clasificaciones";
-        $ayuda_body="Cada Clasificacion tiene 3 botones <br>
-                     1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar el clasificacion      <br><br>
-                     2- Este <i class='material-icons'>face</i> Icono es para ver los activos asignados a la Clasificacion <br><br>
-                     3- Este <i class='material-icons'>visibility</i> Icono es para ver los datos de la clasificacion"
+        $ayuda_body="Cada Clasificación tiene 2 botones <br>
+                     1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar la clasificación      <br><br>
+                     3- Este <i class='material-icons'>visibility</i> Icono es para ver los datos de la clasificación"
     ?>
     @include('alertas.ayuda')
 @stop
@@ -109,26 +104,6 @@
 
 
         var table = $('#datatables').DataTable();
-
-        // Edit record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function(e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function() {
-            alert('You clicked on Like button');
-        });
 
         $('.card .material-datatables label').addClass('form-group');
     });

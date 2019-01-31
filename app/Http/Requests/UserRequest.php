@@ -35,6 +35,7 @@ class UserRequest extends FormRequest
             'name.unique' => '¡El nombre de la usuario ya existe!',
             'email.required' => '¡Por favor ingrese el correo del usuario!',
             'email.unique' => '¡El correo de la usuario ya existe!',
+            'email.email' => 'Ingrese un correo válido',
             'password.confirmed' => '¡Las Contraseñas no son iguales!',
 
         ];

@@ -17,8 +17,6 @@ class CreateClasificacionesActivosTable extends Migration
             $table->increments('id');
             $table->string('codigoTipo')->unique();
             $table->string('nombreTipo');
-            $table->Integer('idTipoLey')->unsigned();
-            $table->foreign('idTipoLey')->references('id')->on('tipo_leyes');
             $table->timestamps();
         });
     }

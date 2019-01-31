@@ -61,10 +61,10 @@
                 <td>{{$cont}}</td>
                 <td>{{$mantenimiento->Activos->codigoInventario?:"------------------"}}</td>
                 <td>{{$mantenimiento->Activos->nombreActivo}}</td>
-                 <td>{{$mantenimiento->fechaRecepcionTaller->format('d/m/Y') }}</td>
+                 <td>{{\Helper::fecha($mantenimiento->fechaRecepcionTaller) }}</td>
                  <td>{{$mantenimiento->proveedores->nombreEmpresa}}</td>
                  <?php if (isset($mantenimiento->fechaRetornoTaller)): ?>
-                   <td>{{$mantenimiento->fechaRetornoTaller->format('d/m/Y')}}</td>
+                   <td>{{\Helper::fecha($mantenimiento->fechaRetornoTaller)}}</td>
                    <?php else: ?>
                    <td>{{"en proceso"}}</td>
                  <?php endif; ?>

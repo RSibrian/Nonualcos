@@ -93,7 +93,7 @@
 </head>
 <body class="">
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('img/sidebar-1.jpg') }}">
       <!--
       Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
       Tip 2: you can also add an image using data-image tag
@@ -206,6 +206,9 @@
             </li>
             <li>
               <a href="{{ route('planillas.index') }}">Planilla de pago</a>
+            </li>
+            <li>
+              <a href="{{ route('indemnizaciones.index') }}">Pasivo Laboral (Indemnizaciones)</a>
             </li>
           </ul>
         </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\ClasificacionesActivos;
 use Illuminate\Http\Request;
-use App\TipoLeyes;
 use App\Http\Requests\ClasificacionActivosRequest;
 
 class ClasificacionesActivosController extends Controller
@@ -27,7 +26,6 @@ class ClasificacionesActivosController extends Controller
      */
     public function create()
     {
-      //$tiposLey=TipoLeyes::pluck('nombreLey','id','valorProcentaje');
       return view('clasificaciones.create');
     }
 
@@ -63,8 +61,7 @@ class ClasificacionesActivosController extends Controller
      */
     public function edit(ClasificacionesActivos $clasificacionesActivos)
     {
-      $tiposLey=TipoLeyes::pluck('nombreLey','id','valorProcentaje');
-      return view('clasificaciones.edit',compact('clasificacionesActivos','tiposLey'));
+      return view('clasificaciones.edit',compact('clasificacionesActivos'));
     }
 
     /**
@@ -74,7 +71,7 @@ class ClasificacionesActivosController extends Controller
      * @param  \App\ClasificacionesActivos  $clasificacionesActivos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClasificacionesActivos $clasificacionesActivos)
+    public function update(ClasificacionActivosRequest $request, ClasificacionesActivos $clasificacionesActivos)
     {
       $clasificacionesActivos->update($request->all());
       return redirect('/clasificaciones')->with('update','Se ha editado correctamente la clasificación de activo');

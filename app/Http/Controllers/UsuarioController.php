@@ -15,7 +15,8 @@ class UsuarioController extends Controller
     //
     public function create()
     {
-        $empleados=Empleado::pluck('nombresEmpleado','id');
+        //$empleados=Empleado::pluck('nombresEmpleado','id');
+        $empleados=Empleado::get()->pluck('fullName','id');
         return view('usuario.create',compact('empleados'));
     }
     public function index()
@@ -42,9 +43,10 @@ class UsuarioController extends Controller
     }
     public function edit($id)
     {
-        $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-        $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
-
+        //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+        //$empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+        $empleados=Empleado::get()->pluck('fullName','id');
+        
         $user=User::findOrFail($id);
         return view('usuario.edit',compact('user','empleados'));
 

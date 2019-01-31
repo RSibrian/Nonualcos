@@ -7,15 +7,15 @@
 	                <i class="material-icons">work</i>
 	            </div>
 	            <div class="card-content">
-	                <h4 class="card-title">Clasificacion -
-	                    <small class="category">Modificar de Clasificacion</small>
+	                <h4 class="card-title">Clasificación -
+	                    <small class="category">Modificar </small>
 	                </h4>
                      {!!Form::model($clasificacionesActivos,['method'=>'PUT','route'=>['clasificaciones.update',$clasificacionesActivos->id]])!!}
                     <input type="hidden" name="clasificacionesActivos[id]" value="{{ $clasificacionesActivos->id }}">
                         @include('clasificaciones.form')
 	  					<div align="center">
-  						{!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
-							<a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+  						{!! Form::submit('Actualizar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
+							<a href="{{ route('clasificaciones.index') }}" class='btn btn-ocre '>Regresar</a>
 							</div>
 					{!! Form::close() !!}
                 </div>
