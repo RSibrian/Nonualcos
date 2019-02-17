@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlanillasTable extends Migration
+class CreateAjusteRentasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatePlanillasTable extends Migration
      */
     public function up()
     {
-        Schema::create('planillas', function (Blueprint $table) {
+        Schema::create('ajuste_rentas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('concepto');
-            $table->integer('mes');
-            $table->integer('anno');
-            $table->date('FechaPago');
+            $table->Integer('idEmpleado')->unsigned();
+            $table->foreign('idEmpleado')->references('id')->on('empleados');
+            $table->double('salario');
+            $table->double('AFP');
+            $table->double('renta');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreatePlanillasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planillas');
+        Schema::dropIfExists('ajuste_rentas');
     }
 }

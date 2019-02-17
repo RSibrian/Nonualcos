@@ -19,6 +19,7 @@ class CreateEntradasSalidasTable extends Migration
             $table->date('fechaFin');
             $table->time('tiempoHora');
             $table->double('costoTiempo');
+            $table->boolean('estado')->default(true);
             $table->Integer('idEmpleado')->unsigned();
             $table->foreign('idEmpleado')->references('id')->on('empleados');
             $table->timestamps();

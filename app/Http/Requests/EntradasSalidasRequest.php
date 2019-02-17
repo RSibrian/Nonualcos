@@ -27,8 +27,7 @@ class EntradasSalidasRequest extends FormRequest
         return [
           'fechaInicio'=> 'required|beforeor_equal:'.$date,
           'fechaFin'=> 'required|beforeor_equal:'.$date,
-
-
+          'fechaInicio' => 'beforeor_equal:'.$this->fechaFin,
           'tiempoHora'=> 'required',
         ];
     }
@@ -36,7 +35,7 @@ class EntradasSalidasRequest extends FormRequest
         return [
 
           'fechaInicio.required' => '¡Por favor ingrese la fecha!',
-          'fechaInicio.beforeor_equal' => 'La fecha inicio no puede ser mayor a la de hoy',
+          'fechaInicio.beforeor_equal' => 'La fecha inicio no puede ser mayor a la de hoy o fecha fin',
 
           'fechaFin.required' => '¡Por favor ingrese la fecha!',
           'fechaFin.beforeor_equal' => 'La fecha final no puede ser mayor a la de hoy',

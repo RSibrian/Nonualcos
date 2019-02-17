@@ -39,5 +39,8 @@ class AportacionesSeeder extends Seeder
             'desEmpleadoAportacion' => 7.25,
             'desPatronAportacion' => 7.75,
         ]);
+        //Instituto Nacional de Pensiones de los Empleados Publicos. - INPEP. E 7.50 - P 7.50
+        // El Instituto de Previsión Social de la Fuerza Armada. -     IPSFA  E 6.00 - p 6.00
+
     }
 }

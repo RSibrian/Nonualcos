@@ -64,6 +64,10 @@ class Empleado extends Model implements Auditable
     {
         return $this->hasMany(TelefonoEmpleado::class,'idEmpleado');
     }
+    public function ajusteRentas()
+    {
+        return $this->hasMany(AjusteRenta::class,'idEmpleado');
+    }
 
     public static function EmpleadosxUnidad($idUnidad){
       return DB::table('empleados')
@@ -73,8 +77,13 @@ class Empleado extends Model implements Auditable
           // ->orderBy('sa_en_vehiculos.id','desc')
       ->get();
   }
+    public function entradasSalidas()
+    {
+        return $this->hasMany(EntradasSalidas::class,'idEmpleado');
+    }
 
-  /**
+
+    /**
   * {@inheritdoc}
   */
   //fución para cambiar los datos guardados en la auditoría

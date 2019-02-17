@@ -8,5 +8,9 @@ class Renta extends Model
 {
     //
     protected $table="rentas";
-    protected $fillable = ['tramo','desde','hasta','porcentaje','sobreExceso','cuota_fija'];
+    protected $fillable = ['tramo',
+        'desde','hasta','sobreExceso','cuotaFija',
+        'semSesde','semHasta','semSobreExceso','semCuotaFija',
+        'anuDesde','anuHasta','anuSobreExceso','anuCuotaFija',
+        'porcentaje'];
 }

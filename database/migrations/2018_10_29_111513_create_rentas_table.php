@@ -16,11 +16,23 @@ class CreateRentasTable extends Migration
         Schema::create('rentas', function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('tramo');
+
             $table->double('desde');
             $table->double('hasta');
-            $table->double('porcentaje');
             $table->double('sobreExceso');
             $table->double('cuotaFija');
+
+            $table->double('semDesde');
+            $table->double('semHasta');
+            $table->double('semSobreExceso');
+            $table->double('semCuotaFija');
+
+            $table->double('anuDesde');
+            $table->double('anuHasta');
+            $table->double('anuSobreExceso');
+            $table->double('anuCuotaFija');
+
+            $table->double('porcentaje');
             $table->boolean('rentaEstado')->default(true);
             $table->timestamps();
         });

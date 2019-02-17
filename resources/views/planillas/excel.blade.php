@@ -56,6 +56,9 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         $total_AFP=0;
         $total_renta=0;
         $total_prestamo=0;
+        $total_llegadas=0;
+        $total_AFP_patron=0;
+        $total_ISSS_patron=0;
         $total_descuentos_final=0;
         $total_liquido=0;
         $aportaciones=\App\Aportaciones::where('tipoAportacion',2)->get();
@@ -66,131 +69,31 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
 
     @foreach ($empleados as $empleado)
         <?php
-        $permisos=$empleado->permisos;
-        $dias=date("t");
-        $dias_permios_sin_goce=0;
-        $dias_incapacidad=0;
-        $dias_maternidad=0;
-        $salario_x_incapacidad=0;
-        $p=0;
-        $i=0;
-        $m=0;
-        $diaPermisos=\App\Permiso::diaPermisoDB($empleado->id,$fecha_fin_mes);
-        foreach ($diaPermisos as $diaPermiso)
-        {
-            //dd($diaPermiso);
-            if($diaPermiso->tipoPermiso==2) $dias_permios_sin_goce+=$diaPermiso->dip_dias;
-            else if ($diaPermiso->casoPermiso=="8") $dias_maternidad+=$diaPermiso->dip_dias;
-            else if ($diaPermiso->tipoPermiso==4 || $diaPermiso->tipoPermiso==5) $dias_incapacidad+=$diaPermiso->dip_dias;
-        }
 
-        $dias_trabajados=$dias;
-        $salario=$empleado->salarioBruto;
-        $salario_diario=$salario/$dias;
 
-        if($dias_trabajados>0)
-            if($dias_trabajados>$dias_permios_sin_goce)
-            {
-                $p=$dias_permios_sin_goce;
-                $dias_trabajados-=$dias_permios_sin_goce;
-            }
-            else{
-                $p=$dias_trabajados;
-                $dias_trabajados=$dias_trabajados-$p;
-            }
-        if($dias_trabajados>0){
-            if($dias_trabajados>$dias_maternidad)
-            {
-                $m=$dias_maternidad;
-                $dias_trabajados-=$dias_maternidad;
-            }
-            else{
-                $m=$dias_trabajados;
-                $dias_trabajados=$dias_trabajados-$m;
-            }
-        }
-        if($dias_trabajados>0) {
-            if($dias_trabajados>$dias_incapacidad)
-            {
-                $dias_trabajados-=$dias_incapacidad;
-                $i=$dias_incapacidad;
-                $salario_x_incapacidad=($salario_diario*0.25)*$dias_incapacidad;
-            }
-            else{
-                $i=$dias_trabajados;
-                $dias_trabajados=$dias_trabajados-$i;
-                $salario_x_incapacidad=($salario_diario*0.25)*$i;
-            }
-        }
 
-       // echo  "permisos= ".$p." Maternidad= ".$m." Incapacidad= ".$i. "<br>";
 
-        $salario=$empleado->salarioBruto;//500
-        $salario_diario=$salario/$dias;//500/31=16.1290
-        $salario_ganado=$salario_diario*$dias_trabajados;//fataria descontar dias por permisos sin goce
-        // y aplicar las incapacides
-        $ISSS=0;
-        $AFP=0;
-        if($salario_ganado>=1000)
-        {
-            $ISSS=30;
-        }
-        else
-        {
-            $ISSS = $empleado->seguro->desEmpleadoAportacion * $salario_ganado;//3*500=
-            $ISSS=$ISSS/100;//1500/100=15
-        }
-        $AFP_nombre=$empleado->AFP->nombreAportacion;//nombre
 
-        $AFP=$salario_ganado*$empleado->AFP->desEmpleadoAportacion;//500*7.25=
-        $AFP=$AFP/100;
-
+        $total_salarios+=round($empleado->salario_ganado,2);
+        $total_ISSS+=round($empleado->ISSS,2);
+        $empleado->idAFP;
         foreach ($aportaciones as $aportacion) {
-            if($aportacion->nombreAportacion==$AFP_nombre) {
-                $aportacion->desPatronAportacion+=$AFP;
-               }
+            if($aportacion->id==$empleado->idAFP)
+                {
+                    $aportacion->total+=$empleado->AFP_empleado;
+                    $aportacion->total_patron+=$empleado->AFP_Patron;
+                }
         }
-        //salario ganado tengo descontar llegadas tardias?
-        $descuentos=$empleado->descuentos()->where('estadoDescuento',true)->get();
-        $descuento_prestamo=0;
-        $descuentos_alimeticios=0;
-        $otros=0;
-        foreach ($descuentos as $descuento)
-        {
-            if($descuento->tipoDescuento==1) $descuento_prestamo+=$descuento->pago;
-            else if($descuento->tipoDescuento==2) $descuentos_alimeticios+=$descuento->pago;
-            else $otros+=$descuento->pago;
-        }
-
-        $total_descuentos=$AFP;
-        $salario_descuentos=$salario_ganado-$total_descuentos;
-        if($salario_descuentos!=0)
-        {
-            $renta=\App\Renta::where('desde','<=',$salario_descuentos)->where('hasta','>=',$salario_descuentos)->get();
-            $salario_exceso=$salario_descuentos-$renta->first()->sobreExceso;
-            $descuento_renta = ($salario_exceso * ($renta->last()->porcentaje / 100)) + $renta->last()->cuotaFija;
-        }
-        else {
-            $salario_exceso=0;
-            $descuento_renta=0;
-        }
-
-        $total_descuentos= $descuento_renta+$ISSS+$AFP;
-        $liquido=$salario_ganado-$total_descuentos;
-        $tota_pre=$descuentos_alimeticios+$descuento_prestamo+$otros;
-        $prestamoBandera=false;
-        if($liquido>=$tota_pre){
-            $prestamoBandera=true;
-            $total_descuentos+=$tota_pre;// le restamos la cuota alimenticia al liquido
-        }
-        $liquido=$salario_ganado-$total_descuentos;
-        $total_salarios+=round($salario_ganado,2);
-        $total_ISSS+=round($ISSS,2);
-        $total_AFP+=round($AFP,2);
-        $total_renta+=round($descuento_renta,2);
-        $total_prestamo+=round($tota_pre,2);
-        $total_descuentos_final+=round($total_descuentos,2);
-        $total_liquido+=round($liquido,2);;
+        $total_AFP+=round($empleado->AFP_empleado,2);
+        $total_AFP_patron+=round($empleado->AFP_Patron,2);
+        $total_ISSS_patron+=round($empleado->ISSS_patron,2);
+        $total_renta+=round($empleado->descuento_renta,2);
+        if($empleado->llegadaBandera)
+            $total_llegadas+=round($empleado->descuento_tiempo,2);
+        if($empleado->prestamoBandera)
+            $total_prestamo+=round($empleado->tota_pre,2);
+        $total_descuentos_final+=round($empleado->total_descuentos,2);
+        $total_liquido+=round($empleado->liquido,2);;
 
 
         ?>
@@ -198,10 +101,10 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <?php $cont++;?>
             <td>{{$cont}}</td>
             <td>{{$empleado->nombresEmpleado." ".$empleado->apellidosEmpleado}}</td>
-            <td>{{$empleado->cargo->nombreCargo}} $&nbsp;{{number_format($salario, 2, '.', ',')}}</td>
+            <td>{{$empleado->cargo->nombreCargo}} $&nbsp;{{\Helper::dinero($empleado->salarioBruto)}}</td>
             <td>0101</td>
-            <td>{{$dias_trabajados}}</td>
-            <td>$&nbsp;{{number_format($salario_ganado, 2, '.', ',')}}</td>
+            <td>{{  $empleado->dias_trabajados}}</td>
+            <td>$&nbsp;{{\Helper::dinero(round($empleado->salario_ganado, 2))}}</td>
             <td></td>
             <td></td>
             <td>Cheque No.</td>
@@ -223,7 +126,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
             <td></td>
-            <td style="color: #cc2127; ">${{number_format($AFP, 2, '.', ',')}}</td>
+            <td style="color: #cc2127; ">${{\Helper::dinero(round($empleado->AFP_empleado, 2))}}</td>
             <td></td>
             <td></td>
             <td>{{"NIT: $empleado->NITEmpleado"}}</td>
@@ -234,7 +137,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
             <td></td>
-            <td style="color: #cc2127;">${{number_format($ISSS, 2, '.', ',')}}</td>
+            <td style="color: #cc2127;">${{\Helper::dinero(round($empleado->ISSS, 2))}}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -245,7 +148,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
             <td></td>
-            <td style="color: #cc2127";>${{number_format($descuento_renta, 2, '.', ',')}}</td>
+            <td style="color: #cc2127";>${{\Helper::dinero(round($empleado->descuento_renta, 2))}}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -262,8 +165,21 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
         </tr>
-        @if($prestamoBandera==true)
-        @foreach ($descuentos as $descuento)
+        @if($empleado->llegadaBandera==true && $empleado->descuento_tiempo>0)
+        <tr>
+            <td></td>
+            <td>LLegadas Tarde:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="color: #cc2127;">${{\Helper::dinero(round($empleado->descuento_tiempo, 2))}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @endif
+        @if($empleado->prestamoBandera==true)
+        @foreach ($empleado->descuentos_var as $descuento)
             <tr>
                 <td></td>
                 @if($descuento->tipoDescuento==1)
@@ -278,46 +194,46 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style="color: #cc2127"; >${{number_format($descuento->pago, 2, '.', ',')}}</td>
+                <td style="color: #cc2127"; >${{\Helper::dinero(round($descuento->pago, 2))}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
         @endforeach
         @endif
-        @if($i!=0)
+        @if($empleado->i!=0)
         <tr>
             <td></td>
             <td><b>Dias de Incapacidad</b></td>
             <td></td>
             <td></td>
-            <td>{{$i}}</td>
+            <td>{{$empleado->i}}</td>
             <td></td>
             <td></td>
             <td ></td>
             <td></td>
         </tr>
         @endif
-        @if($p!=0)
+        @if($empleado->p!=0)
             <tr>
                 <td></td>
                 <td><b>Dias de Permisos</b></td>
                 <td></td>
                 <td></td>
-                <td>{{$p}}</td>
+                <td>{{$empleado->p}}</td>
                 <td></td>
                 <td></td>
                 <td ></td>
                 <td></td>
             </tr>
         @endif
-        @if($m!=0)
+        @if($empleado->m!=0)
             <tr>
                 <td></td>
                 <td><b>Dias de maternidad</b></td>
                 <td></td>
                 <td></td>
-                <td>{{$m}}</td>
+                <td>{{$empleado->m}}</td>
                 <td></td>
                 <td></td>
                 <td ></td>
@@ -331,8 +247,8 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
             <td></td>
             <td></td>
-            <td style="color: #cc2127">$ {{number_format(round($total_descuentos,2), 2, '.', ',')}}</td>
-            <td style="color: #1f648b">$ {{number_format(round($liquido,2), 2, '.', ',')}}</td>
+            <td style="color: #cc2127">$ {{\Helper::dinero(round($empleado->total_descuentos,2))}}</td>
+            <td style="color: #1f648b">$ {{\Helper::dinero(round($empleado->liquido,2))}}</td>
             <td>FIRMA:</td>
         </tr>
 
@@ -351,25 +267,35 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
     <tr>
         <td></td>
         <th colspan="2" align="center">Total de Fondos de Pensiones Empleados</th>
+        <td></td>
+        <th colspan="2" align="center">Total de Fondos de Pensiones Patron</th>
     </tr>
     <tr>
         <td></td>
         <th>Aportacion</th>
         <th>Total</th>
+        <td></td>
+        <th>Aportacion</th>
+        <th>Total</th>
     </tr>
-    <?php $total_AFP=0;?>
-    @foreach ($aportaciones as $aportacion) {
+
+    @foreach ($aportaciones as $aportacion)
         <tr>
             <td></td>
             <td>{{$aportacion->nombreAportacion}}</td>
-            <td> $ {{number_format(round($aportacion->desPatronAportacion,2), 2, '.', ',')}}</td>
-             <?php $total_AFP+=round($aportacion->desPatronAportacion,2)?>
+            <td> $ {{\Helper::dinero(round($aportacion->total,2))}}</td>
+            <td></td>
+            <td>{{$aportacion->nombreAportacion}}</td>
+            <td> $ {{\Helper::dinero(round($aportacion->total_patron,2))}}</td>
         </tr>
     @endforeach
     <tr>
         <td></td>
         <th>Total</th>
-        <td>$ {{number_format(round($total_AFP,2), 2, '.', ',')}}</td>
+        <td>$ {{\Helper::dinero(round($total_AFP,2))}}</td>
+        <td></td>
+        <th>Total</th>
+        <td>$ {{\Helper::dinero(round($total_AFP_patron,2))}}</td>
     </tr>
 </table>
 <table>
@@ -382,33 +308,41 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
     <tr>
         <td></td>
         <td>Total Salarios </td>
-        <td align="right">$ {{number_format(round($total_salarios,2), 2, '.', ',')}}</td>
+        <td align="right">$ {{\Helper::dinero(round($total_salarios,2))}}</td>
     </tr>
     <tr>
         <td></td>
         <td>Total de ISSS</td>
-        <td align="right">  ${{number_format(round($total_ISSS,2), 2, '.', ',')}}</td>
+        <td align="right">  ${{\Helper::dinero(round($total_ISSS,2))}}</td>
+        <td>ISSS patronal</td>
+        <td align="right">  ${{\Helper::dinero(round($total_ISSS_patron,2))}}</td>
     </tr>
     <tr>
         <td></td>
         <td>Total de AFP</td>
-        <td align="right"> $ {{number_format(round($total_AFP,2), 2, '.', ',')}}</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_AFP,2))}}</td>
     </tr>
     <tr>
         <td></td>
         <td>Total de Retención de Renta</td>
-        <td align="right"> $ {{number_format(round($total_renta,2), 2, '.', ',')}}</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_renta,2))}}</td>
     </tr>
     <tr>
         <td></td>
+        <td>Total de Llegadas Tarde</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_llegadas,2))}}</td>
+    </tr>
+
+    <tr>
+        <td></td>
         <td>Total de Prestamos</td>
-        <td align="right"> $ {{number_format(round($total_prestamo,2), 2, '.', ',')}}</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_prestamo,2))}}</td>
     </tr>
 
     <tr>
         <td></td>
         <th>Total de Descuentos</th>
-        <td align="right"> $ {{number_format(round($total_descuentos_final,2), 2, '.', ',')}}</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_descuentos_final,2))}}</td>
     </tr>
 
 </table>
@@ -416,9 +350,8 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
     <tr>
         <td></td>
         <th>Total a pagar</th>
-        <td align="right"> $ {{number_format(round($total_liquido,2), 2, '.', ',')}}</td>
+        <td align="right"> $ {{\Helper::dinero(round($total_liquido,2))}}</td>
     </tr>
-
 </table>
 
 
