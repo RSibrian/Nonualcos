@@ -129,6 +129,14 @@ class PlanillaController extends Controller
                 }
             }
         }
+        if(intval(date("m"))==12)
+        {
+            $ajustes=AjusteRenta::all();
+            foreach ($ajustes as $ajuste)
+            {
+                $ajuste->delete();
+            }
+        }
     }
 
     /**
@@ -140,7 +148,7 @@ class PlanillaController extends Controller
     public function show(Empleado $empleado)
     {
         //
-        $mes=date("m");
+       /* $mes=date("m");
         $dias=date("t");
         echo "mes actual = ".$mes."<br>";
         echo "dias del mes = ".$dias."<br>";
@@ -178,7 +186,7 @@ class PlanillaController extends Controller
         echo  "porcentaje = ".$renta->last()->porcentaje."<br>";
         echo "descontar de renta = ". $descuento_renta."<br>";
         $liquido=$salario_descuentos-$descuento_renta;
-        echo "Líquido = ". $liquido."<br>";
+        echo "Líquido = ". $liquido."<br>";*/
     }
 
     /**
@@ -319,7 +327,7 @@ class PlanillaController extends Controller
 
             if ($empleado->salario_descuentos != 0) {
                 //ajuste de renta
-                if(intval($mes)==6 || intval($mes)==2) {
+                if(intval($mes)==6 || intval($mes)==12) {
                     $ajustes=$empleado->ajusteRentas;
                     $salario_ajuste=$empleado->salario_descuentos;
                     $salario_afp_ajuste=0;
@@ -372,4 +380,5 @@ class PlanillaController extends Controller
       // dd($empleados);
         return $empleados;
     }
+
 }

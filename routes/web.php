@@ -710,6 +710,27 @@ Route::middleware(['auth'])->group(function () {
                    ->middleware('permission:proveedores.create');
            //indemnizaciones
 
+    //aguinaldo
+    Route::get('aguinaldos/{empleado}','AguinaldoController@show')
+        ->name('aguinaldos.show')
+        ->middleware('permission:roles.index');
+
+    Route::get('aguinaldos','AguinaldoController@index')
+        ->name('aguinaldos.index')
+        ->middleware('permission:roles.index');
+
+    Route::post('aguinaldos/store','AguinaldoController@store')
+        ->name('aguinaldos.store')
+        ->middleware('permission:roles.create');
+
+    Route::get('aguinaldos/create/reporte','AguinaldoController@reporte')
+        ->name('aguinaldos.reporte')
+        ->middleware('permission:users.index');
+    Route::get('aguinaldos/create/excel','AguinaldoController@create')
+        ->name('aguinaldos.create')
+        ->middleware('permission:unidads.create');
+    //fin aguinaldo
+
 
 
         Route::get('/clear', function() {

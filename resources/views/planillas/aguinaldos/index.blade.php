@@ -20,16 +20,16 @@
                     $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_inicio +1 month"));
 
                     ?>
-                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
+                    <a  aling='right' href="{{ url("aguinaldos/create/excel") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
                         <i class="material-icons"></i>
-                        Planilla de Empleados
+                        Aguinaldo de Empleados
                     </a>
-                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
+                    <a  aling='right' href="{{ url("aguinaldos/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
                         <i class="material-icons"></i>
-                        boleta de pago
+                        Boleta de pago
                     </a>
-                    {!! Form::open(['route'=>'planillas.store','method'=>'POST']) !!}
-                    <input type="hidden" name="concepto" value="Pago de {{\Helper::fecha($fecha_fin_inicio)}} a {{\Helper::fecha($fecha_fin)}} ">
+                    {!! Form::open(['route'=>'aguinaldos.store','method'=>'POST']) !!}
+                    <input type="hidden" name="concepto" value="Pago de Aguinaldo {{$mes}} de {{$anno}} execto 608.34 ">
                     <div align="center" class="row">
                         {!! Form::submit('Procesar',['id'=>"agregar_permiso", "onclick"=>"myFunction()" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                     </div>
