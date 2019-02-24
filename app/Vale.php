@@ -5,8 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use OwenIt\Auditing\Contracts\Auditable;
 use App\Empleado;
 use App\Salidas;
@@ -199,38 +197,6 @@ class Vale extends Model implements Auditable
         $data['new_values']['idLiquidacion']=Liquidacion::find($data['new_values']['idLiquidacion'])->numeroFacturaLiquidacion;
 
         return $data;
-      }
-
-      public static function darIndex(){
-          return Vale::select('*')
-              ->where('estadoLiquidacionVal', '=', '0')
-              ->orderBy('updated_at', 'desc')
-              ->get();
-      }
-
-      public static function EmpleadosActivos(){
-
-          $empleados=Empleado::get()->where('estadoEmpleado', '=', '1')->pluck('fullName','id');
-
-          $empleados=$empleados->prepend('Seleccione un empleado', '0');
-
-          return $empleados;
-      }
-
-      public static function verifica($autoriza, $vehiculos, $empleados){
-
-          if ($autoriza->idEmpleado===null){
-              Session::flash('autoriza','El usuario debe estar asignado a un empleado para poder crear un registro');;
-          }
-
-          if ($vehiculos->first()===null){
-              Session::flash('vehiculos','Debe registrar al menos un vehículo o liberar los existentes para poder registrar un vale');
-          }
-
-          if ($empleados->first()===null){
-              Session::flash('empleados','No hay empleados resgistrados');
-          }
-
       }
 
 }

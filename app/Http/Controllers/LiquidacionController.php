@@ -31,10 +31,8 @@ class LiquidacionController extends Controller
     {
         // retorna la vista para el registro de nuevo vale
         $placas=Vehiculo::pluck('numeroPlaca', 'id');
-        $vales=Liquidacion::valesDisponibles();
-        Liquidacion::verifica($placas, $vales);
         $placas=$placas->prepend('Seleccione una placa', '0');
-        return View('liquidaciones.create', compact('placas', 'vales'));
+        return View('liquidaciones.create', compact('placas'));
     }
 
     public function store(LiquidacionRequest $request)
