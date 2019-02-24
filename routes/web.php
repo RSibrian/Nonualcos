@@ -423,7 +423,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('vales.store')
         ->middleware('permission:vale.create');
 
-    Route::get('vales/show/{vale}','ValeController@show')
+    Route::get('vales/{vale}','ValeController@show')
         ->name('vales.show')
         ->middleware('permission:vales.show');
 
@@ -431,13 +431,21 @@ Route::middleware(['auth'])->group(function () {
         ->name('vales.edit')
         ->middleware('permission:vales.edit');
 
-    Route::put('vales/{vale}','ValeController@update')
+    Route::put('vales/update/{vale}','ValeController@update')
         ->name('vales.update')
         ->middleware('permission:vales.edit');
 
     Route::get('vales/reporte/{vale}','ValeController@ValeVistaReporte')
         ->name('vales.reporte')
         ->middleware('permission:vale.create');
+
+    Route::get('entregar/{vale}','ValeController@entregar')
+        ->name('vales.entregar')
+        ->middleware('permission:vales.edit');
+
+    Route::get('devolver/{vale}','ValeController@devolver')
+        ->name('vales.devolver')
+        ->middleware('permission:vales.edit');
 
     Route::get('/liquidaciones/vales/index','LiquidacionController@index')
         ->name('liquidaciones.index')
@@ -451,7 +459,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('liquidaciones.create')
         ->middleware('permission:vale.create');
 
-    Route::get('/liquidaciones/vales/show/{liquidacion}','LiquidacionController@show')
+    Route::get('/liquidaciones/{liquidacion}','LiquidacionController@show')
         ->name('liquidaciones.show')
         ->middleware('permission:vales.show');
 
