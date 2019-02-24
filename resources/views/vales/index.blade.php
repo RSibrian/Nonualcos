@@ -1,5 +1,55 @@
 @extends ('plantilla')
 @section('plantilla')
+    <style>
+
+        .switch input {
+            display:none;
+            background: white;
+        }
+        .switch {
+            display:inline-block;
+            width:40px;
+            height:20px;
+            margin: 5px;
+            transform:translateY(-20%);
+            position:relative;
+            background: white;
+        }
+
+        .slider {
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            border-radius:20px;
+            box-shadow:0 0 0 2px #777, 0 0 4px #777;
+            cursor:pointer;
+            border:4px solid transparent;
+            overflow:hidden;
+            transition:.4s;
+            background: white;
+        }
+        .slider:before {
+            position:absolute;
+            content:"";
+            width:50%;
+            height:100%;
+            background:#777;
+            border-radius:10px;
+            transform:translateX(-20px);
+            transition:.4s;
+        }
+
+        input:checked + .slider:before {
+            transform:translateX(3px);
+            background:dodgerblue;
+        }
+        input:checked + .slider {
+            box-shadow:0 0 0 2px dodgerblue,0 0 2px dodgerblue;
+        }
+
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -32,9 +82,9 @@
                                     <th class="text-center">Unidad</th>
                                     <th>Solicitante</th>
                                     <th>Galones</th>
-                                    <th>Costo total vale</th>
-                                    <th>Entrega</th>
-                                    <th>Devolución</th>
+                                    <th>Costo</th>
+                                    <th>Entregado</th>
+                                    <th>Devuelto</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
                                 </tr>
                             </thead>
@@ -46,22 +96,23 @@
                                     <th class="text-center">Unidad</th>
                                     <th>Solicitante</th>
                                     <th>Galones</th>
-                                    <th>Costo total vale</th>
-                                    <th>Entrega</th>
-                                    <th>Devolución</th>
+                                    <th>Costo</th>
+                                    <th>Entregado</th>
+                                    <th>Devuelto</th>
                                     <th class="text-right">Acciones</th>
                                 </tr>
                             </tfoot>
                             <tbody class="text-center">
-                            <?php $cont=0;?>
-                            <?php //echo dd($_vales) ?>
+                            <?php $cont=0;
+                                  $estado='';
+                            ?>
                              @foreach($_vales as $vale)
                               <tr>
                                   <td></td>
                                   <?php $cont++;?>
                                 <td>{{ $cont }}</td>
                                 <td>
-                                  <p>{{ date('d-m-Y', strtotime($vale->fechaCreacion)) }}</p>
+                                  <p>{{ \Helper::fecha($vale->fechaCreacion) }}</p>
                                 </td>
                                   <td>
                                       <?php $unidad=$vale->salida->empleados->cargo->unidad; ?>
@@ -72,7 +123,7 @@
                                 <td>
                                     <?php $nombre=$vale->salida->empleados; ?>
                                   <p>
-                                       {{ $nombre->nombresEmpleado.' '.$nombre->apellidosEmpleado }}
+                                       {{ $nombre->getFullNameAttribute() }}
                                   </p>
                                 </td>
                                   <td>
@@ -80,7 +131,7 @@
                                           @if ( $vale->galones==null)
                                               {{ 'No especificado' }}
                                           @else
-                                              {{ $vale->galones }}
+                                              {{ \Helper::dinero($vale->galones) }}
                                           @endif
                                       </p>
                                   </td>
@@ -89,18 +140,37 @@
                                           @if ( $vale->costoUnitarioVale==null)
                                               {{ 'No especificado' }}
                                           @else
-                                              {{ '$ '.$vale->costoUnitarioVale }}
+                                              {{ '$ '.\Helper::dinero($vale->costoUnitarioVale) }}
                                           @endif
 
                                       </p>
                                   </td>
                                 <td>
-                                    {{ $vale->estadoEntregadoVal?'Si':'No'
-                                    }}
+                                    @if ($vale->estadoEntregadoVal===1)
+                                        {{ 'Si' }}
+                                    @else
+                                        <label class='switch  material-icons' title='Entregar' rel='tooltip'>
+                                            <input type='checkbox' id='{{ $vale->id }}' class='entregado' >
+                                            <span class='slider'></span>
+                                        </label>
+                                        @php
+                                            $estado='disabled';
+                                        @endphp
+                                    @endif
                                 </td>
                                 <td>
-                                    {{ $vale->estadoRecibidoVal?'Si':'No'
-                                    }}
+                                    @if ($vale->estadoRecibidoVal===1)
+                                        {{ 'Si' }}
+                                    @else
+                                        <label class='switch  material-icons' title='Devolver' rel='tooltip'>
+                                            <input type='checkbox' id='{{ $vale->id }}' class='devuelto'
+                                            @if($estado==='disabled')
+                                                {{ $estado }}
+                                            @endif
+                                            >
+                                            <span class='slider'></span>
+                                        </label>
+                                    @endif
                                 </td>
                                 <td class="text-right">
                                   @can('users.edit')
@@ -158,27 +228,69 @@
 
         var table = $('#datatables').DataTable();
 
-        // Edit record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function(e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function() {
-            alert('You clicked on Like button');
-        });
-
         $('.card .material-datatables label').addClass('form-group');
     });
 </script>
+
+<script>
+    var entregado=$('.entregado');
+    entregado.on('click', function(){
+        var vale= $(this).attr('id');
+        var estado= $(this).prop('checked');
+
+        if(estado===true){
+            var newUrl = "{{ route('vales.entregar', ['vale' => ':vale']) }}";
+            newUrl = newUrl.replace(':vale', vale);
+            entregar(newUrl);
+        }
+
+        function entregar(newUrl){
+            $.ajax({
+                type:'GET',
+                url:newUrl,
+                dataType:'json',
+                success: function (data) {
+                    location.reload();
+                    console.log(data);
+                },
+                error: function() {
+                    location.reload();
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+</script>
+
+<script>
+    var devuelto=$('.devuelto');
+    devuelto.on('click', function(){
+        var vale= $(this).attr('id');
+        var estado= $(this).prop('checked');
+
+        if(estado===true){
+            var newUrl = "{{ route('vales.devolver', ['vale' => ':vale']) }}";
+            newUrl = newUrl.replace(':vale', vale);
+            devolver(newUrl);
+        }
+
+        function devolver(newUrl){
+            $.ajax({
+                type:'GET',
+                url:newUrl,
+                dataType:'json',
+                success: function (data) {
+                    location.reload();
+                    console.log(data);
+                },
+                error: function() {
+                    console.log(data);
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
+
 @endsection

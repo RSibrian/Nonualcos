@@ -54,7 +54,7 @@
                         <table>
                             <tr>
                                 <td><h4>Fecha de salida:</h4></td>
-                                <td><h4> <b> {{ date('d-m-Y', strtotime($salida->fechaSalida)) }}</b></h4></td>
+                                <td><h4> <b> {{ \Helper::fecha($salida->fechaSalida)  }}</b></h4></td>
                                 <td><h4>Destino:</h4></td>
                                 <td><h4> <b> {{ $salida->destinoTrasladarse }}</b></h4></td>
                             </tr>
@@ -62,7 +62,7 @@
                                 <td><h4>Vehículo:</h4></td>
                                 <td><h4> <b> {{ $vehiculo->numeroPlaca }}</b></h4></td>
                                 <td><h4>Solicitante: </h4></td>
-                                <td><h4> <b> {{ $nombre->nombresEmpleado.' '.$nombre->apellidosEmpleado }}</b></h4></td>
+                                <td><h4> <b> {{ $nombre->getFullNameAttribute() }}</b></h4></td>
                             </tr>
                             <tr>
                                 <td class="centro"><h4>Misión:</h4>
@@ -84,7 +84,7 @@
                        <table>
                            <tr>
                                <td><h4>Fecha:</h4></td>
-                               <td><h4> <b> {{ date('d-m-Y', strtotime($vale->fechaCreacion)) }}</b></h4></td>
+                               <td><h4> <b> {{ \Helper::fecha($vale->fechaCreacion)  }}</b></h4></td>
                                <td><h4>Gasolinera:</h4></td>
                                <td><h4> <b> {{ $vale->gasolinera }}</b></h4></td>
                            </tr>
@@ -107,7 +107,7 @@
                                <td>
                                    <h4><b>
                                            @if ($vale->galones!=null)
-                                               {{ $vale->galones }}
+                                               {{ \Helper::dinero($vale->galones)  }}
                                            @else
                                                {{ "No especificado" }}
                                            @endif
@@ -120,7 +120,7 @@
                                <td  class="centro" >
                                    <h4><b>
                                            @if ($vale->costoGalones!=null)
-                                               {{ "$ ".$vale->costoGalones }}
+                                               {{ "$ ".\Helper::dinero($vale->costoGalones) }}
                                            @else
                                                {{ "No especificado" }}
                                            @endif
@@ -132,7 +132,7 @@
                                    <td> <h4>Aceite:</h4></td>
                                    <td> <h4> <b> {{ "Si" }}</b></h4></td>
                                    <td><h4>Costo de aceite: </h4></td>
-                                   <td><h4> <b> {{ "$ ".$vale->costoAceite }}</b></h4></td>
+                                   <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoAceite) }}</b></h4></td>
                                </tr>
                            @endif
                            @if ($vale->grasa==1)
@@ -141,7 +141,7 @@
                                    <td><h4>Grasa:</h4></td>
                                    <td><h4> <b> {{ "Si" }}</b></h4></td>
                                    <td><h4>Costo de grasa: </h4></td>
-                                   <td><h4> <b> {{ "$ ".$vale->costoGrasa }}</b></h4></td>
+                                   <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoGrasa) }}</b></h4></td>
                                </tr>
                            @endif
                            @if ($vale->otro!=null)
@@ -150,13 +150,13 @@
                                    <td><h4>Otro: <br></h4></td>
                                    <td> <h4> <b> {{ $vale->otro }}</b></h4></td>
                                    <td><h4>Costo de {{ $vale->otro }} :</h4></td>
-                                   <td><h4> <b> {{ "$ ".$vale->costoOtro }}</b></h4></td>
+                                   <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoOtro) }}</b></h4></td>
                                </tr>
                            @endif
                            <tr>
                                <td colspan="3" class="derecha"><h4>Monto total de vale: </h4>
                                </td>
-                               <td class="centro"><h4> <b> {{ "$ ".$vale->costoUnitarioVale }}</b></h4></td>
+                               <td class="centro"><h4> <b> {{ "$ ".\Helper::dinero($vale->costoUnitarioVale) }}</b></h4></td>
                            </tr>
                        </table>
                    </fieldset>
@@ -166,9 +166,9 @@
                        <table>
                            <tr>
                                <td><h4>Autoriza:</h4></td>
-                               <td> <h4> <b> {{ $autoriza->nombresEmpleado.' '.$autoriza->apellidosEmpleado }}</b></h4></td>
+                               <td> <h4> <b> {{ $autoriza->getFullNameAttribute() }}</b></h4></td>
                                <td> <h4>Recibe:</h4></td>
-                               <td><h4> <b> {{ $recibe->nombresEmpleado.' '.$recibe->apellidosEmpleado }}</b></h4></td>
+                               <td><h4> <b> {{ $recibe->getFullNameAttribute() }}</b></h4></td>
                            </tr>
                            <tr>
                                <td class="centro"><h4>Estado de devolución:</h4>
@@ -176,7 +176,7 @@
                                <td colspan="3" class="izquierda">
                                    <h4> <b>
                                            @if( $vale->estadoRecibidoVal==1)
-                                               {{ "Recibido" }}
+                                               {{ "Devuelto" }}
                                            @else
                                                {{ "Pendiente" }}
                                            @endif

@@ -21,7 +21,8 @@
                                 <table>
                                     <tr>
                                         <td><h4>Fecha Salida: <br></h4></td>
-                                        <td><h4> <b> {{ date('d-m-Y', strtotime($salida->fechaSalida)) }}</b></h4></td>
+
+                                        <td><h4> <b> {{ \Helper::fecha($salida->fechaSalida) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -49,7 +50,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Solicitante: <br></h4></td>
-                                        <td><h4> <b> {{ $nombre->nombresEmpleado.' '.$nombre->apellidosEmpleado }}</b></h4></td>
+                                        <td><h4> <b>{{ $nombre->getFullNameAttribute() }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -78,7 +79,8 @@
                                 <table>
                                     <tr>
                                         <td><h4>Fecha: <br></h4></td>
-                                        <td><h4> <b> {{ date('d-m-Y', strtotime($vale->fechaCreacion)) }}</b></h4></td>
+
+                                        <td><h4> <b> {{ \Helper::fecha($vale->fechaCreacion) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -134,7 +136,7 @@
                                         <td><h4>Número de galones: <br></h4></td>
                                         <td><h4><b>
                                                     @if ($vale->galones!=null)
-                                                        {{ $vale->galones }}
+                                                        {{ \Helper::dinero($vale->galones)  }}
                                                     @else
                                                         {{ "No especificado" }}
                                                     @endif
@@ -151,7 +153,7 @@
                                         <td><h4>Costo de galones: <br></h4></td>
                                         <td><h4><b>
                                                     @if ($vale->costoGalones!=null)
-                                                        {{ "$ ".$vale->costoGalones }}
+                                                        {{ "$ ".\Helper::dinero($vale->costoGalones) }}
                                                     @else
                                                         {{ "No especificado" }}
                                                     @endif
@@ -177,7 +179,7 @@
                                     <table>
                                         <tr>
                                             <td><h4>Costo de aceite: <br></h4></td>
-                                            <td><h4> <b> {{ "$ ".$vale->costoAceite }}</b></h4></td>
+                                            <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoAceite) }}</b></h4></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -200,7 +202,7 @@
                                     <table>
                                         <tr>
                                             <td><h4>Costo de grasa: <br></h4></td>
-                                            <td><h4> <b> {{ "$ ".$vale->costoGrasa }}</b></h4></td>
+                                            <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoGrasa) }}</b></h4></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -223,7 +225,7 @@
                                     <table>
                                         <tr>
                                             <td><h4>Costo de {{ $vale->otro }} : <br></h4></td>
-                                            <td><h4> <b> {{ "$ ".$vale->costoOtro }}</b></h4></td>
+                                            <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoOtro) }}</b></h4></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -252,7 +254,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Monto total de vale: <br></h4></td>
-                                        <td><h4> <b> {{ "$ ".$vale->costoUnitarioVale }}</b></h4></td>
+                                        <td><h4> <b> {{ "$ ".\Helper::dinero($vale->costoUnitarioVale) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -269,7 +271,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Autoriza: <br></h4></td>
-                                        <td><h4> <b> {{ $autoriza->nombresEmpleado.' '.$autoriza->apellidosEmpleado }}</b></h4></td>
+                                        <td><h4> <b> {{ $autoriza->getFullNameAttribute() }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -294,7 +296,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Recibe: <br></h4></td>
-                                        <td><h4> <b> {{ $recibe->nombresEmpleado.' '.$recibe->apellidosEmpleado }}</b></h4></td>
+                                        <td><h4> <b> {{ $recibe->getFullNameAttribute() }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -304,7 +306,7 @@
                                         <td><h4>Estado de devolución: <br></h4></td>
                                         <td><h4> <b>
                                                     @if( $vale->estadoRecibidoVal==1)
-                                                        {{ "Recibido" }}
+                                                        {{ "Devuelto" }}
                                                     @else
                                                         {{ "Pendiente" }}
                                                     @endif

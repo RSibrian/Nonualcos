@@ -16,13 +16,27 @@
                     {!! Form::open(['route'=>'vales.store','method'=>'POST','enctype'=>'multipart/form-data', 'autocomplete'=>'off']) !!}
                     {{ csrf_field(),
                        date_default_timezone_set('America/El_Salvador')}}
-
-                    @include('vales.form')
-                    <div align="center">
-                        {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                        {!! Form::reset('Limpiar',['class'=>'btn btn-azul glyphicon']) !!}
-                        <a href="{{ url()->previous() }}" class="btn btn-ocre"  name="btnRegresar"> Regresar</a>
-                    </div>
+                    @php
+                        $disabled='';
+                    @endphp
+                    @foreach (['autoriza', 'vehiculos', 'empleados'] as $key)
+                        @if(Session::has($key))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{{ Session::get($key) }}</li>
+                                </ul>
+                            </div>
+                            @php
+                             $disabled='hide';
+                            @endphp
+                        @endif
+                    @endforeach
+                        @include('vales.form')
+                        <div align="center">
+                            {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk '.$disabled] ) !!}
+                            {!! Form::reset('Limpiar',['class'=>'btn btn-azul glyphicon '.$disabled] ) !!}
+                            <a href="{{ url()->previous() }}" class="btn btn-ocre"  name="btnRegresar"> Regresar</a>
+                        </div>
                     {!! Form::close() !!}
 
                 </div>

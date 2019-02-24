@@ -9,10 +9,9 @@
                 <i class="material-icons">date_range</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Fecha de salida
-                    <small >(*)</small>
+                <label class="control-label"> <code>*</code>Fecha de salida
                 </label>
-                {!!Form::date('fechaSalida',old('fechaSalida', date('Y-m-d')),['id'=>'fechaSalida','class'=>'form-control datepicker'])!!}
+                {!!Form::date('fechaSalida',old('fechaSalida', date('Y-m-d')),['id'=>'fechaSalida','class'=>'form-control', 'required'])!!}
             </div>
         </div>
         <div class="input-group">
@@ -20,10 +19,9 @@
                 <i class="material-icons">directions_car</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label" for="numeroPlaca">Vehículo
-                    <small>(*)</small>
+                <label class="control-label" for="numeroPlaca"><code>*</code>Vehículo
                 </label>
-                {!!Form::text('numeroPlaca',old('numeroPlaca'),['id'=>'numeroPlaca','class'=>'form-control','required'])!!}
+                {!! Form::select('numeroPlaca', $placas , null , ['id'=>'numeroPlaca','class'=>'form-control','required']) !!}
             </div>
         </div>
 
@@ -35,8 +33,7 @@
                 <i class="material-icons">place</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Destino
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Destino
                 </label>
                 {!!Form::text('destinoTrasladarse',old('destinoTrasladarse'),['id'=>'destinoTrasladarse','class'=>'form-control','required'])!!}
             </div>
@@ -46,11 +43,9 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Solicitante
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Solicitante
                 </label>
-                {!!Form::text('solicitante',old('solicitante'),['id'=>'solicitante','class'=>'form-control','required'])!!}
-                {!! Form::hidden('idsolicitante',null,['id'=>'idsolicitante']) !!}
+                {!!Form::select('solicitante',$empleados, null ,['id'=>'solicitante','class'=>'form-control','required'])!!}
             </div>
         </div>
     </div>
@@ -60,8 +55,7 @@
                 <i class="material-icons"></i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Misión
-                </label>
+                <label class="control-label">Misión</label>
                 {!!Form::textarea('mision',old('mision'),['id'=>'mision','class'=>'form-control','rows'=>'3'])!!}
             </div>
         </div>
@@ -77,10 +71,9 @@
                 <i class="material-icons">date_range</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Fecha de Vale
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Fecha de Vale
                 </label>
-                {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control datepicker'])!!}
+                {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control', 'required'])!!}
             </div>
         </div>
     </div>
@@ -91,10 +84,9 @@
                 <i class="material-icons">vpn_key</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label" id="muestra">Número de vale
-                    <small>(*)</small>
+                <label class="control-label" id="muestra"><code>*</code>Número de vale
                 </label>
-                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'require'])!!}
+                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'required'])!!}
             </div>
         </div>
     </div>
@@ -105,8 +97,7 @@
                 <i class="material-icons">ev_station</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Gasolinera
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Gasolinera
                 </label>
                 {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control','required'])!!}
             </div>
@@ -116,8 +107,7 @@
     <div class="col-sm-12">
         <div class="input-group ">
             <span class="input-group-addon">
-                <label >Tipo de combustible
-                        <small>(*)</small>
+                <label ><code>*</code>Tipo de combustible
                 </label>
             </span>
             <div class="radio">
@@ -143,8 +133,7 @@
                 <i class="material-icons">ev_station</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Número de galones
-                </label>
+                <label class="control-label">Número de galones</label>
                 {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
             </div>
         </div>
@@ -156,8 +145,7 @@
                 <i class="material-icons">local_atm</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Costo de galones
-                </label>
+                <label class="control-label"><code>*</code>Costo total galones</label>
                 {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control'])!!}
             </div>
         </div>
@@ -171,11 +159,11 @@
             </span>
             <div class="checkbox">
                 <label style="color: #0d3625;">
-                    <input id="aceite" name="aceite" type="checkbox" data-toggle="collapse" data-target="#collapseAceite">
+                    <input id="aceite" name="aceite" type="checkbox" data-toggle="collapse" data-target="#collapseAceite" >
                     Aceite &nbsp;
                 </label>
                 <label style="color: #0d3625;">
-                    <input id="grasa" name="grasa" type="checkbox" data-toggle="collapse" data-target="#collapseGrasa">
+                    <input id="grasa" name="grasa" type="checkbox" data-toggle="collapse" data-target="#collapseGrasa" >
                     Grasa &nbsp;
                 </label>
                 <label style="color: #0d3625;" >
@@ -193,7 +181,7 @@
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo de aceite
+                    <label class="control-label"><code>*</code>Costo total aceite
                     </label>
                     {!!Form::text('costoAceite',old('costoAceite'),['id'=>'costoAceite','class'=>'form-control'])!!}
                 </div>
@@ -206,7 +194,7 @@
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo grasa
+                    <label class="control-label"><code>*</code>Costo total grasa
                     </label>
                     {!!Form::text('costoGrasa',old('costoGrasa'),['id'=>'costoGrasa','class'=>'form-control'])!!}
                 </div>
@@ -228,49 +216,15 @@
             </div>
         </div>
 
-        <div class="col-sm-5" >
-            <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">local_atm</i>
-            </span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Costo
-                    </label>
-                    {!!Form::text('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control'])!!}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-1 collapse" style="margin-top: 12px; ">
-                <a class="btn btn-sm" data-toggle="collapse" href="#collapseOtrosMas" style="background: dodgerblue;" >
-                  <i class="material-icons">add</i>
-                </a>
-        </div>
-    </div>
-
-    <div class="col-sm-12 collapse" id="collapseOtrosMas">
-        <div class="col-sm-6">
-            <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">ev_station</i>
-            </span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Especifique nombre
-                    </label>
-                    {!!Form::text('nombreOtro2',old('nombreOtro2'),['id'=>'nombreOtro2','class'=>'form-control'])!!}
-                </div>
-            </div>
-        </div>
-
         <div class="col-sm-6" >
             <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo
+                    <label class="control-label"><code>*</code>Costo total otro
                     </label>
-                    {!!Form::text('costoOtro2',old('costoOtro2'),['id'=>'costoOtro2','class'=>'form-control', 'placeholder'=>'0.0'])!!}
+                    {!!Form::text('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
@@ -301,11 +255,8 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Empleado que autoriza
-                    <small>(*)</small>
-                </label>
-                {!!Form::text('empAutoriza',old('empAutoriza'),['id'=>'empAutoriza','class'=>'form-control datepicker', 'required'])!!}
-                {!! Form::hidden('idempAutoriza',null,['id'=>'idempAutoriza']) !!}
+                    <label class="control-label"><code>*</code>Empleado que autoriza</label>
+                    {!! Form::select('empAutoriza',$empleados, $autoriza->idEmpleado,['id'=>'empAutoriza','class'=>'form-control datepicker', 'required'])!!}
             </div>
         </div>
 
@@ -317,11 +268,9 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Empleado que recibe
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Empleado que recibe
                 </label>
-                {!!Form::text('empRecibe',old('empRecibe'),['id'=>'empRecibe','class'=>'form-control','required'])!!}
-                {!! Form::hidden('idempRecibe',null,['id'=>'idempRecibe']) !!}
+                {!!Form::select('empRecibe',$empleados, null ,['id'=>'empRecibe','class'=>'form-control','required'])!!}
             </div>
         </div>
 
@@ -329,8 +278,7 @@
     <div class="col-sm-6 col-sm-offset-4">
         <div class="input-group">
             <div class="form-group ">
-                <label > Estado de entrega
-                    <small>(*)</small>
+                <label ><code>*</code> Estado de entrega
                 </label>
                 <label class="switch">
                     <input type="checkbox" name="estadoEntregadoVal" id="estadoEntregadoVal" checked>
@@ -452,47 +400,10 @@
 
         $( function()
         {
-            var placas= "{{ route('autocompletePlacas') }}";
-
-            $( '#numeroPlaca' ).autocomplete({
-                source: placas,
-            });
-
-        });
-
-        $( function()
-        {
             var destinos= "{{ route('autocompleteDestinos') }}";
 
             $( '#destinoTrasladarse' ).autocomplete({
                 source: destinos
-            });
-
-        });
-
-        $( function()
-        {
-            var empleado= "{{ route('autocompleteEmpleado') }}";
-
-            $( '#solicitante' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idsolicitante').val(ui.item.id);
-                }
-            });
-
-            $( '#empAutoriza' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idempAutoriza').val(ui.item.id);
-                }
-            });
-
-            $( '#empRecibe' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idempRecibe').val(ui.item.id);
-                }
             });
 
         });
@@ -522,15 +433,6 @@
     {!!Html::script('js/jquery.mask.min.js')!!}
     <script type="text/javascript">
         $(document).ready(function(){
-
-            var options = {
-                translation: {
-                    'A': {pattern: /[A-Z]/},
-                    'a': {pattern: /[a-zA-Z]/},
-                    'S': {pattern: /[a-zA-Z0-9]/},
-                    'L': {pattern: /[a-z]/},
-                }
-            }
 
             $("#numeroVale").mask("00000");
 
@@ -701,6 +603,67 @@
         }
     </script>
 
+    <script>
+        var aceite = $('#aceite');
+        aceite.on('click', function(){
+          if(!(aceite.prop('checked'))){
+              $('#costoAceite').prop('required', false);
+              var costo= parseFloat($('#costoAceite').val());
+              if(isNaN(costo))costo=0.0;
+              total((parseFloat($('#costoUnitarioVale').val())-costo ));
+              $('#costoAceite').val('');
+          }else{
+              $('#costoAceite').prop('required', true);
+          }
+
+        });
+    </script>
+
+    <script>
+        var grasa = $('#grasa');
+        grasa.on('click', function(){
+            if(!(grasa.prop('checked'))){
+                $('#costoGrasa').prop('required', false);
+                var costo= parseFloat($('#costoGrasa').val());
+                if(isNaN(costo))costo=0.0;
+                total((parseFloat($('#costoUnitarioVale').val())-costo ));
+                $('#costoGrasa').val('');
+            }else{
+                $('#costoGrasa').prop('required', true);
+            }
+
+        });
+    </script>
+
+    <script>
+        var otros = $('#otros');
+        otros.on('click', function(){
+            if(!(otros.prop('checked'))){
+                $('#nombreOtro').prop('required', false);
+                $('#costoOtro').prop('required', false);
+                var costo= parseFloat($('#costoOtro').val());
+                if(isNaN(costo))costo=0.0;
+                total((parseFloat($('#costoUnitarioVale').val())-costo ));
+                $('#costoOtro').val('');
+                $('#nombreOtro').val('');
+            }else{
+                $('#nombreOtro').prop('required', true);
+                $('#costoOtro').prop('required', true);
+            }
+
+        });
+    </script>
+
+    <script>
+        var solicitante= $('#solicitante');
+        var recibe=$('#empRecibe');
+
+        solicitante.on('change', function(){
+
+            recibe.val(solicitante.find('option:selected').val());
+
+        });
+    </script>
 @endsection
 
 

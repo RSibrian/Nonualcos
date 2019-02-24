@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
-use App\Activos;
 
 class Vehiculo extends Model implements Auditable
 {
@@ -55,5 +54,34 @@ class Vehiculo extends Model implements Auditable
             ])
             ->whereBetween('fechaRetornoTaller', [$fechaI, $fechaF ])
             ->get();
+    }
+
+    public static function PlacasDisponibles(){
+
+          $vehiculosSalidas=Salidas::join('vales', 'salidas.id', '=', 'vales.idSalida')
+              ->join('vehiculos', 'salidas.idVehiculo', '=', 'vehiculos.id')
+              ->where('vales.estadoRecibidoVal','=', '0')->get(['vehiculos.id']);
+
+          $vehiculosMantenimiento=Activos::join('mantenimientos', 'activos.id', '=', 'mantenimientos.idActivo')
+              ->join('vehiculos', 'activos.id', '=', 'vehiculos.idActivo')
+              ->where('mantenimientos.fechaRetornoTaller','=',null)
+              ->get(['vehiculos.id']);
+
+         $vehiculosActivos=Activos::join('vehiculos', 'activos.id', '=', 'vehiculos.idActivo')
+            ->where([
+                ['activos.estadoActivo','=','1'],
+                ['activos.tipoActivo','=','1'],
+                ['activos.codigoInventario','=',null]
+            ])->orWhere([
+                ['activos.estadoActivo','=','0'],
+                ['activos.tipoActivo','=','1'],
+            ])->get(['vehiculos.id']);
+
+         //$lista=$vehiculosSalidas->concat($vehiculosMantenimiento)->concat($vehiculosActivos);
+
+            $lista=$vehiculosSalidas->merge($vehiculosMantenimiento)->merge($vehiculosActivos);
+            $lista=$lista->toArray();
+
+            return Vehiculo::whereNotIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
     }
 }

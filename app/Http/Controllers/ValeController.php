@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Empleado;
 use App\Vale;
 use App\Vehiculos;
+use Illuminate\Support\Facades\Auth;
 use Response;
 use Input;
 
@@ -21,10 +22,7 @@ class valeController extends Controller
     public function index()
     {
       // retorna la vista principal o index de vales de combustible
-      $_vales = Vale::select('*')
-          ->where('estadoLiquidacionVal', '=', '0')
-          ->orderBy('updated_at', 'desc')
-          ->get();
+          $_vales = Vale::darIndex();
 
       return View('vales.index',compact('_vales'));
     }
@@ -32,8 +30,13 @@ class valeController extends Controller
     public function create()
     {
       // retorna la vista para el registro de nuevo vale
+        $placas = Vehiculo::PlacasDisponibles();
+        $empleados = Vale::EmpleadosActivos();
+        $autoriza= User::find(Auth::id());
+        Vale::verifica($autoriza,$placas, $empleados);
+        $placas=$placas->prepend('Seleccione una placa', '0');
 
-      return View('vales.create');
+      return View('vales.create', compact('placas', 'empleados', 'autoriza'));
     }
 
     public function show(Vale $vale){
@@ -56,12 +59,15 @@ class valeController extends Controller
 
         $salida=$vale->salida;
         $vehiculo=$vale->salida->vehiculo;
-        $solicitante=$vale->salida->empleados;
-        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
-        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
+
+        $placas = Vehiculo::pluck('vehiculos.numeroPlaca', 'vehiculos.id');
+        $empleados = Vale::EmpleadosActivos();
+        $autoriza= User::find(Auth::id());
+        Vale::verifica($autoriza,$placas, $empleados);
+        $placas=$placas->prepend('Seleccione una placa', '0');
 
          //echo dd($vale);
-        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'solicitante', 'recibe', 'autoriza'));
+        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'placas', 'empleados'));
 
     }
 
@@ -77,6 +83,18 @@ class valeController extends Controller
     {
         $request->updateVale($request, $vale);
         return redirect('/vales')->with('update','Se ha editado con éxito el registro de vale');
+    }
+
+    public function entregar(Vale $vale)
+    {
+        $vale->update(['estadoEntregadoVal' => '1']);
+        return json_encode("entregado");
+    }
+
+    public function devolver(Vale $vale)
+    {
+        $vale->update(['estadoRecibidoVal' => '1']);
+        return json_encode("devuelto");
     }
 
     public function ValeVistaReporte(Vale $vale){
@@ -102,22 +120,6 @@ class valeController extends Controller
 
     }
 
-
-    public function autocompletePlacas(){
-        $term = Input::get('term');
-        $results = array();
-
-        $queries = Vehiculo::where('numeroPlaca', 'LIKE', '%'.$term.'%')
-            ->take(6)->get();
-
-        foreach ($queries as $query)
-        {
-            $results[] = [ 'id' => $query->id, 'value' => $query->numeroPlaca];
-        }
-        return Response::json($results);
-
-    }
-
     public function autocompleteDestinos(){
         $term = Input::get('term');
         $results = array();
@@ -130,23 +132,6 @@ class valeController extends Controller
         foreach ($queries as $query)
         {
             $results[] = ['value' => $query->destinoTrasladarse];
-        }
-        return Response::json($results);
-
-    }
-
-    public function autocompleteEmpleado(){
-        $term = Input::get('term');
-        $results = array();
-
-        $queries = Empleado::where('nombresEmpleado', 'LIKE', '%'.$term.'%')
-            ->orWhere('apellidosEmpleado', 'LIKE', '%'.$term.'%')
-            ->take(6)->get();
-
-        foreach ($queries as $query)
-        {
-            $results[] = ['id' => $query->id,'value' => $query->nombresEmpleado.' '.$query->apellidosEmpleado];
-
         }
         return Response::json($results);
 
