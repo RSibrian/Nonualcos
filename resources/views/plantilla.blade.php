@@ -18,6 +18,9 @@
   {{ Html::style('css/google-roboto-300-700.css') }}
   <!-- css para galeria de imagines-->
   {!!Html::style('css/lightbox.css')!!}
+  <!-- icono css de carga-->
+  {!!Html::style('css/cargar.css')!!}
+
   <style>
 
   .campoObligatorio {
@@ -92,6 +95,11 @@
 
 </head>
 <body class="">
+  <div id="contenedor_carga">
+    <div id="carga">
+
+    </div>
+  </div>
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('img/sidebar-1.jpg') }}">
       <!--
@@ -205,7 +213,7 @@
               <a href="{{ route('empleados.index') }}">Empleados</a>
             </li>
             <li>
-              <a href="{{ route('planillas.index') }}">Planilla de pago</a>
+              <a href="{{ route('empleadoPlanillas.index') }}">Planillas</a>
             </li>
             <li>
               <a href="{{ route('indemnizaciones.index') }}">Pasivo Laboral (Indemnizaciones)</a>
@@ -318,6 +326,13 @@
 </div>
 </div>
 </body>
+<script>
+  window.onload= function(){
+    var contenedor= document.getElementById('contenedor_carga');
+    contenedor.style.visibility="hidden";
+    contenedor.style.opacity='0';
+  }
+</script>
 <!--   Core JS Files   -->
 {{ Html::script('js/jquery-3.1.1.min.js') }}
 {{ Html::script('js/jquery-ui.min.js') }}

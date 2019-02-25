@@ -74,6 +74,7 @@
                                         <td>{{$empleado->nombresEmpleado." ".$empleado->apellidosEmpleado}}</td>
                                         <td>{{$detalle->unidad}}</td>
                                         <td>{{$detalle->cargo}}</td>
+                                        <td>${{\Helper::dinero($detalle->salario)}}</td>
                                         <td>{{$detalle->dias}}</td>
                                         <td>${{\Helper::dinero($detalle->salarioDevengado)}}</td>
                                         <td>${{\Helper::dinero($detalle->ISSS)}}</td>
