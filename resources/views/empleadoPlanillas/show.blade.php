@@ -6,40 +6,19 @@
                 <div class="card-header card-header-icon" data-background-color="ocre">
                     <i class="material-icons">assignment</i>
                 </div>
-                <?php
-                $mes=date("m");
-                $dias=date("t");
-                $anno=date("Y");
-                $fecha_fin_inicio = date($anno."-".$mes."-01");
-                $fecha_fin = date($anno."-".$mes."-".$dias);
-                $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_inicio +1 month"));
-
-                ?>
                 <div class="card-content">
-                    <h4 class="card-title">Planilla de Aguinaldos Año: {{$anno}}</h4>
+                    <h4 class="card-title"> Detalle de Planilla</h4>
                     <div class="toolbar">
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
+                    <?php
+                    $mes=date("m");
+                    $dias=date("t");
+                    $anno=date("Y");
+                    $fecha_fin_inicio = date($anno."-".$mes."-01");
+                    $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_inicio +1 month"));
 
-                    <a  aling='right' href="{{ url("aguinaldos/create/excel/$exento") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
-                        <i class="material-icons"></i>
-                        Aguinaldo de Empleados
-                    </a>
-                    <a  aling='right' href="{{ url("aguinaldos/create/reporte/$exento") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
-                        <i class="material-icons"></i>
-                        Boleta de pago
-                    </a>
-                    {!! Form::open(['route'=>'aguinaldos.store','method'=>'POST']) !!}
-
-                    <input type="hidden" name="exento" value="{{$exento}} ">
-                    <input type="hidden" name="concepto" value="Pago de Aguinaldo {{$mes}} de {{$anno}} execto {{$exento}} ">
-                    <div align="center" class="row">
-                        {!! Form::submit('Procesar',['id'=>"agregar_permiso" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                    </div>
-                    {!! Form::close() !!}
-
-
-
+                    ?>
                     <div class="material-datatables">
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
                             <thead>
@@ -47,8 +26,7 @@
                                     <th></th>
                                     <th>#</th>
                                     <th>Número de DUI</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
+                                    <th>Empleado</th>
                                     <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario</th>
@@ -68,8 +46,7 @@
                                     <th></th>
                                     <th>#</th>
                                     <th>Número&nbsp;DUI</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
+                                    <th>Empleado</th>
                                     <th>Unidad</th>
                                     <th>Cargo</th>
                                     <th>Salario&nbsp;Personal </th>
@@ -85,25 +62,26 @@
                             </tfoot>
                             <tbody>
                                  <?php $cont=0;?>
-                                @foreach ($empleados as $empleado)
+                                @foreach ($planilla->empledo_planillas as $detalle)
+                                  <?php
+                                    $empleado=$detalle->empleado;
+                                  ?>
                                     <tr>
                                         <td></td>
                                         <?php $cont++;?>
                                         <td>{{$cont}}</td>
                                         <td>{{$empleado->DUIEmpleado}}</td>
-                                        <td>{{$empleado->nombresEmpleado}}</td>
-                                        <td>{{$empleado->apellidosEmpleado}}</td>
-                                        <td>{{$empleado->cargo->unidad->nombreUnidad}}</td>
-                                        <td>{{$empleado->cargo->nombreCargo}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->salarioBruto,2))}}</td>
-                                        <td>{{$empleado->dias_trabajados}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->salario_ganado,2))}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->ISSS,2))}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->AFP_empleado,2))}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->descuento_renta,2))}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->descuento_tiempo,2))}} </td>
-                                        <td>${{\Helper::dinero(round($empleado->total_descuentos,2))}}</td>
-                                        <td>${{\Helper::dinero(round($empleado->liquido,2))}}</td>
+                                        <td>{{$empleado->nombresEmpleado." ".$empleado->apellidosEmpleado}}</td>
+                                        <td>{{$detalle->unidad}}</td>
+                                        <td>{{$detalle->cargo}}</td>
+                                        <td>{{$detalle->dias}}</td>
+                                        <td>${{\Helper::dinero($detalle->salarioDevengado)}}</td>
+                                        <td>${{\Helper::dinero($detalle->ISSS)}}</td>
+                                        <td>${{\Helper::dinero($detalle->AFP)}}</td>
+                                        <td>${{\Helper::dinero($detalle->renta)}}</td>
+                                        <td>${{\Helper::dinero($detalle->llegadasTarde)}} </td>
+                                        <td>${{\Helper::dinero($detalle->totalDescuentos)}}</td>
+                                        <td>${{\Helper::dinero($detalle->sueldoNeto)}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -719,7 +719,7 @@ Route::middleware(['auth'])->group(function () {
            //indemnizaciones
 
     //aguinaldo
-    Route::get('aguinaldos/{empleado}','AguinaldoController@show')
+    Route::post('aguinaldos/show','AguinaldoController@show')
         ->name('aguinaldos.show')
         ->middleware('permission:roles.index');
 
@@ -731,13 +731,24 @@ Route::middleware(['auth'])->group(function () {
         ->name('aguinaldos.store')
         ->middleware('permission:roles.create');
 
-    Route::get('aguinaldos/create/reporte','AguinaldoController@reporte')
+    Route::get('aguinaldos/create/reporte/{exento}','AguinaldoController@reporte')
         ->name('aguinaldos.reporte')
         ->middleware('permission:users.index');
-    Route::get('aguinaldos/create/excel','AguinaldoController@create')
+    Route::get('aguinaldos/create/excel/{exento}','AguinaldoController@create')
         ->name('aguinaldos.create')
         ->middleware('permission:unidads.create');
     //fin aguinaldo
+
+    //empleadoPlanillas
+           Route::get('empleadoPlanillas','EmpleadoPlanillaController@index')
+           ->name('empleadoPlanillas.index')
+           ->middleware('permission:proveedores.index');
+
+           Route::get('empleadoPlanillas/{planilla}','EmpleadoPlanillaController@show')
+           ->name('empleadoPlanillas.show')
+           ->middleware('permission:proveedores.index');
+
+           //fin empleadoPlanillas
 
 
 

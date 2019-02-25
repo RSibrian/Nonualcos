@@ -87,7 +87,10 @@
                   </div>
                 </div>
 
-                <div class="col-sm-10 row col-sm-offset-1" id="uso" style="display: none;">
+                @if($activo->tipoAdquisicion==0)  <?php $x="block";?>@else  <?php $x="none";?>@endif
+                @if($activo->estadoUsado==1)  <?php $y="block";?>@else  <?php $y="none";?>@endif
+
+                <div class="col-sm-10 row col-sm-offset-1" id="uso" style="display:{{$x}};">
 
                   <div class="input-group ">
                     <span class="input-group-addon">
@@ -106,7 +109,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-10 row col-sm-offset-1 " id="anios" style="display: none;">
+                <div class="col-sm-10 row col-sm-offset-1 " id="anios" style="display: {{$y}};">
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">credit_card</i>
@@ -118,6 +121,8 @@
                     </div>
                   </div>
                 </div>
+
+
                 <div class="col-sm-5 row col-sm-offset-1" >
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -312,7 +317,7 @@
                     <div class="form-group label-floating">
                       <label class="control-label"><code>*</code>Número de factura:
                       </label>
-                      {!!Form::text('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
+                      {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
                     </div>
                   </div>
                 </div>
@@ -324,7 +329,7 @@
                     <div class="form-group label-floating">
                       <label class="control-label"><code>*</code>Precio del activo:
                       </label>
-                      {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required'])!!}
+                      {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required','step'=>"any"])!!}
                     </div>
                   </div>
                 </div>
@@ -377,10 +382,13 @@ function mostrarAniosUsado() {
   if (resultado==0)
   {
     document.getElementById('anios').style.display='none';
+    document.getElementById("aniosUso").value = "";
+
   }
   else
   {
     document.getElementById('anios').style.display='block';
+    document.getElementById("aniosUso").value = "";
   }
 }
 
@@ -388,12 +396,16 @@ $('#tipoAdquisicion').on('change',function(e){
   var tipo=$("#tipoAdquisicion").find('option:selected');
   if (tipo.val()==0)
   {
+
     document.getElementById('uso').style.display='block';
     document.getElementById('factura').style.display='none';
   }
   else
   {
+    document.getElementById("aniosUso").value = "";
+    document.getElementById("radioNoUsado").checked = "true";
     document.getElementById('uso').style.display='none';
+    document.getElementById('anios').style.display='none';
     document.getElementById('factura').style.display='block';
   }
 });

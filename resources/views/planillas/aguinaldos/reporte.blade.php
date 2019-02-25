@@ -51,7 +51,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                     <td colspan="6" align="center">ASOCIACIÓN DE MUNICIPIOS LOS NONUALCOS</td>
                 </tr>
                 <tr>
-                    <td colspan="6" align="center">Boleta de Pago Corespondiente al mes de {{$meses[intval($mes)]}} del {{$anno}}</td>
+                    <td colspan="6" align="center">Boleta de Pago Corespondiente al Aguinaldo del Año: {{$anno}}</td>
                 </tr>
                 <tr>
                     <th>DUI: </th>
@@ -111,22 +111,13 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                     </tr>
                 @endif
                 @if($empleado->prestamoBandera)
-                    @foreach ($empleado->descuentos_var as $descuento)
+
                         <tr>
-                            @if($descuento->tipoDescuento==1)
-                                <td colspan="2">Prestamo {{$descuento->banco->ban_nombre}}</td>
-                            @endif
-                            @if($descuento->tipoDescuento==2)
-                                <td colspan="2">Cuota Alimentaria {{$descuento->banco->ban_nombre}}</td>
-                            @endif
-                            @if($descuento->tipoDescuento==3)
-                                <td colspan="2">Otros {{$descuento->banco->ban_nombre}}</td>
-                            @endif
+                            <td colspan="2">Cuota Alimentaria </td>
                             <td colspan="2" align="right">-</td>
-                            <td colspan="2" align="right">$ {{\Helper::dinero(round($descuento->pago,2))}}</td>
+                            <td colspan="2" align="right">$ {{\Helper::dinero(round($empleado->tota_pre,2))}}</td>
 
                         </tr>
-                    @endforeach
                 @endif
                 <tr style="border-bottom: 6px solid red;">
                     <td></td>
@@ -184,4 +175,3 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
 @endforeach
 </body>
 </html>
-

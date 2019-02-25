@@ -22,8 +22,7 @@ class AguinaldoController extends Controller
      */
     public function index()
     {
-        $empleados=AguinaldoController::aguinaldo();
-        return view('planillas.aguinaldos.index',compact('empleados'));
+
     }
 
     /**
@@ -31,9 +30,9 @@ class AguinaldoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($exento)
     {
-        $empleados=AguinaldoController::aguinaldo();
+        $empleados=AguinaldoController::aguinaldo($exento);
         $date=date("d-m-Y");
 
         Excel::create("Planilla de empleados $date ", function ($excel) use ($empleados) {
@@ -55,10 +54,10 @@ class AguinaldoController extends Controller
      */
     public function store(Request $request)
     {
-        $empleados = AguinaldoController::aguinaldo();
+        $empleados = AguinaldoController::aguinaldo($request['exoneracion']);
         Planilla::create([
             'concepto'=>$request['concepto'],
-            'mes'=>date("m"),
+            'mes'=>13,
             'anno'=>date("Y"),
             'fechaPago'=>date('Y-m-d'),
         ]);
@@ -89,6 +88,7 @@ class AguinaldoController extends Controller
                 'renta'=>round($empleado->descuento_renta,2)
             ]);
         }
+          return redirect('/empleadoPlanillas')->with('create','Se ha Guardado con exito la planilla');
     }
 
     /**
@@ -97,8 +97,11 @@ class AguinaldoController extends Controller
      * @param  \App\planilla  $planilla
      * @return \Illuminate\Http\Response
      */
-    public function show(Empleado $empleado)
+    public function show(Request $request )
     {
+      $exento=$request['exoneracion'];
+      $empleados=AguinaldoController::aguinaldo($request['exoneracion']);
+      return view('planillas.aguinaldos.index',compact('empleados','exento'));
 
     }
 
@@ -135,9 +138,9 @@ class AguinaldoController extends Controller
     {
         //
     }
-    public function reporte()
+    public function reporte($exento)
     {
-        $empleados=AguinaldoController::aguinaldo();
+        $empleados=AguinaldoController::aguinaldo($exento);
         $date = date('d-m-Y');
         $date1 = date('g:i:s a');
         $vistaurl="planillas.aguinaldos.reporte";
@@ -147,9 +150,9 @@ class AguinaldoController extends Controller
         $pdf->setPaper('letter', 'portrait');
         //$pdf->setPaper('A4', 'landscape');
         //return $pdf->download('Reporte planillas '.$date.'.pdf');
-        return $pdf->stream('Reporte planillas '.$date.'.pdf');
+        return $pdf->stream('Reporte Aguinaldo '.$date.'.pdf');
     }
-    static function aguinaldo()
+    static function aguinaldo($exento)
     {
         $mes = date("m");
         $anno = date("Y");
@@ -187,11 +190,10 @@ class AguinaldoController extends Controller
             $empleado->descuentos_alimeticios = 0;
             $empleado->otros = 0;
             foreach ($empleado->descuentos_var as $descuento) {
-                if ($descuento->tipoDescuento == 2) $empleado->descuentos_alimeticios += $descuento->pago;
+               $empleado->descuentos_alimeticios = $empleado->salario_ganado*0.30;
             }
             $empleado->total_descuentos = round($empleado->AFP_empleado,2);
             $empleado->salario_descuentos = round($empleado->salario_ganado,2) - $empleado->total_descuentos;
-            $exento=608.34;
             $empleado->exceso_aguinaldo=0;
             if($empleado->salarioBruto>=$exento) {
                 $empleado->exceso_aguinaldo = $empleado->salarioBruto - $exento;
@@ -214,23 +216,7 @@ class AguinaldoController extends Controller
                         $empleado->descuento_renta = 0;
                     }
                     $empleado->descuento_renta =  $empleado->descuento_renta_mayor-$empleado->descuento_renta_menor;
-
-                /*}
-                else{
-                    if ($empleado->salario_descuentos != 0) {
-                        $renta = \App\Renta::where('desde', '<=', $empleado->exceso_aguinaldo)->where('hasta', '>=', $empleado->exceso_aguinaldo)->get();
-                        $salario_exceso = $empleado->exceso_aguinaldo - $renta[0]->sobreExceso;
-                        $empleado->descuento_renta = ($salario_exceso * ($renta->last()->porcentaje / 100)) + $renta->last()->cuotaFija;
-
-                    } else {
-                        $empleado->descuento_renta = 0;
-                    }
-                }*/
             }
-
-
-
-
             $empleado->total_descuentos = round($empleado->descuento_renta,2);
             $empleado->AFP_empleado=0;
             $empleado->liquido = round($empleado->salario_ganado,2) - $empleado->total_descuentos;

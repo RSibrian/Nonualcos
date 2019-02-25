@@ -107,7 +107,7 @@ class ActivosController extends Controller
       //52dd($activo);
       $clasificaciones=ClasificacionesActivos::pluck('nombreTipo','id');
 
-      $proveedores=Proveedor::pluck('nombreEmpresa','id');
+      $proveedores=Proveedor::All()->where('tipoProveedor','!=',2 )->pluck('nombreEmpresa','id');
       $date = $activo->fechaAdquisicion;
       //$vehiculo=Activos::vehiculo($activo->id);
       return view('activos.edit',compact('clasificaciones','proveedores','date','activo'));

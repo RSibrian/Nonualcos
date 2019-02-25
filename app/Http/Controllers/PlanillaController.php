@@ -82,7 +82,7 @@ class PlanillaController extends Controller
             ]);
             AjusteRenta::create([
                 'idEmpleado'=>$empleado->id,
-                'salario'=>round($empleado->salarioBruto,2),
+                'salario'=>round($empleado->salario_ganado,2),
                 'AFP'=>round($empleado->AFP_empleado,2),
                 'renta'=>round($empleado->descuento_renta,2)
             ]);
@@ -137,6 +137,8 @@ class PlanillaController extends Controller
                 $ajuste->delete();
             }
         }
+        return redirect('/empleadoPlanillas')->with('create','Se ha Guardado con exito la planilla');
+
     }
 
     /**
@@ -147,46 +149,7 @@ class PlanillaController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        //
-       /* $mes=date("m");
-        $dias=date("t");
-        echo "mes actual = ".$mes."<br>";
-        echo "dias del mes = ".$dias."<br>";
-        $salario=$empleado->salarioBruto;
-        $salario_diario=$salario/$dias;
-        $salario_ganado=$salario_diario*$dias;
 
-        if($salario_ganado>=1000)
-        {
-            $ISSS=30;
-        }
-        else
-        {
-            $ISSS = $empleado->seguro->desEmpleadoAportacion * $salario_ganado;
-            $ISSS=$ISSS/100;
-        }
-        $AFP_nombre=$empleado->AFP->nombreAportacion;
-        $AFP=$salario_ganado*$empleado->AFP->desEmpleadoAportacion;
-        $AFP=$AFP/100;
-
-        //salario ganado tengo descontar llegadas tardias?
-        $salario_descuentos=$salario_ganado-$ISSS-$AFP;
-        $renta=Renta::where('desde','<=',$salario_descuentos)->where('hasta','>=',$salario_descuentos)->get();
-        $salario_exceso=$salario_descuentos-$renta->last()->sobreExceso;
-        $descuento_renta = ($salario_exceso * ($renta->last()->porcentaje / 100)) + $renta->last()->cuotaFija;
-        echo $empleado->nombresEmpleado."<br>";
-        echo "Salario BRUTO = ".$salario."<br>";
-        echo "Salario Diario = ".round($salario_diario,2)."<br>";
-        echo "Salario Ganado = ".round($salario_ganado,2)."<br>";
-        echo " ISSS = ". round($ISSS, 2)."<br>";
-        echo $AFP_nombre."  = ". round($AFP, 2)."<br>";
-        echo "Salario después de descuentos = ". round($salario_descuentos,2)."<br>";
-        echo "tramo ".$renta->last()->tramo."<br>";
-        echo "cuota fija = ".$renta->last()->cuotaFija."   -- Exceso = ".$salario_exceso.' ----- ';
-        echo  "porcentaje = ".$renta->last()->porcentaje."<br>";
-        echo "descontar de renta = ". $descuento_renta."<br>";
-        $liquido=$salario_descuentos-$descuento_renta;
-        echo "Líquido = ". $liquido."<br>";*/
     }
 
     /**

@@ -17,12 +17,12 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
 
     </tr>
     <tr>
-        <td colspan="9" align="center">PLANILLA DE SALARIOS MENSUAL - FONDOS CTA BANCO CUENTAS</td>
+        <td colspan="9" align="center">PLANILLA DE AGUINALDO</td>
     </tr>
     <tr></tr>
     <tr>
-        <td colspan="2"> PERIODO DE PAGO: DESDE: {{$inicio}}</td>
-        <td colspan="1"> HASTA: {{$ultimo}}</td>
+        <td colspan="2"> PERIODO DE PAGO: AÑO: {{$anno}}</td>
+        <td colspan="1"> </td>
         <td></td>
         <td colspan="4">SISTEMA DE CONTRATACIÓN</td>
         <td></td>
@@ -135,27 +135,20 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
             <td></td>
         </tr>
         @if($empleado->prestamoBandera==true)
-        @foreach ($empleado->descuentos_var as $descuento)
             <tr>
                 <td></td>
-                @if($descuento->tipoDescuento==1)
-                    <td>Prestamo {{$descuento->banco->ban_nombre}}</td>
-                @endif
-                @if($descuento->tipoDescuento==2)
-                    <td>Cuota Alimentaria {{$descuento->banco->ban_nombre}}</td>
-                @endif
-                @if($descuento->tipoDescuento==3)
-                    <td>Otros {{$descuento->banco->ban_nombre}}</td>
-                @endif
+
+                    <td>Cuota Alimentaria </td>
+
+
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style="color: #cc2127"; >${{\Helper::dinero(round($descuento->pago, 2))}}</td>
+                <td style="color: #cc2127"; >${{\Helper::dinero(round($empleado->tota_pre,2))}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
-        @endforeach
         @endif
         <tr>
             <td></td>
@@ -270,5 +263,3 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         <td align="right"> $ {{\Helper::dinero(round($total_liquido,2))}}</td>
     </tr>
 </table>
-
-

@@ -309,7 +309,7 @@
                     <div class="form-group label-floating">
                       <label class="control-label"><code>*</code>Precio por unidad:
                       </label>
-                      {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required'])!!}
+                      {!!Form::number('precio',null,['id'=>'precio','class'=>'form-control','required','step'=>"any"])!!}
                     </div>
                   </div>
                 </div>
@@ -463,7 +463,7 @@
       });
     </script>
 
-    
+
   <script >
   $('#tipoAdquisicion').on('change',function(e){
     var tipo=$("#tipoAdquisicion").find('option:selected');
@@ -474,7 +474,10 @@
     }
     else
     {
+      document.getElementById("aniosUso").value = "";
+      document.getElementById("radioNoUsado").checked = "true";
       document.getElementById('uso').style.display='none';
+      document.getElementById('anios').style.display='none';
       document.getElementById('factura').style.display='block';
     }
   });
@@ -516,10 +519,13 @@ function mostrarAniosUsado() {
   if (resultado==0)
   {
     document.getElementById('anios').style.display='none';
+    document.getElementById("aniosUso").value = "";
   }
   else
   {
+
     document.getElementById('anios').style.display='block';
+    document.getElementById("aniosUso").value = "";
   }
 }
 

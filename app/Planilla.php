@@ -11,4 +11,9 @@ class Planilla extends Model
     protected $fillable = [
         'concepto','mes','anno','fechaPago'
     ];
+
+    public function empledo_planillas()
+    {
+        return $this->hasMany(EmpleadoPlanilla::class,'idPlanilla');
+    }
 }

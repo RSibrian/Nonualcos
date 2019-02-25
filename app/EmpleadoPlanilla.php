@@ -14,4 +14,8 @@ class EmpleadoPlanilla extends Model
         'llegadasTarde','totalDescuentos','sueldoNeto',
         'ISSSPatronal','AFPPatronal'
     ];
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class,'idEmpleado');
+    }
 }
