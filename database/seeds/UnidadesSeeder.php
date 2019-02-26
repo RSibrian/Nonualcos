@@ -14,10 +14,14 @@ class UnidadesSeeder extends Seeder
         //
         \App\Unidades::create([
             'codigoUnidad' => '001',
-            'nombreUnidad' => 'Informatica',
+            'nombreUnidad' => 'Bodega',
         ]);
         \App\Unidades::create([
             'codigoUnidad' => '002',
+            'nombreUnidad' => 'Informatica',
+        ]);
+        \App\Unidades::create([
+            'codigoUnidad' => '003',
             'nombreUnidad' => 'Administracion Financiera',
         ]);
     }

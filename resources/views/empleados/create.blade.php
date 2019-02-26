@@ -216,6 +216,10 @@
                       <select name="estadoCivilEmpleado" id="estadoCivilEmpleado" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                         <option value="Soltero(a)">Soltero(a)</option>
                         <option value="Casado(a)">Casado(a)</option>
+                        <option value="Viudo(a)">Viudo(a)</option>
+
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+
                       </select>
                     </div>
                   </div>

@@ -32,7 +32,7 @@
                     {!! Form::open(['route'=>'aguinaldos.store','method'=>'POST']) !!}
 
                     <input type="hidden" name="exento" value="{{$exento}} ">
-                    <input type="hidden" name="concepto" value="Pago de Aguinaldo {{$mes}} de {{$anno}} execto {{$exento}} ">
+                    <input type="hidden" name="concepto" value="Pago de Aguinaldo mes: {{$mes}} de {{$anno}} execto de renta: {{$exento}} ">
                     <div align="center" class="row">
                         {!! Form::submit('Procesar',['id'=>"agregar_permiso" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                     </div>

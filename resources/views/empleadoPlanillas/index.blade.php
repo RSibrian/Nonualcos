@@ -85,7 +85,7 @@
 
                                         <td>{{$planilla->anno}}</td>
                                         <td>{{$planilla->concepto}}</td>
-                                        <td>${{\Helper::fecha($planilla->FechaPago)}}</td>
+                                        <td>{{\Helper::fecha($planilla->FechaPago)}}</td>
 
                                         <td>
                                               <a title="Ver Detalle" href="{{ url("empleadoPlanillas/{$planilla->id}") }}" class="btn btn-xs btn-info btn-round">
