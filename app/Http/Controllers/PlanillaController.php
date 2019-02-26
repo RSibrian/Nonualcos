@@ -205,7 +205,7 @@ class PlanillaController extends Controller
         $anno = date("Y");
         $fecha_fin_mes = date($anno . "-" . $mes . "-01");
         $fecha_fin_mes = date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
-        $empleados=Empleado::all();//orderBy('apellidosEmpleado', 'asc')->get();
+        $empleados=Empleado::all()->where('estadoEmpleado',1);//orderBy('apellidosEmpleado', 'asc')->get();
         foreach ($empleados as $empleado) {
             $dias = date("t");
             $empleado->dias_permios_sin_goce = 0;
