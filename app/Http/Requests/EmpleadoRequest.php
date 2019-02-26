@@ -34,7 +34,6 @@ class EmpleadoRequest extends FormRequest
       'NITEmpleado'=> 'required|size:17|unique:empleados',
       'idCargo'=> 'numeric',
       'telefonoEmpleado.*'=>'sometimes|nullable|size:9|distinct',
-      'telefonoEmpleado'=>'unique:telefono_empleados',
       'per_imagenE'=>'sometimes|nullable|mimes:jpeg,bmp,png',
       'fechaIngreso'=>'required|beforeor_equal:'.$now,
     ];
@@ -66,7 +65,6 @@ class EmpleadoRequest extends FormRequest
 
       'telefonoEmpleado.*.size'=>'Ingrese un número de teléfono válido (8 dígitos)',
       'telefonoEmpleado.*.distinct'=>'No puede ingresar un número de teléfono duplicado',
-      'telefonoEmpleado.unique'=>'El número de teléfono ya ha sido asignado',
 
       'per_imagenE.mimes'=>'Ingrese un archivo de imagen válido (jpeg/jpg,bmp,png)',
 

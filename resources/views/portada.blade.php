@@ -2,7 +2,7 @@
 @section('plantilla')
 <div class="row">
   <div class="material-datatables">
-    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%">
+    <table id="datatables" class="table table-striped table-no-bordered" cellspacing="0" style="background: white;">
       <tr>
         <td class="text-left">
           <img img src="{{ asset('img/logo.png') }}" class="" alt="User Image" width="140px" height="130px">
@@ -17,7 +17,10 @@
       </tr>
       <tr >
         <td colspan="3">
-          <img  src="{{ asset('img/logo.jpg') }}" class="" alt="User Image" width="101%" height="300%">
+          <img  src="{{ asset('img/logo.jpg') }}" style="width: 60%;
+  height: auto; background-size: contain; display:block;
+  margin-left: auto;
+  margin-right: auto;" alt="User Image">
         </td>
       </tr>
     </table>

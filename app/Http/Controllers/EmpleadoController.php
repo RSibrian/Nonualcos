@@ -144,6 +144,8 @@ class EmpleadoController extends Controller
             $tel->tipoTelefono=$request['tipoTelefono.'.$i];
             $tel->idEmpleado=$empleado->id;
             $tel->save();
+          }else{
+            $tel->delete()?'':'';
           }
         }
         return redirect("/empleados/{$empleado->id}")->with('update','Se ha editado correctamente el registro de empleado');

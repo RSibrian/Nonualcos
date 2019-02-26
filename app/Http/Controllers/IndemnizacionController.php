@@ -63,7 +63,7 @@ class IndemnizacionController extends Controller
         $empleado->salarioBruto>($min*4)
         ?$salario=$min*4
         :$salario=$empleado->salarioBruto;
-
+        //un salario mensual por año y su equivalente por los meses trabajados.
       $i['monto']=($salario*$i['years'])
       +(($salario/12)*$i['months'])
       +(($salario/360)*$i['dias']);
@@ -100,7 +100,7 @@ class IndemnizacionController extends Controller
       else $i['dias']="";
 
       $i['tiempo']=$i['years'].$i['months'].$i['dias'];
-      if ($i['years']<2) {
+      if ($i['years']<2 && $motivo=="Renuncia Voluntaria") {
         $i['tiempo']="No aplica (menos de dos años)";
         $i['monto']=0;
       }

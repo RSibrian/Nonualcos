@@ -35,7 +35,6 @@ class EmpleadoEditRequest extends FormRequest
             'NITEmpleado'=> 'required|size:17|unique:empleados,NITEmpleado,'.$this->empleado['id'],
             'idCargo'=> 'required|numeric',
             'telefonoEmpleado.*'=>'sometimes|nullable|size:9|distinct',
-            'telefonoEmpleado'=>Rule::unique('telefono_empleados')->ignore($this->empleado['id'],'idEmpleado'),
             'per_imagenE'=>'sometimes|nullable|mimes:jpeg,bmp,png',
             'fechaIngreso'=>'required|beforeor_equal:'.$now,
         ];
@@ -68,7 +67,6 @@ class EmpleadoEditRequest extends FormRequest
 
           'telefonoEmpleado.*.size'=>'Ingrese un número de teléfono válido (8 dígitos)',
           'telefonoEmpleado.*.distinct'=>'No puede ingresar un número de teléfono duplicado',
-          'telefonoEmpleado.unique'=>'El número de teléfono ya ha sido asignado',
 
           'per_imagenE.mimes'=>'Ingrese un archivo de imagen válido (jpeg/jpg,bmp,png)',
 
