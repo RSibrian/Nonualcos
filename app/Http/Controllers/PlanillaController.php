@@ -6,8 +6,10 @@ use App\AjusteRenta;
 use App\DiaPermiso;
 use App\Empleado;
 use App\EmpleadoPlanilla;
+use App\Helpers\Helper;
 use App\planilla;
 use App\Renta;
+use App\Salidas;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -147,9 +149,29 @@ class PlanillaController extends Controller
      * @param  \App\planilla  $planilla
      * @return \Illuminate\Http\Response
      */
-    public function show(Empleado $empleado)
+    public function show($id)
     {
-
+        $resultado= Salidas::all();
+        $indice=0;
+        foreach ($resultado as $solicitud) {
+            $date =  date('Y-m-d');
+            if($date>$solicitud->fechaSalida) $resultado[$indice]->color="#831517";
+            else $resultado[$indice]->color="#17A589";
+            $resultado[$indice]->start=$solicitud->fechaSalida;
+            $resultado[$indice]->end=$solicitud->fechaSalida;
+            $resultado[$indice]->title="Número de Placa: ".$solicitud->vehiculo->numeroPlaca;
+            $resultado[$indice]->descripcion=$solicitud->destinoTrasladarse?:"No Especificado";
+            $resultado[$indice]->nombre=$solicitud->empleados->full_name;
+            $resultado[$indice]->destino=$solicitud->destinoTrasladarse?:"No Especificado";
+            $resultado[$indice]->mision=$solicitud->mision?:"No Especificado";
+            $resultado[$indice]->fecha=Helper::fecha($solicitud->fechaSalida);
+            $indice++;
+        }
+        return response()->json($resultado);
+    }
+    public function calendario()
+    {
+        return view('calendario.calendar');
     }
 
     /**

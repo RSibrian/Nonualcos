@@ -235,9 +235,6 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:roles.create');
     //fin permisos
     //planillas
-    Route::get('planillas/{empleado}','PlanillaController@show')
-        ->name('planillas.show')
-        ->middleware('permission:roles.index');
 
     Route::get('planillas','PlanillaController@index')
         ->name('planillas.index')
@@ -749,6 +746,14 @@ Route::middleware(['auth'])->group(function () {
            ->middleware('permission:proveedores.index');
 
            //fin empleadoPlanillas
+    //calendar vehiculo
+    Route::get('calendario/{id}','PlanillaController@show')
+        ->name('calendario.show')
+        ->middleware('permission:roles.index');
+
+    Route::get('calendario','PlanillaController@calendario')
+        ->name('calendario.index');
+    //calendar
 
 
 
