@@ -26,9 +26,10 @@ class LiquidacionRequest extends FormRequest
      */
     public function rules()
     {
+        $now=date('Y-m-d');
         return [
             //string,unique:table,column,except,idColumn, email, between:min,max, alpha_num, integer, alpha_dash, exists:table,column
-            'fechaLiquidacion' => 'required|date',
+            'fechaLiquidacion' => 'required|before_or_equal:'.$now,
             'numeroFacturaLiquidacion' => 'required|unique:liquidaciones|string',
             'montoFacturaLiquidacion' => 'required|min:5.0|numeric',
             'name'=> 'required|min:1',
@@ -40,6 +41,7 @@ class LiquidacionRequest extends FormRequest
     {
         return [
             'fechaLiquidacion.required' => '¡El campo Fecha de salida es requerido!',
+            'fechaLiquidacion.before_or_equal' => '¡El campo Fecha de salida debe ser menor o igual que la fecha actual!',
 
             'numeroFacturaLiquidacion.required'  => '¡El campo No. de Factura es requerido!',
             'numeroFacturaLiquidacion.string'  => '¡El campo No. de Factura no es correcto!',

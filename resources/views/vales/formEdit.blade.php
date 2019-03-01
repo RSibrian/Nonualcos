@@ -9,10 +9,9 @@
                 <i class="material-icons">date_range</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Fecha de salida
-                    <small >(*)</small>
+                <label class="control-label"> <code>*</code>Fecha de salida
                 </label>
-                {!!Form::date('fechaSalida',old('fechaSalida', $salida->fechaSalida),['id'=>'fechaSalida','class'=>'form-control datepicker'])!!}
+                {!!Form::date('fechaSalida',old('fechaSalida', $salida->fechaSalida),['id'=>'fechaSalida','class'=>'form-control', 'required'])!!}
             </div>
         </div>
         <div class="input-group">
@@ -20,10 +19,9 @@
                 <i class="material-icons">directions_car</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label" for="numeroPlaca">Vehículo
-                    <small>(*)</small>
+                <label class="control-label" for="numeroPlaca"><code>*</code>Vehículo
                 </label>
-                {!!Form::text('numeroPlaca',old('numeroPlaca', $vehiculo->numeroPlaca),['id'=>'numeroPlaca','class'=>'form-control','required'])!!}
+                {!! Form::select('numeroPlaca', $placas , $vehiculo->id, ['id'=>'numeroPlaca','class'=>'form-control','required']) !!}
             </div>
         </div>
 
@@ -35,8 +33,7 @@
                 <i class="material-icons">place</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Destino
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Destino
                 </label>
                 {!!Form::text('destinoTrasladarse',old('destinoTrasladarse', $salida->destinoTrasladarse),['id'=>'destinoTrasladarse','class'=>'form-control','required'])!!}
             </div>
@@ -46,11 +43,9 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Solicitante
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Solicitante
                 </label>
-                {!!Form::text('solicitante',old('solicitante', $solicitante->nombresEmpleado.' '.$solicitante->apellidosEmpleado),['id'=>'solicitante','class'=>'form-control','required'])!!}
-                {!! Form::hidden('idsolicitante',$solicitante->id,['id'=>'idsolicitante']) !!}
+                {!!Form::select('solicitante',$empleados, $salida->idEmpleado ,['id'=>'solicitante','class'=>'form-control','required', 'readonly'])!!}
             </div>
         </div>
     </div>
@@ -60,8 +55,7 @@
                 <i class="material-icons"></i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Misión
-                </label>
+                <label class="control-label">Misión</label>
                 {!!Form::textarea('mision',old('mision', $salida->mision),['id'=>'mision','class'=>'form-control','rows'=>'3'])!!}
             </div>
         </div>
@@ -77,10 +71,9 @@
                 <i class="material-icons">date_range</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Fecha de Vale
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Fecha de Vale
                 </label>
-                {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control datepicker'])!!}
+                {!!Form::date('fechaCreacion', old('fechaCreacion') ,['id'=>'fechaCreacion','class'=>'form-control', 'required'])!!}
             </div>
         </div>
     </div>
@@ -91,10 +84,9 @@
                 <i class="material-icons">vpn_key</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label" id="muestra">Número de vale
-                    <small>(*)</small>
+                <label class="control-label" id="muestra"><code>*</code>Número de vale
                 </label>
-                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'require'])!!}
+                {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'required', 'readonly'])!!}
             </div>
         </div>
     </div>
@@ -105,8 +97,7 @@
                 <i class="material-icons">ev_station</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Gasolinera
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Gasolinera
                 </label>
                 {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control','required'])!!}
             </div>
@@ -116,8 +107,7 @@
     <div class="col-sm-12">
         <div class="input-group ">
             <span class="input-group-addon">
-                <label >Tipo de combustible
-                        <small>(*)</small>
+                <label ><code>*</code>Tipo de combustible
                 </label>
             </span>
             <div class="radio">
@@ -152,9 +142,8 @@
                 <i class="material-icons">ev_station</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Número de galones
-                </label>
-                {!!Form::number('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
+                <label class="control-label">Número de galones</label>
+                {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -165,8 +154,7 @@
                 <i class="material-icons">local_atm</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Costo de galones
-                </label>
+                <label class="control-label"><code>*</code>Costo total galones</label>
                 {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control'])!!}
             </div>
         </div>
@@ -208,35 +196,35 @@
     </div>
 
     <div class="col-sm-12">
-        <div class="col-sm-6 collapse @if($vale->aceite==1) show @endif " id="collapseAceite">
-            <div class="input-group">
+        <div class="col-sm-6  @if($vale->aceite==1) show @else collapse @endif" id="collapseAceite">
+        <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo de aceite
+                    <label class="control-label"><code>*</code>Costo total aceite
                     </label>
-                    {!!Form::text('costoAceite',old('costoAceite'),['id'=>'costoAceite','class'=>'form-control'])!!}
+                    {!!Form::text('costoAceite',null,['id'=>'costoAceite','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-6 collapse @if($vale->grasa==1) show @endif" id="collapseGrasa">
-            <div class="input-group">
+        <div class="col-sm-6 @if($vale->grasa==1) show @else collapse @endif" id="collapseGrasa">
+        <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo grasa
+                    <label class="control-label"><code>*</code>Costo total grasa
                     </label>
-                    {!!Form::text('costoGrasa',old('costoGrasa'),['id'=>'costoGrasa','class'=>'form-control'])!!}
+                    {!!Form::text('costoGrasa',null,['id'=>'costoGrasa','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-12 collapse @if($vale->otro!=null) show @endif" id="collapseOtros">
-        <div class="col-sm-6">
+    <div class="col-sm-12 @if($vale->otro!=null) show @else collapse @endif" id="collapseOtros">
+    <div class="col-sm-6">
             <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">ev_station</i>
@@ -244,41 +232,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label">Especifique nombre
                     </label>
-                    {!!Form::text('nombreOtro',old('nombreOtro', $vale->otro ),['id'=>'nombreOtro','class'=>'form-control'])!!}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-5" >
-            <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">local_atm</i>
-            </span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Costo
-                    </label>
-                    {!!Form::text('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control'])!!}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-1 collapse " style="margin-top: 12px; ">
-            <a class="btn btn-sm" data-toggle="collapse" href="#collapseOtrosMas" style="background: dodgerblue;" >
-                <i class="material-icons">add</i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-sm-12 collapse" id="collapseOtrosMas">
-        <div class="col-sm-6">
-            <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">ev_station</i>
-            </span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Especifique nombre
-                    </label>
-                    {!!Form::text('nombreOtro2',old('nombreOtro2'),['id'=>'nombreOtro2','class'=>'form-control'])!!}
+                    {!!Form::text('nombreOtro',null,['id'=>'nombreOtro','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
@@ -289,9 +243,9 @@
                 <i class="material-icons">local_atm</i>
             </span>
                 <div class="form-group label-floating">
-                    <label class="control-label">Costo
+                    <label class="control-label"><code>*</code>Costo total otro
                     </label>
-                    {!!Form::text('costoOtro2',old('costoOtro2'),['id'=>'costoOtro2','class'=>'form-control', 'placeholder'=>'0.0'])!!}
+                    {!!Form::text('costoOtro',null,['id'=>'costoOtro','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
@@ -305,7 +259,7 @@
             <div class="form-group label-floating">
                 <label class="control-label">Costo total de vale
                 </label>
-                {!!Form::text('costoUnitarioVale',old('costoUnitarioVale'),['id'=>'costoUnitarioVale','class'=>'form-control', 'readonly'])!!}
+                {!! Form::text('costoUnitarioVale', old('costoUnitarioVale'),['id'=>'costoUnitarioVale','class'=>'form-control', 'readonly']) !!}
             </div>
         </div>
     </div>
@@ -321,13 +275,14 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Empleado que autoriza
-                    <small>(*)</small>
-                </label>
-                {!!Form::text('empAutoriza',old('empAutoriza', $autoriza->nombresEmpleado.' '.$autoriza->apellidosEmpleado),['id'=>'empAutoriza','class'=>'form-control datepicker', 'required'])!!}
-                {!! Form::hidden('idempAutoriza',$autoriza->id,['id'=>'idempAutoriza']) !!}
+                <label class="control-label"><code>*</code>Empleado autoriza</label>
+                {!! Form::select('empAutoriza',$empleados, $vale->empleadoAutorizaVal , ['id'=>'empAutoriza','class'=>'form-control datepicker', 'required'])!!}
             </div>
         </div>
+
+        @php
+            $estado='';
+        @endphp
 
         <div class="input-group col-sm-offset-1">
             <div class="form-group ">
@@ -336,15 +291,18 @@
                 </label>
                 <label class="switch">
                     <input type="checkbox" name="estadoEntregadoVal" id="estadoEntregadoVal"
-                        @if($vale->estadoEntregadoVal==1)
-                        checked
+                           @if($vale->estadoEntregadoVal==1)
+                           checked
+                    @else
+                        @php
+                            $estado='disabled';
+                        @endphp
                             @endif
                     >
                     <span class="slider"></span>
                 </label>
             </div>
         </div>
-
     </div>
 
     <div class="col-sm-6">
@@ -353,11 +311,9 @@
                 <i class="material-icons">face</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Empleado que recibe
-                    <small>(*)</small>
+                <label class="control-label"><code>*</code>Empleado recibe
                 </label>
-                {!!Form::text('empRecibe',old('empRecibe', $recibe->nombresEmpleado.' '.$recibe->apellidosEmpleado),['id'=>'empRecibe','class'=>'form-control','required'])!!}
-                {!! Form::hidden('idempRecibe',$recibe->id,['id'=>'idempRecibe']) !!}
+                {!!Form::select('empRecibe',$empleados, $vale->empleadoRecibeVal ,['id'=>'empRecibe','class'=>'form-control','required'])!!}
             </div>
         </div>
 
@@ -370,7 +326,9 @@
                     <input type="checkbox" name="estadoRecibidoVal" id="estadoRecibidoVal"
                            @if($vale->estadoRecibidoVal==1)
                            checked
-                           @endif
+                          @else
+                            {{$estado}}
+                          @endif
                     >
                     <span class="slider"></span>
                 </label>
@@ -490,17 +448,6 @@
 
     <script type="text/javascript">
 
-        $( function()
-        {
-            var placas= "{{ route('autocompletePlacas') }}";
-
-            $( '#numeroPlaca' ).autocomplete({
-                source: placas,
-            });
-
-
-
-        });
 
         $( function()
         {
@@ -512,32 +459,6 @@
 
         });
 
-        $( function()
-        {
-            var empleado= "{{ route('autocompleteEmpleado') }}";
-
-            $( '#solicitante' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idsolicitante').val(ui.item.id);
-                }
-            });
-
-            $( '#empAutoriza' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idempAutoriza').val(ui.item.id);
-                }
-            });
-
-            $( '#empRecibe' ).autocomplete({
-                source: empleado,
-                select: function(event, ui) {
-                    $('#idempRecibe').val(ui.item.id);
-                }
-            });
-
-        });
 
         $( function()
         {
@@ -565,17 +486,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var options = {
-                translation: {
-                    'A': {pattern: /[A-Z]/},
-                    'a': {pattern: /[a-zA-Z]/},
-                    'S': {pattern: /[a-zA-Z0-9]/},
-                    'L': {pattern: /[a-z]/},
-                }
-            }
-
-
-            $("#numeroVale").mask("00000")
+            $("#numeroVale").mask("00000");
 
 
         })
@@ -745,5 +656,67 @@
         }
     </script>
 
+    <script>
+        var aceite = $('#aceite');
+        aceite.on('click', function(){
+            if(!(aceite.prop('checked'))){
+                $('#costoAceite').prop('required', false);
+                var costo= parseFloat($('#costoAceite').val());
+                if(isNaN(costo))costo=0.0;
+                total((parseFloat($('#costoUnitarioVale').val())-costo ));
+                $('#costoAceite').val('');
+            }else{
+                $('#costoAceite').prop('required', true);
+            }
 
+        });
+    </script>
+
+    <script>
+        var grasa = $('#grasa');
+        grasa.on('click', function(){
+            if(!(grasa.prop('checked'))){
+                $('#costoGrasa').prop('required', false);
+                var costo= parseFloat($('#costoGrasa').val());
+                if(isNaN(costo))costo=0.0;
+                total((parseFloat($('#costoUnitarioVale').val())-costo ));
+                $('#costoGrasa').val('');
+
+            }else{
+                $('#costoGrasa').prop('required', true);
+            }
+
+        });
+    </script>
+
+    <script>
+        var otros = $('#otros');
+        otros.on('click', function(){
+            if(!(otros.prop('checked'))){
+                $('#nombreOtro').prop('required', false);
+                $('#costoOtro').prop('required', false);
+                var costo= parseFloat($('#costoOtro').val());
+                if(isNaN(costo))costo=0.0;
+                total((parseFloat($('#costoUnitarioVale').val())-costo ));
+                $('#costoOtro').val('');
+                $('#nombreOtro').val('');
+
+            }else{
+                $('#nombreOtro').prop('required', true);
+                $('#costoOtro').prop('required', true);
+            }
+
+        });
+    </script>
+
+    <script>
+        var solicitante= $('#solicitante');
+        var recibe=$('#empRecibe');
+
+        solicitante.on('change', function(){
+
+            recibe.val(solicitante.find('option:selected').val());
+
+        });
+    </script>
 @endsection

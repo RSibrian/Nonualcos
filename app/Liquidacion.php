@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Support\Facades\Session;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Arr;
 
@@ -90,5 +91,22 @@ class Liquidacion extends Model implements Auditable
 
       return $data;
     }
+
+    public static function valesDisponibles(){
+        return Vale::where('estadoRecibidoVal', '=', '1')->pluck('numeroVale', 'id');
+    }
+
+    public static function verifica($vehiculos, $vales){
+
+        if ($vehiculos->first()===null){
+            Session::flash('vehiculos','Debe registrar al menos un vehículo y luego crear un vale');
+        }
+
+        if ($vales->first()===null){
+            Session::flash('vales','No hay vales para liquidar');
+        }
+
+    }
+
 
 }

@@ -17,10 +17,28 @@
                     {!! Form::open(['route'=>'liquidaciones.store','method'=>'POST','enctype'=>'multipart/form-data', 'autocomplete'=>'off']) !!}
                     {{ csrf_field(),
                        date_default_timezone_set('America/El_Salvador')}}
-                      @include('liquidaciones.form')
+
+                    @php
+                        $disabled='';
+                    @endphp
+                    @foreach ([ 'vehiculos', 'vales'] as $key)
+                        @if(Session::has($key))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{{ Session::get($key) }}</li>
+                                </ul>
+                            </div>
+                            @php
+                                $disabled='hide';
+                            @endphp
+                        @endif
+                    @endforeach
+
+                    @include('liquidaciones.form')
+
                     <div align="center">
                         {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                        {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                        {!! Form::reset('Limpiar',['class'=>'btn btn-azul'.$disabled])
                         <a href="{{ route('liquidaciones.index') }}" class="btn btn-ocre" name="btnRegresar"> Regresar</a>
                     </div>
 
