@@ -7,7 +7,7 @@
                     <i class="material-icons">assignment</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Planilla</h4>
+                    <h4 class="card-title">Planilla de Pago Mensual</h4>
                     <div class="toolbar">
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
@@ -20,20 +20,7 @@
                     $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_inicio +1 month"));
 
                     ?>
-                    <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
-                        <i class="material-icons"></i>
-                        Planilla de Empleados
-                    </a>
-                    <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
-                        <i class="material-icons"></i>
-                        boleta de pago
-                    </a>
-                    {!! Form::open(['route'=>'planillas.store','method'=>'POST']) !!}
-                    <input type="hidden" name="concepto" value="Pago de {{\Helper::fecha($fecha_fin_inicio)}} a {{\Helper::fecha($fecha_fin)}} ">
-                    <div align="center" class="row">
-                        {!! Form::submit('Procesar',['id'=>"agregar_permiso", "onclick"=>"myFunction()" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                    </div>
-                    {!! Form::close() !!}
+
 
 
 
@@ -105,6 +92,19 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    @include('planillas.terminar')
+                    <div align='center'>
+                      <a  aling='right' href="{{ url("planillas/create/excel") }}" class="btn  btn-azul btn " title="Descargar Planilla en Archivo EXCEL">
+                          <i class="material-icons"></i>
+                          1- EXCEL
+                      </a>
+                      <a  aling='right' href="{{ url("planillas/create/reporte") }}"  target="_blank" class="btn  btn-azul btn " title="Descargar Boletas en Archivo PDF">
+                          <i class="material-icons"></i>
+                          2- BOLETA
+                      </a>
+                    <button type="submit"  class="btn btn btn-success" data-toggle="modal" data-target="#gridSystemModal2">3-  PROCESAR</button>
+                    <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
                     </div>
                 </div>
                 <!-- end content-->

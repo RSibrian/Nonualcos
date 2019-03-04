@@ -77,6 +77,15 @@ class Empleado extends Model implements Auditable
           // ->orderBy('sa_en_vehiculos.id','desc')
       ->get();
   }
+  public static function EmpleadosxUnidadActivos($idUnidad){
+    return DB::table('empleados')
+    ->join('cargos', 'empleados.idCargo', '=', 'cargos.id')
+    ->where('cargos.idUnidad','=',$idUnidad)
+    ->where('estadoEmpleado','=',true)
+    ->select('empleados.id','empleados.nombresEmpleado',"empleados.apellidosEmpleado")
+        // ->orderBy('sa_en_vehiculos.id','desc')
+    ->get();
+}
     public function entradasSalidas()
     {
         return $this->hasMany(EntradasSalidas::class,'idEmpleado');
@@ -134,7 +143,7 @@ class Empleado extends Model implements Auditable
     if($data['new_values']['imagenEmpleado']=="img/default-avatar.png")$data['new_values']['imagenEmpleado']="Sin Foto de perfil";
     else $data['new_values']['imagenEmpleado']="Nueva Foto de perfil";
 
-    
+
     return $data;
   }
 

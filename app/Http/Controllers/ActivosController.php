@@ -41,7 +41,7 @@ class ActivosController extends Controller
 
       $proveedores=Proveedor::All()->where('tipoProveedor','!=',2 )->pluck('nombreEmpresa','id');
 
-      $empleados=Empleado::pluck('nombresEmpleado','id');
+      $empleados=Empleado::where('estadoEmpleado',true)->pluck('nombresEmpleado','id');
       $date = Carbon::now();
       return view('activos.create',compact('unidades','clasificaciones','proveedores','date','empleados'));
     }
@@ -191,7 +191,7 @@ class ActivosController extends Controller
 
     public function codigoGenerado(Unidades $unidad){
 
-        $empleados=Empleado::EmpleadosxUnidad($unidad->id);
+        $empleados=Empleado::EmpleadosxUnidadActivos($unidad->id);
 
         return Response::json($empleados);
     }

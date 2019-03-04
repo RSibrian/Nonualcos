@@ -21,24 +21,6 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
 
-                    <a  aling='right' href="{{ url("aguinaldos/create/excel/$exento") }}" class="btn  btn-verde btn-round " title="Descargar Planilla en Archivo EXCEL">
-                        <i class="material-icons"></i>
-                        Aguinaldo de Empleados
-                    </a>
-                    <a  aling='right' href="{{ url("aguinaldos/create/reporte/$exento") }}"  target="_blank" class="btn  btn-ocre btn-round " title="Descargar Boletas en Archivo PDF">
-                        <i class="material-icons"></i>
-                        Boleta de pago
-                    </a>
-                    {!! Form::open(['route'=>'aguinaldos.store','method'=>'POST']) !!}
-
-                    <input type="hidden" name="exento" value="{{$exento}} ">
-                    <input type="hidden" name="concepto" value="Pago de Aguinaldo mes: {{$mes}} de {{$anno}} execto de renta: {{$exento}} ">
-                    <div align="center" class="row">
-                        {!! Form::submit('Procesar',['id'=>"agregar_permiso" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
-                    </div>
-                    {!! Form::close() !!}
-
-
 
                     <div class="material-datatables">
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
@@ -109,6 +91,20 @@
                             </tbody>
                         </table>
                     </div>
+                    @include('planillas.aguinaldos.terminar')
+                    <div align='center'>
+                      <a  aling='right' href="{{ url("aguinaldos/create/excel/$exento") }}" class="btn  btn-azul btn " title="Descargar Planilla en Archivo EXCEL">
+                          <i class="material-icons"></i>
+                          1- EXCEL
+                      </a>
+                      <a  aling='right' href="{{ url("aguinaldos/create/reporte/$exento") }}"   target="_blank" class="btn  btn-azul btn " title="Descargar Boletas en Archivo PDF">
+                          <i class="material-icons"></i>
+                          2- BOLETA
+                      </a>
+                    <button type="submit"  class="btn btn btn-success" data-toggle="modal" data-target="#gridSystemModal2">3-  PROCESAR</button>
+                    <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                    </div>
+
                 </div>
                 <!-- end content-->
             </div>

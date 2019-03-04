@@ -108,8 +108,9 @@ class ActivosUnidadesController extends Controller
     public function show(Activos $activo)
     {
       $unidades=Unidades::pluck('nombreUnidad','id');
-      $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-      $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+      $empleados=Empleado::all()->where('estadoEmpleado',true)->pluck('full_name','id');
+
+
       $date = Carbon::now();
       return view('activosUnidades.show',compact('unidades','empleados','activo','date'));
     }
