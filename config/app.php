@@ -184,6 +184,10 @@ return [
         //laravel Auditing
         OwenIt\Auditing\AuditingServiceProvider::class,
 
+        // ...
+        Spatie\Backup\BackupServiceProvider::class,
+
+
 
     ],
 

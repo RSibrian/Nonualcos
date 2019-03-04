@@ -14,7 +14,8 @@
         "laravelcollective/html": "5.4.*",
         "laravelista/lumen-vendor-publish": "^2.1",
         "maatwebsite/excel": "^2.1",
-        "owen-it/laravel-auditing": "^8.0"
+        "owen-it/laravel-auditing": "^8.0",
+        "spatie/laravel-backup": "^4.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

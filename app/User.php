@@ -70,4 +70,9 @@ public function transformAudit(array $data): array
     return $data;
   }
 
+  public function bitacoraUsuario()
+    {
+      return $this->hasMany(BitacoraUsuario::class);
+    }
+
 }

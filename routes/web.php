@@ -754,6 +754,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('calendario','PlanillaController@calendario')
         ->name('calendario.index');
     //calendar
+    //bitacora Usuarios
+    Route::get('bitacoraUsuario','BitacoraUsuarioController@index')
+            ->name('bitacoraUsuario.index')
+            ->middleware('permission:proveedores.index');
+
+    Route::get('backups','BackupController@index')
+            ->name('backups.index')
+            ->middleware('permission:proveedores.index');
+
 
 
 

@@ -189,6 +189,12 @@
             <li>
               <a href="{{ route('auditoria.index') }}">Auditoría</a>
             </li>
+            <li>
+              <a href="{{ route('bitacoraUsuario.index') }}">Bítacora</a>
+            </li>
+            <li>
+              <a href="{{ route('backups.index') }}">Backup</a>
+            </li>
           </ul>
         </div>
       </li>
