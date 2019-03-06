@@ -48,7 +48,7 @@
       @endif
       @if( $activo->codigoInventario!=null)
         <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
-      
+
       @endif
     </ul>
     <div class="row">
@@ -162,6 +162,7 @@
                                 <th>Fecha Final</th>
                                 <th>Unidad</th>
                                 <th>Empleado</th>
+                                <th>Constancia</th>
                               </tr>
                             </thead>
                             <tfoot>
@@ -172,7 +173,7 @@
                                 <th>Fecha Final</th>
                                 <th>Unidad</th>
                                 <th>Empleado</th>
-
+                                <th>Constancia</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -193,7 +194,15 @@
                                   @endif
                                     <td>{{$traslado->unidad->nombreUnidad}}</td>
                                     <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
-
+                                    <td class="text-right">
+                                        @can('proveedores.edit')
+                                        <a title="Constancia de Entrega" href="{{ url("reporteTraslado/{$traslado->id}") }}"  target="_blank" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                            <i class="material-icons">
+                                                save_alt
+                                            </i>&nbsp;
+                                        </a>
+                                        @endcan
+                                      </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -24,7 +24,7 @@
                             <a href="{{ url("prestamos") }}"  class="btn btn-xs btn-ocre btn-round" title="Ver Calendario">
                                 <i class="material-icons">date_range</i>
                             </a>
-                            <a href="{{ url("prestamos/generarReportePrestamo") }}"  class="btn btn-xs btn-ocre btn-round" title="Generar Reporte">
+                            <a href="{{ url("prestamos/generarReportePrestamo") }}"  target="_blank"  class="btn btn-xs btn-ocre btn-round" title="Generar Reporte">
                                 <i class="material-icons">assignment</i>
                             </a>
 

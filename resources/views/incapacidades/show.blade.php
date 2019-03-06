@@ -67,7 +67,7 @@
                                     <div class="col-lg-10">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons"> $ </i>
+                                                            <i class="material-icons"> chrome_reader_mode</i>
                                                         </span>
                                         <div class="form-group label-floating">
                                             <label class="control-label">
@@ -88,7 +88,7 @@
                                     <div class="col-lg-10">
                                         <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons"> $ </i>
+                                                            <i class="material-icons"> description </i>
                                                         </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">
@@ -134,7 +134,7 @@
                                     <div class="col-lg-12 row">
                                         <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">place</i>
+                                                            <i class="material-icons">assignment_turned_in</i>
                                                         </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Motivo:

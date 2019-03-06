@@ -216,6 +216,9 @@
               <a href="{{ route('cargos.index') }}">Cargos</a>
             </li>
             <li>
+              <a href="{{ route('bancos.index') }}">Bancos</a>
+            </li>
+            <li>
               <a href="{{ route('empleados.index') }}">Empleados</a>
             </li>
             <li>
@@ -240,23 +243,27 @@
             <li>
               <a href="{{ route('clasificaciones.index') }}">Clasificaciones</a>
             </li>
-            <li>
-              <a href="{{ route('activos.index') }}">Activos</a>
-            </li>
+
             <li>
               <a href="{{ route('proveedores.index') }}">Proveedores</a>
             </li>
             <li>
-              <a href="{{ route('mantenimientos.index') }}">Mantenimientos</a>
-            </li>
-            <li>
-              <a href="{{ route('activos.generarReporte') }}">Generar Reporte</a>
-            </li>
-            <li>
              <a href="{{ route('instituciones.index')}}">Instituciones</a>
             </li>
+            <li>
+              <a href="{{ route('activos.index') }}">Activos</a>
+            </li>
+
+            <li>
+              <a href="{{ route('mantenimientos.index') }}">Mantenimientos</a>
+            </li>
+
              <li>
               <a href="{{ route('prestamos.indexPrestamo') }}">Préstamos</a>
+             </li>
+             
+             <li>
+               <a href="{{ route('activos.generarReporte') }}">Generar Reporte</a>
              </li>
           </ul>
         </div>

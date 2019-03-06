@@ -165,6 +165,43 @@ class EmpleadoController extends Controller
         $cargos=$unidad->cargos;
         return Response::json($cargos);
     }
+
+    public function reporteEmpleado()
+        {
+
+          $empleados=Empleado::All();
+
+
+          $date = date('d-m-Y');
+          $date1 = date('g:i:s a');
+          //dd($date);
+          $vistaurl="empleados.reporteEmpleado";
+          $view =  \View::make($vistaurl, compact('empleados', 'date','date1'))->render();
+          $pdf = \App::make('dompdf.wrapper');
+          $pdf->setPaper('letter', 'landscape');
+
+          $pdf->loadHTML($view);
+          return $pdf->stream('Listado de Empleados '.'-'.$date.'.pdf');
+        }
+
+        public function reporteExpediente($idEmpleado)
+            {
+
+              $empleado=Empleado::find($idEmpleado);
+
+
+              $date = date('d-m-Y');
+              $date1 = date('g:i:s a');
+              //dd($date);
+              $vistaurl="empleados.reporteExpediente";
+              $view =  \View::make($vistaurl, compact('empleado', 'date','date1'))->render();
+              $pdf = \App::make('dompdf.wrapper');
+              $pdf->setPaper('letter', 'portrait');
+
+              $pdf->loadHTML($view);
+              return $pdf->stream('Expediente de Empleado '.$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado.'-'.$date.'.pdf');
+            }
+
     static function eliminar_tildes($cadena){
 
         //Codificamos la cadena en formato utf8 en caso de que nos de errores

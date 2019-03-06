@@ -148,4 +148,22 @@ class ActivosUnidadesController extends Controller
     {
         //
     }
+
+    public function reporteTraslado($idtraslado)
+        {
+
+          $traslado=ActivosUnidades::find($idtraslado);
+          $activo=Activos::find($traslado->idActivo);
+
+          $date = date('d-m-Y');
+          $date1 = date('g:i:s a');
+          //dd($date);
+          $vistaurl="activosUnidades.reporteTraslado";
+          $view =  \View::make($vistaurl, compact('traslado','activo', 'date','date1'))->render();
+          $pdf = \App::make('dompdf.wrapper');
+          $pdf->setPaper('letter', 'portrait');
+
+          $pdf->loadHTML($view);
+          return $pdf->stream('Constancia de Traslado '.$activo->codigoInventario.'-'.$date.'.pdf');
+        }
 }

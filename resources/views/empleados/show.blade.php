@@ -159,6 +159,9 @@
 
                             </table>
                             <div align="center">
+                              <a href="{{ url("empleados/reporteExpediente/".$empleado->id) }}" target="_blank"  class="btn btn-success " title="Generar Reporte">
+                                  <i class="material-icons"></i>Reporte
+                              </a>
                                 <a href="{{ route('empleados.index') }}" class='btn btn-ocre '>Regresar</a>
                             </div>
                         </div>

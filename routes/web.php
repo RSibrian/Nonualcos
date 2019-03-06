@@ -197,6 +197,10 @@ Route::middleware(['auth'])->group(function () {
     //fin cargos
 
     //persona
+    Route::get('empleados/reporteExpediente/{idEmpleado}','EmpleadoController@reporteExpediente')
+        ->name('empleados.reporteExpediente')
+        ->middleware('permission:proveedores.index');
+
     Route::post('empleados/store','EmpleadoController@store')
         ->name('empleados.store')
         ->middleware('permission:proveedores.create');
@@ -204,6 +208,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('empleados','EmpleadoController@index')
         ->name('empleados.index')
         ->middleware('permission:proveedores.index');
+
+
+
+    Route::get('empleados/reporteEmpleado','EmpleadoController@reporteEmpleado')
+        ->name('empleados.reporteEmpleado')
+        ->middleware('permission:proveedores.index');
+
+
 
     Route::get('empleados/create','EmpleadoController@create')
         ->name('empleados.create')
@@ -512,6 +524,10 @@ Route::middleware(['auth'])->group(function () {
     // fin de vales
 
     //traslados
+    Route::get('reporteTraslado/{idTraslado}','ActivosUnidadesController@reporteTraslado')
+        ->name('activosUnidades.reporteTraslado')
+        ->middleware('permission:roles.index');
+
     Route::get('activosUnidades/{activo}','ActivosUnidadesController@show')
         ->name('activosUnidades.show')
         ->middleware('permission:roles.index');

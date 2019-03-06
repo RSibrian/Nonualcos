@@ -21,6 +21,10 @@
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
+
+                            <a href="{{ url("empleados/reporteEmpleado") }}" target="_blank"  class="btn btn-xs btn-ocre btn-round" title="Generar Reporte">
+                                <i class="material-icons">assignment</i>
+                            </a>
                         @endcan
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
                             <thead>
@@ -67,7 +71,7 @@
 
                                         <td>{{$empleado->cargo->unidad->nombreUnidad}}</td>
                                         <td>{{$empleado->cargo->nombreCargo}}</td>
-                                        
+
 
                                         <td class="text-right">
                                             @can('proveedores.edit')
