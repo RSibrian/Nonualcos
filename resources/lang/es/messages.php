@@ -77,6 +77,7 @@ return[
     'salarioBruto'  =>  'Salario',
     'sistemaContratacion'  =>  'Sistema de Contratación',
     'imagenEmpleado'  =>  'Foto de perfil',
+    'estadoEmpleado' => 'Estado de empleado',
 
     //ClasificacionesActivos::class
     'codigoTipo'  =>  'Código de Clasificación',

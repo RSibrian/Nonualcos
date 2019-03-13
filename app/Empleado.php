@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+//use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Empleado extends Model implements Auditable
 {
   use \OwenIt\Auditing\Auditable;
+  //use SoftDeletes;
 
     protected $table = 'empleados';
     protected $fillable = [
@@ -19,6 +22,8 @@ class Empleado extends Model implements Auditable
         'sistemaContratacion','salarioBruto','idCargo','idSeguro','numeroSeguro',
         'idAFP','numeroAFP'
     ];
+    //protected $dates=['deleted_at'];
+
 
     //convierte la primera letra de cada nombre en mayúscula y el resto en minúscula
     public function setNombresEmpleadoAttribute($value)

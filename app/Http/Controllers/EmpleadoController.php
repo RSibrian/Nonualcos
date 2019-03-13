@@ -24,7 +24,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados=Empleado::all();
+        $empleados=Empleado::all()->where('estadoEmpleado',1);
         return view('empleados.index',compact('empleados'));
     }
 

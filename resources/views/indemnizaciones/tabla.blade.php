@@ -6,10 +6,7 @@
       <div class="card-header card-header-icon" data-background-color="ocre">
         <i class="material-icons">assignment</i>
       </div>
-      <div class="card-header card-header-icon" data-background-color="azul" data-toggle="modal" data-target="#myModal">
-        <i class="material-icons">help</i>
-
-      </div>
+      
       <div class="card-content">
         <h4 class="card-title">Pasivo Laboral (indemnizaciones) </h4>
         <h4 style="text-align: center">Al <strong>{{Helper::fecha($fechaFin)}}</strong> Motivo: <strong>{{$motivo}}</strong></h4>
@@ -25,6 +22,7 @@
                 <th>Salario</th>
                 <th>Indemnización</th>
                 <th>Tiempo Laborado</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tfoot>
@@ -36,6 +34,7 @@
                 <th>Salario</th>
                 <th>Indemnización</th>
                 <th>Tiempo Laborado</th>
+                <th>Acciones</th>
               </tr>
             </tfoot>
             <tbody>
@@ -48,13 +47,21 @@
                 <td>$ {{Helper::dinero($indemnizacion["empleado"]->salarioBruto)}}</td>
                 <td>$ {{Helper::dinero($indemnizacion["monto"])}}</td>
                 <td>{{$indemnizacion["tiempo"]}}</td>
+                <td class="text-right">
+                  <a title="Procesar" href="{{ url('indemnizaciones/bajaEmpleado/'.$indemnizacion['empleado']->id) }}" class="btn btn-xs btn-info btn-round">
+                    <i class="material-icons">edit</i>
+                  </a>
+                  <!-- <a target="_blank" title="imprimir solicitud" href="{{ url('') }}" class="btn  btn-info btn-round btn-xs">
+                  <i class="material-icons">print</i>
+                </a> -->
+                </td>
               </tr>
               @endforeach
             </tbody>
           </table>
 
           <div align="center" class="row">
-          <a href="{{ route('indemnizaciones.index') }}" class='btn btn-ocre '>Regresar</a>
+          <a href="{{ route('indemnizaciones.index') }}" class='btn btn-default '>Regresar</a>
           </div>
 
         </div>
@@ -67,11 +74,8 @@
 </div>
 <!-- end row -->
 <?php
-$ayuda_title="Ayuda para la Tabla de Unidades";
-$ayuda_body="Cada Unidad tiene 3 botones <br>
-1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar la unidad      <br><br>
-2- Este <i class='material-icons'>dvr</i> Icono es para ver los cargos de la unidad <br><br>
-3- Este <i class='material-icons'>visibility</i> Icono es para ver los datos de la unidad"
+$ayuda_title="Ayuda para indemnizaciones";
+$ayuda_body=""
 ?>
 @include('alertas.ayuda')
 @stop

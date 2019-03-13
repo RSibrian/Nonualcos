@@ -74,7 +74,7 @@
               <tr>
                 <td><div class="checkbox" style="display: inline">
                     <label>
-                      {{ Form::checkbox('empleadosId[]',$empleado->id,null,[ 'id'=>"check{$empleado->id}", "checked"]) }}
+                      {{ Form::checkbox('empleadosId[]',$empleado->id,null,[ 'id'=>"check{$empleado->id}"]) }}
                     </label>
                 </div></td>
                 <td>{{$loop->iteration}}</td>

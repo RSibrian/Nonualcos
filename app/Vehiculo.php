@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Support\Arr;
+
 
 class Vehiculo extends Model implements Auditable
 {
@@ -82,6 +84,6 @@ class Vehiculo extends Model implements Auditable
         $lista=$vehiculosSalidas->merge($vehiculosMantenimiento)->merge($vehiculosActivos);
         $lista=$lista->toArray();
 
-        return Vehiculo::whereNotIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
+        return Vehiculo::whereIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
     }
 }

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Indemnizacion;
 use Illuminate\Http\Request;
 use App\Empleado;
+use App\User;
+use App\ActivosUnidades;
+use App\Vale;
+use App\Descuento;
+use Illuminate\Support\Facades\Session;
 use DateTime;
 
 class IndemnizacionController extends Controller
@@ -177,4 +182,34 @@ class IndemnizacionController extends Controller
   {
     //
   }
+
+  public function bajaEmpleado(Empleado $empleado)
+  {
+    $activos = ActivosUnidades::where('idEmpleado',$empleado->id)->where('estadoUni',1)->get();
+    $descuentos= Descuento::where('idEmpleado',$empleado->id)->where('estadoDescuento',1)->get();
+    $vales = Vale::where('estadoRecibidoVal',0)->where('empleadoRecibeVal',$empleado->id)->get();
+
+    return view('indemnizaciones.bajaEmpleado',compact('empleado','activos','descuentos','vales'));
+  }
+
+  public function desactivarEmpleado(Request $request)
+  {
+    $empleado = Empleado::find($request->idEmpleado);
+    if($empleado){
+      $empleado->estadoEmpleado=0;
+      $empleado->save();
+
+      $user= User::where('idEmpleado',$empleado->id)->first();
+
+      if($user){
+        $user->idEmpleado=null;
+        $user->password=bcrypt('nonualcos');
+        $user->save();
+      }
+      Session::flash('update','Empleado desactivado');
+      echo json_encode('true');
+
+    }else echo json_encode('false');
+  }
+
 }

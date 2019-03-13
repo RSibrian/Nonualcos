@@ -17,7 +17,7 @@
         </div>
         <div class="material-datatables">
           <!-- @can('unidads.create') -->
-          <a href="{{ url("mantenimientos/create") }}" class="btn  btn-verde btn-round ">
+          <a href="{{ url('mantenimientos/create') }}" class="btn  btn-verde btn-round ">
             <i class="material-icons">add</i>
             Nuevo
 
@@ -70,16 +70,16 @@
                  <?php endif; ?>
                 <td class="text-right">
                   <!-- @can('proveedores.edit') -->
-                  <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                  <a title="Editar mantenimiento" href="{{ url('mantenimientos/'.$mantenimiento->id.'/edit') }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                     <i class="material-icons">
                       create
                     </i>
                   </a>
                   <!-- @endcan -->
-                  <a title="Ver Mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}") }}" class="btn btn-xs btn-info btn-round">
+                  <a title="Ver Mantenimiento" href="{{ url('mantenimientos/'.$mantenimiento->id) }}" class="btn btn-xs btn-info btn-round">
                     <i class="material-icons">visibility</i>
                   </a>
-                  <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-info btn-round btn-xs">
+                  <a target="_blank" title="imprimir solicitud" href="{{ url('mantenimientos/generarSolicitud/'.$mantenimiento->id) }}" class="btn  btn-info btn-round btn-xs">
               <i class="material-icons">print</i>
           </a>
                 </td>

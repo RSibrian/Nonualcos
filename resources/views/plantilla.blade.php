@@ -94,7 +94,7 @@
   </script>
 
 </head>
-<body class="">
+<body style="overflow: hidden;">
   <div id="contenedor_carga">
     <div id="carga">
 

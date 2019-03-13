@@ -33,7 +33,7 @@ class MantenimientoController extends Controller
   public function create()
   {
     //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::get()->pluck('fullName','id');
+    $empleados=Empleado::where('estadoEmpleado',1)->get()->pluck('fullName','id');
     $proveedores=Proveedor::pluck('nombreEmpresa','id');
     $date = Carbon::now();
     $activo=new Activos();
@@ -43,7 +43,7 @@ class MantenimientoController extends Controller
   public function create1( Activos $activo )
   {
     $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::select($raw,'id')->pluck('fullName','id');
+    $empleados=Empleado::where('estadoEmpleado',1)->select($raw,'id')->pluck('fullName','id');
     $proveedores=Proveedor::pluck('nombreEmpresa','id');
     $date = Carbon::now();
     return view('mantenimientos.create',compact('date','empleados','proveedores','activo'));
@@ -82,7 +82,7 @@ class MantenimientoController extends Controller
   public function edit(Mantenimiento $mantenimiento)
   {
     //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::get()->pluck('fullName','id');
+    $empleados=Empleado::where('estadoEmpleado',1)->get()->pluck('fullName','id');
     $date = Carbon::now();
     return view('mantenimientos.edit',compact('date','empleados','mantenimiento'));
   }

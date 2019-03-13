@@ -729,6 +729,14 @@ Route::middleware(['auth'])->group(function () {
                    Route::post('indemnizaciones/make','IndemnizacionController@make')
                    ->name('indemnizaciones.make')
                    ->middleware('permission:proveedores.create');
+
+                   Route::get('indemnizaciones/bajaEmpleado/{empleado}','IndemnizacionController@bajaEmpleado')
+                   ->name('indemnizaciones.baja')
+                   ->middleware('permission:proveedores.create');
+
+                   Route::post('indemnizaciones/desactivarEmpleado','IndemnizacionController@desactivarEmpleado')
+                   ->name('indemnizaciones.darDeBaja')
+                   ->middleware('permission:proveedores.create');
            //indemnizaciones
 
     //aguinaldo
