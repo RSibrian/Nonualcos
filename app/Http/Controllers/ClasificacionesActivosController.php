@@ -37,7 +37,7 @@ class ClasificacionesActivosController extends Controller
      */
     public function store(ClasificacionActivosRequest $request)
     {
-      $request['idTipoLey']=1;
+      
       ClasificacionesActivos::create($request->all());
       return redirect('/clasificaciones')->with('create','Se ha creado con éxito la clasificación de activo');
     }

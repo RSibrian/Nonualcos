@@ -161,6 +161,302 @@ class PermissionsTableSeeder extends Seeder
             ]
         );
         //fin
+        //Planillas
+        Permission::create(
+            [
+                'name' => 'Ver Planilla',
+                'slug' => 'empleadoPlanillas.index',
+                'description' => 'Ver planillas generadas',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Procesar Planilla',
+                'slug' => 'empleadoPlanillas.store',
+                'description' => 'Crear Planilla de pago, Indemnizaciones y Aguinaldos',
+            ]
+        );
+        //fin planillas
+        //permisos de empleado
+        Permission::create(
+            [
+                'name' => 'Ver Permisos',
+                'slug' => 'permisos.show',
+                'description' => 'Ver Permisos de empleados',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Permisos',
+                'slug' => 'permisos.store',
+                'description' => 'Crear Permisos de empleados',
+            ]
+        );
+        //final
+        //llegadas tardias
+        Permission::create(
+            [
+                'name' => 'Ver LLegadas Tardias',
+                'slug' => 'entradasSalidas.show',
+                'description' => 'Ver LLegadas Tardias de empleados',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear LLegadas Tardias',
+                'slug' => 'entradasSalidas.store',
+                'description' => 'Crear LLegadas Tardias de empleados',
+            ]
+        );
+        //final
+        //incapacidades
+        Permission::create(
+            [
+                'name' => 'Ver Incapacidades',
+                'slug' => 'incapacidades.show',
+                'description' => 'Ver incapacidades de empleados',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Incapacidades',
+                'slug' => 'incapacidades.store',
+                'description' => 'Crear Incapacidades de empleados',
+            ]
+        );
+        //fin
+        //descuentos
+        Permission::create(
+            [
+                'name' => 'Ver Descuentos',
+                'slug' => 'descuentos.show',
+                'description' => 'Ver descuentos de empleados',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Descuentos',
+                'slug' => 'descuentos.store',
+                'description' => 'Crear descuentos de empleados',
+            ]
+        );
+        //final
+
+        //bamcos
+        Permission::create(
+            [
+                'name' => 'Ver Bancos',
+                'slug' => 'bancos.index',
+                'description' => 'Lista, detalle  de Bancos. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Bancos',
+                'slug' => 'bancos.create',
+                'description' => 'crear Bancos',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Editar Bancos',
+                'slug' => 'bancos.edit',
+                'description' => 'Editar cualquier tipo de Banco',
+            ]
+        );
+        //fin
+        //clasificaciones de activos
+        Permission::create(
+            [
+                'name' => 'Ver clasificaciones de activos',
+                'slug' => 'clasificaciones.index',
+                'description' => 'Lista y navega todos las clasificaciones de activo',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear clasificaciones de activos',
+                'slug' => 'clasificaciones.create',
+                'description' => 'crear clasificaciones de activos',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Editar clasificaciones de activos',
+                'slug' => 'clasificaciones.edit',
+                'description' => 'Editar cualquier clasificacion de activos',
+            ]
+        );
+        //fin
+        //activos
+        Permission::create(
+            [
+                'name' => 'Ver activos',
+                'slug' => 'activos.index',
+                'description' => 'Lista, detalle y reportes de activo fijo. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear activo fijo',
+                'slug' => 'activos.create',
+                'description' => 'crear activo fijo',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Editar activo fijo',
+                'slug' => 'activos.edit',
+                'description' => 'Editar cualquier activo fijo',
+            ]
+        );
+        //final
+        //traslado de activos
+
+        Permission::create(
+            [
+                'name' => 'Ver traslados por activo',
+                'slug' => 'activosUnidades.show',
+                'description' => 'Ver traslados por activo fijo. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear traslados activo fijo',
+                'slug' => 'activosUnidades.store',
+                'description' => 'crear traslados respectivos al activo fijo',
+            ]
+        );
+        //fin
+        //mantenimientos
+
+        Permission::create(
+            [
+                'name' => 'Ver Mantenimiento por activo',
+                'slug' => 'mantenimientos.index',
+                'description' => 'Ver mantenimientos por activo fijo. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear mantenimientos activo fijo',
+                'slug' => 'mantenimientos.create',
+                'description' => 'crear mantenimientos respectivos al activo fijo',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Editar activo fijo',
+                'slug' => 'mantenimientos.edit',
+                'description' => 'Editar cualquier activo fijo',
+            ]
+        );
+        //final
+        //prestamos
+
+        Permission::create(
+            [
+                'name' => 'Ver Préstamos',
+                'slug' => 'prestamos.indexPrestamo',
+                'description' => 'Lista, detalle de Préstamos. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Préstamos',
+                'slug' => 'prestamos.create',
+                'description' => 'crear Préstamos',
+            ]
+        );
+
+
+        //final
+
+        //instituciones
+        Permission::create(
+            [
+                'name' => 'Ver Instituciones',
+                'slug' => 'instituciones.index',
+                'description' => 'Lista, detalle de Instituciones. ',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Crear Instituciones',
+                'slug' => 'instituciones.create',
+                'description' => 'crear Institucion',
+            ]
+        );
+        Permission::create(
+            [
+                'name' => 'Editar Instituciones',
+                'slug' => 'instituciones.edit',
+                'description' => 'Editar cualquier Institucion',
+            ]
+        );
+        //fin
+
+
+        //bitacora,auditoria y backup
+        Permission::create(
+            [
+                'name' => 'Seguridad del Sistema',
+                'slug' => 'auditoria.index',
+                'description' => 'Ver Bítacora Usuario, Auditoria y Backup',
+            ]
+        );
+
+         //Vales
+
+         Permission::create(
+             [
+                 'name' => 'Ver Vales',
+                 'slug' => 'vales.index',
+                 'description' => 'Lista, detalle de Vales de Combustible. ',
+             ]
+         );
+         Permission::create(
+             [
+                 'name' => 'Crear Vales',
+                 'slug' => 'vales.create',
+                 'description' => 'crear Vales de Combustible',
+             ]
+         );
+         Permission::create(
+             [
+                 'name' => 'Editar Vales',
+                 'slug' => 'vales.edit',
+                 'description' => 'Editar cualquier Vale de Combustible',
+             ]
+         );
+         //salidas
+         //liquidaciones
+         Permission::create(
+             [
+                 'name' => 'Ver Liquidaciones',
+                 'slug' => 'liquidaciones.index',
+                 'description' => 'Lista, detalle de Liquidaciones de Vales. ',
+             ]
+         );
+         Permission::create(
+             [
+                 'name' => 'Crear Liquidaciones',
+                 'slug' => 'liquidaciones.create',
+                 'description' => 'crear Liquidaciones de Vales ',
+             ]
+         );
+         Permission::create(
+             [
+                 'name' => 'Editar Liquidaciones',
+                 'slug' => 'liquidaciones.edit',
+                 'description' => 'Editar cualquier Liquidaciones ',
+             ]
+         );
+
+
+
+
+
 
 
 

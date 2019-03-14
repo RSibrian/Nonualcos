@@ -25,14 +25,7 @@
                                     <td><h4> <b>&nbsp;{{$clasificacionesActivos->nombreTipo}}</b></h4></td>
                                 </tr>
 
-                                <tr>
-                                    <td><h4>Clasificación según Ley: </h4></td>
-                                    <td><h4><b>&nbsp;{{$clasificacionesActivos->tipoLeyes->nombreLey}}</b></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h4>Porcentaje de depreciación: </h4></td>
-                                    <td><h4><b>&nbsp;{{$clasificacionesActivos->tipoLeyes->valorProcentaje.' %'}}</b></h4></td>
-                                </tr>
+                              
                             </table>
                             <div align="center">
                                 <a href="{{ route('clasificaciones.index') }}" class='btn btn-ocre '>Regresar</a>
