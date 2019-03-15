@@ -73,7 +73,7 @@ class Salidas extends Model implements Auditable
             ->join('empleados', 'salidas.idEmpleado', '=', 'empleados.id')
             ->where('idVehiculo', '=', $placa)
             ->whereBetween('fechaSalida', [$fechaI, $fechaF ])
-            ->select('fechaSalida', 'destinoTrasladarse', 'vales.id','numeroVale', 'nombresEmpleado', 'apellidosEmpleado')
+            ->select('fechaSalida', 'destinoTrasladarse', 'mision', 'vales.id','numeroVale', 'nombresEmpleado', 'apellidosEmpleado')
             ->get();
     }
 

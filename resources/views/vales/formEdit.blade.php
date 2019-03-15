@@ -232,7 +232,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label">Especifique nombre
                     </label>
-                    {!!Form::text('nombreOtro',null,['id'=>'nombreOtro','class'=>'form-control'])!!}
+                    {!!Form::text('nombreOtro',$vale->otro,['id'=>'nombreOtro','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>

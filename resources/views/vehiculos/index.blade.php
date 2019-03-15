@@ -28,7 +28,7 @@
                                   <th>Adquisicion</th>
                                   <th>Precio</th>
                                   <th>Unidad</th>
-                                  <th>Persona Encargada</th>
+                                  <th>Encargado</th>
                                   <th class="disabled-sorting text-right">Acciones</th>
                               </tr>
                           </thead>
@@ -42,8 +42,8 @@
                                 <th>Adquisicion</th>
                                 <th>Precio</th>
                                 <th>Unidad</th>
-                                <th>Persona Encargada</th>
-                                  <th class="text-right">Acciones&nbsp;de&nbsp;Activo</th>
+                                <th>Encargado</th>
+                                  <th class="text-right">Acciones</th>
                               </tr>
                           </tfoot>
                           <tbody>
@@ -55,26 +55,26 @@
                                       <td>{{$cont}}</td>
                                       @if($vehiculo->activo->codigoInventario!=null)
                                       <td>{{$vehiculo->activo->codigoInventario}}</td>
-                                    @else
+                                       @else
                                       <td align='center'>{{'------'}}</td>
-                                    @endif
+                                       @endif
                                       
 
                                       <td>{{$vehiculo->numeroPlaca}}</td>
                                       <td>{{$vehiculo->activo->nombreActivo}}</td>
-                                      <td>{{$vehiculo->activo->fechaAdquisicion}}</td>
-                                      <td>{{$vehiculo->activo->precio}}</td>
-                                      @if($vehiculo->codigoInventario!=null)
+                                      <td>{{\Helper::fecha($vehiculo->activo->fechaAdquisicion)}}</td>
+                                      <td>{{"$ ". \Helper::dinero($vehiculo->activo->precio)}}</td>
+                                      @if($vehiculo->activo->codigoInventario!=null)
                                       <?php
-                                          $traslado=$vehiculo->activosUnidades->last();
+                                          $traslado=$vehiculo->activo->activosUnidades->last();
                                       ?>
                                       <td>{{$traslado->unidad->nombreUnidad}}</td>
                                       <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
                                     @else
                                     <td>{{'No asignado'}}</td>
                                     <td>{{'No asignado'}}</td>
+                                      @endif
 
-                                  @endif
                                       <td class="text-right">
                                           @can('proveedores.edit')
                                               <a title="Reporte Mantenimiento" href="{{ route('HiVe.index', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">

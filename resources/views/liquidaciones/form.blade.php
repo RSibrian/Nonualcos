@@ -10,9 +10,7 @@
                 <i class="material-icons">date_range</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Fecha
-                    <small>(*)</small>
-                </label>
+                <label class="control-label"> <code>*</code> Fecha </label>
                 {!!Form::date('fechaLiquidacion', old('fechaLiquidacion', date('Y-m-d')) ,['id'=>'fechaLiquidacion','class'=>'form-control datepicker'])!!}
             </div>
         </div>
@@ -21,9 +19,7 @@
                 <i class="material-icons">drive_eta</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Vehículo
-                    <small>(*)</small>
-                </label>
+                <label class="control-label"><code>*</code> Vehículo </label>
                 {!! Form::select('vehiculo', $placas, '0',['id'=>'vehiculo','class'=>'form-control']) !!}
             </div>
         </div>
@@ -35,9 +31,7 @@
                 <i class="material-icons">featured_play_list</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">No. de factura
-                    <small>(*)</small>
-                </label>
+                <label class="control-label"><code>*</code> No. de factura </label>
                 {!!Form::text('numeroFacturaLiquidacion', old('numeroFacturaLiquidacion') ,['id'=>'nFactura','class'=>'form-control datepicker'])!!}
             </div>
         </div>
@@ -56,9 +50,7 @@
                 <i class="material-icons">attach_money</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Total
-                    <small>(*)</small>
-                </label>
+                <label class="control-label"><code>*</code> Total </label>
                 {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', 'readonly'])!!}
             </div>
         </div>

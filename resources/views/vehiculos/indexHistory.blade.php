@@ -11,7 +11,7 @@
 
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title"> Historial Mantenimientos Vehículos
+                    <h4 class="card-title"> Historial mantenimiento vehículo placa {{ $placa->numeroPlaca }}
                     </h4>
 
                     <div class="material-datatables">
@@ -25,7 +25,7 @@
                                     <label class="control-label">Fecha de inicio
                                         <small >(*)</small>
                                     </label>
-                                    {!! Form::hidden('placa', $placa, ['id' => 'placa']) !!}
+                                    {!! Form::hidden('placa', $placa->id, ['id' => 'placa']) !!}
                                     {!!Form::date('fechaI',$fechaInicio,['id'=>'fechaI','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
                                 </div>
                             </div>
@@ -218,16 +218,14 @@
         function format ( d ) {
             // `d` is the original data object for the row
 
-            var f=new Date(d.fechaRecepcionTaller);
-            var g=new Date(d.fechaRetornoTaller);
             return '<table class="table table-hover" style="width:50%" >'+
                 '<tr>'+
                 '<td>Fecha recepción en taller:</td>'+
-                '<td>'+ f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear()+'</td>'+
+                '<td>'+ (d.fechaRecepcionTaller).split("-").reverse().join("/") +'</td>'+
                 '</tr>'+
                 '<tr>'+
                 '<td>Fecha retorno de taller:</td>'+
-                '<td>'+ g.getDate()+'/'+(g.getMonth()+1)+'/'+g.getFullYear() +'</td>'+
+                '<td>'+ (d.fechaRetornoTaller).split("-").reverse().join("/") +'</td>'+
                 '</tr>'+
                 '<tr>'+
                 '<td>Solicitante:</td>'+
@@ -235,7 +233,7 @@
                 '</tr>'+
                 '<tr>'+
                 '<td>Costo:</td>'+
-                '<td>'+'$ '+d.costoMantenimiento+'</td>'+
+                '<td>'+'$ '+  new Intl.NumberFormat("en-IN", { minimumFractionDigits:2 }).format(d.costoMantenimiento)+'</td>'+
                 '</tr>'+
                 '</table>';
         }

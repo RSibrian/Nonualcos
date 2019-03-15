@@ -11,7 +11,7 @@
 
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Historial de Salidas</h4>
+                    <h4 class="card-title">Historial de salidas vehículo placa {{ $placa->numeroPlaca }}</h4>
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
@@ -26,7 +26,7 @@
                                         <label class="control-label">Fecha de inicio
                                             <small >(*)</small>
                                         </label>
-                                        {!! Form::hidden('placa', $placa, ['id' => 'placa']) !!}
+                                        {!! Form::hidden('placa', $placa->id, ['id' => 'placa']) !!}
                                         {!!Form::date('fechaI',$fechaInicio,['id'=>'fechaI','class'=>'form-control datepicker', 'max' => date('Y-m-d')])!!}
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div align="center">
                                 {!! Form::button('Mostrar',[ 'id' => 'mostrar','class'=>'btn btn-azul glyphicon']) !!}
-                                {!! Form::button('Descargar',['class'=>'btn btn-verde glyphicon']) !!}
+                                {!! Form::button('Descargar',[ 'id' => 'descargar', 'class'=>'btn btn-verde glyphicon']) !!}
                                 <a class="btn  btn-ocre  glyphicon" href="{{ route('vehiculos.index') }}">Regresar</a>
                             </div>
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -135,7 +135,7 @@
                ruta = "{{ route('salidas.datable', [ 'placa' => ':placa', 'fechaI' => ':fechaI', 'fechaF' => ':fechaF']) }}";
            }
            if(x=='2'){
-               ruta = "{{ route('Rhistorialmanto', [ 'placa' => ':placa', 'fechaI' => ':fechaI', 'fechaF' => ':fechaF']) }}";
+               ruta = "{{ route('Rhistorialsalidas', [ 'placa' => ':placa', 'fechaI' => ':fechaI', 'fechaF' => ':fechaF']) }}";
            }
 
            ruta=ruta.replace(':placa', placa);

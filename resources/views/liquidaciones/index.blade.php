@@ -19,9 +19,8 @@
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
-                            <a class="btn btn-ocre btn-round " data-toggle="modal" data-target="#exampleModal">
-                                <i class="material-icons">save_alt</i>
-                                Reporte
+                            <a class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#exampleModal" title="Reporte General">
+                                <i class="material-icons">assignment</i>
                             </a>
                             {{--route('liquidacion.reporteG') --}}
 
@@ -57,7 +56,7 @@
                                   <?php $cont++;?>
                                 <td id="{{$liquidacion->id}}"></td>
                                 <td>{{ $cont }}</td>
-                                <td>{{ date('d-m-Y', strtotime($liquidacion->fechaLiquidacion)) }}</td>
+                                <td>{{ \Helper::fecha($liquidacion->fechaLiquidacion) }}</td>
                                 <td>{{ $liquidacion->numeroFacturaLiquidacion }}</td>
                                       <?php $vehiculo= $liquidacion->vale;?>
                                       @foreach($vehiculo as $ve)
@@ -232,10 +231,10 @@
                     cont++;
                     tbody += '<tr>'+
                             '<td>' + cont + '</td>'+
-                            '<td>' + (d.fechaCreacion).split("-").reverse().join("-")+ '</td>'+
+                            '<td>' + (d.fechaCreacion).split("-").reverse().join("/")+ '</td>'+
                             '<td>' + d.numeroVale + '</td>'+
                             '<td>' + d.nombreUnidad + '</td>'+
-                            '<td>' + d.costoUnitarioVale+ '</td>'+
+                            '<td> $ ' + new Intl.NumberFormat("en-IN", { minimumFractionDigits:2 }).format( d.costoUnitarioVale)+ '</td>'+
                             '</tr>';
                 });
                 callback($("<table class='table' style='width:90%;'>" + thead + tbody + '</table>')).show();

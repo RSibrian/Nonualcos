@@ -105,9 +105,9 @@
                     cont++;
                     tabla.append(
                         "<tr>"+"<td></td>"+"<td>"+ cont +"</td>"+
-                        "<td>"+ value.fechaCreacion +"</td>"+
+                        "<td>"+ (value.fechaCreacion).split("-").reverse().join("/") +"</td>"+
                         "<td>"+ value.numeroVale +"</td>"+
-                        "<td>"+ value.costoUnitarioVale +"</td>"+
+                        "<td> $ "+ new Intl.NumberFormat("en-IN", { minimumFractionDigits:2 }).format(value.costoUnitarioVale) +"</td>"+
                         "<td class='text-right'>"+
                         "<a href='/vales/show/"+value.id+"' class='btn btn-xs btn-info btn-round' >"+
                         "<i title='Mostrar' class='material-icons' rel='tooltip'>visibility</i>"+

@@ -522,6 +522,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('salidas.datable')
         ->middleware('permission:vales.index');
 
+    Route::get('/ReporteGeneralSalidas/{fechaInicio}/{fechaFin}/{placa}','SalidasController@RGSalidas')
+        ->name('Rhistorialsalidas');
     // fin de vales
 
     //traslados

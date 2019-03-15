@@ -47,13 +47,11 @@ class valeController extends Controller
 
         $salida=$vale->salida;
         $vehiculo=$vale->salida->vehiculo;
-        $placas = Vehiculo::pluck('vehiculos.numeroPlaca', 'vehiculos.id');
-        $empleados = Vale::EmpleadosActivos();
-        $autoriza= User::find(Auth::id());
-        Vale::verifica($autoriza,$placas, $empleados);
-        $placas=$placas->prepend('Seleccione una placa', '0');
+        $nombre=$vale->salida->empleados;
+        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
+        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
 
-        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'placas', 'empleados'));
+        return View('vales.show', compact('vale', 'salida', 'vehiculo', 'nombre', 'recibe', 'autoriza'));
 
     }
 
@@ -61,12 +59,14 @@ class valeController extends Controller
 
         $salida=$vale->salida;
         $vehiculo=$vale->salida->vehiculo;
-        $solicitante=$vale->salida->empleados;
-        $recibe=$vale->salida->empleados->find($vale->empleadoRecibeVal);
-        $autoriza=$vale->salida->empleados->find($vale->empleadoAutorizaVal);
+        $placas = Vehiculo::pluck('vehiculos.numeroPlaca', 'vehiculos.id');
+        $empleados = Vale::EmpleadosActivos();
+        $autoriza= User::find(Auth::id());
+        Vale::verifica($autoriza,$placas, $empleados);
+        $placas=$placas->prepend('Seleccione una placa', '0');
 
          //echo dd($vale);
-        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'solicitante', 'recibe', 'autoriza'));
+        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'placas', 'empleados'));
 
     }
 

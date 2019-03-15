@@ -90,7 +90,7 @@ class VehiculoController extends Controller
         //
     }
 
-    public function indexHistory($placa)
+    public function indexHistory(Vehiculo $placa)
     {
         $month = date('m');
         $year = date('Y');
@@ -107,18 +107,18 @@ class VehiculoController extends Controller
         return Response::json($data);
     }
 
-    public function  RGMantenimientos($fechaInicio,$fechaFinal,$placa){
+    public function  RGMantenimientos($fechaInicio,$fechaFinal,Vehiculo $placa){
 
-        $data=Vehiculo::Datatable3($placa,$fechaInicio,$fechaFinal);
+        $data=Vehiculo::Datatable3($placa->id,$fechaInicio,$fechaFinal);
 
         $date = date('d-m-Y');
         $date1 = date('g:i:s a');
         $vistaurl="reportesTransporte.mantenimientosVReport";
-        $view =  \View::make($vistaurl, compact('data','fechaInicio','fechaFinal', 'date','date1'))->render();
+        $view =  \View::make($vistaurl, compact('data','fechaInicio','fechaFinal', 'date','date1', 'placa'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream('Reporte_general_vehiculos '.$date.'.pdf');
+        $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('Reporte_general_manto_vehiculos '.$date.'.pdf');
 
     }
 }

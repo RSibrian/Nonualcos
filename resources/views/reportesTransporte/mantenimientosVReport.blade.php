@@ -13,20 +13,18 @@
         }
 
         th td{
-            padding: 8px;
+            padding: 5px 20px;
         }
 
-        .derecha {
-            text-align: right;
-            padding-right: 57px;
+        table th {
+            color: white;
+            border-bottom: 1px solid #C1CED9;
+            white-space: nowrap;
+            font-weight: normal;
         }
-
-        .columna{
-            padding: -8px;
-        }
-
-        .borde{
-            border-bottom: 1px solid #ccc;
+        th {
+            background-color: #4f8ba0;
+            color: white;
         }
 
         table tr:nth-child(2n-1) td {
@@ -35,8 +33,8 @@
 
     </style>
 
-    <br><div align="center" style="position: top:170px; z-index: 1;"><h3>Reporte General Manto. de Vehículos</h3></div>
-    <div align='center'  ><h3>Del: {{Carbon\Carbon::parse($fechaInicio)->format('d/m/Y')}} ---- Al: {{Carbon\Carbon::parse($fechaFinal)->format('d/m/Y')}}</h3> </div>
+    <br><div align="center" style="position: top:170px; z-index: 1;"><h3>Reporte de mantenimientos para vehículo placa {{ $placa->numeroPlaca }}</h3></div>
+    <div align='center'  ><h3>Del: {{ \Helper::fecha($fechaInicio)}} ---- Al: {{\Helper::fecha($fechaFinal)}}</h3> </div>
 
 
     <table class="table-wrapper" >
@@ -48,7 +46,7 @@
             <th>Artículo</th>
             <th>Fecha en taller</th>
             <th>Empresa Encargada</th>
-            <th>Personal que solicita</th>
+            <th>Solicitante</th>
             <th>Fecha de Recepción</th>
             <th>Personal que Recibe</th>
             <th>Costo</th>
@@ -62,12 +60,12 @@
                 <td rowspan="2">{{$count}}</td>
                 <td>{{$mantenimiento->Activos->codigoInventario}}</td>
                 <td>{{$mantenimiento->Activos->nombreActivo}}</td>
-                <td>{{$mantenimiento->fechaRecepcionTaller->format('d-m-Y')}}</td>
+                <td>{{\Helper::fecha($mantenimiento->fechaRecepcionTaller)}}</td>
                 <td>{{ $mantenimiento->proveedores->nombreEmpresa }}</td>
-                <td>{{ $mantenimiento->empleado1->nombresEmpleado.' '.$mantenimiento->empleado1->apellidosEmpleado }}</td>
-                <td>{{$mantenimiento->fechaRetornoTaller->format('d-m-Y')}}</td>
-                <td>{{ $mantenimiento->empleado2->nombresEmpleado.' '.$mantenimiento->empleado2->apellidosEmpleado }}</td>
-                <td>$ {{$mantenimiento->costoMantenimiento}}</td>
+                <td>{{ $mantenimiento->empleado1->fullname }}</td>
+                <td>{{\Helper::fecha($mantenimiento->fechaRetornoTaller)}} </td>
+                <td>{{ $mantenimiento->empleado2->fullname }}</td>
+                <td>$ {{ \Helper::dinero($mantenimiento->costoMantenimiento)}}</td>
             </tr>
             <tr>
                 <td colspan="2">Mantenimiento Realizado: </td>
