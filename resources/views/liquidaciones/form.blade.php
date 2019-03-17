@@ -51,7 +51,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code> Total </label>
-                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.0') ,['id'=>'totalFactura','class'=>'form-control datepicker', 'readonly'])!!}
+                {!!Form::text('montoFacturaLiquidacion', old('montoFacturaLiquidacion','0.00') ,['id'=>'totalFactura','class'=>'form-control datepicker', 'readonly'])!!}
             </div>
         </div>
     </div>

@@ -61,7 +61,7 @@ class Vehiculo extends Model implements Auditable
     public static function PlacasDisponibles(){
 
         $vehiculosSalidas=Salidas::join('vales', 'salidas.id', '=', 'vales.idSalida')
-            ->join('vehiculos', 'salidas.idVehiculo', '=', 'vehiculos.id')
+            ->join('vehiculos', 'vehiculos.id', '=', 'salidas.idVehiculo')
             ->where('vales.estadoRecibidoVal','=', '0')->get(['vehiculos.id']);
 
         $vehiculosMantenimiento=Activos::join('mantenimientos', 'activos.id', '=', 'mantenimientos.idActivo')
@@ -79,11 +79,9 @@ class Vehiculo extends Model implements Auditable
                 ['activos.tipoActivo','=','1'],
             ])->get(['vehiculos.id']);
 
-        //$lista=$vehiculosSalidas->concat($vehiculosMantenimiento)->concat($vehiculosActivos);
-
         $lista=$vehiculosSalidas->merge($vehiculosMantenimiento)->merge($vehiculosActivos);
         $lista=$lista->toArray();
 
-        return Vehiculo::whereIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
+        return Vehiculo::whereNotIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
     }
 }

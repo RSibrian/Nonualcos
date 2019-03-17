@@ -23,7 +23,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Fecha: <br></h4></td>
-                                        <td><h4> <b> {{ date('d-m-Y', strtotime($liquidacion->fechaLiquidacion)) }}</b></h4></td>
+                                        <td><h4> <b> {{ \Helper::fecha($liquidacion->fechaLiquidacion) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -98,10 +98,10 @@
                                                 <?php $cont++; ?>
                                                 <td></td>
                                                 <td> {{ $cont }} </td>
-                                                <td> {{ date('d-m-Y', strtotime($vale->fechaCreacion)) }} </td>
+                                                <td> {{ \Helper::fecha($vale->fechaCreacion) }} </td>
                                                 <td> {{ $vale->numeroVale }} </td>
                                                 <td> {{ $vale->nombreUnidad }} </td>
-                                                <td> {{ "$ ".$vale->costoUnitarioVale }} </td>
+                                                <td> {{ "$ ". \Helper::dinero($vale->costoUnitarioVale) }} </td>
                                                 <td class='text-right'>
                                                     <a href='{{ route('vales.show', $vale->id) }}' class='btn btn-xs btn-info btn-round' >
                                                         <i title='Mostrar' class='material-icons' rel='tooltip'>visibility</i>
@@ -124,7 +124,7 @@
                                 <table>
                                     <tr>
                                         <td><h4>Monto de factura: <br></h4></td>
-                                        <td><h4> <b> {{ "$ ".$liquidacion->montoFacturaLiquidacion }}</b></h4></td>
+                                        <td><h4> <b> {{ "$ ". \Helper::dinero($liquidacion->montoFacturaLiquidacion) }}</b></h4></td>
                                     </tr>
                                 </table>
                             </div>
