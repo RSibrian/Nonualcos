@@ -35,11 +35,21 @@
         }
     </style>
     <ul id="ul">
-        <li id="li"><a  href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
-        <li id="li"  ><a href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
-        <li id="li"  ><a  class="active" href="{{ url("entradasSalidas/{$empleado->id}") }}">Llegadas Tardía</a></li>
-        <li id="li" style="float:right;"><a href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
-        <li id="li" style="float:right;" ><a  href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
+      @can('empleados.index')
+      <li id="li"><a  href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
+      @endcan
+      @can('descuentos.show')
+      <li id="li"  ><a  href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
+      @endcan
+      @can('entradasSalidas.show')
+      <li id="li"  ><a class="active"  href="{{ url("entradasSalidas/{$empleado->id}") }}">Llegadas Tardía</a></li>
+      @endcan
+      @can('incapacidades.show')
+      <li id="li" style="float:right;"><a  href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
+      @endcan
+      @can('permisos.show')
+      <li id="li" style="float:right;" ><a  href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
+      @endcan
 
     </ul>
     <div class="row">
@@ -57,7 +67,7 @@
                   <h4 class="card-title">Llegadas Tardias de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
                   <h4 class="card-title">Salario <b>$ {{$empleado->salarioBruto}}</b></h4>
 
-                    @can('unidads.create')
+                    @can('entradasSalidas.store')
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         {!! Form::open(['route'=>'entradasSalidas.store','method'=>'POST','autocomplete'=>'off', 'enctype'=>'multipart/form-data']) !!}

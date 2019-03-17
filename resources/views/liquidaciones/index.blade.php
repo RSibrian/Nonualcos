@@ -65,7 +65,7 @@
                                  <td>{{ $placa->numeroPlaca}}</td>
                                 <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
                                 <td class="text-right">
-                                  @can('vales.edit')
+                                  @can('liquidaciones.edit')
                                       <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round collapse ">
                                           <i title="Editar Liquidacion" class="material-icons" rel="tooltip">create</i>
                                       </a>

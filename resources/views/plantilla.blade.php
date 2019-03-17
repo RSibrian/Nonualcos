@@ -136,7 +136,8 @@
             <div class="collapse" id="formsExamples">
               <ul class="nav">
                 <li>
-                  <a href="#">Mi Cuenta</a>
+
+                  <a href="{{url('users/'.Auth::user()->id)}}">Mi Cuenta</a>
                 </li>
                 <li>
                   <a href="{{url('users/'.Auth::user()->id.'/edit')}}">Editar Cuenta</a>
@@ -178,6 +179,7 @@
         </a>
         <div class="collapse" id="UseExamples">
           <ul class="nav">
+
             <li>
               <a href="{{ route('users.index') }}">Usuarios</a>
             </li>
@@ -186,6 +188,7 @@
               <a href="{{ route('roles.index') }}">Roles</a>
               @endcan
             </li>
+              @can('auditoria.index')
             <li>
               <a href="{{ route('auditoria.index') }}">Auditoría</a>
             </li>
@@ -195,11 +198,13 @@
             <li>
               <a href="{{ route('backups.index') }}">Backup</a>
             </li>
+              @endcan
           </ul>
         </div>
       </li>
       @endcan
       <?php //Empleado*********************************************?>
+        @can('empleados.index')
       <li>
         <a data-toggle="collapse" href="#EmpleExamples">
           <i class="material-icons">content_paste</i>
@@ -210,27 +215,39 @@
         <div class="collapse" id="EmpleExamples">
           <ul class="nav">
             <li>
+              @can('unidades.index')
               <a href="{{ route('unidades.index') }}">Unidades</a>
+              @endcan
             </li>
             <li>
+              @can('cargos.index')
               <a href="{{ route('cargos.index') }}">Cargos</a>
+              @endcan
             </li>
             <li>
+              @can('bancos.index')
               <a href="{{ route('bancos.index') }}">Bancos</a>
+              @endcan
             </li>
             <li>
+              @can('empleados.index')
               <a href="{{ route('empleados.index') }}">Empleados</a>
+              @endcan
             </li>
+            @can('empleadoPlanillas.show')
             <li>
               <a href="{{ route('empleadoPlanillas.index') }}">Planillas</a>
             </li>
             <li>
               <a href="{{ route('indemnizaciones.index') }}">Pasivo Laboral (Indemnizaciones)</a>
             </li>
+            @endcan
           </ul>
         </div>
       </li>
+    @endcan
       <?php //activo fijo**************************************?>
+        @can('activos.index')
       <li>
         <a data-toggle="collapse" href="#activoExamples">
           <i class="material-icons">note_add</i>
@@ -241,35 +258,50 @@
         <div class="collapse" id="activoExamples">
           <ul class="nav">
             <li>
+              @can('clasificaciones.index')
               <a href="{{ route('clasificaciones.index') }}">Clasificaciones</a>
+                @endcan
             </li>
 
             <li>
+              @can('proveedores.index')
               <a href="{{ route('proveedores.index') }}">Proveedores</a>
+              @endcan
             </li>
             <li>
+              @can('instituciones.index')
              <a href="{{ route('instituciones.index')}}">Instituciones</a>
+               @endcan
             </li>
             <li>
+              @can('activos.index')
               <a href="{{ route('activos.index') }}">Activos</a>
+                @endcan
             </li>
 
             <li>
+              @can('mantenimientos.index')
               <a href="{{ route('mantenimientos.index') }}">Mantenimientos</a>
+              @endcan
             </li>
 
              <li>
+               @can('prestamos.indexPrestamo')
               <a href="{{ route('prestamos.indexPrestamo') }}">Préstamos</a>
+              @endcan
              </li>
-             
+
              <li>
+               @can('activos.index')
                <a href="{{ route('activos.generarReporte') }}">Generar Reporte</a>
+                 @endcan
              </li>
           </ul>
         </div>
       </li>
+    @endcan
       <?php //transporte********************************************** ?>
-
+    @can('vales.index')
       <li>
         <a data-toggle="collapse" href="#TransExamples">
           <i class="material-icons">content_paste</i>
@@ -280,17 +312,24 @@
         <div class="collapse" id="TransExamples">
           <ul class="nav">
             <li>
+              @can('vales.index')
               <a href="{{ route('vales.index') }}">Vales</a>
+              @endcan
             </li>
             <li>
+              @can('liquidaciones.index')
               <a href="{{ route('liquidaciones.index') }}">Liquidaciones</a>
+              @endcan
             </li>
             <li>
+              @can('activos.index')
               <a href="{{ route('vehiculos.index') }}">Vehículos</a>
+              @endcan
             </li>
           </ul>
         </div>
       </li>
+      @endcan
     </ul>
   </div>
 </div>

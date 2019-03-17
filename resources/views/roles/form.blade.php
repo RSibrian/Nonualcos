@@ -7,26 +7,50 @@
 </style>
 <fieldset>
     <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
-    <div class="form-group row">
-        <span class="col-md-3  text-center" ><label ><code>*</code> Nombre :</label></span>
-        <div class="col-md-6">
-            {!!Form::text('name',null,['id'=>'name','class'=>'form-control', 'placeholder'=>'Ingrese el nombre del Rol...','required'])!!}
+    <div class="col-sm-10 row">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">assignment_ind</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code> Nombre del Rol :
+                </label>
+                {!!Form::text('name',null,['id'=>'name','class'=>'form-control', 'required'])!!}
+
+            </div>
         </div>
     </div>
-    <div class="form-group row">
-        <span class="col-md-3  text-center" ><label ><code>*</code> Slug : </label></span>
-        <div class="col-md-6">
-            {!!Form::text('slug',null,['id'=>'slug','class'=>'form-control', 'placeholder'=>'Ingrese el slug del Rol...','required'])!!}
+    <div class="col-sm-10 row">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">assignment_ind</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Slug :
+                </label>
+                {!!Form::text('slug',null,['id'=>'slug','class'=>'form-control','required'])!!}
+
+            </div>
         </div>
     </div>
-    <div class="form-group row">
-        <span class="col-md-3  text-center" ><label ><code>*</code> Descripción : </label></span>
-        <div class="col-md-6">
-            {!!Form::text('description',null,['id'=>'description','class'=>'form-control', 'placeholder'=>'Ingrese la descripcion del Rol...','required'])!!}
+    <div class="col-sm-10 row">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">assignment</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Descripción  :
+                </label>
+                {!!Form::text('description',null,['id'=>'description','class'=>'form-control','required'])!!}
+
+            </div>
         </div>
     </div>
-    <h6>Permiso especial</h6>
-    <div class="form-group row ">
+
+
+    <div class="col-sm-10 row">
+        <div class="input-group">
+          <h6>Permiso especial</h6>
         <div class="radio">
             <label style="color: #0d3625;" for="radio3">
                 {{ Form::radio('special','','true',[ 'id'=>"radio3"]) }}Personalizado &nbsp;
@@ -42,8 +66,13 @@
             </label>
 
         </div>
+      </div>
     </div>
-    <h6>Lista de Permisos</h6>
+    <div class="col-sm-10 row">
+    <div class="input-group">
+        <h6>Lista de Permisos</h6>
+      </div>
+    </div>
     <div class="material-datatables">
         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
             <thead>

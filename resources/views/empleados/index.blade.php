@@ -16,16 +16,16 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
                     <div class="material-datatables">
-                        @can('proveedores.create')
+                        @can('empleados.create')
                             <a href="{{ url("empleados/create") }}" class="btn  btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
-
+                        @endcan
                             <a href="{{ url("empleados/reporteEmpleado") }}" target="_blank"  class="btn btn-xs btn-ocre btn-round" title="Generar Reporte">
                                 <i class="material-icons">assignment</i>
                             </a>
-                        @endcan
+
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%";>
                             <thead>
                                 <tr>
@@ -74,7 +74,7 @@
 
 
                                         <td class="text-right">
-                                            @can('proveedores.edit')
+                                          @can('empleados.edit')
                                             <a title="Editar empleado" href="{{ url("empleados/{$empleado->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
                                                 <i class="material-icons">
                                                     create
@@ -84,10 +84,11 @@
                                                 <a title="Acciones" href="{{ url("empleados/{$empleado->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">person_add</i>
                                                 </a>
-
+                                            @can('empleados.index')
                                                 <a title="Ver empleado" href="{{ url("empleados/{$empleado->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
+                                            @endcan
                                         </td>
 
 

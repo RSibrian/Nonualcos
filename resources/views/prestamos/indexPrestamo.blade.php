@@ -16,14 +16,17 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
                     <div class="material-datatables">
-
+                              @can('prestamos.create')
                             <a href="{{ url("prestamos/create") }}" class="btn  btn-success btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
+                          @endcan
+                              @can('prestamos.edit')
                             <a href="{{ url("prestamos") }}"  class="btn btn-xs btn-ocre btn-round" title="Ver Calendario">
                                 <i class="material-icons">date_range</i>
                             </a>
+                            @endcan
                             <a href="{{ url("prestamos/generarReportePrestamo") }}"  target="_blank"  class="btn btn-xs btn-ocre btn-round" title="Generar Reporte">
                                 <i class="material-icons">assignment</i>
                             </a>

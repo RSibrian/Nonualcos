@@ -37,19 +37,27 @@
     </style>
     <ul id="ul">
 
+      @can('activos.index')
         <li id="li"><a  href="{{ url("activos/{$activo->id}") }}">Datos Activo</a></li>
+      @endcan
+      @can('activosUnidades.show')
         @if($activo->codigoInventario!=null)
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Traslado</a></li>
         @else
         <li id="li"  ><a class="active" href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
       @endif
+    @endcan
+    @can('activos.index')
       @if($activo->precio>=600 )
       <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
       @endif
-      @if( $activo->codigoInventario!=null)
-        <li id="li" style="float:right;"><a href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
+    @endcan
+    @can('mantenimientos.index')
+      @if($activo->codigoInventario!=null)
+        <li id="li" style="float:right;"><a  href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
 
       @endif
+    @endcan
     </ul>
     <div class="row">
         <div class="col-md-12">
@@ -59,6 +67,7 @@
                 </div>
 
                 <div class="card-content">
+            @can('activosUnidades.store')
               @if($activo->estadoActivo!=0)
                   @if($activo->codigoInventario!=null)
                   <h4 class="card-title">Traslados de <b>{{$activo->codigoInventario." ".$activo->nombreActivo}}</b></h4>
@@ -66,7 +75,7 @@
                   <h4 class="card-title">Asignar Activo <b>{{$activo->nombreActivo}}</b></h4>
                   @endif
 
-                    @can('unidads.create')
+
                         <div class="toolbar">
                           <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
                           @if($activo->codigoInventario!=null)
@@ -148,8 +157,9 @@
                             {!! Form::close() !!}
 
                         </div>
-                    @endcan
+
                   @endif
+                  @endcan
                     <br>
                     <h4 class="card-title">Historial de Traslados del Activo: <b>{{$activo->codigoInventario}}</b></h4>
                     <div class="material-datatables">
@@ -195,7 +205,7 @@
                                     <td>{{$traslado->unidad->nombreUnidad}}</td>
                                     <td>{{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
                                     <td class="text-right">
-                                        @can('proveedores.edit')
+                                          @can('activosUnidades.show')
                                         <a title="Constancia de Entrega" href="{{ url("reporteTraslado/{$traslado->id}") }}"  target="_blank" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                             <i class="material-icons">
                                                 save_alt

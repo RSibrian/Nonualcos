@@ -93,6 +93,7 @@
                     </div>
                     @include('planillas.aguinaldos.terminar')
                     <div align='center'>
+                      @can('empleadoPlanillas.store')
                       <a  aling='right' href="{{ url("aguinaldos/create/excel/$exento") }}" class="btn  btn-azul btn " title="Descargar Planilla en Archivo EXCEL">
                           <i class="material-icons"></i>
                           1- EXCEL
@@ -102,6 +103,7 @@
                           2- BOLETA
                       </a>
                     <button type="submit"  class="btn btn btn-success" data-toggle="modal" data-target="#gridSystemModal2">3-  PROCESAR</button>
+                  @endcan
                     <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
                     </div>
 

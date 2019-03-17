@@ -35,19 +35,27 @@
       }
   </style>
   <ul id="ul">
+    @can('activos.index')
       <li id="li"><a  href="{{ url("activos/{$activo->id}") }}">Datos Activo</a></li>
+    @endcan
+    @can('activosUnidades.show')
       @if($activo->codigoInventario!=null)
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Traslado</a></li>
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
-      @if($activo->precio>=600 )
-      <li id="li" style="float:right;"><a class="active"  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
-      @endif
-      @if($activo->codigoInventario!=null)
+  @endcan
+  @can('activos.index')
+    @if($activo->precio>=600 )
+    <li id="li" style="float:right;"><a class="active" href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
+    @endif
+  @endcan
+  @can('mantenimientos.index')
+    @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a  href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
-      
-      @endif
+
+    @endif
+  @endcan
   </ul>
   <div class="row">
     <div class="col-md-12">

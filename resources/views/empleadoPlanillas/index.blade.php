@@ -27,14 +27,16 @@
                     <?php
                     $planilla_last=$planillas->last();
                     ?>
+                  @can('empleadoPlanillas.index')
                     @if($planilla_last->mes!=intval($mes))
                       <a  aling='right' href="{{ url("planillas") }}" class="btn  btn-verde btn-round " title="">
                         <i class="material-icons"></i>
                             Planilla
                       </a>
                     @endif
+
                     @if($planilla_last->mes!=13 && intval($mes)==12 && $planilla_last->mes!=12)
-                      <a  title="Agregar Nuevo Proveedor" href="" data-toggle="modal" data-target="#nuevo"  aling='right' href="{{ url("aguinaldos") }}"  class="btn  btn-ocre btn-round " title="">
+                      <a  title="Generar Aguinaldo" href="" data-toggle="modal" data-target="#nuevo"  aling='right' href="{{ url("aguinaldos") }}"  class="btn  btn-ocre btn-round " title="">
                         <i class="material-icons"></i>
                         Aguinaldo
                       </a>
@@ -46,6 +48,7 @@
                     </a>
 
                   @endif
+                @endcan
 
 
 
@@ -88,9 +91,11 @@
                                         <td>{{\Helper::fecha($planilla->FechaPago)}}</td>
 
                                         <td>
+                                          @can('empleadoPlanillas.index')
                                               <a title="Ver Detalle" href="{{ url("empleadoPlanillas/{$planilla->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">visibility</i>
                                               </a>
+                                          @endcan    
                                         </td>
                                     </tr>
                                 @endforeach

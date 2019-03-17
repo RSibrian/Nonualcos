@@ -16,17 +16,18 @@
                   <!--        Here you can write extra buttons/actions for the toolbar              -->
                   </div>
                   <div class="material-datatables">
-                      @can('unidads.create')
+                      @can('activos.create')
                           <a href="{{ url("activos/create") }}" class="btn  btn-verde btn-round " title="Agregar nuevo activo">
                               <i class="material-icons">add</i>
                               Nuevo
-
                           </a>
                       @endcan
+                      @can('activos.index')
                       <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn  btn-ocre btn-round " title="Reporte General de Inventario de Activos">
                           <i class="material-icons">save_alt</i>
 
                       </a>
+                      @endcan
                       <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                           <thead>
                               <tr>
@@ -97,23 +98,24 @@
                                   @endif
                                   </td>
                                       <td class="text-right">
-                                          @can('proveedores.edit')
+                                        @can('activos.edit')
                                           <a title="Editar activo" href="{{ url("activos/{$activo->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                               <i class="material-icons">
                                                   create
                                               </i>&nbsp;
                                           </a>
                                           @endcan
-                                          @can('proveedores.index')
+                                          @can('activos.index')
                                                <a title="Más Acciones" href="{{ url("activos/{$activo->id}") }}" class="btn btn-xs btn-info btn-round">
                                                    <i class="material-icons">add</i>
+                                               </a>
+                                               <a title="Ver Activos" href="{{ url("activos/{$activo->id}") }}" class="btn btn-xs btn-info btn-round">
+                                                   <i class="material-icons">visibility</i>&nbsp;
                                                </a>
                                           @endcan
 
 
-                                              <a title="Ver Activos" href="{{ url("activos/{$activo->id}") }}" class="btn btn-xs btn-info btn-round">
-                                                  <i class="material-icons">visibility</i>&nbsp;
-                                              </a>
+
                                       </td>
                                   </tr>
                               @endforeach

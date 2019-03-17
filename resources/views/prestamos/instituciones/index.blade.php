@@ -55,8 +55,8 @@
                                         <td>{{$institucion->telefonoInstitucion}}</td>
                                         <td>{{$institucion->direccionInstitucion}}</td>
                                         <td class="text-right">
-                                            @can('proveedores.edit')
-                                            <a title="Editar proveedor" href="{{ url("instituciones/{$institucion->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                            @can('instituciones.edit')
+                                            <a title="Editar institución" href="{{ url("instituciones/{$institucion->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                                 <i class="material-icons">
                                                     create
                                                 </i>&nbsp;

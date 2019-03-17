@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('users.edit')
         ->middleware('permission:users.edit');
 
-    Route::post('users/updatepassword', 'UsuarioController@updatePassword');
+    Route::post('users/updatepassword', 'UsuarioController@updatePassword')->name('users.updatepassword');
 
     Route::get('users/{id}/asignarrole', 'UsuarioController@asignarRole')
         ->name('users.asignarrole')
@@ -524,6 +524,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ReporteGeneralSalidas/{fechaInicio}/{fechaFin}/{placa}','SalidasController@RGSalidas')
         ->name('Rhistorialsalidas');
+
     // fin de vales
 
     //traslados
@@ -735,10 +736,10 @@ Route::middleware(['auth'])->group(function () {
 
                    Route::get('indemnizaciones/bajaEmpleado/{empleado}','IndemnizacionController@bajaEmpleado')
                    ->name('indemnizaciones.baja');
-                  
+
                    Route::post('indemnizaciones/desactivarEmpleado','IndemnizacionController@desactivarEmpleado')
                    ->name('indemnizaciones.darDeBaja');
-                   
+
            //indemnizaciones
 
     //aguinaldo
@@ -763,13 +764,13 @@ Route::middleware(['auth'])->group(function () {
     //fin aguinaldo
 
     //empleadoPlanillas
-           Route::get('empleadoPlanillas','EmpleadoPlanillaController@index')
-           ->name('empleadoPlanillas.index')
-           ->middleware('permission:empleadoPlanillas.index');
+     Route::get('empleadoPlanillas','EmpleadoPlanillaController@index')
+     ->name('empleadoPlanillas.index')
+     ->middleware('permission:empleadoPlanillas.index');
 
-           Route::get('empleadoPlanillas/{planilla}','EmpleadoPlanillaController@show')
-           ->name('empleadoPlanillas.show')
-           ->middleware('permission:empleadoPlanillas.index');
+     Route::get('empleadoPlanillas/{planilla}','EmpleadoPlanillaController@show')
+     ->name('empleadoPlanillas.show')
+     ->middleware('permission:empleadoPlanillas.index');
 
            //fin empleadoPlanillas
     //calendar vehiculo

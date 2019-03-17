@@ -35,19 +35,27 @@
       }
   </style>
   <ul id="ul">
+    @can('activos.index')
       <li id="li"><a  href="{{ url("activos/{$activo->id}") }}">Datos Activo</a></li>
+    @endcan
+    @can('activosUnidades.show')
       @if($activo->codigoInventario!=null)
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Traslado</a></li>
       @else
       <li id="li"  ><a href="{{ url("activosUnidades/{$activo->id}") }}">Asignar</a></li>
     @endif
+  @endcan
+  @can('activos.index')
     @if($activo->precio>=600 )
-    <li id="li" style="float:right;"><a   href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
+    <li id="li" style="float:right;"><a  href="{{ url("depreciaciones/{$activo->id}") }}">Depreciación</a></li>
     @endif
+  @endcan
+  @can('mantenimientos.index')
     @if($activo->codigoInventario!=null)
       <li id="li" style="float:right;"><a class="active" href="{{ url("activos/mantenimientosUnidades/{$activo->id}") }}">Mantenimiento</a></li>
-      
+
     @endif
+  @endcan
 
   </ul>
   <div class="row">
@@ -61,13 +69,13 @@
             <!--        Here you can write extra buttons/actions for the toolbar              -->
           </div>
           <div class="material-datatables">
-            <!-- @can('unidads.create') -->
+            @can('mantenimientos.create')
             <a href="{{ url("mantenimientos/create/{$activo->id}") }}" class="btn  btn-verde btn-round ">
               <i class="material-icons">add</i>
               Nuevo
 
             </a>
-            <!-- @endcan -->
+             @endcan
             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
               <thead>
                 <tr>
@@ -111,19 +119,22 @@
                      <td>{{"en proceso"}}</td>
                    <?php endif; ?>
                   <td class="text-right">
-                    <!-- @can('proveedores.edit') -->
+                   @can('mantenimientos.edit')
                     <a title="Editar mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                       <i class="material-icons">
                         create
                       </i>
                     </a>
-                    <!-- @endcan -->
+                  @endcan
+                  @can('mantenimientos.index')
                     <a title="Ver Mantenimiento" href="{{ url("mantenimientos/{$mantenimiento->id}") }}" class="btn btn-xs btn-info btn-round">
                       <i class="material-icons">visibility</i>
                     </a>
                     <a target="_blank" title="imprimir solicitud" href="{{ url("mantenimientos/generarSolicitud/{$mantenimiento->id}") }}" class="btn  btn-info btn-round btn-xs">
                 <i class="material-icons">print</i>
             </a>
+            @endcan
+
                   </td>
                 </tr>
                 @endforeach

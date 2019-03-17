@@ -88,6 +88,12 @@
                             </tbody>
                         </table>
                     </div>
+
+                      <div align="center">
+
+                        <a href="{{ URL::previous() }}" class='btn btn-ocre '  data-dismiss="modal">Regresar</a>
+                      </div>
+
                 </div>
                 <!-- end content-->
             </div>

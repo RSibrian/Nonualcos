@@ -46,7 +46,7 @@ class UsuarioController extends Controller
         //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
         //$empleados=Empleado::select($raw,'id')->pluck('fullName','id');
         $empleados=Empleado::where('estadoEmpleado',1)->get()->pluck('fullName','id');
-        
+
         $user=User::findOrFail($id);
         return view('usuario.edit',compact('user','empleados'));
 
@@ -90,10 +90,10 @@ class UsuarioController extends Controller
              $user = new User;
              $user->where('email', '=', Auth::user()->email)
                  ->update(['password' => bcrypt($request->password)]);
-             return redirect('users/'.Auth::user()->id)->with('update', 'La contraseña se modificó con éxito');
+             return redirect('/users')->with('update', 'La contraseña se modificó con éxito');
          }
          else {
-             return redirect('users/password')->with('sin_pass', 'Contraseña Incorrecta');
+             return redirect('/users')->with('sin_pass', 'Contraseña Incorrecta');
             }
     }
     public function asignarRole($id)
@@ -108,7 +108,7 @@ class UsuarioController extends Controller
     {
         $user = User::findOrFail($id);
         $user->roles()->sync($request->get('roles'));
-        return redirect("/users/{$id}")->with('update', 'Se ha editado correctamente el registro');
+        return redirect("/users")->with('update', 'Se ha editado correctamente el registro');
     }
     public function reporte()
         {

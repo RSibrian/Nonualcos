@@ -13,10 +13,12 @@
                     </div>
 
                     <div class="material-datatables">
+                      @can('auditoria.index')
                             <a href="{{ url('backups/create') }}" class="btn  btn-success btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
+                      @endcan
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>

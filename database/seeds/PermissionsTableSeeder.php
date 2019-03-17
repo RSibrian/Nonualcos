@@ -346,9 +346,9 @@ class PermissionsTableSeeder extends Seeder
         );
         Permission::create(
             [
-                'name' => 'Editar activo fijo',
+                'name' => 'Editar mantenimientos activo fijo',
                 'slug' => 'mantenimientos.edit',
-                'description' => 'Editar cualquier activo fijo',
+                'description' => 'Editar cualquier mantenimiento activo fijo',
             ]
         );
         //final

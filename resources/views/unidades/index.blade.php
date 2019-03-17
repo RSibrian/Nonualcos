@@ -16,7 +16,7 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
                     <div class="material-datatables">
-                        @can('unidads.create')
+                        @can('unidades.create')
                             <a href="{{ url("unidades/create") }}" class="btn  btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
@@ -52,14 +52,13 @@
                                         <td>{{$unidad->codigoUnidad}}</td>
                                         <td>{{$unidad->nombreUnidad}}</td>
                                         <td class="text-right">
-                                            @can('proveedores.edit')
+                                            @can('unidades.edit')
                                             <a title="Editar proveedor" href="{{ url("unidades/{$unidad->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                                 <i class="material-icons">
                                                     create
                                                 </i>&nbsp;
                                             </a>
-                                            @endcan
-                                            @can('proveedores.index')
+                                          
                                                  <a title="Mostrar Cargos" href="{{ url("unidades/{$unidad->id}/cargos") }}" class="btn btn-xs btn-info btn-round">
                                                      <i class="material-icons">dvr</i>
                                                  </a>

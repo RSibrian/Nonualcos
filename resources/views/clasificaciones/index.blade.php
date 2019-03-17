@@ -16,11 +16,12 @@
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
                     <div class="material-datatables">
-
+                          @can("clasificaciones.create")
                             <a href="{{ url("clasificaciones/create") }}" class="btn  btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
+                          @endcan
 
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
@@ -51,7 +52,7 @@
                                         <td>{{$tipo->nombreTipo}}</td>
 
                                         <td>
-                                            @can('proveedores.edit')
+                                            @can('clasificaciones.edit')
                                             <a title="Editar Clasificación" href="{{ url("clasificaciones/{$tipo->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
                                                 <i class="material-icons">create</i>
                                             </a>
