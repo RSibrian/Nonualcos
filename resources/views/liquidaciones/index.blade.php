@@ -63,7 +63,7 @@
                                           <?php $placa=$ve->salida->vehiculo?>
                                       @endforeach
                                  <td>{{ $placa->numeroPlaca}}</td>
-                                <td>{{ "$ ".$liquidacion->montoFacturaLiquidacion }}</td>
+                                <td>{{ "$ ". \Helper::dinero($liquidacion->montoFacturaLiquidacion) }}</td>
                                 <td class="text-right">
                                   @can('liquidaciones.edit')
                                       <a href="{{ route('liquidaciones.edit', $liquidacion->id) }}"  class="btn btn-xs btn-info btn-round collapse ">
