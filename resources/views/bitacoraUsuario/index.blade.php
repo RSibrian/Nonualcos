@@ -23,7 +23,7 @@
                                     <th>fecha</th>
                                   <th>Inicio</th>
                                   <th>Final</th>
-                                    <th class="disabled-sorting " >Acciones</th>
+
                                 </tr>
                             </thead>
                             <tfoot>
@@ -33,7 +33,7 @@
                                   <th>fecha</th>
                                   <th>Inicio</th>
                                   <th>Final</th>
-                                    <th class="disabled-sorting " >Acciones</th>
+
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -44,14 +44,13 @@
                                         <?php $cont++;?>
                                         <td>{{$cont}}</td>
                                         <td>{{$bitacora->user->name}}</td>
-                                        <td>{{$bitacora->fecha}}</td>
-                                        <td>{{$bitacora->horaInicio}}</td>
-                                        <td>{{$bitacora->horaFinal}}</td>
-                                        <td>
-                                            <a title="Ver detalle" href="{{ url("bitacoraAcciones/{$bitacora->id}") }}" class="btn btn-xs btn-info btn-round">
-                                                    <i class="material-icons">visibility</i>
-                                                </a>
-                                        </td>
+                                        <?php $date = new DateTime($bitacora->fecha); ?>
+                                        <td>{{$date->format('d/m/y')}}</td>
+                                        <?php $date = new DateTime($bitacora->horaInicio); ?>
+                                        <td>{{$date->format('g:i:s a')}}</td>
+                                        <?php $date1 = new DateTime($bitacora->horaFinal); ?>
+                                        <td>{{$date1->format('g:i:s a')}}</td>
+                                      
                                     </tr>
                                 @endforeach
                             </tbody>

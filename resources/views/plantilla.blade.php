@@ -234,7 +234,7 @@
               <a href="{{ route('empleados.index') }}">Empleados</a>
               @endcan
             </li>
-            @can('empleadoPlanillas.show')
+            @can('empleadoPlanillas.index')
             <li>
               <a href="{{ route('empleadoPlanillas.index') }}">Planillas</a>
             </li>

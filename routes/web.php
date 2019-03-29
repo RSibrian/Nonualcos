@@ -794,6 +794,13 @@ Route::middleware(['auth'])->group(function () {
             ->name('backups.create')
             ->middleware('permission:auditoria.index');
 
+            Route::get('backups/create/complete','BackupController@createComplete')
+                    ->name('backups.create.complete')
+                    ->middleware('permission:auditoria.index');
+
+            Route::get('backups/download/{file_name}', 'BackupController@download');
+        Route::get('backups/delete/{file_name}', 'BackupController@delete');
+
 
 
 

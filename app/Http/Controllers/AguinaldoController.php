@@ -195,8 +195,8 @@ class AguinaldoController extends Controller
             $empleado->total_descuentos = round($empleado->AFP_empleado,2);
             $empleado->salario_descuentos = round($empleado->salario_ganado,2) - $empleado->total_descuentos;
             $empleado->exceso_aguinaldo=0;
-            if($empleado->salarioBruto>=$exento) {
-                $empleado->exceso_aguinaldo = $empleado->salarioBruto - $exento;
+            if(($empleado->salarioBruto-$empleado->descuentos_alimeticios)>=$exento) {
+                $empleado->exceso_aguinaldo = ($empleado->salarioBruto-$empleado->descuentos_alimeticios) - $exento;
                 //if ($empleado->exceso_aguinaldo < \App\Renta::find(1)->hasta) {
                     $total_Renta = $empleado->salario_descuentos + $empleado->exceso_aguinaldo;
                     if ($empleado->salario_descuentos != 0) {

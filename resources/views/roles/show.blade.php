@@ -32,7 +32,9 @@
 
                         </div>
                     </fieldset>
-
+                    <div align="center">
+                    <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
+                  </div>
 
                 </div>
             </div>

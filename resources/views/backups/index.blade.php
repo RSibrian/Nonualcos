@@ -16,22 +16,28 @@
                       @can('auditoria.index')
                             <a href="{{ url('backups/create') }}" class="btn  btn-success btn-round ">
                                 <i class="material-icons">add</i>
-                                Nuevo
+                                Back up - Base de datos
+                            </a>
+                            <a href="{{ url('backups/create/complete') }}" class="btn  btn-info btn-round ">
+                                <i class="material-icons">add</i>
+                                Back up - Sistema Nonualcos
                             </a>
                       @endcan
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
+                                  <th>#</th>
                                   <th>Archivo</th>
-                                  <th>Kilobytes</th>
+                                  <th>Tamaño</th>
                                   <th>Fecha</th>
                                     <th class="disabled-sorting text-right">Acciones</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
+                                  <th>#</th>
                                   <th>Archivo</th>
-                                  <th>Kilobytes</th>
+                                  <th>Tamaño</th>
                                   <th>Fecha</th>
                                   <th class="text-right">Acciones</th>
                                 </tr>
@@ -41,17 +47,19 @@
                                  <?php $cont=0;?>
                                  @foreach($backups as $backup)
                                        <tr>
+                                         <?php $cont++;?>
+                                         <td>{{$cont}}</td>
                                            <td>{{ $backup['file_name'] }}</td>
                                            <td>{{ $backup['file_size'] }}</td>
                                            <td>{{ $backup['last_modified'] }}</td>
                                            <td class="text-right">
-                               <a class="btn btn-xs btn-default"
-                                  href="{{ url('backups/download/'.$backup['file_name']) }}"><i
-                                       class="fa fa-cloud-download"></i> Descargar</a>
-                               <a class="btn btn-xs btn-danger" data-button-type="delete"
-                                  href="{{ url('backups/delete/'.$backup['file_name']) }}"><i class="fa fa-trash-o"></i>
-                                   Borrar</a>
-</td>
+                                             <a title="Descargar Backup" href="{{ url('backups/download/'.$backup['file_name']) }}" class="btn btn-xs btn-info btn-round ">
+                                                 <i class="material-icons">cloud_download</i>
+                                             </a>
+                                             <a title="Eliminar Backup" data-button-type="delete" href="{{ url('backups/delete/'.$backup['file_name']) }}" class="btn btn-xs btn-info btn-round ">
+                                                 <i class="material-icons">delete_forever</i>
+                                             </a>
+                                           </td>
                                        </tr>
                                 @endforeach
                               @else

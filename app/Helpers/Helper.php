@@ -21,4 +21,21 @@ class Helper
   {
     return number_format($value, 2, '.', ',');
   }
+  public static function humanReadableSize(int $sizeInBytes): string
+  {
+      $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+      if ($sizeInBytes === 0) {
+          return '0 '.$units[1];
+      }
+      for ($i = 0; $sizeInBytes > 1024; ++$i) {
+          $sizeInBytes /= 1024;
+      }
+
+      return round($sizeInBytes, 2).' '.$units[$i];
+  }
+  public static function getDate($date_modify)
+    {
+        return Carbon::createFromTimeStamp($date_modify)->formatLocalized('%d-%m-%Y %H:%M');
+    }
 }

@@ -13,7 +13,7 @@
                     </div>
                     <div class="material-datatables">
                         @can('bancos.create')
-                            <a href="{{ url("bancos/create") }}" class="btn  btn-azul btn-round ">
+                            <a href="{{ url("bancos/create") }}" class="btn  btn-verde btn-round ">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
@@ -25,7 +25,7 @@
                                     <th>#</th>
                                     <th>Nombre</th>
 
-                                    <th class="disabled-sorting text-center" >Acciones</th>
+                                    <th class="text-center" >Acciones</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -34,7 +34,7 @@
                                     <th>#</th>
                                     <th>Nombre</th>
 
-                                    <th class="text-right" >Acciones&nbsp;del&nbsp;Cargo</th>
+                                    <th class="text-center" >Acciones</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -46,7 +46,7 @@
                                         <?php $cont++;?>
                                         <td>{{$cont}}</td>
                                         <td>{{$banco->ban_nombre}}</td>
-                                        <td class="text-right">
+                                        <td class="text-center">
                                             @can('bancos.edit')
                                             <a href="{{ url("bancos/{$banco->id}/edit") }}" class="btn btn-xs btn-info btn-round ">
                                                 <i class="material-icons">create</i>

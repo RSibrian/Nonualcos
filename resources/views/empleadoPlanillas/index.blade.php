@@ -23,32 +23,30 @@
                     $fecha_fin = date($anno."-".$mes."-".$dias);
                     $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_inicio +1 month"));
                     ?>
-                    @if(isset($planillas->last()->id))
-                    <?php
-                    $planilla_last=$planillas->last();
-                    ?>
-                  @can('empleadoPlanillas.index')
-                    @if($planilla_last->mes!=intval($mes))
-                      <a  aling='right' href="{{ url("planillas") }}" class="btn  btn-verde btn-round " title="">
-                        <i class="material-icons"></i>
+                    @can('empleadoPlanillas.index')
+                      @if(isset($planillas->last()->id))
+                        <?php
+                        $planilla_last=$planillas->last();
+                        ?>
+                        @if($planilla_last->mes!=intval($mes))
+                          <a  aling='right' href="{{ url("planillas") }}" class="btn  btn-verde btn-round " title="">
+                            <i class="material-icons"></i>
                             Planilla
-                      </a>
-                    @endif
-
-                    @if($planilla_last->mes!=13 && intval($mes)==12 && $planilla_last->mes!=12)
-                      <a  title="Generar Aguinaldo" href="" data-toggle="modal" data-target="#nuevo"  aling='right' href="{{ url("aguinaldos") }}"  class="btn  btn-ocre btn-round " title="">
-                        <i class="material-icons"></i>
-                        Aguinaldo
-                      </a>
-                    @endif
-                  @else
-                    <a  aling='right' href="{{ url("planillas") }}" class="btn  btn-verde btn-round " title="">
-                      <i class="material-icons"></i>
-                          Planilla
-                    </a>
-
-                  @endif
-                @endcan
+                          </a>
+                        @endif
+                        @if($planilla_last->mes!=13 && intval($mes)==12 && $planilla_last->mes!=12)
+                          <a  title="Generar Aguinaldo" href="" data-toggle="modal" data-target="#nuevo"  aling='right' href="{{ url("aguinaldos") }}"  class="btn  btn-ocre btn-round " title="">
+                            <i class="material-icons"></i>
+                              Aguinaldo
+                          </a>
+                        @endif
+                      @else
+                        <a  aling='right' href="{{ url("planillas") }}" class="btn  btn-verde btn-round " title="">
+                          <i class="material-icons"></i>
+                            Planilla
+                        </a>
+                      @endif
+                    @endcan
 
 
 
@@ -95,7 +93,7 @@
                                               <a title="Ver Detalle" href="{{ url("empleadoPlanillas/{$planilla->id}") }}" class="btn btn-xs btn-info btn-round">
                                                     <i class="material-icons">visibility</i>
                                               </a>
-                                          @endcan    
+                                          @endcan
                                         </td>
                                     </tr>
                                 @endforeach

@@ -16,7 +16,8 @@
                         @include('roles.form')
 	  					<div align="center">
 							{!! Form::submit('Registrar',['id'=>"agregar_permiso", "onclick"=>"myFunction()" ,'class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
-	  						{!! Form::reset('Cancelar',['class'=>'btn btn-danger']) !!}
+							{!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+              <a href="{{ URL::previous() }}" class='btn btn-ocre '>Regresar</a>
 	  					</div>
 					{!! Form::close() !!}
                 </div>
