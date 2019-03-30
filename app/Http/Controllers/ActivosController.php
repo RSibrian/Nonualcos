@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activos;
 use App\ClasificacionesActivos;
+use App\Http\Requests\ActivoRequest;
 use App\Unidades;
 use App\Proveedor;
 use App\Empleado;
@@ -52,7 +53,7 @@ class ActivosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActivoRequest $request)
     {
 
 

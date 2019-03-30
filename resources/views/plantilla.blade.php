@@ -384,6 +384,11 @@
     contenedor.style.visibility="hidden";
     contenedor.style.opacity='0';
   }
+ function cargando(){
+      var contenedor= document.getElementById('contenedor_carga');
+      contenedor.style.visibility="visible";
+      contenedor.style.opacity='100';
+  }
 </script>
 <!--   Core JS Files   -->
 {{ Html::script('js/jquery-3.1.1.min.js') }}

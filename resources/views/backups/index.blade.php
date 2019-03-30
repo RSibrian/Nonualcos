@@ -14,11 +14,11 @@
 
                     <div class="material-datatables">
                       @can('auditoria.index')
-                            <a href="{{ url('backups/create') }}" class="btn  btn-success btn-round ">
+                            <a href="{{ url('backups/create') }}" class="btn  btn-success btn-round " onclick="cargando();">
                                 <i class="material-icons">add</i>
                                 Back up - Base de datos
                             </a>
-                            <a href="{{ url('backups/create/complete') }}" class="btn  btn-info btn-round ">
+                            <a href="{{ url('backups/create/complete') }}" class="btn  btn-info btn-round " onclick="cargando()">
                                 <i class="material-icons">add</i>
                                 Back up - Sistema Nonualcos
                             </a>
