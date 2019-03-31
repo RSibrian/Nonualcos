@@ -66,7 +66,7 @@
                     <h4 class="card-title">Descuentos de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
                     <!--h5>Salario: {{--number_format($salario->sal_salario, 2, '.', ',')--}}</h5-->
                     <h5>Cuota Pendiente: {{number_format($sumatoria_prestamo, 2, '.', ',')}}</h5>
-                    <h5>Cuota Maxima: {{number_format($cuota_max, 2, '.', ',')}}</h5>
+                    <h5>Cuota Máxima: {{number_format($cuota_max, 2, '.', ',')}}</h5>
                 @can('descuentos.store')
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -78,7 +78,7 @@
                                     <div class="col-lg-10">
                                         <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons"> home </i>
+                                                            <i class="material-icons"> dashboard </i>
                                                         </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">
@@ -86,7 +86,7 @@
                                                 </label>
                                                 <select name="tipoDescuento" id="tipoDescuento" class="form-control" required>
                                                     <option value=>Selecione el tipo de Descuento</option>
-                                                    <option value="1">Prestamo</option>
+                                                    <option value="1">Préstamo</option>
                                                     <option value="2">Cuota Alimentaria </option>
                                                     <option value="3">Otros</option>
                                                 </select>
@@ -97,7 +97,7 @@
                                     <div class="col-lg-10">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons"> home </i>
+                                                            <i class="material-icons"> dashboard </i>
                                                         </span>
                                         <div class="form-group label-floating">
                                             <label class="control-label">
@@ -115,7 +115,7 @@
                                                             <i class="material-icons">&nbsp;# </i>
                                                         </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label"> Numero de cuenta
+                                            <label class="control-label"> Número de cuenta
                                                 <small></small>
                                             </label>
                                             {!!Form::number('numeroCuenta',null,['id'=>'numeroCuenta','class'=>'form-control'])!!}
@@ -137,7 +137,7 @@
                                     <div class="col-lg-12 row">
                                         <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">place</i>
+                                                            <i class="material-icons">description</i>
                                                         </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Detalle:

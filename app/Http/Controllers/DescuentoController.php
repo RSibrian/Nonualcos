@@ -8,6 +8,7 @@ use App\Empleado;
 use Illuminate\Http\Request;
 use Input;//intervention Image
 use Image;
+use App\Http\Requests\DescuentoRequest;
 
 class DescuentoController extends Controller
 {
@@ -37,7 +38,7 @@ class DescuentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DescuentoRequest $request)
     {
         //
         $file = Input::file('pre_imagen2');

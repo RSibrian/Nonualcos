@@ -18,8 +18,8 @@ class CreateBitacoraUsuariosTable extends Migration
            $table->Integer('user_id')->unsigned();
            $table->foreign('user_id')->references('id')->on('users');
            $table->date('fecha');
-           $table->date('horaInicio');
-           $table->date('horaFinal');
+           $table->datetime('horaInicio');
+           $table->datetime('horaFinal');
            $table->timestamps();
         });
     }
@@ -31,7 +31,7 @@ class CreateBitacoraUsuariosTable extends Migration
      */
     public function down()
     {
-        
+
             Schema::dropIfExists('bitacora_usuarios');
 
     }
