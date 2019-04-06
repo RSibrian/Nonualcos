@@ -33,7 +33,7 @@
                     @include('vales.formEdit')
                     <div align="center">
                         {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk '.$disabled] ) !!}
-                        <a href="{{ url()->previous() }}" class='btn btn-ocre '>Regresar</a>
+                        <a href="{{ route('vales.index') }}" class='btn btn-ocre '>Regresar</a>
                     </div>
                     {!! Form::close() !!}
                 </div>

@@ -91,8 +91,7 @@
                     </tr>
                 </table>
             </fieldset>
-            <br>
-            <br>
+
         </div>
     @endforeach
 

@@ -35,7 +35,7 @@
                     <div align="center">
                         {!! Form::submit('Registrar',['class'=>'btn  btn-verde glyphicon glyphicon-floppy-disk '.$disabled] ) !!}
                         {!! Form::reset('Limpiar',['class'=>'btn btn-azul glyphicon '.$disabled] ) !!}
-                        <a href="{{ url()->previous() }}" class="btn btn-ocre"  name="btnRegresar"> Regresar</a>
+                        <a href="{{ route('vales.index')}}" class="btn btn-ocre"  name="btnRegresar"> Regresar</a>
                     </div>
                     {!! Form::close() !!}
 

@@ -104,9 +104,11 @@
                             </tfoot>
                             <tbody class="text-center">
                             <?php $cont=0;
-                            $estado='';
                             ?>
                              @foreach($_vales as $vale)
+                                 <?php
+                                 $estado='';
+                                 ?>
                               <tr>
                                   <td></td>
                                   <?php $cont++;?>
@@ -147,33 +149,34 @@
                                   </td>
                                 <td>
                                     @if ($vale->estadoEntregadoVal===1)
-                                        {{ 'Si' }}
+                                        <p class="text-success"> <b>{{ 'Si' }}</b></p>
                                     @else
-                                        <label class='switch  material-icons' title='Entregar' rel='tooltip'>
-                                            <input type='checkbox' id='{{ $vale->id }}' class='entregado' >
-                                            <span class='slider'></span>
-                                        </label>
-                                        @php
+                                        <p class="text-danger"> <b>{{ 'No' }}</b></p>
+                                        <?php
                                             $estado='disabled';
-                                        @endphp
+                                        ?>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($vale->estadoRecibidoVal===1)
-                                        {{ 'Si' }}
+                                        <p class="text-success"> <b>{{ 'Si' }}</b></p>
                                     @else
-                                        <label class='switch  material-icons' title='Devolver' rel='tooltip'>
-                                            <input type='checkbox' id='{{ $vale->id }}' class='devuelto'
-                                            @if($estado==='disabled')
-                                                {{ $estado }}
-                                                    @endif
-                                            >
-                                            <span class='slider'></span>
-                                        </label>
+                                        @if ($esAdmin)
+                                            <label class='switch  material-icons' title='Devolver' rel='tooltip'>
+                                                <input type='checkbox' id='{{ $vale->id }}' class='devuelto'
+                                                @if($estado==='disabled')
+                                                    {{ $estado }}
+                                                @endif
+                                                >
+                                                <span class='slider'></span>
+                                            </label>
+                                        @else
+                                            <p class="text-danger"> <b>{{ 'No' }}</b></p>
+                                        @endif
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                  @can('users.edit')
+                                  @can('vales.edit')
                                       <a href="{{ route('vales.edit', $vale->id) }}"  class="btn btn-xs btn-info btn-round ">
                                           <i title="Editar vale" class="material-icons" rel="tooltip">create</i>
                                       </a>
@@ -232,36 +235,6 @@
     });
 </script>
 
-<script>
-    var entregado=$('.entregado');
-    entregado.on('click', function(){
-        var vale= $(this).attr('id');
-        var estado= $(this).prop('checked');
-
-        if(estado===true){
-            var newUrl = "{{ route('vales.entregar', ['vale' => ':vale']) }}";
-            newUrl = newUrl.replace(':vale', vale);
-            entregar(newUrl);
-        }
-
-        function entregar(newUrl){
-            $.ajax({
-                type:'GET',
-                url:newUrl,
-                dataType:'json',
-                success: function (data) {
-                    location.reload();
-                    console.log(data);
-                },
-                error: function() {
-                    location.reload();
-                    console.log(data);
-                }
-            });
-        }
-    });
-
-</script>
 
 <script>
     var devuelto=$('.devuelto');

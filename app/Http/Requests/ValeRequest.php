@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ValeRequest extends FormRequest
 {
-    protected  $dontFlash=['costoUnitarioVale','costoGalones', 'costoAceite', 'costoGrasa', 'costoOtro', 'nombreOtro'];
+   // protected  $dontFlash=['costoUnitarioVale','costoGalones', 'costoAceite', 'costoGrasa', 'costoOtro', 'nombreOtro', 'costoTotalGalones'];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -40,13 +40,16 @@ class ValeRequest extends FormRequest
             'numeroPlaca' => 'integer|min:1',
             'solicitante' => 'integer|min:1',
             'fechaCreacion' => 'required|date|same:fechaSalida',
-            'numeroVale' => 'required|unique:vales', //|numeric|integer
+            'numeroVale' => 'required_if:bandera,1|unique:vales', //|numeric|integer
             'costoUnitarioVale' => '',
             'tipoCombustible' => 'required',
-            'galones' => 'sometimes|nullable|numeric|between:0.00,20.00',
+            'galones' => 'required|nullable|numeric|between:0.00,20.00',
             'costoGalones' => 'required|numeric|between:0.00,100.00',
+            'aceite' => 'required_with_all:costoAceite',
             'costoAceite' => 'sometimes|nullable|required_if:aceite,on|numeric|between:0.00,30.00',
+            'grasa' => 'required_with_all:costoGrasa',
             'costoGrasa' => 'sometimes|nullable|required_if:grasa,on|numeric|between:0.00,20.00',
+            'otros' => 'required_with_all:nombreOtro,costoOtro',
             'nombreOtro' => 'sometimes|nullable|required_if:otros,on|alpha_spaces',
             'costoOtro' => 'sometimes|nullable|required_if:otros,on|numeric|between:0.00,60.00',
             'gasolinera' => 'required|alpha_spaces',
@@ -73,9 +76,10 @@ class ValeRequest extends FormRequest
             'fechaCreacion.required'  => '¡El campo Fecha de vale es requerido!',
             'fechaCreacion.same'  => '¡El campo Fecha de vale tiene que ser igual a Fecha de salida!',
 
-            'numeroVale.required'  => '¡El campo Código de vale no debe estar vacío!',
+            'numeroVale.required_if'  => '¡El campo Código de vale no debe estar vacío!',
             'numeroVale.unique'  => '¡El Código de vale ya existe!',
 
+            'galones.required' => '¡El campo Número de galones es requerido!',
             'galones.numeric' => '¡El campo Número de galones debe ser numérico!',
             'galones.between' => '¡El campo Número de galones no debe ser mayor a 20.00 galones!',
 
@@ -83,13 +87,19 @@ class ValeRequest extends FormRequest
             'costoGalones.numeric' => '¡El campo Costo galones contiene letras!',
             'costoGalones.between' => '¡El campo Costo galones no debe ser mayor a $100.00!',
 
+            'aceite.required_with_all' => '¡En agregar a vale: Seleccione la opción de aceite!',
+
             'costoAceite.numeric' => '¡El campo Costo aceite contiene letras!',
             'costoAceite.between' => '¡El campo Costo aceite no debe ser mayor a $30.00!',
             'costoAceite.required_if' => '¡El campo Costo aceite es requerido!',
 
+            'grasa.required_with_all' => '¡En agregar a vale: Seleccione la opción de grasa!',
+
             'costoGrasa.numeric' => '¡El campo Costo grasa contiene letras!',
             'costoGrasa.between' => '¡El campo Costo grasa no debe ser mayor a $20.00!',
             'costoGrasa.required_if' => '¡El campo Costo grasa es requerido!',
+
+            'otros.required_with_all' => '¡En agregar a vale: Seleccione la opción de otro!',
 
             'nombreOtro.alpha_spaces' => '¡El campo Nombre otro no debe contener números!',
             'nombreOtro.required_if' => '¡El campo Nombre otro es requerido!',
@@ -110,6 +120,12 @@ class ValeRequest extends FormRequest
 
     public function createVale($data){
 
+        if ($data['bandera']!='1'){
+            $data['numeroVale']="";
+            $data['empAutoriza']='0';
+            $data['empRecibe']='0';
+            $data['estadoEntregadoVal']="off";
+        }
 
         if (!($data['estadoEntregadoVal']=="on")){
             $data['estadoEntregadoVal']=0;

@@ -23,8 +23,9 @@ class valeController extends Controller
     {
       // retorna la vista principal o index de vales de combustible
         $_vales = Vale::darIndex();
+        $esAdmin=Vale::EsAdmin(Auth::id());
 
-      return View('vales.index',compact('_vales'));
+      return View('vales.index',compact('_vales', 'esAdmin'));
     }
 
     public function create()
@@ -32,11 +33,15 @@ class valeController extends Controller
       // retorna la vista para el registro de nuevo vale
         $placas = Vehiculo::PlacasDisponibles();
         $empleados = Vale::EmpleadosActivos();
+        $administradores= Vale::UsuariosAdmin();
         $autoriza= User::find(Auth::id());
+        $esAdmin=Vale::EsAdmin(Auth::id());
         Vale::verifica($autoriza,$placas, $empleados);
         $placas=$placas->prepend('Seleccione una placa', '0');
+        $empleados=$empleados->prepend('Seleccione un empleado', '0');
+        $administradores=$administradores->prepend('Seleccione un empleado', '0');
 
-        return View('vales.create', compact('placas', 'empleados', 'autoriza'));
+        return View('vales.create', compact('placas', 'empleados', 'autoriza', 'administradores', 'esAdmin'));
     }
 
     public function show(Vale $vale){
@@ -59,14 +64,18 @@ class valeController extends Controller
 
         $salida=$vale->salida;
         $vehiculo=$vale->salida->vehiculo;
-        $placas = Vehiculo::pluck('vehiculos.numeroPlaca', 'vehiculos.id');
-        $empleados = Vale::EmpleadosActivos();
+        $placas = Vale::PlascasDisponiblesModificar($vehiculo);
+        $empleados = Vale::EmpleadosDisponiblesModificar($salida);
         $autoriza= User::find(Auth::id());
+        $esAdmin=Vale::EsAdmin(Auth::id());
+        $administradores= Vale::UsuariosAdmin();
         Vale::verifica($autoriza,$placas, $empleados);
         $placas=$placas->prepend('Seleccione una placa', '0');
+        $empleados=$empleados->prepend('Seleccione un empleado', '0');
+        $administradores=$administradores->prepend('Seleccione un empleado', '0');
 
          //echo dd($vale);
-        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'placas', 'empleados'));
+        return View('vales.edit', compact('vale', 'salida', 'vehiculo', 'placas', 'empleados', 'esAdmin', 'administradores', 'autoriza'));
 
     }
 
@@ -75,19 +84,13 @@ class valeController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createVale($request);
 
-        return redirect('/vales')->with('create','Se ha guardado con éxito el registro de vale');
+        return redirect('/vales/index')->with('create','Se ha guardado con éxito el registro de vale');
     }
 
     public function update(ValeEditRequest $request, Vale $vale)
     {
         $request->updateVale($request, $vale);
-        return redirect('/vales')->with('update','Se ha editado con éxito el registro de vale');
-    }
-
-    public function entregar(Vale $vale)
-    {
-        $vale->update(['estadoEntregadoVal' => '1']);
-        return json_encode("entregado");
+        return redirect('/vales/index')->with('update','Se ha editado con éxito el registro de vale');
     }
 
     public function devolver(Vale $vale)

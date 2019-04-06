@@ -44,6 +44,7 @@
                                     </div>
                                 </div>
                             </div>
+                           <div id="texto" class="text-danger col-sm-offset-1"></div>
                             <div align="center">
                                 {!! Form::button('Mostrar',[ 'id' => 'mostrar','class'=>'btn btn-azul glyphicon']) !!}
                                 {!! Form::button('Descargar',[ 'id' => 'descargar', 'class'=>'btn btn-verde glyphicon']) !!}

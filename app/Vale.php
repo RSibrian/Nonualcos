@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use OwenIt\Auditing\Contracts\Auditable;
 use App\Empleado;
@@ -201,19 +203,65 @@ class Vale extends Model implements Auditable
       }
 
     public static function darIndex(){
-        return Vale::select('*')
-            ->where('estadoLiquidacionVal', '=', '0')
-            ->orderBy('updated_at', 'desc')
-            ->get();
+        $esAdmin=self::EsAdmin(Auth::id());
+
+        if ($esAdmin){
+            $vales=Vale::select('*')
+                ->where('estadoLiquidacionVal', '=', '0')
+                ->get();
+        }else{
+           $usuario=User::find(Auth::id());
+           $vales=Vale::select('vales.*')
+               ->join('salidas', 'salidas.id', '=', 'vales.idSalida')
+               ->join('empleados', 'empleados.id', '=', 'salidas.idEmpleado')
+               ->where([
+                   ['salidas.idEmpleado', '=', $usuario->idEmpleado]
+               ])
+               ->get();
+        }
+
+        return $vales;
+
     }
 
     public static function EmpleadosActivos(){
+        $esAdmin=self::EsAdmin(Auth::id());
 
-        $empleados=Empleado::get()->where('estadoEmpleado', '=', '1')->pluck('fullName','id');
+        if($esAdmin){
+            $empleadosActivos=Empleado::where('estadoEmpleado', '=', '0')->get(['empleados.id']);
+            $empladosEnSalida=Empleado::join('salidas', 'empleados.id', '=', 'salidas.idEmpleado')
+                ->join('vales', 'salidas.id', '=', 'vales.id')
+                ->where('vales.estadoRecibidoVal', '=', '0')
+                ->get(['empleados.id']);
 
-        $empleados=$empleados->prepend('Seleccione un empleado', '0');
+            $empleados=$empleadosActivos->merge($empladosEnSalida);
+            $empleados=$empleados->toArray();
+
+            $empleados=Empleado::select(DB::raw("CONCAT(nombresEmpleado,' ',apellidosEmpleado) AS name"),'id')
+                ->whereNotIn('empleados.id',$empleados)->pluck('name','empleados.id');
+
+        }else{
+            $usuario=User::find(Auth::id());
+
+            $empleadosSalida=Empleado::join('salidas', 'empleados.id', '=', 'salidas.idEmpleado')
+                ->join('vales', 'salidas.id', '=', 'vales.id')
+                ->where([
+                    ['vales.estadoRecibidoVal', '=', '0'],
+                    ['empleados.id', '=', $usuario->idEmpleado],
+                ])
+                ->get(['empleados.id']);
+
+            $empleados=$empleadosSalida->toArray();
+
+            $empleados=Empleado::select(DB::raw("CONCAT(nombresEmpleado,' ',apellidosEmpleado) AS name"),'empleados.id')
+                ->whereNotIn('empleados.id',$empleados)
+                ->where('empleados.id', '=', $usuario->idEmpleado)
+                ->pluck('name','empleados.id');
+
+        }
 
         return $empleados;
+
     }
 
     public static function verifica($autoriza, $vehiculos, $empleados){
@@ -223,13 +271,70 @@ class Vale extends Model implements Auditable
         }
 
         if ($vehiculos->first()===null){
-            Session::flash('vehiculos','Debe registrar al menos un vehículo o liberar los existentes para poder registrar un vale');
+            Session::flash('vehiculos','No hay vehículos disponibles para registrar un vale');
         }
 
         if ($empleados->first()===null){
-            Session::flash('empleados','No hay empleados resgistrados');
+            Session::flash('empleados','No hay empleados disponibles para registrar un vale');
         }
 
+    }
+
+    public static function UsuariosAdmin(){
+
+    $empleadosAdmin=Empleado::join('users', 'empleados.id', '=', 'users.idEmpleado')
+        ->join('role_user', 'role_user.user_id', '=', 'users.id')
+        ->join('roles', 'roles.id', '=', 'role_user.role_id')
+        ->where([
+            ['estadoEmpleado', '=', '1'],
+            ['slug', '=', 'admin']
+        ])
+        ->get(['empleados.id']);
+
+    $empleados=$empleadosAdmin->toArray();
+
+    $empleados=Empleado::select(DB::raw("CONCAT(nombresEmpleado,' ',apellidosEmpleado) AS name"),'id')
+        ->whereIn('empleados.id',$empleados)->pluck('name','empleados.id');
+
+    return $empleados;
+
+}
+
+    public static function EsAdmin($ide){
+
+        $empleadosAdmin=Empleado::join('users', 'empleados.id', '=', 'users.idEmpleado')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where([
+                ['users.id', '=', $ide],
+                ['estadoEmpleado', '=', '1'],
+                ['slug', '=', 'admin']
+            ])
+            ->get(['empleados.id']);
+
+        $empleados=$empleadosAdmin->isNotEmpty();
+
+
+        return $empleados;
+
+    }
+
+    public static function PlascasDisponiblesModificar($vehiculoId){
+          $placasDisponibles= Vehiculo::PlacasDisponibles();
+          $miPlaca=Vehiculo::where('vehiculos.id', '=', $vehiculoId->id)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');;
+          $placasDisponibles=$placasDisponibles->union($miPlaca);
+
+          return $placasDisponibles;
+    }
+
+    public static function EmpleadosDisponiblesModificar($empleadoId){
+        $empleadosActivos= self::EmpleadosActivos();
+        $miEmpleado= Empleado::where('empleados.id', '=', $empleadoId->idEmpleado)
+            ->get()->pluck('FullName', 'id');
+
+        $empleadosActivos=$empleadosActivos->union($miEmpleado);
+
+        return $empleadosActivos;
     }
 
 

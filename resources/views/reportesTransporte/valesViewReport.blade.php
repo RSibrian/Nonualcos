@@ -115,12 +115,23 @@
                                </td>
                            </tr>
                            <tr>
-                               <td colspan="3" class="derecha"><h4>Costo de galones:</h4>
+                               <td class="derecha"><h4>Costo por galón:</h4>
                                </td>
                                <td  class="centro" >
                                    <h4><b>
                                            @if ($vale->costoGalones!=null)
                                                {{ "$ ".\Helper::dinero($vale->costoGalones) }}
+                                           @else
+                                               {{ "No especificado" }}
+                                           @endif
+                                       </b></h4>
+                               </td>
+                               <td class="derecha"><h4>Costo total galones:</h4>
+                               </td>
+                               <td  class="centro" >
+                                   <h4><b>
+                                           @if ($vale->costoGalones!=null)
+                                               {{ "$ ".\Helper::dinero(($vale->costoGalones)*($vale->galones)) }}
                                            @else
                                                {{ "No especificado" }}
                                            @endif

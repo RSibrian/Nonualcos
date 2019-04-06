@@ -99,13 +99,40 @@ class Liquidacion extends Model implements Auditable
     public static function verifica($vehiculos, $vales){
 
         if ($vehiculos->first()===null){
-            Session::flash('vehiculos','Debe registrar al menos un vehículo y luego crear un vale');
+            Session::flash('vehiculos','No hay vales para liquidar');
         }
 
         if ($vales->first()===null){
             Session::flash('vales','No hay vales para liquidar');
         }
 
+    }
+
+    public static function PlacasDisponibes(){
+
+       return  Vale::join('salidas', 'vales.idSalida', '=', 'salidas.id')
+            ->join('vehiculos', 'salidas.idVehiculo', '=', 'vehiculos.id')
+            ->where([
+                ['estadoLiquidacionVal', '=', '0'],
+                ['estadoRecibidoVal', '=', '1'],
+                ['estadoEntregadoVal', '=', '1'],
+            ])
+            ->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
+
+    }
+
+    public static function MLiquidaciones($fechaI,$fechaF)
+    {
+
+        $query= Liquidacion::join('vales', 'liquidaciones.id','=', 'vales.idLiquidacion')
+            ->join('salidas', 'vales.idSalida', '=', 'salidas.id')
+            ->join('vehiculos', 'salidas.idVehiculo', '=', 'vehiculos.id')
+            ->whereBetween('fechaLiquidacion', [$fechaI, $fechaF])
+            ->select( 'liquidaciones.*','vehiculos.numeroPlaca')
+            ->groupBy(['liquidaciones.id', 'vehiculos.numeroPlaca'])
+            ->get();
+
+        return $query;
     }
 
 

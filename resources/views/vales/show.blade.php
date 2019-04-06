@@ -73,7 +73,7 @@
                     <fieldset style="border: 1px solid #ccc; padding: 10px">
                         <legend><small>Datos de Vale</small></legend>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -127,7 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -144,11 +144,11 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <table>
                                     <tr>
-                                        <td><h4>Costo de galones: <br></h4></td>
+                                        <td><h4>Costo por galón: <br></h4></td>
                                         <td><h4><b>
                                                     @if ($vale->costoGalones!=null)
                                                         {{ "$ ".\Helper::dinero($vale->costoGalones) }}
@@ -161,8 +161,25 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <table>
+                                    <tr>
+                                        <td><h4>Costo total galones: <br></h4></td>
+                                        <td><h4><b>
+                                                    @if ($vale->costoGalones!=null)
+                                                        {{ "$ ".\Helper::dinero(($vale->costoGalones)*($vale->galones)) }}
+                                                    @else
+                                                        {{ "No especificado" }}
+                                                    @endif
+                                                </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
                         @if ($vale->aceite==1)
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -172,7 +189,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -185,7 +202,7 @@
                         @endif
 
                         @if ($vale->grasa==1)
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -195,7 +212,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -208,7 +225,7 @@
                         @endif
 
                         @if ($vale->otro!=null)
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -218,7 +235,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="input-group">
                                     <table>
                                         <tr>
@@ -230,24 +247,24 @@
                             </div>
                         @endif
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
                             <div class="input-group">
                                 <table>
                                     <tr>
                                         <td><h4>Estado: <br></h4></td>
-                                        <td><h4> <b>
+                                        <td><h4>
                                                     @if( $vale->estadoLiquidacionVal==1)
-                                                        {{ "Liquidado" }}
+                                                       <b class="text-success"> {{ " Liquidado" }}</b>
                                                     @else
-                                                        {{ "Pendiente" }}
+                                                       <b class="text-danger">{{ " Pendiente de liquidación" }}</b>
                                                     @endif
-                                                </b></h4></td>
+                                                </h4></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <table>
                                     <tr>
@@ -277,13 +294,13 @@
                                 <table>
                                     <tr>
                                         <td><h4>Estado de entrega: <br></h4></td>
-                                        <td><h4> <b>
+                                        <td><h4>
                                                     @if( $vale->estadoEntregadoVal==1)
-                                                        {{ "Entregado" }}
+                                                        <b class="text-success">{{ " Entregado" }}</b>
                                                     @else
-                                                        {{ "Pendiente" }}
+                                                        <b class="text-danger">{{ " Pendiente" }}</b>
                                                     @endif
-                                                </b></h4></td>
+                                            </h4></td>
                                     </tr>
                                 </table>
                             </div>
@@ -304,9 +321,9 @@
                                         <td><h4>Estado de devolución: <br></h4></td>
                                         <td><h4> <b>
                                                     @if( $vale->estadoRecibidoVal==1)
-                                                        {{ "Devuelto" }}
+                                                        <b class="text-success"> {{ " Devuelto" }}</b>
                                                     @else
-                                                        {{ "Pendiente" }}
+                                                        <b class="text-danger">{{ " Pendiente" }}</b>
                                                     @endif
                                                 </b></h4></td>
                                     </tr>
@@ -317,7 +334,7 @@
 
                     <div align="center">
                         <a href="{{ url()->previous() }}" class='btn btn-ocre '>Regresar</a>
-                        <a target="_blank" href="{{ route('vales.reporte', $vale->id) }}" class="btn  btn-ocre ">
+                        <a target="_blank" href="{{ route('vales.reporte', $vale->id) }}" class="btn btn-success ">
                             Descargar
                         </a>
                     </div>

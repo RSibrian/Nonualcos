@@ -17,7 +17,7 @@ class CreateValesTable extends Migration
         Schema::create('vales', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fechaCreacion')->required();
-            $table->string('numeroVale')->unique()->required();
+            $table->string('numeroVale')->required();
             $table->double('costoUnitarioVale')->default(0)->nullable();
             $table->tinyInteger('tipoCombustible')->required();
             $table->string('gasolinera')->required();

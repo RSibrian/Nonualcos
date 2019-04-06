@@ -93,24 +93,6 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:users.asignarrole');
     //fin users
 
-    //inicio rutas para Vales de combustible (no se usan)
-
-    Route::get('/vales','ValeController@index')
-         ->name('vales')
-         ->middleware('permission:vales');
-
-    Route::get('/vales/nuevo','ValeController@crear')
-          ->name('vales.crear')
-          ->middleware('permission:vale.crear');
-
-    Route::get('/vales/liquidar','ValeController@Liquidacion')
-          ->name('vales.liquidar')
-          ->middleware('permission:vale.liquidar');
-
-    Route::get('/vales/liquidar/nuevo','ValeController@NuevaLiquidacion')
-          ->name('vales.lnueva')
-          ->middleware('permission:vale.lnueva');
-
 //Proveedores
     Route::post('proveedores/store','ProveedorController@store')
         ->name('proveedores.store')
@@ -449,10 +431,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('vales.reporte')
         ->middleware('permission:vales.index');
 
-    Route::get('entregar/{vale}','ValeController@entregar')
-        ->name('vales.entregar')
-        ->middleware('permission:vales.edit');
-
     Route::get('devolver/{vale}','ValeController@devolver')
         ->name('vales.devolver')
         ->middleware('permission:vales.edit');
@@ -524,6 +502,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ReporteGeneralSalidas/{fechaInicio}/{fechaFin}/{placa}','SalidasController@RGSalidas')
         ->name('Rhistorialsalidas');
+
+    Route::get('/ReporteLiquidaciones','LiquidacionController@RGLiquidaciones')
+        ->name('RLiquidaciones');
+
+    Route::get('/liquidaciones/{fechaInicio}/{fechaFin}','LiquidacionController@MostrarLiquidaciones')
+        ->name('liquidaciones.mostrar')
+        ->middleware('permission:vales.index');
 
     // fin de vales
 

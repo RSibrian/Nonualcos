@@ -19,18 +19,14 @@ class LiquidacionController extends Controller
     {
         // retorna la vista para el registro de nuevo vale
         $liquidaciones =Liquidacion::all()->sortByDesc('updated_at');
-        $month = date('m');
-        $year = date('Y');
-        $fechaInicio= Carbon::createFromDate($year,$month,1);
-        $fechaFinal=Carbon::now();
 
-        return View('liquidaciones.index', compact('liquidaciones', 'fechaInicio', 'fechaFinal'));
+        return View('liquidaciones.index', compact('liquidaciones'));
     }
 
     public function create()
     {
         // retorna la vista para el registro de nuevo vale
-        $placas=Vehiculo::pluck('numeroPlaca', 'id');
+        $placas=Liquidacion::PlacasDisponibes();
         $vales=Liquidacion::valesDisponibles();
         Liquidacion::verifica($placas, $vales);
         $placas=$placas->prepend('Seleccione una placa', '0');
@@ -115,6 +111,25 @@ class LiquidacionController extends Controller
         $pdf->setPaper('letter', 'portrait');
         return $pdf->stream('Reporte General de Liquidaciones '.$date.'.pdf');
 
+
+    }
+
+    public static function RGLiquidaciones(){
+
+        $month = date('m');
+        $year = date('Y');
+        $fechaInicio= Carbon::createFromDate($year,$month,1);
+        $fechaFinal=Carbon::now();
+
+        return View('liquidaciones.indexHistorialLiquidaciones', compact('fechaInicio', 'fechaFinal'));
+
+    }
+
+    public static function MostrarLiquidaciones($fechaInicio, $fechaFin){
+
+        $liquidaciones=Liquidacion::MLiquidaciones($fechaInicio,$fechaFin);
+
+        return $liquidaciones;
 
     }
 

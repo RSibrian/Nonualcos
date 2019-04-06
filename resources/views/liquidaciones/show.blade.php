@@ -134,8 +134,8 @@
                     <br>
 
                     <div align="center">
-                        <a href="{{ route('liquidaciones.index') }}" class='btn btn-ocre '>Regresar</a>
-                        <a target="_blank" href="{{ route('liquidacion.reporte', $liquidacion->id) }}" class="btn  btn-ocre ">
+                        <a href="{{ url()->previous() }}" class='btn btn-ocre '>Regresar</a>
+                        <a target="_blank" href="{{ route('liquidacion.reporte', $liquidacion->id) }}" class="btn  btn-success ">
                             Descargar
                         </a>
                     </div>
