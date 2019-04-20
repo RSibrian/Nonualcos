@@ -26,7 +26,7 @@ class ActivoRequest extends FormRequest
     return [
         'aniosVida'=> 'integer|min:1',
         'precio'=> 'required|min:1',
-        'nombreActivo'=> 'required|alpha_spaces|between:3,40',
+        'nombreActivo'=> 'required|between:3,40',
     ];
 }
     public function messages(){

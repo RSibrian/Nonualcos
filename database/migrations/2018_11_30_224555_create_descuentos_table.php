@@ -23,6 +23,8 @@ class CreateDescuentosTable extends Migration
             $table->text('numeroCuenta');
             $table->text('observacionDescuento')->nullable();
             $table->text('imagenInicio');
+            $table->integer('aniosDescuento')->nullable();
+            $table->integer('mesesDescuento')->nullable();
             $table->text('imagenFinal')->nullable();
             $table->boolean('estadoDescuento')->default(true);
             $table->integer('tipoDescuento');

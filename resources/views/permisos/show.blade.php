@@ -67,6 +67,7 @@
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Permisos de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
+                      <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
                     @can('permisos.store')
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -82,10 +83,11 @@
                                                             <i class="material-icons">chrome_reader_mode</i>
                                                         </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">
+                                                    <label class="control-label"><code>*</code>Seleccione tipo de permiso
 
                                                     </label>
                                                     <select name="tipoPermiso" id="tipoPermiso" class="form-control" placeholder='Seleccione el tipo de permiso' required>
+                                                        <option value=></option>
                                                         <option value="1">Permiso con goce de Sueldo</option>
                                                         <option value="2">Permiso sin goce de Sueldo</option>
                                                         <option value="3">Permiso de Salud</option>
@@ -100,10 +102,11 @@
                                                             <i class="material-icons"> description  </i>
                                                         </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">
+                                                    <label class="control-label"><code>*</code>Seleccione motivo de permiso
 
                                                     </label>
                                                     <select name="casoPermiso" id="perm_caso" class="form-control" placeholder='Seleccione el tipo de permiso' required>
+                                                          <option value=></option>
                                                         <option value="Enfermadad">Enfermedad</option>
                                                         <option value="Particular">Particular</option>
                                                         <option value="Gravedad de Pariente en Duelo">Gravedad de Pariente en Duelo</option>
@@ -147,7 +150,7 @@
                                                             <i class="material-icons">assignment_turned_in</i>
                                                         </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Motivo:
+                                                    <label class="control-label">Observación:
                                                     </label>
                                                     {!! Form::textarea('motivoPermiso',null,['class'=>'form-control'  ,'rows'=>'2', 'style'=>'resize: both;']) !!}
                                                 </div>
@@ -167,6 +170,7 @@
                             <div align="center" class="row">
                                 {!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                                 {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                                <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
                             </div>
                             {!! Form::close() !!}
 
@@ -209,8 +213,11 @@
                                     <td></td>
                                     <?php $cont++;?>
                                     <td>{{$cont}}</td>
-                                    <td>{{$permiso->fechaPermisoInicio}}</td>
-                                    <td>{{$permiso->fechaPermisoFinal}}</td>
+                                    <?php $date = new DateTime($permiso->fechaPermisoInicio); ?>
+                                    <td>{{$date->format('d/m/Y')}}</td>
+                                    <?php $date1 = new DateTime($permiso->fechaPermisoFinal); ?>
+                                    <td>{{$date1->format('d/m/Y')}}</td>
+
                                     @if($permiso->tipoPermiso==1)
                                         <td>Permiso con goce de Sueldo</td>
                                     @endif
@@ -222,7 +229,7 @@
                                     @endif
 
                                     <td>{{$permiso->casoPermiso}}</td>
-                                    <td>{{$permiso->motivoPermiso}}</td>
+                                    <td>{{$permiso->motivoPermiso?:"Ninguna"}}</td>
                                     <td><a href="{{ asset($permiso->permisoPdf) }}" target="_blank" class="btn btn-xs btn-info btn-round">
                                             <i class="material-icons">local_printshop</i>
 

@@ -9,7 +9,7 @@
         </td>
         <td class="text-center">
           <span class=""><h2> Asociación de Municipios Los Nonualcos</h2></span>
-          <p class="title-description"><h3> El Salvador, Departamento de la Paz </h3></p>
+          <p class="title-description"><h3> El Salvador, Departamento de La Paz </h3></p>
         </td>
         <td class="text-right">
           <img align="right" src="{{ asset('img/sv.png') }}" class="" alt="User Image" width="140px" height="130px">

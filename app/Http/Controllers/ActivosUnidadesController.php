@@ -154,6 +154,15 @@ class ActivosUnidadesController extends Controller
 
           $traslado=ActivosUnidades::find($idtraslado);
           $activo=Activos::find($traslado->idActivo);
+          $personalAutoriza=Empleado::find($traslado->idAutoriza);
+          if($idtraslado!=1){
+          $trasladoAnterior=ActivosUnidades::find($idtraslado-1);
+          $traslado['nombreAntiguo']=$trasladoAnterior->empleado->nombresEmpleado." ".$trasladoAnterior->empleado->apellidosEmpleado;
+          $traslado['UnidadAntiguo']=$trasladoAnterior->unidad->nombreUnidad;
+          }
+          $traslado['NombreAutoriza']=$personalAutoriza->nombresEmpleado." ".$personalAutoriza->apellidosEmpleado;
+
+        
 
           $date = date('d-m-Y');
           $date1 = date('g:i:s a');

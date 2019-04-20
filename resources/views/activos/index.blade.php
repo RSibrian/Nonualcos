@@ -24,7 +24,7 @@
                       @endcan
                       @can('activos.index')
                       <a  aling='right' target="_blank" href="{{ url("activos/reporteGeneral") }}" class="btn btn-xs  btn-ocre btn-round " title="Reporte General de Inventario de Activos">
-                          <i class="material-icons">save_alt</i>
+                          <i class="material-icons">assignment</i>
 
                       </a>
                       @endcan

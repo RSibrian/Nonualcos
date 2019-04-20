@@ -203,7 +203,7 @@
 
           </tr>
           <tr>
-            <th>Valor depreciado:&nbsp;&nbsp;</td>
+            <th>Valor depreciado a la fecha:&nbsp;&nbsp;</td>
               <td>$ {{number_format($depreMen, 2, '.', ',')}}</td>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <th>Años depreciados:&nbsp;&nbsp;</th>

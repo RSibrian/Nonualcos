@@ -61,7 +61,7 @@
 
 
     <div class="row">
-        <div class="col-sm-offset-1 col-md-10">
+        <div class=" col-md-12">
             <div class="card">
                 <div class="card-header card-header-icon" data-background-color="blue">
                     <i class="material-icons">work</i>

@@ -15,7 +15,7 @@ class Descuento extends Model implements Auditable
     protected $table="descuentos";
     protected $fillable = [
         'idEmpleado','banco_id','pago','observacionDescuento',
-        'imagenInicio','estadoDescuento','numeroCuenta','tipoDescuento'
+        'imagenInicio','estadoDescuento','numeroCuenta','tipoDescuento','aniosDescuento','mesesDescuento'
     ];
     protected $auditExclude = [
           'imagenInicio','imagenFinal'

@@ -341,17 +341,15 @@
           </div>
 
           <div class="wizard-footer">
-            <div class="pull-right">
+            <div align="center">
 
               <input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Siguiente' />
-              <div  class="row">
-                {!! Form::submit('Actualizar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
-              </div>
-              <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->
-            </div>
-            <div class="pull-left">
 
-              <input type='button' class='btn btn-previous btn-fill btn-ocre btn-wd' name='previous' value='Anterior' />
+                {!! Form::submit('Actualizar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
+
+
+                <input type='button' class='btn btn-previous btn-fill btn-azul btn-wd' name='previous' value='Anterior' />
+              	<a href="{{ url("activos") }}" class='btn btn-ocre '>Regresar</a>
             </div>
             <div class="clearfix"></div>
           </div>

@@ -65,8 +65,9 @@
                 <div class="card-content">
                     <h4 class="card-title">Descuentos de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
                     <!--h5>Salario: {{--number_format($salario->sal_salario, 2, '.', ',')--}}</h5-->
-                    <h5>Cuota Pendiente: {{number_format($sumatoria_prestamo, 2, '.', ',')}}</h5>
-                    <h5>Cuota Máxima: {{number_format($cuota_max, 2, '.', ',')}}</h5>
+                    <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
+                    <h5>Cuota Pendiente: ${{number_format($sumatoria_prestamo, 2, '.', ',')}}</h5>
+                    <h5>Cuota Máxima: ${{number_format($cuota_max, 2, '.', ',')}}</h5>
                 @can('descuentos.store')
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -81,11 +82,11 @@
                                                             <i class="material-icons"> dashboard </i>
                                                         </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">
+                                                <label class="control-label"><code>*</code>Selecione el tipo de Descuento
 
                                                 </label>
                                                 <select name="tipoDescuento" id="tipoDescuento" class="form-control" required>
-                                                    <option value=>Selecione el tipo de Descuento</option>
+                                                    <option value=></option>
                                                     <option value="1">Préstamo</option>
                                                     <option value="2">Cuota Alimentaria </option>
                                                     <option value="3">Otros</option>
@@ -100,40 +101,65 @@
                                                             <i class="material-icons"> dashboard </i>
                                                         </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label">
+                                            <label class="control-label"><code>*</code>Seleccione Banco
 
                                             </label>
-                                            {!!Form::select('banco_id', $bancos,null,['placeholder'=>'seleccione el banco','required','id'=>'banco_id','class'=>'form-control'])!!}
+                                            {!!Form::select('banco_id', $bancos,null,['placeholder'=>' ','required','id'=>'banco_id','class'=>'form-control'])!!}
 
 
                                         </div>
                                     </div>
                                 </div>
-                                    <div class="col-lg-6 ">
+                                    <div class="col-lg-5 ">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
                                                             <i class="material-icons">&nbsp;# </i>
                                                         </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label"> Número de cuenta
+                                            <label class="control-label"><code>*</code> Número de cuenta
                                                 <small></small>
                                             </label>
                                             {!!Form::number('numeroCuenta',null,['id'=>'numeroCuenta','class'=>'form-control'])!!}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-5">
                                     <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="material-icons"> &nbsp;$&nbsp; </i>
-                                                        </span>
+                                        <span class="input-group-addon">
+                                            <i class="material-icons"> &nbsp;$&nbsp; </i>
+                                        </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label">$ Monto
+                                            <label class="control-label"><code>*</code>Monto
                                             </label>
                                             {!!Form::number('pago',null,['id'=>'pago','class'=>'form-control','required','step' => '0.01'])!!}
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons"> &nbsp;# </i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Años
+                                            </label>
+                                            {!!Form::number('aniosDescuento',null,['id'=>'aniosDescuento','class'=>'form-control','required','step' => '0.01'])!!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">&nbsp;# </i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Meses
+                                            </label>
+                                            {!!Form::number('mesesDescuento',null,['id'=>'mesesDescuento','class'=>'form-control','required','step' => '0.01'])!!}
+                                        </div>
+                                    </div>
+                                </div>
+
                                     <div class="col-lg-12 row">
                                         <div class="input-group">
                                                         <span class="input-group-addon">
@@ -160,6 +186,7 @@
                         <div align="center" class="row">
                             {!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                             {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                            <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
                         </div>
                         {!! Form::close() !!}
 
@@ -175,9 +202,10 @@
                                 <th>#</th>
                                 <th>Nombre del Banco</th>
                                 <th>Numero de Cuenta</th>
-                                <th>Monto</th>
-                                <th>Explicación</th>
                                 <th>Tipo</th>
+                                <th>Monto</th>
+                                <th>Tiempo</th>
+                                <th>Explicación</th>
                                 <th>PDF Comprobante</th>
 
 
@@ -189,9 +217,10 @@
                                 <th>#</th>
                                 <th>Nombre del Banco</th>
                                 <th>Numero de Cuenta</th>
-                                <th>Monto</th>
-                                <th>Explicación</th>
                                 <th>Tipo</th>
+                                <th>Monto</th>
+                                <th>Tiempo</th>
+                                <th>Explicación</th>
                                 <th>PDF&nbsp;&nbsp;Comprobante&nbsp;Descuento</th>
                             </tr>
                             </tfoot>
@@ -205,8 +234,6 @@
                                     <td>{{$cont}}</td>
                                     <td>{{$descuento->banco->ban_nombre}}</td>
                                     <td>{{$descuento->numeroCuenta}}</td>
-                                    <td>{{$descuento->pago}}</td>
-                                    <td>{{$descuento->observacionDescuento?:"Ninguna"}}</td>
                                     @if($descuento->tipoDescuento==1)
                                         <td>Préstamo</td>
                                     @endif
@@ -216,6 +243,12 @@
                                     @if($descuento->tipoDescuento==3)
                                         <td>Otros</td>
                                     @endif
+                                    <td>${{number_format($descuento->pago, 2, '.', ',')}}</td>
+                                    <td>{{$descuento->aniosDescuento>1?$descuento->aniosDescuento."-Años":$descuento->aniosDescuento."-Año"}} con
+                                        {{$descuento->mesesDescuento>1?$descuento->mesesDescuento."-meses":$descuento->mesesDescuento."-mes"}}
+                                    </td>
+                                    <td>{{$descuento->observacionDescuento?:"Ninguna"}}</td>
+
                                     <td><a href="{{ asset($descuento->imagenInicio) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
                                             <i class="material-icons">local_printshop</i>
                                               Inicio

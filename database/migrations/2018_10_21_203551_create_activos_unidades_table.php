@@ -19,6 +19,7 @@ class CreateActivosUnidadesTable extends Migration
             $table->Date('fechaFinalUni')->nullable();
             $table->boolean('estadoUni')->default(1);
             $table->string('observacionUni')->nullable();
+            $table->Integer('idAutoriza');
             $table->Integer('idActivo')->unsigned();
             $table->foreign('idActivo')->references('id')->on('activos');
             $table->Integer('idUnidad')->unsigned();

@@ -64,17 +64,19 @@
 
 
         <div class="card-content">
-          <h4 class="card-title" align='center'>Listado Mantenimientos del Activo :{{$activo->nombreActivo}}</h4>
+          <h4 class="card-title" align='center'>Listado Mantenimientos del Activo :<br><b>{{$activo->codigoInventario."-".$activo->nombreActivo}}</b></h4>
           <div class="toolbar">
             <!--        Here you can write extra buttons/actions for the toolbar              -->
           </div>
           <div class="material-datatables">
             @can('mantenimientos.create')
+              @if($activo->estadoActivo==2 || $activo->estadoActivo==1)
             <a href="{{ url("mantenimientos/create/{$activo->id}") }}" class="btn  btn-verde btn-round ">
               <i class="material-icons">add</i>
               Nuevo
 
             </a>
+              @endif
              @endcan
             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
               <thead>
@@ -141,7 +143,9 @@
               </tbody>
             </table>
           </div>
+          <div align="center">
           	<a href="{{ url("activos/{$activo->id}") }}" class='btn btn-ocre '>Regresar</a>
+          </div>
         </div>
         <!-- end content-->
       </div>

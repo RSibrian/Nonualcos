@@ -66,6 +66,7 @@
                 <div class="card-content">
                   <h4 class="card-title">Llegadas Tardias de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
                   <h4 class="card-title">Salario <b>$ {{$empleado->salarioBruto}}</b></h4>
+                  <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
 
                     @can('entradasSalidas.store')
                     <div class="toolbar">
@@ -148,6 +149,7 @@
                         <div align="center" class="row">
                             {!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                             {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                            <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
                         </div>
                         {!! Form::close() !!}
 

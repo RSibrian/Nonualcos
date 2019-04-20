@@ -33,7 +33,7 @@
               <div class="row">
                 <h4 class="info-text">Comencemos con los Datos Generales</h4>
 
-                <div class="col-sm-10 row col-sm-offset-1">
+                <div class="col-sm-10 row col-sm-offset-1" >
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">apps</i>
@@ -47,24 +47,25 @@
                   </div>
                 </div>
 
-                <div class="col-sm-5 row col-sm-offset-1">
+                <div class="col-sm-5 row col-sm-offset-1" id="vehiculo" style="display: none;">
 
                   <div class="input-group ">
                     <span class="input-group-addon">
                       <h6><code>*</code>¿Es un Vehiculo?</h6>
                     </span>
                     <div class="radio">
-                      <label style="color: #0d3625;" for="radio1">
-                        {{ Form::radio('tipoActivo',0,'true',[ 'id'=>"radio1","onClick"=>"mostrarOcultar()"]) }}No
+                      <label style="color: #0d3625;" for="radioVehi">
+                        {{ Form::radio('tipoActivo',0,'true',[ 'id'=>"radiovehi"]) }}No
                         &nbsp;
                       </label>
-                      <label style="color: #0d3625;" for="radio3">
-                        {{ Form::radio('tipoActivo',1,null,[ 'id'=>"radio3","onClick"=>"mostrarOcultar()"]) }} Si &nbsp;
+                      <label style="color: #0d3625;" for="radiovehi1">
+                        {{ Form::radio('tipoActivo',1,null,[ 'id'=>"radiovehi1"]) }} Si &nbsp;
                       </label>
 
                     </div>
                   </div>
                 </div>
+
                 <div class="col-sm-10 row col-sm-offset-1 " id="placa_div" style="display: none;">
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -282,14 +283,14 @@
                       <i class="material-icons">tab</i>
                     </span>
                     <div class="form-group label-floating">
-                      <label class="control-label">Número de factura:
+                      <label class="control-label"><code>*</code>Número de factura:
                       </label>
-                      {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control',''])!!}
+                      {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
                     </div>
                   </div>
                 </div>
 
-                <div class="col-sm-5 row col-sm-offset-1">
+                <div class="col-sm-5 row col-sm-offset-1" id="cantidad" style="display: block;">
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">attach_money</i>
@@ -301,7 +302,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-5 row">
+                <div class="col-sm-5 row col-sm-offset-1">
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">attach_money</i>
@@ -320,17 +321,19 @@
 
           </div>
           <div class="wizard-footer">
-            <div class="pull-right">
+            <div align="center">
 
               <input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Siguiente' />
-              <div align="center" class="row">
-                {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
-              </div>
-              <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->
-            </div>
-            <div class="pull-left">
 
-              <input type='button' class='btn btn-previous btn-fill btn-ocre btn-wd' name='previous' value='Anterior' />
+                {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
+
+
+              <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->
+
+
+
+              <input type='button' class='btn btn-previous btn-fill btn-azul btn-wd' name='previous' value='Anterior' />
+              	<a href="{{ url("activos") }}" class='btn btn-ocre '>Regresar</a>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -465,45 +468,41 @@
 
 
   <script >
-  $('#tipoAdquisicion').on('change',function(e){
-    var tipo=$("#tipoAdquisicion").find('option:selected');
-    if (tipo.val()==0)
+  $('#idClasificacionActivo').on('change',function(e){
+    var tipo=$("#idClasificacionActivo").find('option:selected');
+    if (tipo.val()==1)
     {
-      document.getElementById('uso').style.display='block';
-      document.getElementById('factura').style.display='none';
+        document.getElementById("radiovehi1").checked = "true";
+        document.getElementById('placa_div').style.display='block';
+        document.getElementById('cantidad').style.display='none';
     }
     else
     {
-      document.getElementById("aniosUso").value = "";
-      document.getElementById("radioNoUsado").checked = "true";
-      document.getElementById('uso').style.display='none';
-      document.getElementById('anios').style.display='none';
-      document.getElementById('factura').style.display='block';
+      document.getElementById("radiovehi").checked = "false";
+      document.getElementById('placa_div').style.display='none';
+      document.getElementById('cantidad').style.display='block';
     }
   });
 </script>
-<script language="JavaScript">
-function mostrarOcultar() {
-  var resultado="ninguno";
-
-  var porNombre=document.getElementsByName("tipoActivo");
-  // Recorremos todos los valores del radio button para encontrar el
-  // seleccionado
-  for(var i=0;i<porNombre.length;i++)
+<script >
+$('#tipoAdquisicion').on('change',function(e){
+  var tipo=$("#tipoAdquisicion").find('option:selected');
+  if (tipo.val()==0)
   {
-    if(porNombre[i].checked)
-    resultado=porNombre[i].value;
-  }
-  if (resultado==0)
-  {
-    document.getElementById('placa_div').style.display='none';
+    document.getElementById('uso').style.display='block';
+    document.getElementById('factura').style.display='none';
   }
   else
   {
-    document.getElementById('placa_div').style.display='block';
+    document.getElementById("aniosUso").value = "";
+    document.getElementById("radioNoUsado").checked = "true";
+    document.getElementById('uso').style.display='none';
+    document.getElementById('anios').style.display='none';
+    document.getElementById('factura').style.display='block';
   }
-}
+});
 </script>
+
 <script language="JavaScript">
 function mostrarAniosUsado() {
   var resultado="ninguno";

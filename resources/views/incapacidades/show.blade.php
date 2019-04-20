@@ -64,6 +64,7 @@
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Incapacidades de <b>{{$empleado->nombresEmpleado.' '.$empleado->apellidosEmpleado}}</b></h4>
+                    <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
                     @can('incapacidades.store')
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -79,10 +80,11 @@
                                                             <i class="material-icons"> chrome_reader_mode</i>
                                                         </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label">
+                                            <label class="control-label"><code>*</code>Seleccione motivo de incapacidad
 
                                             </label>
                                             <select name="casoPermiso" id="perm_tipo" class="form-control" placeholder='Seleccione el tipo de permiso' required>
+                                                <option value=></option>
                                                 <option value="4">Enfermedad Común</option>
                                                 <option value="5">Enfermedad Profesional</option>
                                                 <option value="6">Accidente Común</option>
@@ -100,10 +102,11 @@
                                                             <i class="material-icons"> description </i>
                                                         </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">
+                                                <label class="control-label"><code>*</code>Seleccione tipo de incapacidad
 
                                                 </label>
                                                 <select name="tipoPermiso" id="perm_caso" class="form-control" placeholder='Seleccione el tipo de permiso' required>
+                                                    <option value=></option>
                                                     <option value="4">Inicial</option>
                                                     <option value="5">Prórroga</option>
                                                 </select>
@@ -146,7 +149,7 @@
                                                             <i class="material-icons">assignment_turned_in</i>
                                                         </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Motivo:
+                                                <label class="control-label">Observación:
                                                 </label>
                                                 {!! Form::textarea('motivoPermiso',null,['class'=>'form-control'  ,'rows'=>'2', 'style'=>'resize: both;']) !!}
                                             </div>
@@ -166,6 +169,7 @@
                         <div align="center" class="row">
                             {!! Form::submit('Registrar',['class'=>'btn btn-verde glyphicon glyphicon-floppy-disk']) !!}
                             {!! Form::reset('Limpiar',['class'=>'btn btn-azul']) !!}
+                            <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
                         </div>
                         {!! Form::close() !!}
 
@@ -179,8 +183,8 @@
                                 <th>#</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
-                                <th>Tipo de incapacidad</th>
-                                <th>Motivo de la incapacidad</th>
+                                <th>Motivo</th>
+                                <th>Tipo</th>
                                 <th>Explicación</th>
 
                                 <th>PDF</th>
@@ -194,8 +198,8 @@
                                 <th>#</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
-                                <th>Tipo de incapacidad</th>
-                                <th>Motivo de la incapacidad</th>
+                                <th>Motivo</th>
+                                <th>Tipo</th>
                                 <th>Explicación</th>
 
                                 <th>PDF</th>

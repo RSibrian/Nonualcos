@@ -68,7 +68,7 @@
 
                 <div class="card-content">
             @can('activosUnidades.store')
-              @if($activo->estadoActivo!=0)
+              @if($activo->estadoActivo==1)
                   @if($activo->codigoInventario!=null)
                   <h4 class="card-title">Traslados de <b>{{$activo->codigoInventario." ".$activo->nombreActivo}}</b></h4>
                   @else
@@ -126,6 +126,19 @@
                                             <label class="control-label"><code>*</code>Empleado Encargado:
                                             </label>
                                             {!!Form::select('idEmpleado',$empleados, null,['id'=>'idEmpleado','class'=>'form-control','required','placeholder'=>' '])!!}
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-sm-10 row">
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="material-icons">apps</i>
+                                          </span>
+                                          <div class="form-group label-floating">
+                                            <label class="control-label"><code>*</code>Personal que Autoriza traslado:
+                                            </label>
+                                            {!!Form::select('idAutoriza',$empleados, null,['id'=>'idAutoriza','class'=>'form-control','required','placeholder'=>' '])!!}
                                           </div>
                                         </div>
                                       </div>
@@ -219,6 +232,12 @@
                         </table>
                     </div>
                 </div>
+                <div align="center">
+
+                  <a href="{{ url("activos") }}" class='btn btn-ocre '>Regresar</a>
+
+                </div>
+
                 <!-- end content-->
             </div>
             <!--  end card  -->

@@ -52,7 +52,7 @@
       @endcan
     </ul>
     <div class="row">
-        <div class="col-md-10 col-sm-offset-1">
+        <div class="col-md-12 ">
             <div class="card card-profile">
                 <div class="card-header card-header-icon" data-background-color="blue">
                     <i class="material-icons">person</i>
@@ -63,13 +63,15 @@
                     </a>
                 </div>
                 <div class="card-content">
-                    <fieldset>
-                        <input type="hidden" name="hi2" value="1">
+                  <input type="hidden" name="hi2" value="1">
+
+                  <fieldset style="border: 1px solid #ccc; padding: 10px">
+                    <legend><small>Información del Empleado</small></legend>
+
+
                         <div class="form-group" align="left">
                             <table >
-                                <tr>
-                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información del Empleado </b></h3></td>
-                                </tr>
+
                                 <tr>
                                     <td><h4>Nombres: </h4></td>
                                     <td><h4> <b>&nbsp;{{$empleado->nombresEmpleado}}</b></h4></td>
@@ -79,9 +81,9 @@
                                     <td><h4>Apellidos: </h4></td>
                                     <td><h4> <b>&nbsp;{{$empleado->apellidosEmpleado}}</b></h4></td>
                                 </tr>
-            <?php
-            $edad= \Carbon\Carbon::now()->diffInYears($empleado->fechaNacimientoEmpleado);
-            ?>
+                                <?php
+                                $edad= \Carbon\Carbon::now()->diffInYears($empleado->fechaNacimientoEmpleado);
+                                ?>
                                 <tr>
                                     <td><h4>Fecha de Nacimiento: </h4></td>
                                     <td><h4><b>{{\Helper::fecha($empleado->fechaNacimientoEmpleado)}} ({{$edad}} años)</b></h4></td>
@@ -124,9 +126,15 @@
                                     <td><h4><b>&nbsp;{{$empleado->observacionEmpleado?:"Ninguna"}}</b></h4></td>
                                 </tr>
 
-                                <tr>
-                                    <td colspan="4" class="text-center"><h3 id="texto"><b>&nbsp;Información del Cargo </b></h3></td>
-                                </tr>
+                              </table>
+                              </div>
+                            </fieldset>
+                            <br>
+
+                            <fieldset style="border: 1px solid #ccc; padding: 10px">
+                            <legend><small>Información del cargo</small></legend>
+                            <div class="form-group" align="left">
+                              <table>
                                 <tr>
                                     <td><h4>Unidad: </h4></td>
                                     <td><h4><b>&nbsp;{{$empleado->cargo->unidad->nombreUnidad}} &nbsp;&nbsp;&nbsp;&nbsp;</b></h4></td>
@@ -168,14 +176,16 @@
                                 </tr>
 
                             </table>
+                              </div>
+                        </fieldset>
                             <div align="center">
                               <a href="{{ url("empleados/reporteExpediente/".$empleado->id) }}" target="_blank"  class="btn btn-success " title="Generar Reporte">
                                   <i class="material-icons"></i>Reporte
                               </a>
                                 <a href="{{ route('empleados.index') }}" class='btn btn-ocre '>Regresar</a>
                             </div>
-                        </div>
-                    </fieldset>
+
+
 
 
                 </div>

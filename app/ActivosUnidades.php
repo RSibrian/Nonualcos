@@ -16,7 +16,7 @@ class ActivosUnidades extends Model implements Auditable
 
   protected $table = 'activos_unidades';
   protected $fillable = [
-      'fechaInicioUni','fechaFinalUni','estadoUni','observacionUni','idActivo','idUnidad','idEmpleado'
+      'fechaInicioUni','fechaFinalUni','estadoUni','observacionUni','idActivo','idUnidad','idEmpleado','idAutoriza'
   ];
 
   protected $auditExclude = [

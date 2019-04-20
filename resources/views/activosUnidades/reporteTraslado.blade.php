@@ -96,26 +96,43 @@ HOJA DE CONSTANCIA DE ENTREGA DE BIEN {{$activo->nombreActivo}}</h3></div>
 	</thead>
 </table>
 <table class="table-wrapper" >
-  @if($activo->codigoInventario!=null)
-  <?php
-  $traslado=$activo->activosUnidades->last();
-  ?>
-  <tr >
-    <th  colspan="2" >Recibido:</th>
+<tr>
+		<th></th>
+		<th   >Entrega:</th>
+    <th   >Recibe:</th>
   </tr>
   <tr>
     <td  >Unidad: </td>
+		<td>{{$traslado->UnidadAntiguo}}</td>
     <td>{{$traslado->unidad->nombreUnidad}}</td>
   </tr>
   <tr>
     <td >Encargado: </td>
+		<td>  {{$traslado->nombreAntiguo}}</td>
     <td>  {{$traslado->empleado->nombresEmpleado." ".$traslado->empleado->apellidosEmpleado}}</td>
   </tr>
   <tr>
     <td  >Firma: </td>
     <td> </td>
+		<td> </td>
   </tr>
-  @endif
+
+</table>
+
+<table class="table-wrapper" >
+
+  <tr >
+		<th colspan="4">Personal que Autoriza:</th>
+
+  </tr>
+  <tr>
+    <td  >Nombre: </td>
+    <td>{{$traslado->NombreAutoriza}}</td>
+		<td >Firma: </td>
+		<td> </td>
+  </tr>
+
+
 </table>
 
 @stop
