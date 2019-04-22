@@ -304,7 +304,7 @@ Route::middleware(['auth'])->group(function () {
                ->middleware('permission:activos.index');
 
            Route::get('activos/baja','ActivosController@indexDaniados')
-                          ->name('activos.baja')
+                          ->name('activos.bajas')
                           ->middleware('permission:activos.index');
 
            Route::get('activos/reporteGeneral','ActivosController@reporteGeneral')

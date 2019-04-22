@@ -57,7 +57,7 @@
 							@else
 								<td>{{'Dañado'}}</td>
 							@endif
-							<td>{{'$ '.$activo->precio}}</td>
+							  <td>${{number_format($activo->precio, 2, '.', ',')}}</td>
 						</tr>
 					@endforeach
 			</tbody>

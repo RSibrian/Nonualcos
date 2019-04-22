@@ -150,20 +150,24 @@ class ActivosUnidadesController extends Controller
     }
 
     public function reporteTraslado($idtraslado)
-        {
-
+    {
           $traslado=ActivosUnidades::find($idtraslado);
           $activo=Activos::find($traslado->idActivo);
           $personalAutoriza=Empleado::find($traslado->idAutoriza);
-          if($idtraslado!=1){
-          $trasladoAnterior=ActivosUnidades::find($idtraslado-1);
-          $traslado['nombreAntiguo']=$trasladoAnterior->empleado->nombresEmpleado." ".$trasladoAnterior->empleado->apellidosEmpleado;
-          $traslado['UnidadAntiguo']=$trasladoAnterior->unidad->nombreUnidad;
+          $traslados=ActivosUnidades::where('idActivo',$activo->id)->get();
+          for($i=0;$i<count($traslados);$i++)  {
+            if($traslados[$i]->id==$idtraslado){
+              if($i==0){
+                $traslado['nombreAntiguo']="Ninguno";
+                $traslado['UnidadAntiguo']="Ninguno";
+              }else{
+                $trasladoAnterior=$traslados[$i-1];
+                $traslado['nombreAntiguo']=$trasladoAnterior->empleado->nombresEmpleado." ".$trasladoAnterior->empleado->apellidosEmpleado;
+                $traslado['UnidadAntiguo']=$trasladoAnterior->unidad->nombreUnidad;
+              }
+            }
           }
           $traslado['NombreAutoriza']=$personalAutoriza->nombresEmpleado." ".$personalAutoriza->apellidosEmpleado;
-
-        
-
           $date = date('d-m-Y');
           $date1 = date('g:i:s a');
           //dd($date);

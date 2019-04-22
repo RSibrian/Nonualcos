@@ -135,25 +135,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons"> &nbsp;# </i>
-                                        </span>
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Años
-                                            </label>
-                                            {!!Form::number('aniosDescuento',null,['id'=>'aniosDescuento','class'=>'form-control','required','step' => '0.01'])!!}
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-sm-5">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">&nbsp;# </i>
                                         </span>
                                         <div class="form-group label-floating">
-                                            <label class="control-label">Meses
+                                            <label class="control-label">Número Cuotas
                                             </label>
                                             {!!Form::number('mesesDescuento',null,['id'=>'mesesDescuento','class'=>'form-control','required','step' => '0.01'])!!}
                                         </div>
@@ -204,7 +193,7 @@
                                 <th>Numero de Cuenta</th>
                                 <th>Tipo</th>
                                 <th>Monto</th>
-                                <th>Tiempo</th>
+                                <th>Cuotas</th>
                                 <th>Explicación</th>
                                 <th>PDF Comprobante</th>
 
@@ -219,7 +208,7 @@
                                 <th>Numero de Cuenta</th>
                                 <th>Tipo</th>
                                 <th>Monto</th>
-                                <th>Tiempo</th>
+                                <th>Cuotas</th>
                                 <th>Explicación</th>
                                 <th>PDF&nbsp;&nbsp;Comprobante&nbsp;Descuento</th>
                             </tr>
@@ -244,8 +233,7 @@
                                         <td>Otros</td>
                                     @endif
                                     <td>${{number_format($descuento->pago, 2, '.', ',')}}</td>
-                                    <td>{{$descuento->aniosDescuento>1?$descuento->aniosDescuento."-Años":$descuento->aniosDescuento."-Año"}} con
-                                        {{$descuento->mesesDescuento>1?$descuento->mesesDescuento."-meses":$descuento->mesesDescuento."-mes"}}
+                                    <td>{{$descuento->mesesDescuento}}
                                     </td>
                                     <td>{{$descuento->observacionDescuento?:"Ninguna"}}</td>
 

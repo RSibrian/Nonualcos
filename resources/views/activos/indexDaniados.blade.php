@@ -28,7 +28,7 @@
                                   <th>Precio</th>
                                   <th>Unidad</th>
                                   <th>Persona Encargada</th>
-                                  <th>Estado</th>
+                                  
                                   <th class="disabled-sorting text-right">Acciones</th>
                               </tr>
                           </thead>
@@ -42,7 +42,7 @@
                                 <th>Precio</th>
                                 <th>Unidad</th>
                                 <th>Persona Encargada</th>
-                                <th>Estado</th>
+
                                   <th class="text-right">Todas&nbsp;Acciones&nbsp;de&nbsp;Activo</th>
                               </tr>
                           </tfoot>
@@ -60,7 +60,7 @@
                                     @endif
                                       <td>{{$activo->nombreActivo}}</td>
 
-                                      <td>{{$activo->precio}}</td>
+                                        <td>${{number_format($activo->precio, 2, '.', ',')}}</td>
                                       @if($activo->codigoInventario!=null)
                                       <?php
                                           $traslado=$activo->activosUnidades->last();
@@ -72,24 +72,10 @@
                                     <td>{{'No asignado'}}</td>
 
                                   @endif
-                                  <td>
-                                    @if($activo->estadoActivo==0)
-                                    <a type="button"  name="button" class="btn btn-xs btn-ocre btn-round">
-                                      Desactivado</a>
 
-
-                                  @elseif($activo->estadoActivo==2)
-                                    <button title="Desactivar Activo"  type="button" id="btn_{{ $activo->id }}" onClick="activoDesactivado({{ $activo->id }})" name="button" class="btn btn-xs btn-success btn-round">
-                                      Dañado
-                                    </button>
-
-                                  @else
-
-                                  @endif
-                                  </td>
                                       <td class="text-right">
                                           @can('proveedores.edit')
-                                          <a title="Dar Mantenimiento" href="{{ url("activos/{$activo->id}") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                          <a title="Dar Mantenimiento" href="{{ url("mantenimientos/create/{$activo->id}") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                               <i class="material-icons">
                                                   build
                                               </i>&nbsp;

@@ -278,6 +278,12 @@
               <a href="{{ route('activos.index') }}">Activos</a>
                 @endcan
             </li>
+            <li>
+              @can('activos.index')
+              <a href="{{ route('activos.bajas') }}">Activos Dañados</a>
+                @endcan
+            </li>
+
 
             <li>
               @can('mantenimientos.index')

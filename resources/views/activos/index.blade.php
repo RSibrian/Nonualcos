@@ -71,7 +71,7 @@
                                     @endif
                                       <td>{{$activo->nombreActivo}}</td>
 
-                                      <td>{{$activo->precio}}</td>
+                                      <td>${{number_format($activo->precio, 2, '.', ',')}}</td>
                                       @if($activo->codigoInventario!=null)
                                       <?php
                                           $traslado=$activo->activosUnidades->last();
@@ -94,6 +94,10 @@
                                     <a background-color="red">Dañado</a>
                                   @elseif($activo->estadoActivo==0)
                                     <a background-color="rose">De Baja</a>
+                                  @elseif($activo->estadoActivo==3)
+                                    <a background-color="rose">Préstado</a>
+                                  @elseif($activo->estadoActivo==4)
+                                    <a background-color="rose">Mantenimiento</a>
 
                                   @endif
                                   </td>
