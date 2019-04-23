@@ -40,8 +40,8 @@ class PrestamoController extends Controller
         //
         $instituciones=Instituciones::pluck('nombreInstitucion','id');
         $date = date('Y-m-d\TH:i');
-        $activos=ActivosUnidades::activosxUnidad(1,1);
-        return view('prestamos.create', compact('clasificaciones','date','instituciones','activos'));
+        $activos=ActivosUnidades::activosxUnidades();
+        return view('prestamos.create', compact('date','instituciones','activos'));
 
     }
 
@@ -267,6 +267,13 @@ class PrestamoController extends Controller
             $solicitud=Prestamo::find($request['id']);
             if( $solicitud->estadoPrestamo==1)
             {
+                if($request['estadoPrestamo']==4)
+                {
+                    foreach ($solicitud->activos as $activo) {
+                        $activo->estadoActivo=3;
+                        $activo->save();
+                    }
+                }
                 $solicitud->estadoPrestamo=$request['estadoPrestamo'];
                 $solicitud->save();
             }
@@ -279,6 +286,13 @@ class PrestamoController extends Controller
         if($request->ajax()){
             $solicitud=Prestamo::find($request['id']);
             $solicitud->fechaRegresoPrestamo=$date;
+            if($request['estadoPrestamo']==2)
+            {
+                foreach ($solicitud->activos as $activo) {
+                    $activo->estadoActivo=1;
+                    $activo->save();
+                }
+            }
             if( $solicitud->estadoPrestamo==5)
             {
                 $solicitud->estadoPrestamo=6;

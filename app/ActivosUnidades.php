@@ -48,6 +48,17 @@ class ActivosUnidades extends Model implements Auditable
     //->orderBy('sa_en_vehiculos.id','desc')
     ->get();
     }
+    public static function activosxUnidades(){
+        return DB::table('activos_unidades')
+            ->join('activos', 'activos.id', '=', 'activos_unidades.idActivo')
+            ->where('activos_unidades.estadoUni','=',1)
+            ->where('activos_unidades.idUnidad','=',1)
+            ->where('activos.estadoActivo','=',1)
+            ->orWhere('activos.estadoActivo','=',3)
+            ->select('activos.*','activos_unidades.*')
+            //->orderBy('sa_en_vehiculos.id','desc')
+            ->get();
+    }
 
     public static function activosxunidadEstado($idUnidad){
     return DB::table('activos_unidades')

@@ -54,7 +54,7 @@ class AguinaldoController extends Controller
      */
     public function store(Request $request)
     {
-        $empleados = AguinaldoController::aguinaldo($request['exoneracion']);
+        $empleados = AguinaldoController::aguinaldo($request['exento']);
         Planilla::create([
             'concepto'=>$request['concepto'],
             'mes'=>13,
