@@ -22,7 +22,8 @@ class UnidadesSeeder extends Seeder
         ]);
         \App\Unidades::create([
             'codigoUnidad' => '003',
-            'nombreUnidad' => 'Administracion Financiera',
+            'nombreUnidad' => 'Administración Financiera',
         ]);
+        
     }
 }

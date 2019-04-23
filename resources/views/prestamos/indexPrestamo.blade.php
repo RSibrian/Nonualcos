@@ -143,9 +143,11 @@
                                         </td>
 
                                         <td>
+                                          @if($prestamo->estadoPrestamo==4)
                                           <a href="{{ url("prestamos/reportes/comprobanteEntregaPrestamo/".$prestamo->id) }}" target="_blank" class="btn btn-xs btn-info btn-round" title="Comprobante de Entrega">
                                               <i class="material-icons">save_alt</i>
                                           </a>
+                                        @endif
                                           <a href="{{ url("prestamos/showPrestamo/".$prestamo->id) }}" class="btn btn-xs btn-info btn-round" title="Ver Detalle de Prestamo">
                                               <i class="material-icons">visibility</i>
                                           </a>

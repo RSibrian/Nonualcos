@@ -30,7 +30,7 @@ class PrestamoController extends Controller
     public function indexPrestamo()
     {
         //
-        $prestamos=Prestamo::All();
+        $prestamos=Prestamo::orderBy('id','desc')->get();
         return view('prestamos.indexPrestamo',compact('prestamos'));
 
     }

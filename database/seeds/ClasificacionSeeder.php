@@ -16,6 +16,31 @@ class ClasificacionSeeder extends Seeder
           'NombreTipo' => 'Transporte',
 
       ]);
+      \App\ClasificacionesActivos::create([
+          'codigoTipo' => '002',
+          'NombreTipo' => 'Computadora',
+
+      ]);
+      \App\ClasificacionesActivos::create([
+          'codigoTipo' => '003',
+          'NombreTipo' => 'Impresora',
+
+      ]);
+      \App\ClasificacionesActivos::create([
+          'codigoTipo' => '004',
+          'NombreTipo' => 'Mesas',
+
+      ]);
+      \App\ClasificacionesActivos::create([
+          'codigoTipo' => '005',
+          'NombreTipo' => 'Fotocopiadora',
+
+      ]);
+      \App\ClasificacionesActivos::create([
+          'codigoTipo' => '006',
+          'NombreTipo' => 'Silla',
+
+      ]);
 
 
 
