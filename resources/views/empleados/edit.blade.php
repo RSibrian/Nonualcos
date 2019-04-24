@@ -13,7 +13,7 @@
                             <h3 class="wizard-title">
                                 Editar Empleado
                             </h3>
-                            <h5>Editar la informacion sobre el empleado.</h5>
+                            <h5>Editar la información sobre el empleado.</h5>
                         </div>
                         <div class="wizard-navigation">
                             <ul>
@@ -87,7 +87,7 @@
                                                             <i class="material-icons">wc</i>
                                                         </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label"> Genero
+                                                <label class="control-label"> Género
 
                                                 </label>
                                                 <select name="generoEmpleado" id="generoEmpleado" class="form-control" placeholder='Seleccione el tipo de permiso' required>
@@ -251,9 +251,23 @@
                                                         @if($empleado->estadoCivilEmpleado=="Soltero(a)")
                                                             <option selected value="Soltero(a)">Soltero(a)</option>
                                                             <option value="Casado(a)">Casado(a)</option>
-                                                        @else
+                                                            <option value="Viudo(a)">Viudo(a)</option>
+                                                            <option value="Divorciado(a)">Divorciado(a)</option>
+                                                        @elseif($empleado->estadoCivilEmpleado=="Casado(a)")
                                                             <option value="Soltero(a)">Soltero(a)</option>
                                                             <option selected value="Casado(a)">Casado(a)</option>
+                                                            <option value="Viudo(a)">Viudo(a)</option>
+                                                            <option value="Divorciado(a)">Divorciado(a)</option>
+                                                        @elseif($empleado->estadoCivilEmpleado=="Viudo(a)")
+                                                          <option value="Soltero(a)">Soltero(a)</option>
+                                                          <option  value="Casado(a)">Casado(a)</option>
+                                                          <option selected value="Viudo(a)">Viudo(a)</option>
+                                                          <option value="Divorciado(a)">Divorciado(a)</option>
+                                                          @else
+                                                            <option value="Soltero(a)">Soltero(a)</option>
+                                                            <option  value="Casado(a)">Casado(a)</option>
+                                                            <option  value="Viudo(a)">Viudo(a)</option>
+                                                            <option selected value="Divorciado(a)">Divorciado(a)</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -290,7 +304,7 @@
                                         <div class="col-lg-6 ">
                                             <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">&nbsp;$ </i>
+                                                            <i class="material-icons">apps</i>
                                                         </span>
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">
@@ -315,7 +329,7 @@
                                         <div class="col-lg-6 ">
                                             <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">&nbsp;$ </i>
+                                                            <i class="material-icons">apps</i>
                                                         </span>
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">
@@ -369,7 +383,7 @@
                             <div class="tab-pane" id="address">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h4 class="info-text">Sigamos con la informacion del Cargo </h4>
+                                        <h4 class="info-text">Sigamos con la información del Cargo </h4>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="input-group">
@@ -438,16 +452,15 @@
                             </div>
                         </div>
                         <div class="wizard-footer">
-                            <div class="pull-right">
+                            <div align="center">
                                 <input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Siguiente' />
-                                <div align="center" class="row">
+
                                     {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
-                                </div>
+
                                 <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->
-                            </div>
-                            <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-ocre btn-wd' name='previous' value='Anterior' />
-                            </div>
+
+                                <input type='button' class='btn btn-previous btn-fill btn-azul btn-wd' name='previous' value='Anterior' />
+                                <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
                             <div class="clearfix"></div>
                         </div>
                         {!! Form::close() !!}

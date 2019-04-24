@@ -37,7 +37,7 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>Codigo</th>
+                                    <th>Código</th>
                                     <th>Nombre de la Unidad</th>
                                     <th class="text-right">Acciones&nbsp;de&nbsp;la&nbsp;Unidad</th>
                                 </tr>
@@ -53,12 +53,12 @@
                                         <td>{{$unidad->nombreUnidad}}</td>
                                         <td class="text-right">
                                             @can('unidades.edit')
-                                            <a title="Editar proveedor" href="{{ url("unidades/{$unidad->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
+                                            <a title="Editar Unidad" href="{{ url("unidades/{$unidad->id}/edit") }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                                 <i class="material-icons">
                                                     create
                                                 </i>&nbsp;
                                             </a>
-                                          
+
                                                  <a title="Mostrar Cargos" href="{{ url("unidades/{$unidad->id}/cargos") }}" class="btn btn-xs btn-info btn-round">
                                                      <i class="material-icons">dvr</i>
                                                  </a>

@@ -7,7 +7,7 @@
                 <i class="material-icons">&nbsp;#&nbsp;</i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label"><code>*</code>Ingrese el codigo de la unidad :
+                <label class="control-label"><code>*</code>Ingrese el código de la unidad :
                 </label>
                 {!!Form::text('codigoUnidad',null,['id'=>'codigoUnidad','class'=>'form-control','required'])!!}
             </div>

@@ -12,7 +12,7 @@
 
           <div class="wizard-header">
             <h3 class="wizard-title">Registrar Empleado</h3>
-            <h5>Completar la informacion sobre el empleado.</h5>
+            <h5>Completar la información sobre el empleado.</h5>
           </div>
           <!-- navegación para formulario multipasos -->
           <div class="wizard-navigation">
@@ -253,7 +253,7 @@
                 <div class="col-lg-6 ">
                   <div class="input-group">
                     <span class="input-group-addon">
-                      <i class="material-icons">&nbsp;$ </i>
+                      <i class="material-icons">apps</i>
                     </span>
                     <div class="form-group label-floating">
                       <label class="control-label">
@@ -278,7 +278,7 @@
                 <div class="col-lg-6 ">
                   <div class="input-group">
                     <span class="input-group-addon">
-                      <i class="material-icons">&nbsp;$ </i>
+                      <i class="material-icons">apps</i>
                     </span>
                     <div class="form-group label-floating">
                       <label class="control-label">
@@ -331,7 +331,7 @@
           <div class="tab-pane" id="address">
             <div class="row">
               <div class="col-sm-12">
-                <h4 class="info-text">Sigamos con la informacion del Cargo </h4>
+                <h4 class="info-text">Sigamos con la información del Cargo </h4>
               </div>
               <div class="col-sm-12">
                 <div class="input-group">
@@ -393,18 +393,15 @@
           </div>
         </div>
         <div class="wizard-footer">
-          <div class="pull-right">
+          <div align="center">
 
             <input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Siguiente' />
-            <div align="center" class="row">
-              {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
-            </div>
-            <!--input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' /-->
-          </div>
-          <div class="pull-left">
 
-            <input type='button' class='btn btn-previous btn-fill btn-ocre btn-wd' name='previous' value='Anterior' />
-          </div>
+              {!! Form::submit('Registrar',['class'=>'btn btn-finish btn-fill btn-verde btn-wd glyphicon glyphicon-floppy-disk']) !!}
+
+
+            <input type='button' class='btn btn-previous btn-fill btn-azul btn-wd' name='previous' value='Anterior' />
+            <a href="{{ url("empleados") }}" class='btn btn-ocre '>Regresar</a>
           <div class="clearfix"></div>
         </div>
         {!! Form::close() !!}
