@@ -41,6 +41,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
     $total_empleado=count($empleados);
 ?>
 @foreach ($empleados as $empleado)
+    @if($empleado->dias!=0)
     <?php
     $cont++;
     ?>
@@ -181,6 +182,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
     @if($total_empleado!=$cont)
     <div class="page-break"></div>
     @endif
+    @endif()
 @endforeach
 </body>
 </html>

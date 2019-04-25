@@ -227,9 +227,25 @@ class PlanillaController extends Controller
         $anno = date("Y");
         $fecha_fin_mes = date($anno . "-" . $mes . "-01");
         $fecha_fin_mes = date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
-        $empleados=Empleado::all()->where('estadoEmpleado',1);//orderBy('apellidosEmpleado', 'asc')->get();
+        $empleados=Empleado::all();//orderBy('apellidosEmpleado', 'asc')->get();
         foreach ($empleados as $empleado) {
             $dias = date("t");
+            $mes= date('m');
+            if($empleado->estadoEmpleado==0  )
+            {
+               // dd($empleado->indemnizaciones->last());
+                if(isset($empleado->indemnizaciones->last()->fechaFinalizacion))
+                {
+                    $fecha=date("Y-m-01");
+                    if($empleado->indemnizaciones->last()->fechaFinalizacion>=$fecha)
+                        $dias=PermisoController::diferenciaFechas($fecha,$empleado->indemnizaciones->last()->fechaFinalizacion);
+                    else
+                        $dias=0;
+
+
+                }
+            }
+            $empleado->dias=$dias;
             $empleado->dias_permios_sin_goce = 0;
             $empleado->dias_incapacidad = 0;
             $empleado->dias_maternidad = 0;
@@ -250,7 +266,9 @@ class PlanillaController extends Controller
             }
             $empleado->dias_trabajados = $dias;
             $salario = $empleado->salarioBruto;
-            $empleado->salario_diario = $salario / $dias;
+            if($dias>0)
+                $empleado->salario_diario = $salario / $dias;
+            else  $empleado->salario_diario=0;
             if ( $empleado->dias_trabajados > 0)
                 if ( $empleado->dias_trabajados >  $empleado->dias_permios_sin_goce) {
                     $empleado->p =  $empleado->dias_permios_sin_goce;

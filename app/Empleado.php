@@ -73,7 +73,10 @@ class Empleado extends Model implements Auditable
     {
         return $this->hasMany(AjusteRenta::class,'idEmpleado');
     }
-
+    public function indemnizaciones()
+    {
+        return $this->hasMany(Indemnizacion::class,'idEmpleado');
+    }
     public static function EmpleadosxUnidad($idUnidad){
       return DB::table('empleados')
       ->join('cargos', 'empleados.idCargo', '=', 'cargos.id')

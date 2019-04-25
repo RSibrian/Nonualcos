@@ -68,6 +68,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
     ?>
 
     @foreach ($empleados as $empleado)
+        @if($empleado->dias!=0)
         <?php
 
 
@@ -255,7 +256,7 @@ $ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
         <tr style="background: #00acc1">
             <td colspan="9"></td>
         </tr>
-
+    @endif()
     @endforeach
 
 

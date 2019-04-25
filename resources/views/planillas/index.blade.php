@@ -70,6 +70,7 @@
                             <tbody>
                                  <?php $cont=0;?>
                                 @foreach ($empleados as $empleado)
+                                   @if($empleado->dias!=0)
                                     <tr>
                                         <td></td>
                                         <?php $cont++;?>
@@ -89,6 +90,7 @@
                                         <td>${{\Helper::dinero(round($empleado->total_descuentos,2))}}</td>
                                         <td>${{\Helper::dinero(round($empleado->liquido,2))}}</td>
                                     </tr>
+                                    @endif()
                                 @endforeach
                             </tbody>
                         </table>
