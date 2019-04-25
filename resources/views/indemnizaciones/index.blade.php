@@ -118,11 +118,11 @@
 </div>
 <!-- end row -->
 <?php
-$ayuda_title="Ayuda para la Tabla de Unidades";
-$ayuda_body="Cada Unidad tiene 3 botones <br>
-1- Este <i class='material-icons'>create</i>&nbsp; Icono es para editar la unidad      <br><br>
-2- Este <i class='material-icons'>dvr</i> Icono es para ver los cargos de la unidad <br><br>
-3- Este <i class='material-icons'>visibility</i> Icono es para ver los datos de la unidad"
+$ayuda_title="Ayuda para la Tabla de Pasivo Laboral";
+$ayuda_body="La tabla muestra los empleados activos. <br>
+1- Para calcular la indemnización aproximada del empleado seleccionelo en la lista,<br>
+2- Luego seleccione la fecha supuesta de terminación y el motivo,<br>
+3- Presione el botón mostrar"
 ?>
 @include('alertas.ayuda')
 @stop
@@ -142,7 +142,6 @@ $(document).ready(function() {
       search: "_INPUT_",
       searchPlaceholder: "Search records",
     },
-
   });
 
 });

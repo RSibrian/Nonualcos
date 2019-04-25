@@ -28,7 +28,13 @@ class IndemnizacionController extends Controller
 
   public function make(Request $request)
   {
-    // dd($request);
+    $this->validate($request, [
+        'empleadosId' => 'required',
+    ],
+        [
+            'empleadosId.required' => 'Seleccione al menos un empleado',
+        ]
+    );
     $empleados=Empleado::find($request->empleadosId);
 
     //salario mínimo vigente
@@ -101,12 +107,12 @@ class IndemnizacionController extends Controller
         if ($i['months']==1) $i['months']=$i['months']." mes ";
         else $i['months']=$i['months']." meses ";
       }else $i['months']="";
-      if($i['dias']>0) $i['dias']=$i['dias']." días. ";
+      if($i['dias']>0) $i['dias']=$i['dias']." días";
       else $i['dias']="";
 
       $i['tiempo']=$i['years'].$i['months'].$i['dias'];
       if ($i['years']<2 && $motivo=="Renuncia Voluntaria") {
-        $i['tiempo']="No aplica (menos de dos años)";
+        $i['tiempo']=$i['tiempo']." (No aplica indemnización, menos de dos años)";
         $i['monto']=0;
       }
       $indemnizaciones->push($i);
@@ -135,7 +141,19 @@ class IndemnizacionController extends Controller
   */
   public function store(Request $request)
   {
-    //
+    $datos= $request->datos;
+    $indemnizacion = Indemnizacion::where('idEmpleado',$datos[0])->first();
+    if (!$indemnizacion) {
+      $indemnizacion = new Indemnizacion();
+    }
+    $indemnizacion->idEmpleado = $datos[0];
+    $indemnizacion->tipoInd = $datos[7];
+    $indemnizacion->fechaFinalizacion = date_create_from_format('d/m/Y',$datos[6])->format('Y-m-d');
+    $num = explode(',',substr($datos[4],2));
+    $indemnizacion->montoInd = doubleval(implode('',$num));
+    $indemnizacion->motivoInd = $datos[5];
+    $indemnizacion->save();
+    echo json_encode('true');
   }
 
   /**
@@ -144,43 +162,10 @@ class IndemnizacionController extends Controller
   * @param  \App\Indemnizacion  $indemnizacion
   * @return \Illuminate\Http\Response
   */
-  public function show(Indemnizacion $indemnizacion)
+  public function show()
   {
-    //
-  }
-
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  \App\Indemnizacion  $indemnizacion
-  * @return \Illuminate\Http\Response
-  */
-  public function edit(Indemnizacion $indemnizacion)
-  {
-    //
-  }
-
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  \App\Indemnizacion  $indemnizacion
-  * @return \Illuminate\Http\Response
-  */
-  public function update(Request $request, Indemnizacion $indemnizacion)
-  {
-    //
-  }
-
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  \App\Indemnizacion  $indemnizacion
-  * @return \Illuminate\Http\Response
-  */
-  public function destroy(Indemnizacion $indemnizacion)
-  {
-    //
+    $indemnizaciones = Indemnizacion::get();
+    return view('indemnizaciones.desactivados',compact('indemnizaciones'));
   }
 
   public function bajaEmpleado(Empleado $empleado)
@@ -188,7 +173,7 @@ class IndemnizacionController extends Controller
     $activos = ActivosUnidades::where('idEmpleado',$empleado->id)->where('estadoUni',1)->get();
     $descuentos= Descuento::where('idEmpleado',$empleado->id)->where('estadoDescuento',1)->get();
     $vales = Vale::where('estadoRecibidoVal',0)->where('empleadoRecibeVal',$empleado->id)->get();
-
+    
     return view('indemnizaciones.bajaEmpleado',compact('empleado','activos','descuentos','vales'));
   }
 

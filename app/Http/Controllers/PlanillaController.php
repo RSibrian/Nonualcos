@@ -7,7 +7,7 @@ use App\DiaPermiso;
 use App\Empleado;
 use App\EmpleadoPlanilla;
 use App\Helpers\Helper;
-use App\planilla;
+use App\Planilla;
 use App\Renta;
 use App\Salidas;
 use Illuminate\Http\Request;

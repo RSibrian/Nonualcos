@@ -96,10 +96,10 @@
             </tbody>
           </table>
           <div align="center" class="row">
-              <a href="{{ route('index') }}" class='btn btn-ocre '>Cancelar</a>
+              <a href="{{ route('indemnizaciones.index') }}" class='btn btn-ocre'>Cancelar</a>
               <button id="recarga" class='btn btn-azul '>Recargar tabla</button>
               @if($count<=1)
-              <button id="procesar" class='btn btn-verde '>Procesar</a>
+              <button id="procesar" class='btn btn-verde'>Procesar</button>
               @endif
           </div>
       
@@ -111,6 +111,7 @@
   <!-- end col-md-12 -->
 </div>
 <!-- end row -->
+
 <?php
 $ayuda_title="Ayuda para desactivar perfil de empleado";
 $ayuda_body="Debe finalizar cualquier movimiento pendiente del usuario para poder desactivarlo. <br>
@@ -143,6 +144,8 @@ $(function() {
   });
 
   $('#procesar').click(function () {
+      $('#modal1').modal('show'); 
+    
     var idEmpleado=$("#empleado").val();
     var newUrl = "{{ route('indemnizaciones.darDeBaja') }}";
       var token="{{ csrf_token() }}";
@@ -156,7 +159,7 @@ $(function() {
         success:function(res){
           console.log(res);
           if (res=="true") {
-            location.href="/";
+            location.href="{{route('indemnizaciones.desactivados')}}";
           }
         },
         error:function(res){

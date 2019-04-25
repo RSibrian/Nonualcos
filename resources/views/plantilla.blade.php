@@ -241,6 +241,9 @@
             <li>
               <a href="{{ route('indemnizaciones.index') }}">Pasivo Laboral (Indemnizaciones)</a>
             </li>
+            <li>
+            <a href="{{ route('indemnizaciones.desactivados') }}">Empleados desactivados</a>
+            </li>
             @endcan
           </ul>
         </div>

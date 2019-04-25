@@ -725,6 +725,13 @@ Route::middleware(['auth'])->group(function () {
                    Route::post('indemnizaciones/desactivarEmpleado','IndemnizacionController@desactivarEmpleado')
                    ->name('indemnizaciones.darDeBaja');
 
+                   Route::post('indemnizaciones/procesar','IndemnizacionController@store')
+                   ->name('indemnizaciones.procesar');
+
+                   Route::get('indemnizaciones/desactivados','IndemnizacionController@show')
+                   ->name('indemnizaciones.desactivados');
+
+
            //indemnizaciones
 
     //aguinaldo

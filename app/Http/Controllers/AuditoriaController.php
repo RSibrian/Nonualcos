@@ -40,72 +40,12 @@ class AuditoriaController extends Controller
       return view('auditoria.index',compact('audits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Audit  $auditoria
-     * @return \Illuminate\Http\Response
-     */
     public function show(Audit $auditoria)
     {
         //
         return view('auditoria.show',compact('auditoria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Audit  $auditoria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Audit $auditoria)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Audit  $auditoria
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Audit $auditoria)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Audit  $auditoria
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Audit $auditoria)
-    {
-        //
-    }
 
     public function details(Audit $audit)
     {
@@ -130,7 +70,6 @@ class AuditoriaController extends Controller
       if ($audit->auditable_type==Vehiculo::class) $article=Vehiculo::find($audit->auditable_id);
       if ($audit->auditable_type==instituciones::class) $article=Instituciones::find($audit->auditable_id);
       if ($audit->auditable_type==Prestamo::class) $article=Prestamo::find($audit->auditable_id);
-
 
       $auditt = $article->audits->where('id',$audit->id)->first();
       $details=view('auditoria.details',compact('auditt'))->render();
