@@ -40,6 +40,7 @@
             </tfoot>
             <tbody>
               @foreach ($indemnizaciones as $indemnizacion)
+              @if($indemnizacion->empleado->estadoEmpleado==0)
               <tr>
                 <td></td>
                 <td>{{$indemnizacion->empleado->id}}</td>
@@ -51,6 +52,7 @@
                 <td>{{Helper::fecha($indemnizacion->fechaFinalización)}}</td>
                 <td>{{$indemnizacion->tipoInd}}</td>
               </tr>
+              @endif
               @endforeach
             </tbody>
           </table>
