@@ -42,8 +42,9 @@ class MantenimientoController extends Controller
 
   public function create1( Activos $activo )
   {
-    $raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
-    $empleados=Empleado::where('estadoEmpleado',1)->select($raw,'id')->pluck('fullName','id');
+    //$raw= DB::raw("CONCAT (nombresEmpleado, ' ', apellidosEmpleado) as fullName");
+    //$empleados=Empleado::where('estadoEmpleado',1)->select($raw,'id')->pluck('fullName','id');
+    $empleados=Empleado::where('estadoEmpleado',1)->get()->pluck('fullName','id');
     $proveedores=Proveedor::pluck('nombreEmpresa','id');
     $date = Carbon::now();
     return view('mantenimientos.create',compact('date','empleados','proveedores','activo'));
