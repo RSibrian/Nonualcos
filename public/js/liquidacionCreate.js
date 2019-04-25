@@ -42,6 +42,9 @@ function cargar(ruta, r) {
     var cont=0;
     var table = $('#datatables').DataTable( {
         "ajax": { url: ruta ,dataSrc:""},
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false,
         "columns": [
             {
                 "className":      'details-control',
