@@ -104,7 +104,7 @@ class LiquidacionController extends Controller
 
         $date = date('d-m-Y');
         $date1 = date('g:i:s a');
-        $vistaurl="reportesTransporte.liquidacionRGeneral";
+        $vistaurl="reportesTransporte.LiquidacionRGeneral";
         $view =  \View::make($vistaurl, compact('liquidaciones', 'fechaI', 'fechaF' ,'date','date1'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
