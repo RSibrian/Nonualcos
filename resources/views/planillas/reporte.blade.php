@@ -51,7 +51,7 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                     <td colspan="6" align="center">ASOCIACIÓN DE MUNICIPIOS LOS NONUALCOS</td>
                 </tr>
                 <tr>
-                    <td colspan="6" align="center">Boleta de Pago Corespondiente al mes de {{$meses[intval($mes)]}} del {{$anno}}</td>
+                    <td colspan="6" align="center">Boleta de Pago Correspondiente al mes de {{$meses[intval($mes)]}} del {{$anno}}</td>
                 </tr>
                 <tr>
                     <th>DUI: </th>
@@ -184,4 +184,3 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
 @endforeach
 </body>
 </html>
-

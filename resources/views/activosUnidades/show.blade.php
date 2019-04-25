@@ -112,7 +112,8 @@
                                                   <label class="control-label"><code>*</code>Fecha de Asignación
                                                       <small></small>
                                                   </label>
-                                                  {!!Form::date('fechaInicioUni',$date,['id'=>'fechaInicioUni','max'=>$date,'class'=>'form-control datepicker'])!!}
+                                                  {!!Form::date('fechaInicioUni',$date,['required','id'=>'fechaInicioUni','max'=>$date, 'min'=>$activo->fechaAdquisicion ,'class'=>'form-control datepicker'])!!}
+                                                
 
                                               </div>
                                           </div>
