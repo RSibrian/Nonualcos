@@ -325,7 +325,7 @@ class PlanillaController extends Controller
                 else if ($descuento->tipoDescuento == 2) $empleado->descuentos_alimeticios += $descuento->pago;
                 else $empleado->otros += $descuento->pago;
             }
-            $empleado->total_descuentos = round($empleado->AFP_empleado,2);
+            $empleado->total_descuentos = round($empleado->AFP_empleado,2)+$empleado->ISSS;
             $empleado->salario_descuentos = round($empleado->salario_ganado,2) - $empleado->total_descuentos;
 
             if ($empleado->salario_descuentos != 0) {
