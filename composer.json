@@ -15,7 +15,8 @@
         "laravelista/lumen-vendor-publish": "^2.1",
         "maatwebsite/excel": "^2.1",
         "owen-it/laravel-auditing": "^8.0",
-        "spatie/laravel-backup": "^4.0.0"
+        "spatie/laravel-backup": "^4.0.0",
+        "villca/numeros-en-letras": "v1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

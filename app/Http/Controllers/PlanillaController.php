@@ -13,6 +13,8 @@ use App\Salidas;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
+use NumerosEnLetras;
+
 class PlanillaController extends Controller
 {
     /**
@@ -379,6 +381,7 @@ class PlanillaController extends Controller
                 $empleado->total_descuentos += $empleado->tota_pre;// le restamos la cuota alimenticia al liquido
             }
             $empleado->liquido = round($empleado->salario_ganado,2) - $empleado->total_descuentos;
+            $empleado->letras=NumerosEnLetras::convertir($empleado->liquido,'Dólares',false,'Centavos');
         }
       // dd($empleados);
         return $empleados;

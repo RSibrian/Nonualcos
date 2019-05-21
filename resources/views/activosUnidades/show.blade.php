@@ -113,7 +113,7 @@
                                                       <small></small>
                                                   </label>
                                                   {!!Form::date('fechaInicioUni',$date,['required','id'=>'fechaInicioUni','max'=>$date, 'min'=>$activo->fechaAdquisicion ,'class'=>'form-control datepicker'])!!}
-                                                
+
 
                                               </div>
                                           </div>
@@ -292,6 +292,7 @@
         });
     </script>
     <script>
+    /*
         $('#idUnidad').on('change',function(e){
           var empleados=$("#idEmpleado");
           var unidad=$("#idUnidad").find('option:selected').val();
@@ -308,6 +309,6 @@
           });
         });
 
-
+*/
     </script>
 @endsection

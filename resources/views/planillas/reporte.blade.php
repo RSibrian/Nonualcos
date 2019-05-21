@@ -142,6 +142,12 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                     <td  colspan="2" align="right"><b>Total a Pagar</b></td>
                     <td colspan="2" align="left"><b>$ {{\Helper::dinero(round($empleado->liquido,2))}}</b></td>
                 </tr>
+                <tr>
+
+
+                  <td colspan="3"><b>Valor en letras:</b></td>
+                  <td colspan="3">{{$empleado->letras}}</td>
+                </tr>
 
                 <tr>
                     <td colspan="6"></td>
