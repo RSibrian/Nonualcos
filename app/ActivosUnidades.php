@@ -52,7 +52,8 @@ class ActivosUnidades extends Model implements Auditable
         return DB::table('activos_unidades')
             ->join('activos', 'activos.id', '=', 'activos_unidades.idActivo')
             ->where('activos_unidades.estadoUni','=',1)
-            ->where('activos_unidades.idUnidad','=',1)
+            ->where('activos_unidades.idUnidad','=',12)
+
             ->where('activos.estadoActivo','=',1)
             ->orWhere('activos.estadoActivo','=',3)
             ->select('activos.*','activos_unidades.*')

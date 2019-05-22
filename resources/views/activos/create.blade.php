@@ -470,7 +470,7 @@
   <script >
   $('#idClasificacionActivo').on('change',function(e){
     var tipo=$("#idClasificacionActivo").find('option:selected');
-    if (tipo.val()==1)
+    if (tipo.val()==19)
     {
         document.getElementById("radiovehi1").checked = "true";
         document.getElementById('placa_div').style.display='block';
