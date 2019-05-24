@@ -36,6 +36,10 @@
             background: #F5F5F5;
         }
 
+        table th{
+            background: #F5F5F5;
+        }
+
     </style>
 
     <?php
@@ -46,29 +50,26 @@
     }
     ?>
 
-    <div align="center"><h3>DETALLE DE LIQUIDACIÓN PARA VEHÍCULO CON PLACA {{ $placa->numeroPlaca }}</h3></div>
-
+    <div align="center"><h2>Detalle de Liquidación para vehículo placa {{ $placa->numeroPlaca }} </h2></div>
     <div class="cuerpo">
-        <br>
-            <table>
-                <tr>
-                    <td class="columna borde"><h4>Fecha de liquidación: <br></h4></td>
-                    <td class="columna borde"><h4> <b> {{ \Helper::fecha($liquidacion->fechaLiquidacion) }}</b></h4></td>
-                    <td class="columna borde"><h4>Número de factura: <br></h4></td>
-                    <td class="columna borde"><h4> <b> {{ $liquidacion->numeroFacturaLiquidacion }}</b></h4></td>
-                </tr>
-            </table>
+        <table>
+            <tr>
+                <th class="columna borde" align="center"><h4>Fecha de liquidación:</h4></th>
+                <th class="columna borde" align="center">{{ \Helper::fecha($liquidacion->fechaLiquidacion) }}</th>
+                <th class="columna borde" align="center"><h4>Número de factura:</h4></th>
+                <th class="columna borde" align="center">{{ $liquidacion->numeroFacturaLiquidacion }}</th>
+            </tr>
+        </table>
 
-        <br>
         <fieldset>
             <table>
                 <tr>
-                    <td class="columna borde"></td>
-                    <td class="columna borde"><h4>#</h4></td>
-                    <td class="columna borde"><h4>Fecha</h4></td>
-                    <td class="columna borde"><h4>Número de vale</h4></td>
-                    <td class="columna borde"><h4>Unidad</h4></td>
-                    <td class="columna borde"><h4>Valor ($)</h4></td>
+                    <th class="columna borde" align="center"></th>
+                    <th class="columna borde" align="center"><h4>#</h4></th>
+                    <th class="columna borde" align="center"><h4>Fecha</h4></th>
+                    <th class="columna borde" align="center"><h4>Número de vale</h4></th>
+                    <th class="columna borde" align="center"><h4>Unidad</h4></th>
+                    <th class="columna borde" align="center"><h4>Valor ($)</h4></th>
                 </tr>
                 <?php $cont=0; ?>
                 @foreach($vales as $vale)

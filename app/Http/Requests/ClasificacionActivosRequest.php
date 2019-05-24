@@ -25,7 +25,7 @@ class ClasificacionActivosRequest extends FormRequest
     {
         return [
           'codigoTipo'=> 'required|unique:clasificaciones_activos,codigoTipo,'.$this->clasificacionesActivos['id'],
-          'nombreTipo'=> 'required|min:5|max:50',
+          'nombreTipo'=> 'required|min:3|max:50',
         ];
     }
     public function messages(){
@@ -33,7 +33,7 @@ class ClasificacionActivosRequest extends FormRequest
             'codigoTipo.required' => '¡Por favor ingrese el código de la clasificación!',
             'codigoTipo.unique' => '¡El código de la clasificación ya existe!',
             'nombreTipo.required' => '¡Por favor ingrese el nombre de la clasificación!',
-            'nombreTipo.min' => '¡El nombre de la clasificación debe tener más de 5 caracteres!',
+            'nombreTipo.min' => '¡El nombre de la clasificación debe tener más de 3 caracteres!',
             'nombreTipo.max' => '¡El nombre de la clasificación debe tener menos de 50 caracteres!',
         ];
     }
