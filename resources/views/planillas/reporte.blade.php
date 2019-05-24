@@ -166,14 +166,14 @@ $fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
                 </tr>
                 <tr>
                     <td colspan="3" align="center">
-                        Lic. Fredy Aristides Rodriguez Carranza
+                        Fredy Aristides Rodriguez Carranza
                     </td>
                     <td colspan="3" align="center">
                         {{"$empleado->nombresEmpleado $empleado->apellidosEmpleado"}}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" align="center">Contador</td>
+                    <td colspan="3" align="center">Coordinador Administrativo Financiero</td>
                     <td colspan="3" align="center">
                         @if($empleado->generoEmpleado=='Masculino')
                             Empleado
