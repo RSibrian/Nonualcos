@@ -23,8 +23,8 @@
 
           </a>
           @endcan
-          <a  aling='right' href="{{ route('mantenimientos.generarReporte') }}" class="btn  btn-ocre btn-round ">
-              <i class="material-icons">print</i>
+          <a  aling='right' href="{{ route('mantenimientos.generarReporte') }}" class="btn btn-xs btn-ocre btn-round " title="Reporte de mantenimientos">
+              <i class="material-icons">assignment</i>
             </a>
 
           <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">

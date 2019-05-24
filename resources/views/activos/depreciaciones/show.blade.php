@@ -238,7 +238,7 @@
               <thead>
                 <tr>
                   <b>
-                  <th></th>
+                  <th>#</th>
                   <th>Año</th>
                   <th>Valor Original</th>
                   <th>Valor Residual</th>
@@ -254,8 +254,8 @@
               <tbody>
                 <?php $cont=0;?>
                 <tr>
-                  <td></td>
-                  <td>{{$cont}}</td>
+                  <td>{{ $cont }}</td>
+                  <td>{{ $anno_inicio }}</td>
                   <td>$ {{number_format($activo->precio, 2, '.', ',')}}</td>
                   <td>$ {{number_format($valorResidual, 2, '.', ',')}}</td>
                   <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
@@ -272,8 +272,8 @@
                     $precio-=$cuota;
                   ?>
                   <tr>
-                    <td></td>
-                    <td>{{$cont}}</td>
+                    <td>{{ $cont }}</td>
+                    <td>{{ $anno_inicio+$cont}}</td>
                     <td></td>
                     <td></td>
                     <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
@@ -297,7 +297,7 @@
             <table id="" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
               <thead>
                 <tr>
-                  <th></th>
+                  <th>#</th>
                   <th>Mes</th>
                   <th>Valor Original</th>
 
@@ -308,10 +308,13 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $cont=0;?>
+                <?php $cont=0;
+                $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                $mes_inicio=(integer) $mes_inicio-1;
+                ?>
                 <tr>
-                  <td></td>
-                  <td></td>
+                  <td>{{ $cont }}</td>
+                  <td>{{ $meses[$mes_inicio] }}</td>
 
                   <?php
                   $precio=$cuota;
@@ -333,14 +336,14 @@
                 @for($i=0;$i<12;$i++)
                   <?php
                     $cont++;
-                    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
                     $valorDepreciar-=$cuota;
                     $depreAcumulada+=$cuota;
                     $precio-=$cuota;
+                    $mes_inicio++;
                   ?>
                   <tr>
-                    <td></td>
-                    <td>{{$meses[$i]}}</td>
+                    <td>{{ $cont }}</td>
+                    <td>{{$meses[$mes_inicio]}}</td>
 
                     <td></td>
                     <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
@@ -348,6 +351,11 @@
                     <td>$ {{number_format($depreAcumulada, 2, '.', ',')}}</td>
                     <td>$ {{number_format($precio, 2, '.', ',')}}</td>
                   </tr>
+                    <?php
+                        if($meses[$mes_inicio]==="Diciembre"){
+                            $mes_inicio=-1;
+                        }
+                    ?>
                 @endfor
 
               </tbody>

@@ -250,21 +250,31 @@
                                                     <select name="estadoCivilEmpleado" id="estadoCivilEmpleado" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                                                         @if($empleado->estadoCivilEmpleado=="Soltero(a)")
                                                             <option selected value="Soltero(a)">Soltero(a)</option>
+                                                            <option value="Acompañado(a)">Acompañado(a)</option>
+                                                            <option value="Casado(a)">Casado(a)</option>
+                                                            <option value="Viudo(a)">Viudo(a)</option>
+                                                            <option value="Divorciado(a)">Divorciado(a)</option>
+                                                        @elseif($empleado->estadoCivilEmpleado=="Acompañado(a)")
+                                                            <option value="Soltero(a)">Soltero(a)</option>
+                                                            <option selected value="Acompañado(a)">Acompañado(a)</option>
                                                             <option value="Casado(a)">Casado(a)</option>
                                                             <option value="Viudo(a)">Viudo(a)</option>
                                                             <option value="Divorciado(a)">Divorciado(a)</option>
                                                         @elseif($empleado->estadoCivilEmpleado=="Casado(a)")
                                                             <option value="Soltero(a)">Soltero(a)</option>
+                                                            <option value="Acompañado(a)">Acompañado(a)</option>
                                                             <option selected value="Casado(a)">Casado(a)</option>
                                                             <option value="Viudo(a)">Viudo(a)</option>
                                                             <option value="Divorciado(a)">Divorciado(a)</option>
                                                         @elseif($empleado->estadoCivilEmpleado=="Viudo(a)")
                                                           <option value="Soltero(a)">Soltero(a)</option>
+                                                          <option value="Acompañado(a)">Acompañado(a)</option>
                                                           <option  value="Casado(a)">Casado(a)</option>
                                                           <option selected value="Viudo(a)">Viudo(a)</option>
                                                           <option value="Divorciado(a)">Divorciado(a)</option>
                                                           @else
                                                             <option value="Soltero(a)">Soltero(a)</option>
+                                                            <option value="Acompañado(a)">Acompañado(a)</option>
                                                             <option  value="Casado(a)">Casado(a)</option>
                                                             <option  value="Viudo(a)">Viudo(a)</option>
                                                             <option selected value="Divorciado(a)">Divorciado(a)</option>

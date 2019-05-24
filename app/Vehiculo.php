@@ -84,4 +84,16 @@ class Vehiculo extends Model implements Auditable
 
         return Vehiculo::whereNotIn('id',$lista)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
     }
+
+    public static function VehiculosActivos(){
+        return Vehiculo::join('activos', 'activos.id', '=', 'vehiculos.idActivo')
+            ->where([
+                ['activos.estadoActivo','=','1'],
+                ['activos.tipoActivo','=','1'],
+                ['activos.codigoInventario','!=',null]
+            ])->orWhere([
+                ['activos.estadoActivo','=','1'],
+                ['activos.tipoActivo','=','1'],
+            ])->get();
+    }
 }

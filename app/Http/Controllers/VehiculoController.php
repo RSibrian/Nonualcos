@@ -18,7 +18,7 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-      $vehiculos=Vehiculo::all();
+      $vehiculos=Vehiculo::VehiculosActivos();
       //dd($activos);
       return view('vehiculos.index',compact('vehiculos'));
 

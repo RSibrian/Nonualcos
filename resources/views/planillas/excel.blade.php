@@ -4,11 +4,11 @@ $dias=date("t");
 $anno=date("Y");
 $actual=date("d/m/Y");
 
-$fecha_fin_mes = date($anno."-".$mes."-01");
-$inicio=date($anno."-".$mes."-01");
+$fecha_fin_mes = date("01/".$mes."/".$anno);
+$inicio=date("01/".$mes."/".$anno);
 
-$fecha_fin_mes =date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
-$ultimo =date("Y-m-d", strtotime("$fecha_fin_mes -1 days"));
+$fecha_fin_mes =date("d/m/Y", strtotime("$fecha_fin_mes +1 month"));
+$ultimo =date("d/m/Y", strtotime("$fecha_fin_mes -1 days"));
 ?>
 <table >
     <thead>

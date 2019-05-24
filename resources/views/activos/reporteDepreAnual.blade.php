@@ -178,7 +178,7 @@
     <thead>
       <tr>
         <b>
-        <th></th>
+        <th>#</th>
         <th>Año</th>
 
         <th>Valor a Depreciar</th>
@@ -192,8 +192,8 @@
     <tbody>
       <?php $cont=0;?>
       <tr>
-        <td></td>
-        <td>{{$cont}}</td>
+		<td>{{ $cont }}</td>
+		<td>{{ $anno_inicio }}</td>
 
         <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
         <td>$ {{number_format($cuota, 2, '.', ',')}}</td>
@@ -209,8 +209,8 @@
           $precio-=$cuota;
         ?>
         <tr>
-          <td></td>
-          <td>{{$cont}}</td>
+		  <td>{{ $cont }}</td>
+		  <td>{{ $anno_inicio+$cont}}</td>
 
           <td>$ {{number_format($valorDepreciar, 2, '.', ',')}}</td>
           <td>$ {{number_format($cuota, 2, '.', ',')}}</td>

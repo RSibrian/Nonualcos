@@ -308,19 +308,21 @@
                   </div>
                 </div>
 
-                <div class="col-sm-10 row col-sm-offset-1"id="factura" style="display: block;">
-
-                  <div class="input-group">
+                @if($activo->tipoAdquisicion!=0)
+                  <div class="col-sm-10 row col-sm-offset-1"id="factura" style="display: block;">
+                    <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">tab</i>
                     </span>
-                    <div class="form-group label-floating">
-                      <label class="control-label"><code>*</code>Número de factura:
-                      </label>
-                      {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
+                      <div class="form-group label-floating">
+                        <label class="control-label"><code>*</code>Número de factura:
+                        </label>
+                        {!!Form::number('numeroFactura',null,['id'=>'numeroFactura','class'=>'form-control','required'])!!}
+                      </div>
                     </div>
                   </div>
-                </div>
+                @endif
+
                 <div class="col-sm-10 row col-sm-offset-1">
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -359,9 +361,9 @@
     </div>
   </div>
   @stop
-  @section('scripts')
+@section('scripts')
   <script type="text/javascript">
-  $().ready(function() {
+  $(document).ready(function() {
     demo.initMaterialWizard();
   });
 </script>
@@ -413,12 +415,10 @@ $('#estadoActivo').on('change',function(e){
   if (estado.val()==0)
   {
     document.getElementById('baja').style.display='block';
-
   }
   else
   {
     document.getElementById('baja').style.display='none';
-
   }
 });
 </script>

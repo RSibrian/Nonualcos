@@ -291,7 +291,7 @@
                             </div>
                             <div class="col col-md-8">
                               <h4><strong>
-                              {{'$'.$activo->precio}}
+                              {{'$'.\Helper::dinero($activo->precio)}}
                               </strong></h4>
                             </div>
                           </div>

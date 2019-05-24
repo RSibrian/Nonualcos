@@ -107,7 +107,7 @@
                                                     </label>
                                                     <select name="casoPermiso" id="perm_caso" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                                                           <option value=></option>
-                                                        <option value="Enfermadad">Enfermedad</option>
+                                                        <option value="Enfermedad">Enfermedad</option>
                                                         <option value="Particular">Particular</option>
                                                         <option value="Gravedad de Pariente en Duelo">Gravedad de Pariente en Duelo</option>
                                                     </select>

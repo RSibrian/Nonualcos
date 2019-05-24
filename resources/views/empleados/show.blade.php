@@ -152,7 +152,7 @@
                                 </tr>
                                 <tr>
                                     <td><h4>Salario: </h4></td>
-                                    <td><h4><b>$&nbsp;{{$empleado->salarioBruto}}</b></h4></td>
+                                    <td><h4><b>${{  \Helper::dinero($empleado->salarioBruto)}}</b></h4></td>
                                 </tr>
                                 <tr>
                                     <td><h4>Tipo de Contrato: </h4></td>

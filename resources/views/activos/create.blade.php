@@ -293,7 +293,7 @@
                 <div class="col-sm-5 row col-sm-offset-1" id="cantidad" style="display: block;">
                   <div class="input-group">
                     <span class="input-group-addon">
-                      <i class="material-icons">attach_money</i>
+                      <i class="material-icons">filter_9_plus</i>
                     </span>
                     <div class="form-group label-floating">
                       <label class="control-label">Cantidad articulos:
@@ -421,7 +421,7 @@
                   <label class="control-label">Tipo de Proveedor:
                   </label>
 
-                  <select name="tipoProveedor" id="tipoProveedor" class="form-control" title="Seleccione el tipo de teléfono" 'required' >
+                  <select name="tipoProveedor" id="tipoProveedor" class="form-control" title="Seleccione el tipo de teléfono" required>
                     <option value="1" @isset($prov)>
                       @if($prov->tipoProveedor==1){{ 'selected' }}@endif
                       @endisset >Solo Proveedor</option>
@@ -461,10 +461,10 @@
       </script>
 
       <script type="text/javascript">
-      $().ready(function() {
+      $(document).ready(function() {
         demo.initMaterialWizard();
       });
-    </script>
+     </script>
 
 
   <script >
