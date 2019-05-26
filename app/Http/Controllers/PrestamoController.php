@@ -41,13 +41,25 @@ class PrestamoController extends Controller
         $instituciones=Instituciones::pluck('nombreInstitucion','id');
         $date = date('Y-m-d\TH:i');
         $activos=ActivosUnidades::activosxUnidades();
-        return view('prestamos.create', compact('date','instituciones','activos'));
+        $prestamos=Prestamo::All();
 
+        $numid=count($prestamos);
+
+          $numid++;
+
+        //dd($numid);
+        return view('prestamos.create', compact('date','numid','instituciones','activos'));
     }
 
 
     public function store(PrestamoRequest $request)
     {
+      if($request['pdfPrestamo2']==null)
+      {
+        $request['pdfPrestamo']==null;
+      }
+      else
+       {
 
         $file = Input::file('pdfPrestamo2');
         $random=str_random(10);
@@ -57,6 +69,7 @@ class PrestamoController extends Controller
         $file->move(public_path().'/biblioteca/prestamos/',$nombre);
         $url = '/biblioteca/prestamos/'.$nombre;
         $request['pdfPrestamo']=$url;
+        }
         Prestamo::create($request->all());
 
         $ultimaSolicitud=Prestamo::all()->last();
@@ -158,9 +171,24 @@ class PrestamoController extends Controller
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, Prestamo $prestamo)
     {
-        //
+      $file = Input::file('pdfPrestamo2');
+      $random = str_random(10);
+      $nombre = $random . '-' . $file->getClientOriginalName();
+      $nombre = EmpleadoController::eliminar_tildes($nombre);
+      //Ruta donde queremos guardar el pdf
+      $file->move(public_path() . '/biblioteca/prestamos/', $nombre);
+      $url = '/biblioteca/prestamos/' . $nombre;
+      $request['pdfPrestamo'] = $url;
+
+
+      $prestamo->pdfPrestamo=$request['pdfPrestamo'] ;
+
+      $prestamo->save();
+        return redirect('prestamos/indexPrestamo')->with('update','Se ha agregado la solicitud con éxito');
+      
+
     }
 
     /**

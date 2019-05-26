@@ -11,9 +11,10 @@
                                                 <span class="input-group-addon">
                                                      <i class="material-icons">picture_as_pdf</i>
                                                 </span>
-                                                {!!Form::file('pdfPrestamo2',['value'=>'Elija el pdf de la solicitud','required','accept'=>'application/pdf'])!!}
+                                                {!!Form::file('pdfPrestamo2',['value'=>'Elija el pdf de la solicitud','accept'=>'application/pdf'])!!}
                                             </div>
                                         </div>
+
                                         <div class="col-lg-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
@@ -26,6 +27,8 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
 
                                         <div class="col-sm-12">
                                         <div class="col-sm-7">

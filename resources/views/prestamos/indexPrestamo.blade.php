@@ -66,6 +66,7 @@
                             <tbody>
                                 <?php $cont=0;?>
                                 @foreach ($prestamos as $prestamo)
+                                  @include('prestamos.solicitud')
                                   <?php
                                   $date =  date('Y-m-d H:i',time());
 
@@ -137,9 +138,13 @@
                                         @endif
                                         <td <?=$color?>>{{$estado}}</td>
                                         <td>
+                                          @if($prestamo->pdfPrestamo)
                                             <a href="{{ asset($prestamo->pdfPrestamo) }} " target="_blank" class="btn btn-xs btn-info btn-round" title="Solicitud de Préstamo">
                                                 <i class="material-icons">save_alt</i>
                                             </a>
+                                          @else
+                                            <button type="submit"  class="btn btn-xs btn-info btn-round" data-toggle="modal" data-target="#gridSystemModal2{{$prestamo->id}}">  <i class="material-icons">add</i> </button>
+                                          @endif
                                         </td>
 
                                         <td>
@@ -184,6 +189,9 @@
 
     ?>
     @include('alertas.ayuda')
+
+
+
 @stop
 @section('scripts')
 

@@ -9,7 +9,7 @@
 	            </div>
 	            <div class="card-content">
 	                <h4 class="card-title">Préstamo -
-	                    <small class="category">Registrar Solicitud Préstamo</small>
+	                    <small class="category">Registrar Solicitud Préstamo </small><b> &nbsp; Número de Solicitud :{{" SP-".$numid}}</b>
 	                </h4>
                   <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
 
