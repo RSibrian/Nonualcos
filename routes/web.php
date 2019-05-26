@@ -696,6 +696,9 @@ Route::middleware(['auth'])->group(function () {
 
            Route::post('prestamos/storeajaxfinalizar','PrestamoController@storeAjaxFinalizar')
                ->name('prestamos.storeajaxfinalizar');
+               Route::put('prestamos/{prestamo}','PrestamoController@update')
+                         ->name('prestamos.update')
+                         ->middleware('permission:prestamos.create');
            //fin prestamos
 
            //indemnizaciones
