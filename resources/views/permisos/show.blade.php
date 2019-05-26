@@ -158,9 +158,9 @@
                                         </div>
                                         <br>
                                         <div class=" row row" >
-                                            <span class="col-md-2  text-center" ><label ><code>*</code> PDF del comprobante:</label></span>
+                                            <span class="col-md-2  text-center" ><label >PDF del comprobante:</label></span>
                                             <div class="col-md-6">
-                                                {!!Form::file('permisoPdf2',['value'=>'Elija el Permiso', 'accept'=>'application/pdf','required'])!!}
+                                                {!!Form::file('permisoPdf2',['value'=>'Elija el Permiso', 'accept'=>'application/pdf'])!!}
                                             </div>
                                         </div>
                                     </div>
@@ -209,6 +209,7 @@
                             <tbody>
                             <?php $cont=0;?>
                             @foreach ($empleado->permisos()->where('perm_opcion',false)->orderBy('id', 'desc')->get() as $permiso)
+                                @include('permisos.terminar')
                                 <tr align="left">
                                     <td></td>
                                     <?php $cont++;?>
@@ -230,10 +231,15 @@
 
                                     <td>{{$permiso->casoPermiso}}</td>
                                     <td>{{$permiso->motivoPermiso?:"Ninguna"}}</td>
-                                    <td><a href="{{ asset($permiso->permisoPdf) }}" target="_blank" class="btn btn-xs btn-info btn-round">
-                                            <i class="material-icons">local_printshop</i>
-
-                                        </a></td>
+                                    <td>
+                                        @if($permiso->permisoPdf==null)
+                                            <button type="submit"  class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#gridSystemModal2{{$permiso->id}}">Agregar Comprobante</button>
+                                        @else
+                                            <a href="{{ asset($permiso->permisoPdf) }}" target="_blank" class="btn btn-xs btn-info btn-round">
+                                                <i class="material-icons">local_printshop</i>
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

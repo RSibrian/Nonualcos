@@ -163,9 +163,9 @@
                                     </div>
                                     <br>
                                     <div class=" row row" >
-                                        <span class="col-md-2  text-center" ><label ><code>*</code> PDF del comprobante:</label></span>
+                                        <span class="col-md-2  text-center" ><label > PDF del comprobante:</label></span>
                                         <div class="col-md-6">
-                                            {!!Form::file('pre_imagen2',['value'=>'Comprobante del prestamo', 'accept'=>'application/pdf','required'])!!}
+                                            {!!Form::file('pre_imagen2',['value'=>'Comprobante del prestamo', 'accept'=>'application/pdf'])!!}
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +195,9 @@
                                 <th>Monto</th>
                                 <th>Cuotas</th>
                                 <th>Explicación</th>
-                                <th>PDF Comprobante</th>
+                                <th>PDF Inicio</th>
+                                <th>PDF Fin</th>
+
 
 
                             </tr>
@@ -210,7 +212,8 @@
                                 <th>Monto</th>
                                 <th>Cuotas</th>
                                 <th>Explicación</th>
-                                <th>PDF&nbsp;&nbsp;Comprobante&nbsp;Descuento</th>
+                                <th>PDF Inicio</th>
+                                <th>PDF Fin</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -237,19 +240,31 @@
                                     </td>
                                     <td>{{$descuento->observacionDescuento?:"Ninguna"}}</td>
 
-                                    <td><a href="{{ asset($descuento->imagenInicio) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
-                                            <i class="material-icons">local_printshop</i>
-                                              Inicio
-                                        </a>
+                                    <td>
+                                        @if($descuento->imagenInicio==null)
+                                            <button type="submit"  class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#gridSystemModal3{{$descuento->id}}">Agregar Comprobante</button>
+                                        @else
+                                            <a href="{{ asset($descuento->imagenInicio) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
+                                                <i class="material-icons">local_printshop</i>
+                                                 Inicio
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if($descuento->estadoDescuento==1)
 
                                             <button type="submit"  class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#gridSystemModal2{{$descuento->id}}">Finalizar</button>
 
                                         @else
+                                            @if($descuento->imagenFinal==null)
+                                                <button type="submit"  class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#gridSystemModal2{{$descuento->id}}">Agregar Comprobante</button>
+                                            @else
+
                                             <a href="{{ asset($descuento->imagenFinal) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
                                                 <i class="material-icons">local_printshop</i>
                                                 Final
                                             </a>
+                                            @endif
                                         @endif
                                     </td>
 

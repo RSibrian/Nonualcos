@@ -35,21 +35,23 @@
         }
     </style>
     <ul id="ul">
-      @can('empleados.index')
-      <li id="li"><a class="active" href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
-      @endcan
-      @can('descuentos.show')
-      <li id="li"  ><a  href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
-      @endcan
-      @can('entradasSalidas.show')
-      <li id="li"  ><a  href="{{ url("entradasSalidas/{$empleado->id}") }}">Llegadas Tardía</a></li>
-      @endcan
-      @can('incapacidades.show')
-      <li id="li" style="float:right;"><a  href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
-      @endcan
-      @can('permisos.show')
-      <li id="li" style="float:right;" ><a  href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
-      @endcan
+        @can('empleados.index')
+            <li id="li"><a class="active" href="{{ url("empleados/{$empleado->id}") }}">Datos Personales</a></li>
+        @endcan
+        @if($empleado->sistemaContratacion!="Contrato por servicios profesionales")
+            @can('descuentos.show')
+                <li id="li"  ><a  href="{{ url("descuentos/{$empleado->id}") }}">Descuentos</a></li>
+            @endcan
+            @can('entradasSalidas.show')
+                <li id="li"  ><a  href="{{ url("entradasSalidas/{$empleado->id}") }}">Llegadas Tardía</a></li>
+            @endcan
+            @can('incapacidades.show')
+                <li id="li" style="float:right;"><a  href="{{ url("incapacidades/{$empleado->id}") }}">Incapacidades</a></li>
+            @endcan
+            @can('permisos.show')
+                <li id="li" style="float:right;" ><a  href="{{ url("permisos/{$empleado->id}") }}">Permisos</a></li>
+            @endcan
+        @endif
     </ul>
     <div class="row">
         <div class="col-md-12 ">

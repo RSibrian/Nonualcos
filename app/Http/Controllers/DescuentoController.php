@@ -41,14 +41,20 @@ class DescuentoController extends Controller
     public function store(DescuentoRequest $request)
     {
         //
-        $file = Input::file('pre_imagen2');
-        $random = str_random(10);
-        $nombre = "inicio - ".$random . '-' . $file->getClientOriginalName();
-        $nombre = EmpleadoController::eliminar_tildes($nombre);
-        //Ruta donde queremos guardar el pdf
-        $file->move(public_path() . '/biblioteca/descuentos/', $nombre);
-        $url = '/biblioteca/descuentos/' . $nombre;
-        $request['imagenInicio'] = $url;
+        if($request['pre_imagen2']==null)
+        {
+            $request['imagenInicio'] = null;
+        }
+        else {
+            $file = Input::file('pre_imagen2');
+            $random = str_random(10);
+            $nombre = "inicio - " . $random . '-' . $file->getClientOriginalName();
+            $nombre = EmpleadoController::eliminar_tildes($nombre);
+            //Ruta donde queremos guardar el pdf
+            $file->move(public_path() . '/biblioteca/descuentos/', $nombre);
+            $url = '/biblioteca/descuentos/' . $nombre;
+            $request['imagenInicio'] = $url;
+        }
         Descuento::create($request->all());
         return redirect("/descuentos/" . $request['idEmpleado'])->with('create', 'Se ha creado con éxito el registro de descuento de empleado');
 
@@ -96,19 +102,37 @@ class DescuentoController extends Controller
     {
         //
       //  dd($request);
-        $file = Input::file('pre_imagen2');
-        $random = str_random(10);
-        $nombre = "final - ".$random . '-' . $file->getClientOriginalName();
-        $nombre = EmpleadoController::eliminar_tildes($nombre);
-        //Ruta donde queremos guardar el pdf
-        $file->move(public_path() . '/biblioteca/descuentos/', $nombre);
-        $url = '/biblioteca/descuentos/' . $nombre;
-        $request['imagenFinal'] = $url;
+        if($request['pre_imagen2']==null)
+        {
+            if ($request['hi'] == 1) {
+                $request['imagenInicio'] = null;
+                $descuento->imagenInicio = $request['imagenInicio'];
+            } else {
+                $request['imagenFinal'] = null;
+                $descuento->estadoDescuento = 0;
+                $descuento->imagenFinal = $request['imagenFinal'];
+            }
+        }
+        else {
+            $file = Input::file('pre_imagen2');
+            $random = str_random(10);
+            $nombre = "final - " . $random . '-' . $file->getClientOriginalName();
+            $nombre = EmpleadoController::eliminar_tildes($nombre);
+            //Ruta donde queremos guardar el pdf
+            $file->move(public_path() . '/biblioteca/descuentos/', $nombre);
+            $url = '/biblioteca/descuentos/' . $nombre;
+            if ($request['hi'] == 1) {
+                $request['imagenInicio'] = $url;
+                $descuento->imagenInicio = $request['imagenInicio'];
 
+            } else {
+                $request['imagenFinal'] = $url;
+                $descuento->imagenFinal = $request['imagenFinal'];
+                $descuento->estadoDescuento = 0;
 
-        $descuento->imagenFinal=$request['imagenFinal'] ;
-        $descuento->estadoDescuento=0;
-        $descuento->observacionDescuento=$request['observacionDescuento'] ;
+            }
+        }
+        $descuento->observacionDescuento = $request['observacionDescuento'];
         $descuento->save();
         return redirect("/descuentos/". $request['idEmpleado'])->with('update','Se ha editado correctamente el registro de descuento');
 

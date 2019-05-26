@@ -382,8 +382,9 @@
                     <label class="control-label">Tipo de Contrato
                     </label>
                     <select name="sistemaContratacion" id="sistemaContratacion" class="form-control" placeholder='Seleccione el tipo de permiso' required>
-                      <option value="Contrato">Contrato</option>
+                      <option value="Contrato">Contrato de empleado</option>
                       <option value="Ley de Salario">Ley de Salario</option>
+                      <option value="Contrato por servicios profesionales">Contrato por servicios profesionales</option>
                     </select>
                   </div>
                 </div>

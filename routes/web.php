@@ -228,6 +228,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('permisos/store','PermisoController@store')
         ->name('permisos.store')
         ->middleware('permission:permisos.create');
+
+    Route::put('permisos/{permiso}','PermisoController@update')
+        ->name('permisos.update')
+        ->middleware('permission:permisos.create');
     //fin permisos
     //planillas
 
@@ -533,6 +537,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('incapacidades/store','IncapacidadController@store')
         ->name('incapacidades.store')
         ->middleware('permission:incapacidades.store');
+
+    Route::put('incapacidades/{permiso}','IncapacidadController@update')
+        ->name('incapacidades.update')
+        ->middleware('permission:incapacidades.create');
     //fin incapacidades
     //bancos
 

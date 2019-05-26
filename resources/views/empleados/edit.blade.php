@@ -447,12 +447,21 @@
                                                 </label>
                                                 <select name="sistemaContratacion" id="sistemaContratacion" class="form-control" placeholder='Seleccione el tipo de permiso' required>
                                                     @if($empleado->sistemaContratacion=="Contrato")
-                                                        <option selected value="Contrato">Contrato</option>
+                                                        <option selected value="Contrato">Contrato de empleado</option>
                                                         <option value="Ley de Salario">Ley de Salario</option>
+                                                        <option value="Contrato por servicios profesionales">Contrato por servicios profesionales</option>
                                                     @else
-                                                        <option value="Contrato">Contrato</option>
-                                                        <option selected value="Ley de Salario">Ley de Salario</option>
+                                                        @if($empleado->sistemaContratacion=="Ley de Salario")
+                                                            <option  value="Contrato">Contrato de empleado</option>
+                                                            <option selected value="Ley de Salario">Ley de Salario</option>
+                                                            <option value="Contrato por servicios profesionales">Contrato por servicios profesionales</option>
+                                                        @else
+                                                            <option value="Contrato">Contrato de empleado </option>
+                                                            <option  value="Ley de Salario">Ley de Salario</option>
+                                                            <option selected value="Contrato por servicios profesionales">Contrato por servicios profesionales</option>
+                                                        @endif
                                                     @endif
+
                                                 </select>
                                             </div>
                                         </div>

@@ -157,9 +157,9 @@
                                     </div>
                                     <br>
                                     <div class=" row row" >
-                                        <span class="col-md-2  text-center" ><label ><code>*</code> PDF del comprobante:</label></span>
+                                        <span class="col-md-2  text-center" ><label >PDF del comprobante:</label></span>
                                         <div class="col-md-6">
-                                            {!!Form::file('permisoPdf2',['value'=>'Elija la incapacidad', 'accept'=>'application/pdf','required'])!!}
+                                            {!!Form::file('permisoPdf2',['value'=>'Elija la incapacidad', 'accept'=>'application/pdf'])!!}
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +208,7 @@
                             <tbody>
                             <?php $cont=0;?>
                             @foreach ($empleado->permisos()->where('perm_opcion',true)->orderBy('id', 'desc')->get() as $incapacidad)
+                                @include('incapacidades.terminar')
                                 <tr align="left">
                                     <td></td>
                                     <?php $cont++;?>
@@ -248,10 +249,16 @@
                                     @endif
                                     <td>{{$incapacidad->motivoPermiso?:"Ninguna"}}</td>
 
-                                    <td><a href="{{ asset($incapacidad->permisoPdf) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
+                                    <td>
+                                        @if($incapacidad->permisoPdf==null)
+                                            <button type="submit"  class="btn btn-xs btn-ocre btn-round" data-toggle="modal" data-target="#gridSystemModal2{{$incapacidad->id}}">Agregar Comprobante</button>
+                                        @else
+                                            <a href="{{ asset($incapacidad->permisoPdf) }}" target="_blank" class="btn btn-xs btn-azul btn-round">
                                             <i class="material-icons">local_printshop</i>
                                             Imprimir
-                                        </a></td>
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -41,19 +41,28 @@ class PermisoController extends Controller
     public function store(Request $request)
     {
         //
+
+
+
         if($request['fechaPermisoFinal']==null)
         {
             $request['fechaPermisoFinal']=$request['fechaPermisoInicio'];
         }
         if($request['fechaPermisoInicio']<=$request['fechaPermisoFinal']) {
-            $file = Input::file('permisoPdf2');// convertir a input
-            $random = str_random(10); // crear 10 letras ramdom
-            $nombre = $random . '-' . $file->getClientOriginalName();//nombre archivo
-            $nombre = EmpleadoController::eliminar_tildes($nombre);//eliminar las tildes
-            //Ruta donde queremos guardar el pdf
-            $file->move(public_path() . '/biblioteca/permisos/', $nombre);//a la ruta establecida copia y pega el archivo
-            $url = '/biblioteca/permisos/' . $nombre;
-            $request['permisoPdf'] = $url;
+            if($request['permisoPdf2']==null)
+            {
+                $request['permisoPdf'] = null;
+            }
+            else {
+                $file = Input::file('permisoPdf2');// convertir a input
+                $random = str_random(10); // crear 10 letras ramdom
+                $nombre = $random . '-' . $file->getClientOriginalName();//nombre archivo
+                $nombre = EmpleadoController::eliminar_tildes($nombre);//eliminar las tildes
+                //Ruta donde queremos guardar el pdf
+                $file->move(public_path() . '/biblioteca/permisos/', $nombre);//a la ruta establecida copia y pega el archivo
+                $url = '/biblioteca/permisos/' . $nombre;
+                $request['permisoPdf'] = $url;
+            }
             $request['perm_opcion'] = false;
             Permiso::create($request->all());
             $permisoActual = Permiso::all()->last();
@@ -99,6 +108,18 @@ class PermisoController extends Controller
     public function update(Request $request, Permiso $permiso)
     {
         //
+        $file = Input::file('permisoPdf2');
+        $random = str_random(10);
+        $nombre = "final - " . $random . '-' . $file->getClientOriginalName();
+        $nombre = EmpleadoController::eliminar_tildes($nombre);
+        //Ruta donde queremos guardar el pdf
+        $file->move(public_path() . '/biblioteca/permisos/', $nombre);
+        $url = '/biblioteca/permisos/' . $nombre;
+        $request['permisoPdf'] = $url;
+        $permiso->permisoPdf = $request['permisoPdf'];
+        $permiso->save();
+        return redirect("/permisos/". $request['idEmpleado'])->with('update','Se ha editado correctamente el registro de permiso');
+
     }
 
     /**
