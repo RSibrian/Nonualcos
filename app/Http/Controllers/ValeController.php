@@ -95,7 +95,11 @@ class valeController extends Controller
 
     public function devolver(Vale $vale)
     {
-        $vale->update(['estadoRecibidoVal' => '1']);
+        if ($vale->costoUnitarioVale==0){
+            $vale->update(['estadoRecibidoVal' => '1', 'estadoLiquidacionVal' => '1' ]);
+        }else{
+            $vale->update(['estadoRecibidoVal' => '1']);
+        }
         return json_encode("devuelto");
     }
 

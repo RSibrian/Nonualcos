@@ -9,8 +9,8 @@
                 </div>
 
                 <div class="card-content">
-                    <h4 class="card-title">Vales -
-                        <small class="category">Registro de Vale</small>
+                    <h4 class="card-title">Transporte -
+                        <small class="category">Registro de Salidas/Vales</small>
                     </h4>
 
                     {!! Form::open(['route'=>'vales.store','method'=>'POST','enctype'=>'multipart/form-data', 'autocomplete'=>'off']) !!}

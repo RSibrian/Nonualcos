@@ -30,21 +30,20 @@ class ValeEditRequest extends FormRequest
         $now=date('Y-m-d');
         return [
             //string,unique:table,column,except,idColumn, email, between:min,max, alpha_num, integer, alpha_dash, exists:table,column
-            'fechaSalida' => 'required|date',
             'aceite' => 'sometimes|nullable',
             'grasa' => 'sometimes|nullable',
             'otros' => 'sometimes|nullable',
-            'fechaSalida' => 'required|date|before_or_equal:'.$now,
-            'destinoTrasladarse' => 'required|alpha_spaces',
+            'fechaSalida' => 'sometimes|date',
+            'destinoTrasladarse' => 'sometimes|nullable',
             'mision' => 'sometimes|nullable',
-            'numeroPlaca' => 'integer|min:1',
-            'solicitante' => 'integer|min:1',
-            'fechaCreacion' => 'required|date|same:fechaSalida',
-            'numeroVale' => 'required_if:bandera,1', //|numeric|integer
+            'numeroPlaca' => 'integer|min:0',
+            'solicitante' => 'integer|min:0',
+            'fechaCreacion' => 'sometimes|date',
+            'numeroVale' => 'nullable', //|numeric|integer
             'costoUnitarioVale' => '',
-            'tipoCombustible' => 'required',
-            'galones' => 'required|nullable|numeric|between:0.00,20.00',
-            'costoGalones' => 'required|numeric|between:0.00,100.00',
+            'tipoCombustible' => 'sometimes|nullable',
+            'galones' => 'sometimes|nullable|numeric|between:0.00,20.00',
+            'costoGalones' => 'sometimes|nullable|numeric|between:0.00,100.00',
             'aceite' => 'required_with_all:costoAceite',
             'costoAceite' => 'sometimes|nullable|required_if:aceite,on|numeric|between:0.00,30.00',
             'grasa' => 'required_with_all:costoGrasa',
@@ -52,7 +51,7 @@ class ValeEditRequest extends FormRequest
             'otros' => 'required_with_all:nombreOtro,costoOtro',
             'nombreOtro' => 'sometimes|nullable|required_if:otros,on|alpha_spaces',
             'costoOtro' => 'sometimes|nullable|required_if:otros,on|numeric|between:0.00,60.00',
-            'gasolinera' => 'required|alpha_spaces',
+            'gasolinera' => 'sometimes|nullable|alpha_spaces',
             'empRecibe' => 'integer|min:1',
             'empAutoriza' => 'integer|min:1',
             'estadoRecibidoVal'=>'',
@@ -120,6 +119,8 @@ class ValeEditRequest extends FormRequest
 
     public function updateVale($data, $vale){
 
+        $liquidacion=0;
+
         if ($data['bandera']!='1'){
             $data['numeroVale']=$vale['numeroVale'];
             $data['empAutoriza']=$vale['empleadoAutorizaVal'];
@@ -183,6 +184,28 @@ class ValeEditRequest extends FormRequest
             $data['otros']=$data['nombreOtro'];
         }
 
+        if ($data['destinoTrasladarse']==''){
+            $data['destinoTrasladarse']='';
+            $data['mision']='';
+            $data['solicitante']=$data['empRecibe'];
+        }
+
+        if ($data['numeroVale']==''){
+            $data['numeroVale']='';
+            $data['costoUnitarioVale']=0;
+            $data['tipoCombustible']=0;
+            $data['galones']=0;
+            $data['gasolinera']='';
+            $data['costoGalones']=0;
+            $data['aceite']=0;
+            $data['costoAceite']=0;
+            $data['grasa']=0;
+            $data['costoGrasa']=0;
+            $data['otros']='';
+            $data['costoOtro']=0;
+            $liquidacion=1;
+        }
+
 
        $vale->update([
            'fechaCreacion' => $data['fechaCreacion'],
@@ -203,6 +226,7 @@ class ValeEditRequest extends FormRequest
            'empleadoRecibeVal' => $data['empRecibe'],
            'estadoEntregadoVal' => $data['estadoEntregadoVal'],
            'estadoRecibidoVal' => $data['estadoRecibidoVal'],
+           'estadoLiquidacionVal' => $liquidacion,
         ]);
 
         //echo dd($vale);

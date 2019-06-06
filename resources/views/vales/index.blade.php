@@ -61,7 +61,7 @@
 
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Gestión de Vales</h4>
+                    <h4 class="card-title">Gestión de Transporte</h4>
                     <div class="toolbar">
                     <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>

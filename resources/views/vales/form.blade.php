@@ -1,6 +1,24 @@
 <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
 <br>
-<fieldset style="border: 1px solid #ccc; padding: 10px">
+<div class="col-sm-12">
+    <div class="input-group ">
+            <span class="input-group-addon">
+                <label >Completar salida? :</label>
+            </span>
+        <div class="radio">
+            <label style="color: #0d3625;">
+                <input id="radio1" name="radiosalida" type="radio" value="1" style="background-color: dodgerblue;" checked>
+                Si &nbsp;
+            </label>
+            <label style="color: #0d3625;">
+                <input id="radio2" name="radiosalida" type="radio" value="2">
+                No
+            </label>
+        </div>
+    </div>
+</div>
+<br>
+<fieldset style="border: 1px solid #ccc; padding: 10px" id="frmSalida">
     <legend><small>Datos de salida</small></legend>
 
     <div class="col-sm-6">
@@ -11,7 +29,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"> <code>*</code>Fecha de salida</label>
                 {!! Form::hidden('bandera', $esAdmin, ['id' => 'bandera']) !!}
-                {!!Form::date('fechaSalida',old('fechaSalida', date('Y-m-d')),['id'=>'fechaSalida','class'=>'form-control', 'required'])!!}
+                {!!Form::date('fechaSalida',old('fechaSalida', date('Y-m-d')),['id'=>'fechaSalida','class'=>'form-control'])!!}
             </div>
         </div>
         <div class="input-group">
@@ -21,7 +39,7 @@
             <div class="form-group label-floating">
                 <label class="control-label" for="numeroPlaca"><code>*</code>Vehículo
                 </label>
-                {!! Form::select('numeroPlaca', $placas , null , ['id'=>'numeroPlaca','class'=>'form-control','required']) !!}
+                {!! Form::select('numeroPlaca', $placas , null , ['id'=>'numeroPlaca','class'=>'form-control']) !!}
             </div>
         </div>
 
@@ -35,7 +53,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Destino
                 </label>
-                {!!Form::text('destinoTrasladarse',old('destinoTrasladarse'),['id'=>'destinoTrasladarse','class'=>'form-control','required'])!!}
+                {!!Form::text('destinoTrasladarse',old('destinoTrasladarse'),['id'=>'destinoTrasladarse','class'=>'form-control'])!!}
             </div>
         </div>
         <div class="input-group">
@@ -46,10 +64,54 @@
                 <label class="control-label"><code>*</code>Solicitante
                 </label>
                 @if ($esAdmin)
-                    {!!Form::select('solicitante',$empleados, null ,['id'=>'solicitante','class'=>'form-control','required'])!!}
+                    {!!Form::select('solicitante',$empleados, null ,['id'=>'solicitante','class'=>'form-control'])!!}
                 @else
-                    {!!Form::select('solicitante',$empleados, $autoriza->idEmpleado ,['id'=>'solicitante','class'=>'form-control','required'])!!}
+                    {!!Form::select('solicitante',$empleados, $autoriza->idEmpleado ,['id'=>'solicitante','class'=>'form-control'])!!}
                 @endif
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Hora Salida</label>
+                {!!Form::time('hsalida',old('hsalida'),['id'=>'hsalida','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Kilometraje Salida</label>
+                {!!Form::number('ksalida',old('ksalida'),['id'=>'ksalida','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Hora llegada</label>
+                {!!Form::time('hllegada',old('hllegada'),['id'=>'hllegada','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Kilometraje llegada</label>
+                {!!Form::number('kllegada',old('kllegada'),['id'=>'kllegada','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -66,7 +128,26 @@
     </div>
 </fieldset>
 <br>
-<fieldset style="border: 1px solid #ccc; padding: 10px">
+<div class="col-sm-12">
+    <div class="input-group ">
+            <span class="input-group-addon">
+                <label >Extender vale? :
+                </label>
+            </span>
+        <div class="radio">
+            <label style="color: #0d3625;">
+                <input id="radio3" name="radiovale" type="radio" value="1" style="background-color: dodgerblue;">
+                Si &nbsp;
+            </label>
+            <label style="color: #0d3625;">
+                <input id="radio4" name="radiovale" type="radio" value="2" checked>
+                No
+            </label>
+        </div>
+    </div>
+</div>
+<br>
+<fieldset style="border: 1px solid #ccc; padding: 10px" class="collapse" id="frmVale">
     <legend><small>Datos de Vale</small></legend>
 
     <div class="col-sm-6">
@@ -77,7 +158,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Fecha de Vale
                 </label>
-                {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control', 'required'])!!}
+                {!!Form::date('fechaCreacion', old('fechaCreacion', date('Y-m-d')) ,['id'=>'fechaCreacion','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -91,13 +172,25 @@
                 <div class="form-group label-floating">
                     <label class="control-label" id="muestra"><code>*</code>Número de vale
                     </label>
-                    {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control', 'required'])!!}
+                    {!!Form::text('numeroVale',old('numeroVale'),['id'=>'numeroVale','class'=>'form-control'])!!}
                 </div>
             </div>
         </div>
     @endif
+    <div class="col-sm-6 collapse" id="vehiculovale">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">directions_car</i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label" for="numeroPlaca"><code>*</code>Vehículo
+                </label>
+                {!! Form::select('numeroPlaca2', $placas , null , ['id'=>'numeroPlaca2','class'=>'form-control']) !!}
+            </div>
+        </div>
+    </div>
 
-    <div class="col-sm-12">
+    <div class="col-sm-12" id="gasolineravale">
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">ev_station</i>
@@ -105,7 +198,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Gasolinera
                 </label>
-                {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control','required'])!!}
+                {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -140,7 +233,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Número de galones</label>
-                {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control','required'])!!}
+                {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -152,7 +245,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Costo por galón</label>
-                {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control','required'])!!}
+                {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control'])!!}
             </div>
         </div>
     </div>
@@ -275,7 +368,7 @@
             </span>
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Empleado autoriza</label>
-                    {!! Form::select('empAutoriza',$administradores, $autoriza->idEmpleado,['id'=>'empAutoriza','class'=>'form-control datepicker', 'required'])!!}
+                    {!! Form::select('empAutoriza',$administradores, $autoriza->idEmpleado,['id'=>'empAutoriza','class'=>'form-control datepicker'])!!}
                 </div>
             </div>
 
@@ -289,7 +382,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Empleado recibe
                     </label>
-                    {!!Form::select('empRecibe',$empleados, null ,['id'=>'empRecibe','class'=>'form-control','required'])!!}
+                    {!!Form::select('empRecibe',$empleados, null ,['id'=>'empRecibe','class'=>'form-control'])!!}
                 </div>
             </div>
 
@@ -445,6 +538,35 @@
             });
 
         });
+
+        $("input[name='radiosalida']").on('click', function () {
+            if ($(this).val()==1){
+                $("#frmSalida").removeClass('collapse');
+                $("#vehiculovale").addClass( "collapse");
+                $("#gasolineravale").removeClass('col-sm-6').addClass('col-sm-12');
+            }else{
+                $('#radio3').click();
+                $("#frmSalida").addClass( "collapse" );
+                $("#vehiculovale").removeClass('collapse');
+                $("#gasolineravale").removeClass('col-sm-12').addClass('col-sm-6');
+            }
+        });
+
+        $("input[name='radiovale']").on('click', function () {
+            if (($(this).val())==1){
+                $("#frmVale").removeClass('collapse');
+                $("#vehiculovale").addClass( "collapse");
+                $("#gasolineravale").removeClass('col-sm-6').addClass('col-sm-12');
+            }else{
+                $("#vehiculovale").removeClass('collapse');
+                $("#gasolineravale").removeClass('col-sm-12').addClass('col-sm-6');
+                $("#frmVale").addClass( "collapse" );
+                $("#vehiculovale").addClass( "collapse");
+                $("#gasolineravale").removeClass('col-sm-6').addClass('col-sm-12');
+                $('#radio1').click();
+            }
+        });
+
     </script>
 @endsection
 

@@ -76,12 +76,12 @@
                                       @endif
 
                                       <td class="text-right">
-                                          @can('proveedores.edit')
+                                          @can('vales.index')
                                               <a title="Reporte Mantenimiento" href="{{ route('HiVe.index', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                                   <i class='material-icons' rel='tooltip'>build</i>
                                               </a>
                                           @endcan
-                                          @can('proveedores.edit')
+                                          @can('vales.index')
                                           <a title="Ver salidas" href="{{ route('salidas', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                               <i class='material-icons' rel='tooltip'>departure_board</i>
                                           </a>

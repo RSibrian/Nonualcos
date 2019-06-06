@@ -16,8 +16,13 @@ class CreateSalidasTable extends Migration
         //tabla salidas
         Schema::create('salidas', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('fechaSalida')->required();
-            $table->string('destinoTrasladarse')->required();
+            $table->date('fechaSalida');
+            $table->string('destinoTrasladarse');
+            $table->time('hsalida');
+            $table->double('ksalida');
+            $table->time('hllegada');
+            $table->double('kllegada');
+            $table->string('crecibidogls');
             $table->string('mision')->nullable();
 
             $table->integer('idVehiculo')->unsigned();

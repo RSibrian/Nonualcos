@@ -7,8 +7,8 @@
                     <i class="material-icons">featured_play_list</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Vales -
-                        <small class="category">Modificar de Vale</small>
+                    <h4 class="card-title">Transporte -
+                        <small class="category">Registro de Salidas/Vales</small>
                     </h4>
                     {!!Form::model($vale,['method'=>'PUT','route'=>['vales.update',$vale->id] , 'autocomplete'=>'off'])!!}
                     <input type="hidden" name="vale[id]" value="{{ $vale->id }}">

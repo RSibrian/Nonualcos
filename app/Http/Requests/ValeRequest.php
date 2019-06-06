@@ -30,21 +30,20 @@ class ValeRequest extends FormRequest
         $now=date('Y-m-d');
         return [
             //string,unique:table,column,except,idColumn, email, between:min,max, alpha_num, integer, alpha_dash, exists:table,column
-            'fechaSalida' => 'required|date',
             'aceite' => 'sometimes|nullable',
             'grasa' => 'sometimes|nullable',
             'otros' => 'sometimes|nullable',
-            'fechaSalida' => 'required|date|after_or_equal:'.$now,
-            'destinoTrasladarse' => 'required|alpha_spaces',
+            'fechaSalida' => 'required_if:radiosalida,1|date',
+            'destinoTrasladarse' => 'required_if:radiosalida,1|nullable',
             'mision' => 'sometimes|nullable',
-            'numeroPlaca' => 'integer|min:1',
-            'solicitante' => 'integer|min:1',
-            'fechaCreacion' => 'required|date|same:fechaSalida',
-            'numeroVale' => 'required_if:bandera,1|unique:vales', //|numeric|integer
+            'numeroPlaca' => 'required_if:radiosalida,1|integer|min:0',
+            'solicitante' => 'required_if:radiosalida,1|integer|min:0',
+            'fechaCreacion' => 'required_if:radiovale,1|date',
+            'numeroVale' => 'required_if:radiovale,1|unique:vales', //|numeric|integer
             'costoUnitarioVale' => '',
-            'tipoCombustible' => 'required',
-            'galones' => 'required|nullable|numeric|between:0.00,20.00',
-            'costoGalones' => 'required|numeric|between:0.00,100.00',
+            'tipoCombustible' => 'required_if:radiovale,1',
+            'galones' => 'required_if:radiovale,1|nullable|numeric|between:0.00,20.00',
+            'costoGalones' => 'required_if:radiovale,1|nullable|numeric|between:0.00,100.00',
             'aceite' => 'required_with_all:costoAceite',
             'costoAceite' => 'sometimes|nullable|required_if:aceite,on|numeric|between:0.00,30.00',
             'grasa' => 'required_with_all:costoGrasa',
@@ -52,7 +51,7 @@ class ValeRequest extends FormRequest
             'otros' => 'required_with_all:nombreOtro,costoOtro',
             'nombreOtro' => 'sometimes|nullable|required_if:otros,on|alpha_spaces',
             'costoOtro' => 'sometimes|nullable|required_if:otros,on|numeric|between:0.00,60.00',
-            'gasolinera' => 'required|alpha_spaces',
+            'gasolinera' => 'required_if:radiovale,1|alpha_spaces|nullable',
             'empRecibe' => 'integer|min:1',
             'empAutoriza' => 'integer|min:1',
 
@@ -63,27 +62,27 @@ class ValeRequest extends FormRequest
     {
         $now=date('d/m/Y');
         return [
-            'fechaSalida.required' => '¡El campo Fecha de salida es requerido!',
+            'fechaSalida.required_if' => '¡El campo Fecha de salida es requerido!',
             'fechaSalida.after_or_equal' => '¡El campo Fecha de salida debe ser igual o mayor que '.$now,
 
-            'destinoTrasladarse.required'  => '¡El campo Destino es requerido!',
+            'destinoTrasladarse.required_if'  => '¡El campo Destino es requerido!',
             'destinoTrasladarse.alpha_spaces'  => '¡El campo Destino no debe contener números!',
 
             'numeroPlaca.min'  => '¡El campo Vehículo es requerido!',
 
             'solicitante.min'  => '¡El campo Solicitante es requerido!',
 
-            'fechaCreacion.required'  => '¡El campo Fecha de vale es requerido!',
+            'fechaCreacion.required_if'  => '¡El campo Fecha de vale es requerido!',
             'fechaCreacion.same'  => '¡El campo Fecha de vale tiene que ser igual a Fecha de salida!',
 
             'numeroVale.required_if'  => '¡El campo Código de vale no debe estar vacío!',
             'numeroVale.unique'  => '¡El Código de vale ya existe!',
 
-            'galones.required' => '¡El campo Número de galones es requerido!',
+            'galones.required_if' => '¡El campo Número de galones es requerido!',
             'galones.numeric' => '¡El campo Número de galones debe ser numérico!',
             'galones.between' => '¡El campo Número de galones no debe ser mayor a 20.00 galones!',
 
-            'costoGalones.required' => '¡El campo Costo galones es requerido!',
+            'costoGalones.required_if' => '¡El campo Costo galones es requerido!',
             'costoGalones.numeric' => '¡El campo Costo galones contiene letras!',
             'costoGalones.between' => '¡El campo Costo galones no debe ser mayor a $100.00!',
 
@@ -108,7 +107,7 @@ class ValeRequest extends FormRequest
             'costoOtro.between' => '¡El campo Costo grasa no debe ser mayor a $60.00!',
             'costoOtro.required_if' => '¡El campo Costo otro es requerido!',
 
-            'gasolinera.required'  => '¡El campo Gasolinera no debe estar vacío!',
+            'gasolinera.required_if'  => '¡El campo Gasolinera no debe estar vacío!',
             'gasolinera.alpha_spaces'  => '¡El campo Gasolinera contiene números!',
 
             'empRecibe.min'  => '¡El campo Empleado que recibe es requerido!',
@@ -149,6 +148,28 @@ class ValeRequest extends FormRequest
             $data['otros']='';
         }else{
             $data['otros']=$data['nombreOtro'];
+        }
+
+        if ($data['radiosalida']==='2'){
+            $data['destinoTrasladarse']='';
+            $data['mision']='';
+            $data['solicitante']=$data['empRecibe'];
+            $data['numeroPlaca']=$data['numeroPlaca2'];
+        }
+
+        if ($data['radiovale']==='2'){
+            $data['numeroVale']='';
+            $data['costoUnitarioVale']=0;
+            $data['tipoCombustible']=0;
+            $data['galones']=0;
+            $data['gasolinera']='';
+            $data['costoGalones']=0;
+            $data['aceite']=0;
+            $data['costoAceite']=0;
+            $data['grasa']=0;
+            $data['costoGrasa']=0;
+            $data['otros']='';
+            $data['costoOtro']=0;
         }
 
         $salida= Salidas::create([

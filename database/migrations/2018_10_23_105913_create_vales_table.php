@@ -16,11 +16,11 @@ class CreateValesTable extends Migration
         //tabla vales
         Schema::create('vales', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('fechaCreacion')->required();
-            $table->string('numeroVale')->required();
+            $table->date('fechaCreacion');
+            $table->string('numeroVale');
             $table->double('costoUnitarioVale')->default(0)->nullable();
-            $table->tinyInteger('tipoCombustible')->required();
-            $table->string('gasolinera')->required();
+            $table->tinyInteger('tipoCombustible');
+            $table->string('gasolinera');
             $table->double('galones')->default(0)->nullable();
             $table->double('costoGalones')->default(0)->nullable();
             $table->tinyInteger('aceite')->unsigned();
@@ -29,9 +29,9 @@ class CreateValesTable extends Migration
             $table->double('costoGrasa')->default(0)->nullable();
             $table->string('otro')->nullable();
             $table->double('costoOtro')->default(0)->nullable();
-            $table->integer('empleadoAutorizaVal')->required();
-            $table->integer('empleadoRecibeVal')->required();
-            $table->tinyInteger('estadoEntregadoVal')->required();
+            $table->integer('empleadoAutorizaVal');
+            $table->integer('empleadoRecibeVal');
+            $table->tinyInteger('estadoEntregadoVal');
             $table->tinyInteger('estadoRecibidoVal')->default(0);
             $table->tinyInteger('estadoLiquidacionVal')->default(0);
 

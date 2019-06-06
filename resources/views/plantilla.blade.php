@@ -322,7 +322,7 @@
           <ul class="nav">
             <li>
               @can('vales.index')
-              <a href="{{ route('vales.index') }}">Vales</a>
+              <a href="{{ route('vales.index') }}">Salida/Vale</a>
               @endcan
             </li>
             <li>

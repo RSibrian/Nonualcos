@@ -37,33 +37,41 @@
     <div align='center'  ><h3>Del: {{ \Helper::fecha($fechaInicio)}} ---- Al: {{\Helper::fecha($fechaFinal)}}</h3> </div>
 
 
-    <table class="table-wrapper" >
-        <?php $count=0;?>
+    <table class="table-wrapper" border="0.5" >
         <thead>
         <tr>
-            <th>#</th>
-            <th>Fecha de salida</th>
-            <th>Destino</th>
-            <th>Misión</th>
-            <th>Número de vale</th>
-            <th>Solicitante</th>
+            <th  rowspan="2">Fecha</th>
+            <th colspan="3">Salida</th>
+            <th colspan="3">Destino</th>
+            <th rowspan="2">Distancia Recorrida</th>
+            <th rowspan="2">Combustible recibido en GLS</th>
+            <th rowspan="2">Nombre del conductor</th>
+            <th rowspan="2">Firma de conductor</th>
+        </tr>
+        <tr>
+            <th>Hora</th>
+            <th>Kilometraje</th>
+            <th>Lugar</th>
+            <th>Hora</th>
+            <th>Kilometraje</th>
+            <th>Lugar</th>
         </tr>
         </thead>
         <tbody>
 
         @foreach($data as $salida)
-            <?php $count++;?>
             <tr>
-                <td>{{$count}}</td>
                 <td>{{\Helper::fecha($salida->fechaSalida)}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>{{ $salida->destinoTrasladarse }}</td>
-                @if (!(is_null($salida->mision)))
-                    <td>{{ $salida->mision }}</td>
-                @else
-                    <td>{{ "No especificado" }}</td>
-                @endif
-                <td>{{ $salida->numeroVale }} </td>
+                <td></td>
+                <td></td>
                 <td>{{ $salida->nombresEmpleado." ".$salida->apellidosEmpleado }}</td>
+                <td> </td>
             </tr>
         @endforeach
         </tbody>
