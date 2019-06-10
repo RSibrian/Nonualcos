@@ -19,6 +19,7 @@ class CreateAjusteRentasTable extends Migration
             $table->foreign('idEmpleado')->references('id')->on('empleados');
             $table->double('salario');
             $table->double('AFP');
+            $table->double('ISSS');
             $table->double('renta');
             $table->timestamps();
         });

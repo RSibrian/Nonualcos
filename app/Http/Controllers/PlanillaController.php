@@ -88,6 +88,7 @@ class PlanillaController extends Controller
                 'idEmpleado'=>$empleado->id,
                 'salario'=>round($empleado->salario_ganado,2),
                 'AFP'=>round($empleado->AFP_empleado,2),
+                'ISSS'=>round($empleado->ISSS,2),
                 'renta'=>round($empleado->descuento_renta,2)
             ]);
             foreach ($empleado->diaPermisos_var as $diaPermiso2) {
@@ -337,12 +338,14 @@ class PlanillaController extends Controller
                     $salario_ajuste=$empleado->salario_descuentos;
                     $salario_afp_ajuste=0;
                     $salario_renta_ajuste=0;
+                    $salario_isss_ajuste=0;
                     foreach ($ajustes as $ajuste) {
                         $salario_ajuste+=$ajuste->salario;
                         $salario_afp_ajuste+=$ajuste->AFP;
+                        $salario_isss_ajuste+=$ajuste->ISSS;
                         $salario_renta_ajuste+=$ajuste->renta;
                     }
-                    $salario_descuento_ajuste=$salario_ajuste-$salario_afp_ajuste;
+                    $salario_descuento_ajuste=$salario_ajuste-$salario_afp_ajuste-$salario_isss_ajuste;
                     if(intval($mes)==6) {
                         $renta = \App\Renta::where('semDesde', '<=', $salario_descuento_ajuste)->where('semHasta', '>=', $salario_descuento_ajuste)->get();
                         $salario_exceso = $salario_descuento_ajuste - $renta[0]->semSobreExceso;
