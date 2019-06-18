@@ -17,8 +17,8 @@ class CreatePermisosTable extends Migration
             $table->increments('id');
             $table->Integer('idEmpleado')->unsigned();
             $table->foreign('idEmpleado')->references('id')->on('empleados');
-            $table->date('fechaPermisoInicio');
-            $table->date('fechaPermisoFinal')->nullable();
+            $table->datetime('fechaPermisoInicio');
+            $table->datetime('fechaPermisoFinal')->nullable();
             $table->Integer('tipoPermiso');
             $table->text('casoPermiso')->nullable();
             $table->text('motivoPermiso')->nullable();

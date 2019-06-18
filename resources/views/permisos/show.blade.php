@@ -124,7 +124,7 @@
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">
                                                     </label>
-                                                    {!!Form::date('fechaPermisoInicio',$date,['id'=>'fechaPermisoInicio','class'=>'form-control datepicker'])!!}
+                                                    {!!Form::input('dateTime-local','fechaPermisoInicio',$date,['id'=>'fechaPermisoInicio','class'=>'form-control datepicker'])!!}
 
                                                 </div>
                                             </div>
@@ -137,7 +137,7 @@
                                                 <div class="form-group label-floating ">
                                                     <label class="control-label">
                                                     </label>
-                                                    {!!Form::date('fechaPermisoFinal',null,['id'=>'fechaPermisoFinal','class'=>'form-control datepicker'])!!}
+                                                    {!!Form::input('dateTime-local','fechaPermisoFinal',null,['id'=>'fechaPermisoFinal','class'=>'form-control datepicker'])!!}
 
                                                 </div>
                                             </div>
@@ -215,9 +215,9 @@
                                     <?php $cont++;?>
                                     <td>{{$cont}}</td>
                                     <?php $date = new DateTime($permiso->fechaPermisoInicio); ?>
-                                    <td>{{$date->format('d/m/Y')}}</td>
+                                    <td>{{$date->format('d/m/Y - g:i a')}}</td>
                                     <?php $date1 = new DateTime($permiso->fechaPermisoFinal); ?>
-                                    <td>{{$date1->format('d/m/Y')}}</td>
+                                    <td>{{$date1->format('d/m/Y - g:i a')}}</td>
 
                                     @if($permiso->tipoPermiso==1)
                                         <td>Permiso con goce de Sueldo</td>
