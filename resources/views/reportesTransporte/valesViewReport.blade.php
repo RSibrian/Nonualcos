@@ -70,6 +70,47 @@
                         <td><h4> <b> {{ $nombre->getFullNameAttribute() }}</b></h4></td>
                     </tr>
                     <tr>
+                        <td><h4>Lugar de Salida: </h4></td>
+                        <td><h4> <b> {{ $salida->lugarSalida }}</b></h4></td>
+                        <td><h4> Combustible recibido (gls): </h4></td>
+                        <td><h4><b> {{ \Helper::dinero($salida->crecibidogls) }}</b></h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Hora Salida: </h4></td>
+                        <td><h4><b>
+                                    @if (!(is_null($salida->hsalida)))
+                                        {{ date('g:i a', strtotime($salida->hsalida) ) }}
+                                    @else
+                                        {{ "--" }}
+                                    @endif</b></h4></td>
+                        <td><h4>km Salida: </h4></td>
+                        <td><h4><b>
+                                    @if (!(is_null($salida->ksalida)))
+                                        {{ \Helper::dinero($salida->ksalida) }}
+                                    @else
+                                        {{ "--" }}
+                                    @endif
+                                </b></h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Hora Llegada: </h4></td>
+                        <td><h4><b>
+                                    @if (!(is_null($salida->hllegada )))
+                                        {{ date('g:i a', strtotime($salida->hllegada)) }}
+                                    @else
+                                        {{ "--" }}
+                                    @endif
+                                </b></h4></td>
+                        <td><h4>Km Llegada: </h4></td>
+                        <td><h4><b>
+                                    @if (!(is_null($salida->kllegada )))
+                                        {{ \Helper::dinero($salida->kllegada) }}
+                                    @else
+                                        {{ "--" }}
+                                    @endif
+                                </b></h4></td>
+                    </tr>
+                    <tr>
                         <td class="centro"><h4>Misión:</h4>
                         </td>
                         <td colspan="3" class="izquierda">

@@ -19,10 +19,11 @@ class CreateSalidasTable extends Migration
             $table->date('fechaSalida');
             $table->string('destinoTrasladarse');
             $table->time('hsalida');
-            $table->double('ksalida');
-            $table->time('hllegada');
-            $table->double('kllegada');
-            $table->string('crecibidogls');
+            $table->double('ksalida')->nullable();
+            $table->time('hllegada')->nullable();
+            $table->double('kllegada')->nullable();
+            $table->string('crecibidogls')->nullable();
+            $table->string('lugarSalida');
             $table->string('mision')->nullable();
 
             $table->integer('idVehiculo')->unsigned();

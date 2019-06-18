@@ -35,6 +35,8 @@ class ValeRequest extends FormRequest
             'otros' => 'sometimes|nullable',
             'fechaSalida' => 'required_if:radiosalida,1|date',
             'destinoTrasladarse' => 'required_if:radiosalida,1|nullable',
+            'lugarSalida' => 'required_if:radiosalida,1|nullable',
+            'hsalida' => 'required_if:radiosalida,1|nullable',
             'mision' => 'sometimes|nullable',
             'numeroPlaca' => 'required_if:radiosalida,1|integer|min:0',
             'solicitante' => 'required_if:radiosalida,1|integer|min:0',
@@ -67,6 +69,10 @@ class ValeRequest extends FormRequest
 
             'destinoTrasladarse.required_if'  => '¡El campo Destino es requerido!',
             'destinoTrasladarse.alpha_spaces'  => '¡El campo Destino no debe contener números!',
+
+            'lugarSalida.required_if'  => '¡El campo Lugar de salida es requerido!',
+
+            'hsalida.required_if'  => '¡El campo Hora de salida es requerido!',
 
             'numeroPlaca.min'  => '¡El campo Vehículo es requerido!',
 
@@ -175,6 +181,12 @@ class ValeRequest extends FormRequest
         $salida= Salidas::create([
             'fechaSalida' => $data['fechaSalida'],
             'destinoTrasladarse' => $data['destinoTrasladarse'],
+            'lugarSalida' => $data['lugarSalida'],
+            'crecibidogls' => $data['crecibidogls'],
+            'hsalida' => $data['hsalida'],
+            'ksalida' => $data['ksalida'],
+            'hllegada' => $data['hllegada'],
+            'kllegada' => $data['kllegada'],
             'mision' => $data['mision'],
             'idVehiculo' => $data['numeroPlaca'],
             'idEmpleado' => $data['solicitante'],

@@ -71,13 +71,36 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Lugar de salida</label>
+                {!!Form::text('lugarSalida',old('LugarSalida'),['id'=>'LugarSalida','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label">Combustible recibido (gls)</label>
+                {!!Form::number('crecibidogls',old('crecibidogls'),['id'=>'crecibidogls','class'=>'form-control', 'step'=>'any', 'min'=>'0', 'max'=>'100'])!!}
+            </div>
+        </div>
+    </div>
     <div class="col-sm-3">
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons"></i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Hora Salida</label>
+                <label class="control-label"><code>*</code>Hora Salida</label>
+
                 {!!Form::time('hsalida',old('hsalida'),['id'=>'hsalida','class'=>'form-control'])!!}
             </div>
         </div>
@@ -233,7 +256,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Número de galones</label>
-                {!!Form::text('galones',old('galones'),['id'=>'galones','class'=>'form-control'])!!}
+                {!!Form::number('galones',old('galones'),['id'=>'galones','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -245,7 +268,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Costo por galón</label>
-                {!!Form::text('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control'])!!}
+                {!!Form::number('costoGalones',old('costoGalones'),['id'=>'costoGalones','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -294,7 +317,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Costo total aceite
                     </label>
-                    {!!Form::text('costoAceite',old('costoAceite'),['id'=>'costoAceite','class'=>'form-control'])!!}
+                    {!!Form::number('costoAceite',old('costoAceite'),['id'=>'costoAceite','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>
@@ -307,7 +330,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Costo total grasa
                     </label>
-                    {!!Form::text('costoGrasa',old('costoGrasa'),['id'=>'costoGrasa','class'=>'form-control'])!!}
+                    {!!Form::number('costoGrasa',old('costoGrasa'),['id'=>'costoGrasa','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>
@@ -335,7 +358,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Costo total otro
                     </label>
-                    {!!Form::text('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control'])!!}
+                    {!!Form::number('costoOtro',old('costoOtro'),['id'=>'costoOtro','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>

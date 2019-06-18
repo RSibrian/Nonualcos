@@ -34,6 +34,14 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Lugar de Salida: <br></h4></td>
+                                            <td><h4> <b> {{ $salida->lugarSalida }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
 
                             </div>
 
@@ -54,6 +62,70 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div class="input-group">
+                                    <table>
+                                        <tr>
+                                            <td><h4>Combustible recibido (gls): <br></h4></td>
+                                            <td><h4> <b>{{ \Helper::dinero($salida->crecibidogls) }}</b></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <table>
+                                    <tr>
+                                        <td><h4>Hora Salida: <br></h4></td>
+                                        <td><h4> <b>
+                                                    @if (!(is_null($salida->hsalida)))
+                                                        {{ date('g:i a', strtotime($salida->hsalida) ) }}
+                                                    @else
+                                                       {{ "--" }}
+                                                    @endif
+                                                </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-3">
+                                <table>
+                                    <tr>
+                                        <td><h4>Kilometraje Salida: <br></h4></td>
+                                        <td><h4> <b>
+                                                    @if (!(is_null($salida->ksalida)))
+                                                        {{ \Helper::dinero($salida->ksalida) }}
+                                                    @else
+                                                        {{ "--" }}
+                                                    @endif
+                                                </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-3">
+                                <table>
+                                    <tr>
+                                        <td><h4>Hora Llegada: <br></h4></td>
+                                        <td><h4> <b>
+                                                    @if (!(is_null($salida->hllegada )))
+                                                        {{ date('g:i a', strtotime($salida->hllegada)) }}
+                                                    @else
+                                                        {{ "--" }}
+                                                    @endif
+                                                </b></h4></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-3">
+                                <table>
+                                    <tr>
+                                        <td><h4>Kilometraje Llegada: <br></h4></td>
+                                        <td><h4> <b>
+                                                    @if (!(is_null($salida->kllegada )))
+                                                        {{ \Helper::dinero($salida->kllegada) }}
+                                                    @else
+                                                        {{ "--" }}
+                                                    @endif
+                                                </b></h4></td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="col-sm-12">
                                 <div class="input-group">

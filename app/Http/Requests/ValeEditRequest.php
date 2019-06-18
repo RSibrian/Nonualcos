@@ -35,7 +35,13 @@ class ValeEditRequest extends FormRequest
             'otros' => 'sometimes|nullable',
             'fechaSalida' => 'sometimes|date',
             'destinoTrasladarse' => 'sometimes|nullable',
-            'mision' => 'sometimes|nullable',
+            'lugarSalida' => 'required_if:radiosalida,1|nullable',
+            'hsalida' => 'required_if:radiosalida,1|nullable',
+            'crecibidogls' => 'required_if:radiosalida,1|nullable',
+            'ksalida' => 'required_if:radiosalida,1|nullable',
+            'hllegada' => 'required_if:radiosalida,1|nullable',
+            'kllegada' => 'required_if:radiosalida,1|nullable',
+            'mision' => 'required_if:radiosalida,1|nullable',
             'numeroPlaca' => 'integer|min:0',
             'solicitante' => 'integer|min:0',
             'fechaCreacion' => 'sometimes|date',
@@ -68,6 +74,20 @@ class ValeEditRequest extends FormRequest
 
             'destinoTrasladarse.required'  => '¡El campo Destino es requerido!',
             'destinoTrasladarse.alpha_spaces'  => '¡El campo Destino no debe contener números!',
+
+            'lugarSalida.required_if'  => '¡El campo Lugar de salida es requerido!',
+
+            'hsalida.required_if'  => '¡El campo Hora de salida es requerido!',
+
+            'crecibidogls.required_if'  => '¡El campo Combustible recibido es requerido!',
+
+            'ksalida.required_if'  => '¡El campo Kilometraje de salida es requerido!',
+
+            'hllegada.required_if'  => '¡El campo Hora de llegada es requerido!',
+
+            'kllegada.required_if'  => '¡El campo Kilometraje de llegada es requerido!',
+
+            'mision.required_if'  => '¡El campo Misión es requerido!',
 
             'numeroPlaca.min'  => '¡El campo Vehículo es requerido!',
 
@@ -235,6 +255,13 @@ class ValeEditRequest extends FormRequest
             'fechaSalida' => $data['fechaSalida'],
             'destinoTrasladarse' => $data['destinoTrasladarse'],
             'mision' => $data['mision'],
+            'destinoTrasladarse' => $data['destinoTrasladarse'],
+            'lugarSalida' => $data['lugarSalida'],
+            'crecibidogls' => $data['crecibidogls'],
+            'hsalida' => $data['hsalida'],
+            'ksalida' => $data['ksalida'],
+            'hllegada' => $data['hllegada'],
+            'kllegada' => $data['kllegada'],
             'idVehiculo' => $data['numeroPlaca'],
             'idEmpleado' => $data['solicitante'],
         ]);

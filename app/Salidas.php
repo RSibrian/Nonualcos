@@ -18,7 +18,7 @@ class Salidas extends Model implements Auditable
     protected  $table='salidas';
 
     protected $fillable=[
-        'fechaSalida','destinoTrasladarse','mision',
+        'fechaSalida','destinoTrasladarse','mision', 'lugarSalida', 'hsalida', 'hllegada', 'crecibidogls', 'ksalida', 'kllegada',
         'idVehiculo','idEmpleado'
     ];
 
@@ -73,7 +73,7 @@ class Salidas extends Model implements Auditable
             ->join('empleados', 'salidas.idEmpleado', '=', 'empleados.id')
             ->where('idVehiculo', '=', $placa)
             ->whereBetween('fechaSalida', [$fechaI, $fechaF ])
-            ->select('fechaSalida', 'destinoTrasladarse', 'mision', 'vales.id','numeroVale', 'nombresEmpleado', 'apellidosEmpleado')
+            ->select('salidas.*', 'vales.id', 'nombresEmpleado', 'apellidosEmpleado')
             ->get();
     }
 

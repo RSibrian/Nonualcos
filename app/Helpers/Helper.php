@@ -21,6 +21,10 @@ class Helper
   {
     return number_format($value, 2, '.', ',');
   }
+    public static function kilometraje($value)
+    {
+        return number_format($value, 0, '.', ',');
+    }
   public static function humanReadableSize(int $sizeInBytes): string
   {
       $units = ['B', 'KB', 'MB', 'GB', 'TB'];

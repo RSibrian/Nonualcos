@@ -54,21 +54,37 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th class="text-center">#</th>
                                 <th class="text-center">Fecha</th>
-                                <th class="text-center">Destino</th>
-                                <th class="text-center">Número de vale</th>
+                                <th class="text-center" colspan="3">Salida</th>
+                                <th class="text-center" colspan="3">Destino</th>
+                                <th class="text-center">Distancia recorrida</th>
+                                <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th class="text-center"></th>
+                                <th class="text-center">Hora</th>
+                                <th class="text-center">Kilometraje</th>
+                                <th class="text-center">Lugar</th>
+                                <th class="text-center">Hora</th>
+                                <th class="text-center">Kilometraje</th>
+                                <th class="text-center">Lugar</th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th></th>
-                                <th class="text-center">#</th>
                                 <th class="text-center">Fecha</th>
-                                <th class="text-center">Destino</th>
-                                <th class="text-center">Número de vale</th>
+                                <th class="text-center" colspan="3">Salida</th>
+                                <th class="text-center" colspan="3">Destino</th>
+                                <th class="text-center">Distancia recorrida</th>
+                                <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -162,19 +178,72 @@
                        data: null,
                        render: function ( data) {
                            // Combine the first and last names into a single table field
-                           cont++;
-                           return cont;
+                           return (data.fechaSalida).split('-').reverse().join('/');
                        }
                    },
+                   {  data: null,
+                      render: function(data){
+                          var hora=data.hsalida;
+                          if (hora==null){
+                              return "--";
+                          }
+                          var h=hora.substr(0, 2);
+                          var m=hora.substr(3, 2);
+                          var s=hora.substr(6, 2);
+                          var time = new Date('','','',h,m,s);
+                          return time.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric', hour12: true }) ;
+                   }
+                   },
+                   { data: null ,
+                       render: function ( data){
+                           if (data.ksalida==null){
+                               return "--";
+                           }
+                          return new Intl.NumberFormat("en-Es", { minimumFractionDigits:0 }).format(data.ksalida);
+                       }
+
+                   },
+                   { "data": "lugarSalida" },
+                   { data: null,
+                       render: function(data){
+                           var hora2=data.hllegada;
+                           if (hora2==null){
+                               return "--";
+                           }
+                           var h2=hora2.substr(0, 2);
+                           var m2=hora2.substr(3, 2);
+                           var s2=hora2.substr(6, 2);
+                           var time2 = new Date('','','',h2,m2,s2);
+                           return time2.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric', hour12: true }) ;
+                       }},
+                   { data: null ,
+                       render: function(data){
+                           if (data.kllegada==null){
+                               return "--";
+                           }
+                       return new Intl.NumberFormat("en-Es", { minimumFractionDigits:0 }).format(data.kllegada);
+                       }
+                   },
+                   { "data": "destinoTrasladarse" },
                    {
                        data: null,
                        render: function ( data) {
                            // Combine the first and last names into a single table field
-                           return (data.fechaSalida).split('-').reverse().join('/');
+                           var km=data.kllegada-data.ksalida;
+                           if (km==0){
+                               return "--";
+                           }
+                           return new Intl.NumberFormat("en-Es", { minimumFractionDigits:2 }).format(km)+" km";
                        }
                    },
-                   { "data": "destinoTrasladarse" },
-                   { "data": "numeroVale" },
+                   {  data:null,
+                      render: function(data){
+                          if (data.crecibidogls==null){
+                              return "--";
+                          }
+                       return new Intl.NumberFormat("en-Es", { minimumFractionDigits:2 }).format(data.crecibidogls);
+                      }
+                   },
                    {
                        data: null,
                        render: function ( data ) {

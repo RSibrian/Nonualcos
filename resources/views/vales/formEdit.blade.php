@@ -72,13 +72,79 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Lugar de salida</label>
+                {!!Form::text('lugarSalida',old('LugarSalida', $salida->lugarSalida),['id'=>'LugarSalida','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Combustible recibido (gls)</label>
+                {!!Form::number('crecibidogls',old('crecibidogls', $salida->crecibidogls),['id'=>'crecibidogls','class'=>'form-control', 'step'=>'any', 'min'=>'0', 'max'=>'100'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Hora Salida</label>
+                {!!Form::time('hsalida',old('hsalida', $salida->hsalida),['id'=>'hsalida','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Kilometraje Salida</label>
+                {!!Form::number('ksalida',old('ksalida', $salida->ksalida),['id'=>'ksalida','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Hora llegada</label>
+                {!!Form::time('hllegada',old('hllegada', $salida->hllegada),['id'=>'hllegada','class'=>'form-control'])!!}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons"></i>
+            </span>
+            <div class="form-group label-floating">
+                <label class="control-label"><code>*</code>Kilometraje llegada</label>
+                {!!Form::number('kllegada',old('kllegada', $salida->kllegada),['id'=>'kllegada','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12">
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons"></i>
             </span>
             <div class="form-group label-floating">
-                <label class="control-label">Misión</label>
+                <label class="control-label"><code>*</code>Misión</label>
                 {!!Form::textarea('mision',old('mision', $salida->mision),['id'=>'mision','class'=>'form-control','rows'=>'3'])!!}
             </div>
         </div>
@@ -165,7 +231,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Gasolinera
                 </label>
-                {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control'])!!}
+                {!!Form::number('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -212,7 +278,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Número de galones</label>
-                {!!Form::text('galones',\Helper::dinero($vale->galones),['id'=>'galones','class'=>'form-control'])!!}
+                {!!Form::number('galones',\Helper::dinero($vale->galones),['id'=>'galones','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -224,7 +290,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Costo por galón</label>
-                {!!Form::text('costoGalones',\Helper::dinero($vale->costoGalones),['id'=>'costoGalones','class'=>'form-control'])!!}
+                {!!Form::number('costoGalones',\Helper::dinero($vale->costoGalones),['id'=>'costoGalones','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -282,7 +348,7 @@
                           $aceite='';
                       }
                     @endphp
-                    {!!Form::text('costoAceite',$aceite,['id'=>'costoAceite','class'=>'form-control'])!!}
+                    {!!Form::number('costoAceite',$aceite,['id'=>'costoAceite','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>
@@ -301,7 +367,7 @@
                               $grasa='';
                           }
                     @endphp
-                    {!!Form::text('costoGrasa',$grasa,['id'=>'costoGrasa','class'=>'form-control'])!!}
+                    {!!Form::number('costoGrasa',$grasa,['id'=>'costoGrasa','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>
@@ -329,7 +395,7 @@
                 <div class="form-group label-floating">
                     <label class="control-label"><code>*</code>Costo total otro
                     </label>
-                    {!!Form::text('costoOtro',\Helper::dinero($vale->costoOtro),['id'=>'costoOtro','class'=>'form-control'])!!}
+                    {!!Form::number('costoOtro',\Helper::dinero($vale->costoOtro),['id'=>'costoOtro','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
                 </div>
             </div>
         </div>
@@ -586,6 +652,5 @@
             }
         });
 
-    </script>
     </script>
 @endsection
