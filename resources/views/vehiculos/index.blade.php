@@ -76,7 +76,7 @@
                                       @endif
 
                                       <td class="text-right">
-                                          @can('vales.index')
+                                          @can('activos.index')
                                               <a title="Reporte Mantenimiento" href="{{ route('HiVe.index', $vehiculo->id ) }}" rel="tooltip" class="btn btn-xs btn-info btn-round">
                                                   <i class='material-icons' rel='tooltip'>build</i>
                                               </a>

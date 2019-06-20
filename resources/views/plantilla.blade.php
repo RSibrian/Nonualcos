@@ -331,7 +331,7 @@
               @endcan
             </li>
             <li>
-              @can('activos.index')
+              @can('vales.index')
               <a href="{{ route('vehiculos.index') }}">Vehículos</a>
               @endcan
             </li>
