@@ -129,7 +129,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 ">
+                                        <div class="col-sm-4 col-sm-offset-1 ">
                                             <div class="input-group">
                                                         <span class="input-group-addon">
                                                             <i ><b>al</b></i>
