@@ -77,5 +77,9 @@ class Salidas extends Model implements Auditable
             ->get();
     }
 
+    public static function ksalida($ide){
+        return Salidas::where('idVehiculo', '=', $ide)->latest('created_at')
+            ->select('kllegada')->get()->first();
+    }
 
 }

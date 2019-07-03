@@ -42,4 +42,9 @@ class SalidasController extends Controller
         return $pdf->stream('Reporte_general_salidas '.$date.'.pdf');
 
     }
+
+    public function ksalida($ide){
+        $data= Salidas::ksalida($ide);
+        return Response::json($data);
+    }
 }

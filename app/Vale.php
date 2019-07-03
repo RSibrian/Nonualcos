@@ -321,7 +321,7 @@ class Vale extends Model implements Auditable
 
     public static function PlascasDisponiblesModificar($vehiculoId){
           $placasDisponibles= Vehiculo::PlacasDisponibles();
-          $miPlaca=Vehiculo::where('vehiculos.id', '=', $vehiculoId->id)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');;
+          $miPlaca=Vehiculo::where('vehiculos.id', '=', $vehiculoId->id)->pluck('vehiculos.numeroPlaca', 'vehiculos.id');
           $placasDisponibles=$placasDisponibles->union($miPlaca);
 
           return $placasDisponibles;

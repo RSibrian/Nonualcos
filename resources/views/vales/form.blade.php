@@ -112,7 +112,7 @@
             </span>
             <div class="form-group label-floating">
                 <label class="control-label">Kilometraje Salida</label>
-                {!!Form::number('ksalida',old('ksalida'),['id'=>'ksalida','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
+                {!!Form::number('ksalida','0',['id'=>'ksalida','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>
@@ -588,6 +588,33 @@
                 $("#gasolineravale").removeClass('col-sm-6').addClass('col-sm-12');
                 $('#radio1').click();
             }
+        });
+
+        $( function () {
+            var vehiculo = $('#numeroPlaca');
+            var ksalida= $('#ksalida');
+
+            vehiculo.on('change', function () {
+
+                ide=vehiculo.find('option:selected').val();
+                var newUrl = "{{ route('salida.ksalida', ['ide' => ':ide']) }}";
+                newUrl = newUrl.replace(':ide', ide);
+
+                $.ajax({
+                    type:'GET',
+                    url:newUrl,
+                    dataType:'json',
+                    success: function (data) {
+                        ksalida.attr('value', data.kllegada);
+                        console.log(data);
+                    },
+                    error: function() {
+                        console.log(data);
+                        location.reload();
+                    }
+                });
+
+            });
         });
 
     </script>

@@ -507,6 +507,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ReporteGeneralSalidas/{fechaInicio}/{fechaFin}/{placa}','SalidasController@RGSalidas')
         ->name('Rhistorialsalidas');
 
+    Route::get('/Salida/ksalida/{ide}','SalidasController@ksalida')
+        ->name('salida.ksalida');
+
     Route::get('/ReporteLiquidaciones','LiquidacionController@RGLiquidaciones')
         ->name('RLiquidaciones');
 

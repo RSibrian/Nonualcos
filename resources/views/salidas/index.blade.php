@@ -47,7 +47,9 @@
                            <div id="texto" class="text-danger col-sm-offset-1"></div>
                             <div align="center">
                                 {!! Form::button('Mostrar',[ 'id' => 'mostrar','class'=>'btn btn-azul glyphicon']) !!}
+                                @can('liquidaciones.index')
                                 {!! Form::button('Descargar',[ 'id' => 'descargar', 'class'=>'btn btn-verde glyphicon']) !!}
+                                @endcan
                                 <a class="btn  btn-ocre  glyphicon" href="{{ route('vehiculos.index') }}">Regresar</a>
                             </div>
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -61,6 +63,7 @@
                                 <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
+                                <th class="text-center"></th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -71,6 +74,7 @@
                                 <th class="text-center">Hora</th>
                                 <th class="text-center">Kilometraje</th>
                                 <th class="text-center">Lugar</th>
+                                <th class="text-center"></th>
                                 <th class="text-center"></th>
                                 <th class="text-center"></th>
                                 <th class="text-center"></th>
@@ -87,6 +91,7 @@
                                 <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
+                                <th class="text-center"></th>
                             </tr>
                             </tfoot>
                             <tbody class="text-center" id="cuerpo">
