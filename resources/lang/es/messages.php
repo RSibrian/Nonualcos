@@ -33,6 +33,7 @@ return[
     'App\Vehiculo'  =>  'Vehiculo',
     'App\Instituciones'  =>  'Institución',
     'App\Prestamo'  =>  'Préstamo',
+    'App\Indemnizacion'  =>  'Indemnización',
 
 
     //Event
@@ -200,10 +201,11 @@ return[
     'fechaDevolucionPrestamo' => 'Fecha de Devolución',
     'idInstitucion' => 'Institución Solicitante',
 
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+    //Indemnizacion::class
+    'tipoInd' => 'Tipo Indemnización',
+    'fechaFinalizacion' => 'Fecha',
+    'montoInd' => 'Monto',
+    'motivoInd' => 'Tiempo laborado',
     '' => '',
     '' => '',
     '' => '',

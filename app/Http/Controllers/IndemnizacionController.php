@@ -47,7 +47,8 @@ class IndemnizacionController extends Controller
       $i['empleado']=$empleado;
 
       //$fechaInicio=Carbon::parse($empleado->fechaIngreso);
-      $fechaInicio=new DateTime($empleado->fechaIngreso);
+      //$fechaInicio=new DateTime($empleado->fechaIngreso);
+      $fechaInicio=new DateTime($request->fechaInicio);
 
       $dif=$fechaInicio->diff($fechaFin);
       //Años
@@ -69,7 +70,7 @@ class IndemnizacionController extends Controller
         $i['dias']=0;
       }
       //Si es por Despido
-      if($motivo=="Despido"){
+      if($motivo=="Despido" || $motivo=="Indemnizacion Anual" ){
         /*según el Código de Trabajo, para el cálculo de indemnización, ningún salario puede ser mayor a 4 veces el salario mínimo diario legal vigente.*/
         $empleado->salarioBruto>($min*4)
         ?$salario=$min*4

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
       //  $this->call(AportacionesSeeder::class);
       //  $this->call(TipoLeyesSeeder::class);
       //$this->call(RentaSeeder::class);
-      $this->call(ClasificacionSeeder::class);
+      //$this->call(ClasificacionSeeder::class);
 
 
 

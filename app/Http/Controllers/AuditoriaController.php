@@ -22,6 +22,7 @@ use App\Salidas;
 use App\Vehiculo;
 use App\Instituciones;
 use App\Prestamo;
+use App\Indemnizacion;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -70,6 +71,7 @@ class AuditoriaController extends Controller
       if ($audit->auditable_type==Vehiculo::class) $article=Vehiculo::find($audit->auditable_id);
       if ($audit->auditable_type==instituciones::class) $article=Instituciones::find($audit->auditable_id);
       if ($audit->auditable_type==Prestamo::class) $article=Prestamo::find($audit->auditable_id);
+      if ($audit->auditable_type==Indemnizacion::class) $article=Indemnizacion::find($audit->auditable_id);
 
       $auditt = $article->audits->where('id',$audit->id)->first();
       $details=view('auditoria.details',compact('auditt'))->render();

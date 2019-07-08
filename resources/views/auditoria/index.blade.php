@@ -61,7 +61,7 @@ tr.shown {
                 <td>{{$loop->iteration}}</td>
                 <td>@lang('messages.'.$audit->auditable_type)</td>
                 <td>@lang('messages.'.$audit->event)</td>
-                <td>{{$audit->user->empleado?$audit->user->empleado->nombresEmpleado." ".$audit->user->empleado->apellidosEmpleado:$audit->user->name}}</td>
+                <td>{{$audit->user?$audit->user->empleado?$audit->user->empleado->fullName:$audit->user->name:'---'}}</td>
                 <td>{{ $audit->created_at->format('d/m/Y') }}</td>
                 <td>{{ $audit->created_at->format('h:i:s a') }}</td>
                 <td>{{$audit->id}}</td>

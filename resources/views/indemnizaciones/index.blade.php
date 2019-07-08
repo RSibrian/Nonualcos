@@ -86,24 +86,32 @@
             </tbody>
           </table>
           <div align="center" class="row">
+            <?php $fechaInicio=Carbon\Carbon::now()->startOfYear(); ?>
             <?php $fechaFin=Carbon\Carbon::now()->endOfMonth(); ?>
             <div class="form-group">
-       <label class="col-lg-2" style="color: black;">Fecha de corte: </label>
-       <div class="col-lg-3">
-         {!!Form::date('fechaFin',$fechaFin,['id'=>'fechaFin','class'=>'form-control datepicker'])!!}
-       </div>
-       <label class="col-lg-2" style="color: black;">Motivo: </label>
-       <div class="col-lg-3">
-         <select class="form-control" name="motivo" id="motivo">
-           <option value="Despido">Despido</option>
-           <option value="Renuncia Voluntaria">Renuncia Voluntaria</option>
-         </select>
-       </div>
-     </div>
+            <label class="col-lg-3" style="color: black;">Fecha de Inicio: </label>
+            <div class="col-lg-3">
+              {!!Form::date('fechaInicio',$fechaInicio,['id'=>'fechaInicio','class'=>'form-control datepicker'])!!}
+            </div>
+            <div class="form-group">
+            <label class="col-lg-3" style="color: black;">Motivo: </label>
+            <div class="col-lg-3">
+              <select class="form-control" name="motivo" id="motivo">
+                <option value="Indemnizacion Anual">Indemnización Anual</option>
+                <option value="Despido">Despido</option>
+                <option value="Renuncia Voluntaria">Renuncia Voluntaria</option>
+              </select>
+            </div>
+            <label class="col-lg-3" style="color: black;">Fecha de corte: </label>
+            <div class="col-lg-3">
+              {!!Form::date('fechaFin',$fechaFin,['id'=>'fechaFin','class'=>'form-control datepicker'])!!}
+            </div>
+          </div>
         </div>
 
 
           <div align="center" class="row">
+          <a href="{{ route('index') }}" class='btn btn-ocre'>Cancelar</a>
           {!! Form::submit('Mostrar',['id'=>"mostrar_indemnizacion", "onclick"=>"myFunction()" ,'class'=>'btn btn-verde']) !!}
           </div>
       {!! Form::close() !!}

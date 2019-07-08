@@ -50,9 +50,11 @@
                 <td>$ {{Helper::dinero($indemnizacion["monto"])}}</td>
                 <td>{{$indemnizacion["tiempo"]}}</td>
                 <td class="text-right">
+                @if ($motivo!="Indemnizacion Anual") 
                   <button title="Procesar" id="procesar"  class="btn btn-xs btn-info btn-round">
                     <i class="material-icons">archive</i>
                   </button>
+                @endif
                 </td>
               </tr>
               @endforeach
