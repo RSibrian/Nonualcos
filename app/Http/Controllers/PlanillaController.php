@@ -230,7 +230,7 @@ class PlanillaController extends Controller
         $anno = date("Y");
         $fecha_fin_mes = date($anno . "-" . $mes . "-01");
         $fecha_fin_mes = date("Y-m-d", strtotime("$fecha_fin_mes +1 month"));
-        $empleados=Empleado::all()->where('estadoEmpleado',1)->where('sistemaContratacion','!=','Contrato por servicios profesionales');//orderBy('apellidosEmpleado', 'asc')->get();
+        $empleados=Empleado::all()->where('estadoEmpleado',1)->where('sistemaContratacion','!=','Contrato por servicios profesionales')->where('salarioBruto','!=',0);//orderBy('apellidosEmpleado', 'asc')->get();
         foreach ($empleados as $empleado) {
             $dias = date("t");
             $mes= date('m');
