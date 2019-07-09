@@ -110,7 +110,7 @@ class PermisoController extends Controller
         //
         $file = Input::file('permisoPdf2');
         $random = str_random(10);
-        $nombre = "final - " . $random . '-' . $file->getClientOriginalName();
+        $nombre = 'final-' . $random . '-' . $file->getClientOriginalName();
         $nombre = EmpleadoController::eliminar_tildes($nombre);
         //Ruta donde queremos guardar el pdf
         $file->move(public_path() . '/biblioteca/permisos/', $nombre);
