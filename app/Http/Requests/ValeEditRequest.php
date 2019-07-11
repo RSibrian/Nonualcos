@@ -223,6 +223,9 @@ class ValeEditRequest extends FormRequest
             $data['costoGrasa']=0;
             $data['otros']='';
             $data['costoOtro']=0;
+        }
+
+        if(($data['hllegada']!=null && $data['kllegada']!=null && $data['mision']!=null) && ($data['numeroVale']=='')){
             $liquidacion=1;
         }
 
@@ -255,7 +258,6 @@ class ValeEditRequest extends FormRequest
             'fechaSalida' => $data['fechaSalida'],
             'destinoTrasladarse' => $data['destinoTrasladarse'],
             'mision' => $data['mision'],
-            'destinoTrasladarse' => $data['destinoTrasladarse'],
             'lugarSalida' => $data['lugarSalida'],
             'crecibidogls' => $data['crecibidogls'],
             'hsalida' => $data['hsalida'],

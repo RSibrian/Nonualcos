@@ -63,7 +63,6 @@
                                 <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
-                                <th class="text-center"></th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -74,7 +73,6 @@
                                 <th class="text-center">Hora</th>
                                 <th class="text-center">Kilometraje</th>
                                 <th class="text-center">Lugar</th>
-                                <th class="text-center"></th>
                                 <th class="text-center"></th>
                                 <th class="text-center"></th>
                                 <th class="text-center"></th>
@@ -91,7 +89,6 @@
                                 <th class="text-center">Combustible recibido (gls)</th>
                                 <th class="text-center">Solicitante</th>
                                 <th class="text-center">Acciones</th>
-                                <th class="text-center"></th>
                             </tr>
                             </tfoot>
                             <tbody class="text-center" id="cuerpo">
@@ -220,7 +217,8 @@
                            var s2=hora2.substr(6, 2);
                            var time2 = new Date('','','',h2,m2,s2);
                            return time2.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric', hour12: true }) ;
-                       }},
+                       }
+                   },
                    { data: null ,
                        render: function(data){
                            if (data.kllegada==null){

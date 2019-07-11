@@ -33,7 +33,7 @@ class CreateValesTable extends Migration
             $table->integer('empleadoRecibeVal');
             $table->tinyInteger('estadoEntregadoVal');
             $table->tinyInteger('estadoRecibidoVal')->default(0);
-            $table->tinyInteger('estadoLiquidacionVal')->default(0);
+            $table->tinyInteger('estadoLiquidacionVal')->default(0)->nullable();
 
             $table->integer('idLiquidacion')->nullable()->unsigned();
             $table->foreign('idLiquidacion')->references('id')->on('liquidaciones');

@@ -8,11 +8,11 @@
             </span>
             <div class="radio">
                 <label style="color: #0d3625;">
-                    <input id="radio1" name="radiosalida" type="radio" value="1" style="background-color: dodgerblue;" checked>
+                    <input id="radio1" name="radiosalida" type="radio" value="1" style="background-color: dodgerblue;">
                     Si &nbsp;
                 </label>
                 <label style="color: #0d3625;">
-                    <input id="radio2" name="radiosalida" type="radio" value="2">
+                    <input id="radio2" name="radiosalida" type="radio" value="2" checked>
                     No
                 </label>
             </div>
@@ -231,7 +231,7 @@
             <div class="form-group label-floating">
                 <label class="control-label"><code>*</code>Gasolinera
                 </label>
-                {!!Form::number('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
+                {!!Form::text('gasolinera',old('gasolinera'),['id'=>'gasolinera','class'=>'form-control', 'step'=>'any', 'min'=>'0'])!!}
             </div>
         </div>
     </div>

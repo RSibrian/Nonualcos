@@ -605,6 +605,10 @@
                     url:newUrl,
                     dataType:'json',
                     success: function (data) {
+                        if(data.kllegada == null){
+                            data.kllegada=0;
+                        }
+
                         ksalida.attr('value', data.kllegada);
                         console.log(data);
                     },

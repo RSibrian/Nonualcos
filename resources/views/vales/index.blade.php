@@ -177,7 +177,7 @@
                                 </td>
                                 <td class="text-right">
                                   @can('vales.edit')
-                                      @if($vale->estadoRecibidoVal!==1)
+                                      @if($vale->estadoLiquidacionVal!==1)
                                       <a href="{{ route('vales.edit', $vale->id) }}"  class="btn btn-xs btn-info btn-round ">
                                           <i title="Editar vale" class="material-icons" rel="tooltip">create</i>
                                       </a>

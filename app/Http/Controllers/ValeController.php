@@ -84,22 +84,20 @@ class valeController extends Controller
         //función que permite almacenar la información en la base de datos
         $request->createVale($request);
 
-        return redirect('/vales/index')->with('create','Se ha guardado con éxito el registro de vale');
+        return redirect('/vales/index')->with('create','Se ha guardado con éxito el registro');
     }
 
     public function update(ValeEditRequest $request, Vale $vale)
     {
         $request->updateVale($request, $vale);
-        return redirect('/vales/index')->with('update','Se ha editado con éxito el registro de vale');
+        return redirect('/vales/index')->with('update','Se ha editado con éxito el registro');
     }
 
     public function devolver(Vale $vale)
     {
-        if ($vale->costoUnitarioVale==0){
-            $vale->update(['estadoRecibidoVal' => '1', 'estadoLiquidacionVal' => '1' ]);
-        }else{
+        
             $vale->update(['estadoRecibidoVal' => '1']);
-        }
+
         return json_encode("devuelto");
     }
 
