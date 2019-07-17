@@ -24,7 +24,7 @@
 	<td colspan="4">DATOS DE SOLICITUD</td>
 </tr>
 <tr>
-<td colspan="2"><b>Fecha de entrega en taller: </b></td>
+<td colspan="2"><b>Fecha de inicio de solicitud: </b></td>
 <td colspan="2">{{ \Helper::fecha($mantenimiento->fechaRecepcionTaller) }}</td>
 </tr>
 <tr>
@@ -44,10 +44,18 @@
 <div align="center" style="position: absolute; left:5mm; bottom: 15mm; z-index: 1;">
     <b>Firma:_______________________________
         <br>
-        {{ $mantenimiento->nombreEncargado }}
+        Recibido
 				<br>
 				{{ $mantenimiento->proveedores->nombreEmpresa }}
     </b>
+</div>
+<div align="center" style="position: absolute; left:85mm; bottom: 15mm; z-index: 1;">
+		<b>Firma:_______________________________
+			<br>
+			Autorizado
+					<br>
+					Gerencia General ALN
+		</b>
 </div>
 @stop
 @stop

@@ -116,6 +116,10 @@ class IndemnizacionController extends Controller
         $i['tiempo']=$i['tiempo']." (No aplica indemnización, menos de dos años)";
         $i['monto']=0;
       }
+      if($empleado->sistemaContratacion=="Contrato"){
+        $i['tiempo']=" (No aplica indemnización, por Contrato)";
+        $i['monto']=0;
+      }
       $indemnizaciones->push($i);
     }
     //dd($indemnizaciones);

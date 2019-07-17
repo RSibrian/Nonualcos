@@ -69,7 +69,7 @@
           <div class="container">
             <div class="row">
               <div class="col col-md-3">
-                <h4>Fecha de entrega en taller:</h4>
+                <h4>Fecha de inicio de solicitud :</h4>
               </div>
               <div class="col col-md-3">
                 <h4><strong>

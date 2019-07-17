@@ -31,7 +31,7 @@
         <i class="material-icons">date_range</i>
       </span>
       <div class="form-group label-floating">
-        <label for="fechaRecepcionTaller"><code>*</code><small>Fecha de entrega en taller</small>
+        <label for="fechaRecepcionTaller"><code>*</code><small>Fecha de inicio de solicitud </small>
         </label>
         {!!Form::date('fechaRecepcionTaller',$date,['id'=>'fechaRecepcionTaller','class'=>'form-control datepicker'])!!}
       </div>
